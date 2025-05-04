@@ -4,8 +4,8 @@ const HomePage = () => {
       <h1>Hello World 🎉</h1>
       <p>Welcome to Time2Fest Frontend !</p>
     </div>
-  
-};
+  );
+
 
 export default HomePage;
 HomePage;
