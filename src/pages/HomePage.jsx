@@ -5,7 +5,7 @@ const HomePage = () => {
       <p>Welcome to Time2Fest Frontend !</p>
     </div>
   );
-
+};
 
 export default HomePage;
 HomePage;
