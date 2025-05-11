@@ -1,7 +1,5 @@
 import js from '@eslint/js';
 import react from 'eslint-plugin-react';
-import prettierPlugin from 'eslint-plugin-prettier';
-import prettierConfig from 'eslint-config-prettier';
 
 export default [
   js.configs.recommended,
@@ -9,7 +7,6 @@ export default [
     files: ['**/*.js', '**/*.jsx'],
     plugins: {
       react,
-      prettier: prettierPlugin,
     },
     languageOptions: {
       ecmaVersion: 2021,
@@ -23,6 +20,7 @@ export default [
         window: true,
         document: true,
         console: true,
+        localStorage: true,
       },
     },
     settings: {
@@ -31,13 +29,11 @@ export default [
       },
     },
     rules: {
-      'prettier/prettier': 'error',
       'react/react-in-jsx-scope': 'off',
       'react/prop-types': 'off',
       'no-unused-vars': ['warn', { vars: 'all', args: 'after-used', ignoreRestSiblings: true }],
     },
   },
-  prettierConfig,
   {
     ignores: ['node_modules', 'dist', 'build'],
   },

@@ -1,8 +1,11 @@
+import { Hero } from "../components/Hero/Hero";
+
 const HomePage = () => {
   return (
     <div className="p-4">
       <h1>Hello World 🎉</h1>
       <p>Welcome to Time2Fest Frontend !</p>
+      <Hero></Hero>
     </div>
   );
 };
