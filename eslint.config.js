@@ -21,6 +21,10 @@ export default [
         document: true,
         console: true,
         localStorage: true,
+        setTimeout: 'readonly',
+        ResizeObserver: "readonly",
+        cancelAnimationFrame: "readonly",
+        requestAnimationFrame: "readonly",
       },
     },
     settings: {

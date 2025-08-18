@@ -1,0 +1,102 @@
+@use "./variables" as *;
+@use "./mixins" as *;
+
+body {
+  background-color: $color-dark;
+  color: $color-light;
+  font-size: 1.125rem;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.125rem;
+}
+
+.container {
+  max-width: 93rem;
+  padding: 0 1.5rem;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.loading {
+  border: none !important;
+  background-color: #fff;
+  background-color: $color-load !important;
+  position: relative;
+  overflow: hidden !important;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -3rem;
+    bottom: -3rem;
+    transform: rotate(15deg);
+    left: -10%;
+    box-shadow: $card-shadow;
+    -webkit-box-shadow: $card-shadow;
+    -moz-box-shadow: $card-shadow;
+    animation: slideLoop 1.3s linear infinite;
+  }
+}
+
+@keyframes slideLoop {
+  0% {
+    left: -10%;
+  }
+  60% {
+    left: 110%;
+  }
+  100% {
+    left: 110%;
+  }
+}
+
+// Buttons
+.btn_primary {
+  @include button-base;
+}
+
+.btn_transp {
+  @include button-base;
+  background-color: transparent;
+  color: $color-primary;
+}
+
+.btn_secondary {
+  @include button-secondary;
+  position: relative;
+
+  &::after {
+    @include absolute;
+    border-radius: 3rem;
+    border: 1px solid $color-light;
+    content: "";
+    display: block;
+  }
+}
+
+.conBg {
+  @include img-contain;
+}
+
+.blueCtrs {
+  .country {
+    &:hover {
+      fill: #1fa6ae !important;
+    }
+  }
+  .countryGr {
+    &:hover path {
+      fill: #1fa6ae !important;
+    }
+  }
+
+  .country {
+    transition: 0.2s 0.2s;
+  }
+
+  .countryGr {
+    path {
+      transition: 0.2s 0.2s;
+    }
+  }
+}

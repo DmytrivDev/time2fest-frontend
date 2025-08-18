@@ -1,0 +1,21 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.header {
+    border-bottom: $border;
+    position: relative;
+    z-index: 5;
+}
+
+.header__inner {
+    height: 7.8125rem;
+    @include flex-btv;
+}
+
+.header__part {
+   @include flex-btv;
+   
+   &:first-child {
+    gap: 3.47rem;
+   }
+}

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 3000",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint .",
@@ -22,9 +22,27 @@
     "vite": "^6.3.4"
   },
   "dependencies": {
+    "@pixi/react": "^8.0.3",
+    "@radix-ui/react-toggle-group": "^1.1.11",
+    "@tanstack/react-query": "^5.84.1",
     "axios": "^1.9.0",
+    "clsx": "^2.1.1",
+    "d3": "^7.9.0",
+    "i18next": "^25.3.2",
+    "i18next-browser-languagedetector": "^8.2.0",
+    "i18next-http-backend": "^3.0.2",
+    "path": "^0.12.7",
+    "pixi-viewport": "^6.0.3",
+    "pixi.js": "^8.12.0",
     "react": "^19.1.0",
+    "react-circle-flags": "^0.0.23",
     "react-dom": "^19.1.0",
-    "react-router-dom": "^7.5.3"
+    "react-helmet-async": "^2.0.5",
+    "react-i18next": "^15.6.1",
+    "react-icons": "^5.5.0",
+    "react-router-dom": "^7.5.3",
+    "react-zoom-pan-pinch": "^3.7.0",
+    "sass": "^1.89.2",
+    "zustand": "^5.0.7"
   }
 }

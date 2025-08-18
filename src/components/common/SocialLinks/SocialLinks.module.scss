@@ -1,0 +1,16 @@
+@use "@/styles/mixins" as *;
+@use "@/styles/variables" as *;
+
+.socials__list {
+    @include flex-btv;
+    gap: 0.3rem;
+
+    a {
+        @include flex-center;
+        border-radius: 50%;
+        border: 1px solid $color-light;
+        width: 3.25rem;
+        height: 3.25rem;
+        background-color: $color-gray;
+    }
+}

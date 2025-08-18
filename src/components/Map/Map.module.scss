@@ -1,0 +1,229 @@
+@use "@/styles/mixins" as *;
+@use "@/styles/variables" as *;
+
+.map {
+  padding-top: 9.63rem;
+  padding-bottom: 6.56rem;
+}
+
+.top {
+  @include flex-btv;
+}
+
+.wrap {
+  height: 46.8rem;
+  margin-top: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.zones {
+  & > g {
+    &:hover {
+      & > g > path {
+        fill: red !important;
+      }
+    }
+  }
+}
+
+.controls {
+  position: absolute;
+  z-index: 20;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.55);
+  padding: 6px 8px;
+  border-radius: 10px;
+  color: #fff;
+
+  button {
+    background: #222;
+    color: #fff;
+    border: 1px solid #2d2d2d;
+    padding: 4px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    &:hover {
+      background: #2a2a2a;
+    }
+  }
+}
+
+.viewport {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overscroll-behavior: contain;
+  touch-action: none;
+  user-select: none;
+}
+.svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: hidden;
+
+  & > g {
+    width: auto !important;
+    height: auto !important;
+  }
+}
+
+.scale {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 28px;
+  display: flex;
+  z-index: 15;
+  pointer-events: none;
+  backdrop-filter: blur(2px);
+  background-color: orange;
+  &.top {
+    top: 0;
+  }
+  &.bottom {
+    bottom: 0;
+  }
+}
+.scaleGroup {
+  display: flex;
+}
+.scaleCell {
+  border-right: 1px solid rgba(255, 255, 255, 0.18);
+  color: #fff;
+  font-size: 12px;
+  line-height: 28px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.viewport {
+  position: relative; // важливо для абсолютного тултіпа
+  overflow: hidden;
+}
+
+.tooltip {
+  position: absolute;
+  pointer-events: none; // не перехоплюємо мишу
+  max-width: 280px;
+  background: rgba(22, 22, 22, 0.92);
+  color: #fff;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.25;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  transform: translateZ(0); // чіткіше рендериться
+  will-change: left, top;
+  z-index: 5;
+
+  b,
+  strong {
+    font-weight: 700;
+  }
+  small {
+    opacity: 0.9;
+  }
+
+  img {
+    width: 1rem;
+    height: auto;
+  }
+}
+
+.flagsList {
+  display: flex;
+  align-items: center;
+  align-content: center;
+
+  img {
+    margin-left: -0.25rem;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+  span {
+    margin-left: 0.25rem;
+    font-size: 0.75rem;
+    opacity: 0.8;
+  }
+}
+
+.topTool {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  strong {
+    line-height: 1.2;
+  }
+}
+
+.topToolC {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+
+  strong {
+    line-height: 1.2;
+  }
+}
+
+.toolTime {
+  font-size: 0.75rem;
+  margin-top: 0.5rem;
+  opacity: 0.8;
+}
+
+
+.toggleWrap {
+  display: inline-flex;
+  border: 1px solid $color-light;
+  border-radius: 999px;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.10);
+}
+
+.toggleItem {
+  color: $color-light;
+  padding: 1.44rem 1.75rem;
+  min-width: 7rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  text-align: center;
+
+  span {
+    position: relative;
+    z-index: 2;
+  }
+
+  &::after {
+      position: absolute;
+      content: "";
+      background-color: $color-primary;
+      border-radius: 5rem;
+      top: 0.11rem;
+      bottom: 0.11rem;
+      left: 0.11rem;
+      right: 0.11rem;
+      opacity: 0;
+      transition: .3s;
+    }
+
+  &[data-state="on"] {
+    &::after {
+      opacity: 1;
+    }
+  }
+}
