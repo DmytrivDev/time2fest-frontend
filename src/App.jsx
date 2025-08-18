@@ -52,7 +52,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route
+        <Route 
           path="/"
           element={
             isSupported && detectedLang !== DEFAULT_LANG ? (
