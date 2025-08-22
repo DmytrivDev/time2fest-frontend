@@ -22,7 +22,7 @@ import { useMapStore } from '@/stores/useMapStore';
 import styles from './Map.module.scss';
 
 const WORLD_W = 1440;
-const WORLD_H = 745;
+const WORLD_H = 742;
 const MAX_K = 8;
 const WHEEL_SENS = 0.0015;
 const EPS = 0.05;
@@ -525,7 +525,6 @@ function MapCanvas({ t, onZoneClick }) {
           ref={svgRef}
           className={styles.svg}
           viewBox={`0 0 ${VB_W} ${VB_H}`}
-          preserveAspectRatio="xMinYMin meet"
           xmlns="http://www.w3.org/2000/svg"
         >
           <rect x="0" y="0" width={VB_W} height={VB_H} fill="#484848" pointerEvents="all" />

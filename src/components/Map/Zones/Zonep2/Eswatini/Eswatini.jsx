@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
-export default function Country({ ny, onClick }) {
+export default function Country({ ny, utc, onClick }) {
   const { t } = useTranslation();
 
   const handlePointerUp = (e) => {
@@ -17,8 +17,8 @@ export default function Country({ ny, onClick }) {
       data-tt="2"
       data-id="UTC+2"
       data-country="SZ"
-      data-label={`${t('countries.eswatini')} UTC+2`}
-      onPointerUp={handlePointerUp}
+      data-label={`${t('countries.eswatini')} ${utc}`}
+      onClick={handlePointerUp}
       data-time={ny.display}
       id="Eswatini"
       d="M986.676 712.081L989.384 713.295L989.983 713.571L990.197 717.977L989.64 717.8L989.463 720.368L985.811 720.05L983.64 717.466L983.608 715.998L985.134 713.43L986.676 712.081Z"

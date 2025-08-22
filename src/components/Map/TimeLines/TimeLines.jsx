@@ -611,13 +611,6 @@ export default function Timelines() {
         strokeLinejoin="round"
       />
       <path
-        id="Vector_94"
-        d="M1684.5 859.5H1721.5M1733.64 808.055H1745.45V819.697H1733.64V808.055Z"
-        stroke="#6D6D6D"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
         id="Vector_95"
         d="M1610 819L1611 911"
         stroke="#6D6D6D"

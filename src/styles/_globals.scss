@@ -78,16 +78,78 @@ body {
   @include img-contain;
 }
 
-.blueCtrs {
-  .country {
-    &:hover {
-      fill: #1fa6ae !important;
+.zone {
+  &:hover {
+    & .zoneM path {
+      fill-opacity: 0.2;
+    }
+
+    &.blueCtrs {
+      .country {
+        fill: $blueH;
+      }
+      .countryGr {
+        path {
+          fill: $blueH;
+        }
+      }
+    }
+
+    &.redCtrs {
+      .country {
+        fill: $redH;
+      }
+      .countryGr {
+        path {
+          fill: $redH;
+        }
+      }
+
+      .noBg {
+        fill: transparent !important;
+      }
+    }
+
+    &.brownCtrs {
+      .country {
+        fill: $brownwH;
+      }
+      .countryGr {
+        path {
+          fill: $brownwH;
+        }
+      }
+    }
+
+    &.yellowCtrs {
+      .country {
+        fill: $yellowH;
+      }
+      .countryGr {
+        path {
+          fill: $yellowH;
+        }
+      }
+    }
+
+    &.greenCtrs {
+      .country {
+        fill: $greenH;
+      }
+      .countryGr {
+        path {
+          fill: $greenH;
+        }
+      }
+
+      .noBg {
+        fill: transparent !important;
+      }
     }
   }
-  .countryGr {
-    &:hover path {
-      fill: #1fa6ae !important;
-    }
+
+  .zoneM path {
+    transition: 0.2s 0.2s;
   }
 
   .country {
@@ -98,5 +160,102 @@ body {
     path {
       transition: 0.2s 0.2s;
     }
+  }
+}
+
+.blueCtrs {
+  .country {
+    &:hover {
+      fill: $blue !important;
+    }
+  }
+  .countryGr {
+    &:hover path {
+      fill: $blue !important;
+    }
+  }
+}
+
+.redCtrs {
+  .country {
+    &:hover {
+      fill: $red !important;
+    }
+  }
+  .countryGr {
+    &:hover path {
+      fill: $red !important;
+
+      &.noBg {
+        fill: transparent !important;
+      }
+    }
+  }
+}
+
+.brownCtrs {
+  .country {
+    &:hover {
+      fill: $brownw !important;
+    }
+  }
+  .countryGr {
+    &:hover path {
+      fill: $brownw !important;
+    }
+  }
+}
+
+.yellowCtrs {
+  .country {
+    &:hover {
+      fill: $yellow !important;
+    }
+  }
+  .countryGr {
+    &:hover path {
+      fill: $yellow !important;
+    }
+  }
+}
+
+.greenCtrs {
+  .country {
+    &:hover {
+      fill: $green !important;
+    }
+  }
+  .countryGr {
+    &:hover path {
+      fill: $green !important;
+
+      &.noBg {
+        fill: transparent !important;
+      }
+    }
+  }
+}
+
+.countryGr {
+  &:hover {
+    .redH {
+      fill: $redH !important;
+    }
+    .yellowH {
+      fill: $yellowH !important;
+    }
+    .greenH {
+      fill: $greenH !important;
+    }
+    .blueH {
+      fill: $blueH !important;
+    }
+  }
+
+  .redH,
+  .yellowH,
+  .greenH,
+  .blueH {
+    transition: 0.2s 0.2s;
   }
 }

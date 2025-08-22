@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import { getNextNYLocalForUtcOffset } from '@/utils/ny-time';
 import clsx from 'clsx';
-import styles from './Zonep2.module.scss';
 
 import Sudan from './Sudan';
 import Namibia from './Namibia';
@@ -43,14 +42,13 @@ export default function Zonep2({ onZoneClick }) {
   };
 
   return (
-    <g className={clsx(styles.zone, 'blueCtrs')} id="+2">
+    <g className={clsx('zone', 'blueCtrs')} id="+2">
       <g
-        className={styles.zoneM}
-        id="Vector 201"
+        className={'zoneM'}
         data-tt="1"
-        data-id="UTC+2"
+        data-id={ZONE_ID}
         data-flags="UA,PL,GR,RO,BG,CY,FI,LT,LV,EE,ZA,EG,IL,PS,SY,LB,BW,LS,SZ,MZ,ZM,MW,BI,RW,RU,MD,LY,CD,SS"
-        data-label="UTC+2"
+        data-label={ZONE_ID}
         data-time={ny.display}
         onClick={handleZoneClick}
       >
@@ -70,36 +68,36 @@ export default function Zonep2({ onZoneClick }) {
           fillOpacity="0.01"
         />
       </g>
-      <Sudan ny={ny} onClick={onZoneClick} />
-      <Namibia ny={ny} onClick={onZoneClick} />
-      <RSA ny={ny} onClick={onZoneClick} />
-      <Lesotho ny={ny} onClick={onZoneClick} />
-      <DRK ny={ny} onClick={onZoneClick} />
-      <Botswana ny={ny} onClick={onZoneClick} />
-      <Zimbabwe ny={ny} onClick={onZoneClick} />
-      <Malawi ny={ny} onClick={onZoneClick} />
-      <Mozambique ny={ny} onClick={onZoneClick} />
-      <Eswatini ny={ny} onClick={onZoneClick} />
-      <Burundi ny={ny} onClick={onZoneClick} />
-      <Zambia ny={ny} onClick={onZoneClick} />
-      <Rwanda ny={ny} onClick={onZoneClick} />
-      <Libiya ny={ny} onClick={onZoneClick} />
-      <Egypt ny={ny} onClick={onZoneClick} />
-      <Lithuania ny={ny} onClick={onZoneClick} />
-      <Latvia ny={ny} onClick={onZoneClick} />
-      <Russia ny={ny} onClick={onZoneClick} />
-      <Finland ny={ny} onClick={onZoneClick} />
-      <Estonia ny={ny} onClick={onZoneClick} />
-      <Bulgaria ny={ny} onClick={onZoneClick} />
-      <Israel ny={ny} onClick={onZoneClick} />
-      <Cyprus ny={ny} onClick={onZoneClick} />
-      <Moldova ny={ny} onClick={onZoneClick} />
-      <Lebanon ny={ny} onClick={onZoneClick} />
-      <Greece ny={ny} onClick={onZoneClick} />
-      <Romania ny={ny} onClick={onZoneClick} />
-      <Palestine ny={ny} onClick={onZoneClick} />
-      <Ukraine ny={ny} onClick={onZoneClick} />
-      <SouthSudan ny={ny} onClick={onZoneClick} />
+      <Sudan ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <Namibia ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <RSA ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <Lesotho ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <DRK ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <Botswana ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <Zimbabwe ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <Malawi ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <Mozambique ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <Eswatini ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <Burundi ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <Zambia ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <Rwanda ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <Libiya ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <Egypt ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <Lithuania ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <Latvia ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <Russia ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <Finland ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <Estonia ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <Bulgaria ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <Israel ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <Cyprus ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <Moldova ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <Lebanon ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <Greece ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <Romania ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <Palestine ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <Ukraine ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <SouthSudan ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
     </g>
   );
 }

@@ -1,0 +1,11 @@
+.zone {
+    &:hover {
+        & .zoneM path {
+            fill-opacity: 0.2;
+        }
+    }
+
+    .zoneM path {
+        transition: 0.2s 0.2s;
+    }
+}
