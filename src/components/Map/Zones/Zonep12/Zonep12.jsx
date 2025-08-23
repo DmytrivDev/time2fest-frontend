@@ -51,7 +51,7 @@ export default function Zone({ onZoneClick }) {
       <Fiji ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
       <WallisAndFutuna ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
       <Tuvalu ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
-      <Nauru ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <Nauru ny={ny} utc={ZONE_ID} onClick={onZoneClick} /> 
       <Kiribati ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
       <MarshalIslands ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
       <Russia ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
