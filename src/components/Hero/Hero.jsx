@@ -10,7 +10,7 @@ const Hero = () => {
   const countdown = useCountdownToTimezone(14); // { days, hours, minutes, seconds }
 
   return (
-    <section id="new-year" className={styles.hero}>
+    <section className={styles.hero}>
       <div className={styles.overlay}></div>
       <img src={bg} className={styles.background} alt="Hero" />
       <div className="container">

@@ -130,8 +130,8 @@ export default function Map() {
     scrollListTop();
   };
 
-  return (
-    <section className={styles.map}>
+  return ( 
+    <section id="new-year" className={styles.map}>
       <div className="container">
         <div className={styles.top}>
           <h2>{t('controls.map_title')}</h2>

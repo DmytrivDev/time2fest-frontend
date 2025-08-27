@@ -22,9 +22,12 @@ export default [
         console: true,
         localStorage: true,
         setTimeout: 'readonly',
-        ResizeObserver: "readonly",
-        cancelAnimationFrame: "readonly",
-        requestAnimationFrame: "readonly",
+        ResizeObserver: 'readonly',
+        cancelAnimationFrame: 'readonly',
+        requestAnimationFrame: 'readonly',
+        Blob: 'readonly',
+        URL: 'readonly',
+        navigator: 'readonly',
       },
     },
     settings: {
@@ -35,7 +38,10 @@ export default [
     rules: {
       'react/react-in-jsx-scope': 'off',
       'react/prop-types': 'off',
-      'no-unused-vars': ['warn', { vars: 'all', args: 'after-used', ignoreRestSiblings: true }],
+      'no-unused-vars': [
+        'warn',
+        { vars: 'all', args: 'after-used', ignoreRestSiblings: true },
+      ],
     },
   },
   {

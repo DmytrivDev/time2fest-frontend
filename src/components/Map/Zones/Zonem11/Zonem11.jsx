@@ -3,7 +3,6 @@ import { getNextNYLocalForUtcOffset } from '@/utils/ny-time';
 import clsx from 'clsx';
 
 import AmericanIslands from './AmericanIslands';
-import MidwayAthol from './MidwayAthol';
 import Niue from './Niue';
 import AmerecanSamoa from './AmerecanSamoa';
 
@@ -68,7 +67,6 @@ export default function Zone({ onZoneClick }) {
         />
       </g>
       <AmericanIslands ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
-      <MidwayAthol ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
       <Niue ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
       <AmerecanSamoa ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
     </g>
