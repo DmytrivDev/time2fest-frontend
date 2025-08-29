@@ -19,7 +19,8 @@ export default function ZoneCountryItem({
   const { t } = useTranslation('common');
 
   const utcOffsetStr = useMemo(() => {
-    if (zoneLabel && zoneLabel.toUpperCase().startsWith('UTC')) return zoneLabel;
+    if (zoneLabel && zoneLabel.toUpperCase().startsWith('UTC'))
+      return zoneLabel;
     if (offsetFromApi)
       return offsetFromApi.trim().startsWith('UTC')
         ? offsetFromApi.trim()
@@ -27,17 +28,78 @@ export default function ZoneCountryItem({
     return 'UTC+0';
   }, [zoneLabel, offsetFromApi]);
 
-  const ny = useMemo(() => getNextNYLocalForUtcOffset(utcOffsetStr), [utcOffsetStr]);
+  const ny = useMemo(
+    () => getNextNYLocalForUtcOffset(utcOffsetStr),
+    [utcOffsetStr]
+  );
+
+  // --- нова функція для додавання у календар ---
+  const addToCalendar = () => {
+    const title = `${t('calendar_titlecountry')} – ${name}`;
+    const description = `${t('calendar_desc')}\n\nhttps://time2fest.com`;
+
+    // ✅ беремо правильну дату з ny.instant
+    const baseDate = ny?.instant instanceof Date ? ny.instant : null;
+    if (!baseDate) {
+      console.error('No valid New Year date for zone', name, ny);
+      return;
+    }
+
+    // Старт = за 15 хв до НР
+    const startDate = new Date(baseDate.getTime() - 15 * 60 * 1000);
+    // Кінець = +20 хв від старту
+    const endDate = new Date(startDate.getTime() + 20 * 60 * 1000);
+
+    const formatDate = d =>
+      d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+
+    const start = formatDate(startDate);
+    const end = formatDate(endDate);
+    const url = 'https://time2fest.com';
+
+    const isApple = /iPhone|iPad|iPod|Macintosh/.test(
+      window.navigator.userAgent
+    );
+
+    if (isApple) {
+      const icsContent = `
+BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+SUMMARY:${title}
+DESCRIPTION:${description}
+DTSTART:${start}
+DTEND:${end}
+URL:${url}
+END:VEVENT
+END:VCALENDAR`.trim();
+
+      const blob = new Blob([icsContent], {
+        type: 'text/calendar;charset=utf-8',
+      });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'time2fest-reminder.ics';
+      link.click();
+    } else {
+      const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
+        title
+      )}&dates=${start}/${end}&details=${encodeURIComponent(
+        description
+      )}&location=${encodeURIComponent(url)}&sf=true&output=xml`;
+
+      window.open(googleUrl, '_blank');
+    }
+  };
 
   // ---- АКОРДЕОН ----
   const ref = useRef(null);
-  const mountedRef = useRef(false); // <-- нове: чи це не перший рендер
+  const mountedRef = useRef(false);
   const [maxH, setMaxH] = useState('0px');
   const [visible, setVisible] = useState(false);
-  const [animate, setAnimate] = useState(false); // щоб відключити transition на маунті
+  const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
-    // увімкнути анімації після першого макрокадру
     const id = requestAnimationFrame(() => {
       mountedRef.current = true;
       setAnimate(true);
@@ -55,27 +117,22 @@ export default function ZoneCountryItem({
     if (isOpen) {
       setVisible(true);
       if (first) {
-        // перший рендер у відкритому стані — показати одразу без анімації
         setMaxH(h);
       } else {
-        // 0 -> h
         setMaxH('0px');
         requestAnimationFrame(() => setMaxH(h));
       }
     } else {
       if (first) {
-        // перший рендер у закритому стані — одразу 0 без переходу
         setVisible(false);
         setMaxH('0px');
       } else {
-        // h -> 0
         setMaxH(h);
         requestAnimationFrame(() => setMaxH('0px'));
       }
     }
   }, [isOpen]);
 
-  // якщо контент змінюється, оновити висоту тільки коли відкрито
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -86,7 +143,7 @@ export default function ZoneCountryItem({
     return () => ro.disconnect();
   }, [isOpen]);
 
-  const onTransitionEnd = (e) => {
+  const onTransitionEnd = e => {
     if (e.propertyName !== 'max-height') return;
     if (!isOpen) setVisible(false);
   };
@@ -104,9 +161,13 @@ export default function ZoneCountryItem({
         <div className={styles.itemTopLeft}>
           {code && <CircleFlag countryCode={code} height="20" />}
           <strong>{name}</strong>
-          <span className={styles.timeZone}>{utcOffsetStr.replace('UTC', 'UTC ')}</span>
+          <span className={styles.timeZone}>
+            {utcOffsetStr.replace('UTC', 'UTC ')}
+          </span>
           <ul className={styles.propsList}>
-            <li style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+            <li
+              style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}
+            >
               <IoTime />
               <span>{t('controls.countdown')}</span>
             </li>
@@ -131,8 +192,9 @@ export default function ZoneCountryItem({
           maxHeight: maxH,
           opacity: isOpen ? 1 : 0,
           visibility: visible ? 'visible' : 'hidden',
-          // вимикаємо transition на першому рендері, щоб не було "спалаху"
-          transition: animate ? 'max-height 0.4s ease, opacity 0.25s ease' : 'none',
+          transition: animate
+            ? 'max-height 0.4s ease, opacity 0.25s ease'
+            : 'none',
         }}
         onTransitionEnd={onTransitionEnd}
       >
@@ -143,10 +205,13 @@ export default function ZoneCountryItem({
         )}
 
         <div className={styles.itemActions}>
-          <button className="btn_primary" type="button">
+          {/*<button className="btn_primary" type="button">
             {t('controls.details')}
           </button>
           <button className="btn_transp" type="button">
+            {t('controls.add_to_shel')}
+          </button> */}
+          <button className="btn_primary" type="button" onClick={addToCalendar}>
             {t('controls.add_to_shel')}
           </button>
         </div>

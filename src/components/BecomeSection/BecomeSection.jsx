@@ -65,7 +65,7 @@ export default function BecomeSection() {
           </ul>
 
           <div className={styles.actions}>
-            <a href={data.buttonlink} className="btn_primary">
+            <a href={data.buttonlink} target='_blank' className="btn_primary">
               {data.buttontext}
             </a>
             <p className={styles.subtext}>{data.text}</p>

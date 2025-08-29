@@ -16,6 +16,7 @@
   "hero_btn1": "Select Country",
   "hero_btn2": "Add a reminder",
   "calendar_title": "Time2Fest – The Celebration Begins!",
+  "calendar_titlecountry": "Time2Fest! Next Stop",
   "calendar_desc": "Forget the usual traditions — we’re turning New Year’s celebrations upside down! Experience a unique New Year’s adventure together with millions of people at time2fest.com!",
   "hours": "hours",
   "minutes": "minutes",
@@ -30,7 +31,7 @@
     "map": "Map",
     "countdown": "Countdown",
     "details": "More details",
-    "add_to_shel": "Add to your schedule",
+    "add_to_shel": "Add a reminder",
     "error": "An error occurred while loading the list",
     "no_data": "No data available yet",
     "back_to_zones": "Back to time zones"
