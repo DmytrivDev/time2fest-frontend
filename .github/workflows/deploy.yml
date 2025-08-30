@@ -20,7 +20,7 @@ jobs:
 
       - name: Build frontend
         run: |
-          npm ci
+          npm install --legacy-peer-deps
           npm run build
 
       - name: Setup SSH
