@@ -1,0 +1,6 @@
+@use '@/styles/mixins' as *; 
+
+.nav__ist {
+    @include flex-btv;
+    gap: 2.2rem;
+}

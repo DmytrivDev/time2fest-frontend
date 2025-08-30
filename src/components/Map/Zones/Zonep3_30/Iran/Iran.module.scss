@@ -1,0 +1,16 @@
+@use '@/styles/variables' as *;
+
+.country {
+    &:hover {
+        .yellow {
+            fill: $yellowH;
+        }
+        .red {
+            fill: $redH;
+        }
+    }
+
+    .red, .yellow {
+        transition: 0.2s 0.2s;
+    }
+}

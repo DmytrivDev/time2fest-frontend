@@ -1,0 +1,39 @@
+import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
+
+export default function Country({ ny, utc, onClick }) {
+  const { t } = useTranslation();
+
+  const handlePointerUp = e => {
+    e.stopPropagation();
+    const zoneId = e.currentTarget.getAttribute('data-id');
+    const code = (
+      e.currentTarget.getAttribute('data-country') || ''
+    ).toUpperCase();
+    onClick?.(zoneId, code);
+  };
+
+  return (
+    <g
+      id="Guinea"
+      className="countryGr"
+      data-tt="2"
+      data-id={utc}
+      data-country="GN"
+      data-label={`${t('countries.Guinea')} ${utc}`}
+      onClick={handlePointerUp}
+      data-time={ny.display}
+    >
+      <path
+        d="M763.262 518.814L765.028 518.876L768.877 520.413L774.845 520.173L774.241 521.184L775.439 522.241L777.153 521.153L778.403 522.746L778.84 522.168L781.247 521.444L783.137 522.033L785.023 520.866L785.064 519.699L786.174 520.022L787.596 522.21L787.57 523.913L789.752 525.751L788.2 527.444L789.153 526.939L790.111 527.236L790.21 529.736L791.674 531.413L790.861 532.236L790.825 534.277L791.356 535.267L792.319 535.173L792.845 536.871L791.767 538.246L792.481 538.46L793.257 540.335L791.793 539.725L790.361 540.048L790.325 541.001L791.397 541.303L791.804 542.126L791.278 542.053L790.45 544.48L789.215 544.402L788.663 543.746L787.283 545.866L786.048 546.23L785.507 545.272L784.189 545.392L784.84 543.496L784.153 540.459L782.809 539.381L780.324 539.782L778.215 540.704L779.278 539.006L778.814 536.933L777.975 536.761L775.621 532.267L769.314 532.913L766.731 536.73L765.33 537.069L765.673 536.371L764.897 535.965L764.392 534.418L763.246 534.709L763.996 533.397L763.111 533.459L763.376 532.475L762.736 532.996L761.814 531.287L761.179 531.996L759.616 531.178L759.189 529.704L758.564 529.543L759.319 527.808L758.455 528.912L758.548 528.188L757.96 528.48L757.845 528.126L758.215 527.246L756.892 527.376L758.444 524.683L763.22 523.657L762.736 521.772L762.054 521.454L763.35 520.746L763.262 518.814Z"
+        fill="#F0F032"
+      />{' '}
+    </g>
+  );
+}
+
+Country.propTypes = {
+  ny: PropTypes.shape({
+    display: PropTypes.string.isRequired,
+  }).isRequired,
+};

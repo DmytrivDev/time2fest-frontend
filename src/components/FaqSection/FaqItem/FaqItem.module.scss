@@ -1,0 +1,61 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.item {
+    border-radius: 2.5rem;
+    padding: 1.25rem 2.56rem;
+    padding-bottom: 1rem;
+    border: $border;
+
+    button {
+        padding: 0.69rem 0;
+        @include flex-btv;
+        width: 100%;
+        font-size: 1.125rem;
+        font-weight: 600;
+        line-height: 1.625rem;
+        flex-wrap: nowrap;
+    }
+}
+
+.icon {
+    width: 2.25rem;
+    min-width: 2.25rem;
+    height: 2.25rem;
+    background-color: $color-primary;
+    border-radius: 50%;
+    background-image: $lng-arrow2;
+    background-size: 0.5rem;
+    background-repeat: no-repeat;
+    background-position: center center;
+    transition: .3s;
+    transform: rotate(0deg);
+}
+
+.answer {
+    overflow: hidden;
+    transition:
+        max-height 0.4s ease,
+        opacity 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.625rem;
+    color: $color-text;
+
+    p {
+        padding-bottom: 1rem;
+    }
+}
+
+.opened .answer {
+    opacity: 1;
+    visibility: visible;
+}
+
+.opened {
+    .icon {
+        transform: rotate(-180deg);
+    }
+}

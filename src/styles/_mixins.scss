@@ -1,0 +1,73 @@
+@use "./variables" as *;
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-btv {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
+}
+
+@mixin flex-hor {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin btn-main {
+  font-weight: 500;
+  padding: 1.5625rem 1.875rem;
+  border-radius: 3rem;
+  display: inline-flex;
+}
+
+@mixin button-base {
+  @include btn-main;
+  background-color: $color-primary;
+}
+
+@mixin button-secondary {
+  @include btn-main;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+@mixin button-sm {
+  padding: 0.9375rem 1.5625rem;
+}
+
+@mixin bg-contain {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+}
+
+@mixin img-ccbase {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+}
+
+@mixin img-cover {
+  @include img-ccbase;
+  object-fit: cover;
+}
+
+@mixin img-contain {
+  @include img-ccbase;
+  object-fit: contain;
+}
+
+@mixin absolute {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+}
