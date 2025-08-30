@@ -3,7 +3,7 @@ name: Deploy to Server
 on:
   push:
     branches:
-      - main   # 👈 замість master
+      - main
 
 jobs:
   deploy:
@@ -13,18 +13,35 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build frontend
+        working-directory: frontend
+        run: |
+          npm ci
+          npm run build
+
       - name: Setup SSH
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
-      - name: Sync project to server
+      - name: Sync frontend build to server
+        run: |
+          rsync -az --delete \
+            -e "ssh -o StrictHostKeyChecking=no" \
+            frontend/dist/ deploy@178.20.157.85:/var/www/time2fest/
+
+      - name: Sync project repo (backend, strapi, etc.)
         run: |
           rsync -az --delete \
             -e "ssh -o StrictHostKeyChecking=no" \
             ./ deploy@178.20.157.85:/home/deploy/time2fest
 
-      - name: Rebuild containers
+      - name: Rebuild backend/strapi containers
         run: |
           ssh -o StrictHostKeyChecking=no deploy@178.20.157.85 "
             cd /home/deploy/time2fest &&
