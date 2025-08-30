@@ -41,12 +41,7 @@ export default function AboutPortalSection() {
     <section id="about" className={styles.section}>
       <img src={bg} className={styles.bgImage} alt="" />
       <div className="container">
-<<<<<<< Updated upstream
-        <h2>{data.Title} ЄЄЄЄЄ!!!</h2>
-=======
-        <h2>{data.Title} ЄЄЄЄЄ!</h2>
->>>>>>> Stashed changes
-
+        <h2>{data.Title} ЄЄЄЄЄ!!!!!!</h2>
         <ul className={styles.list}>
           {data.items.map((item) => (
             <li key={item.id}>
