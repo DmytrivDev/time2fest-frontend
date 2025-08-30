@@ -20,6 +20,7 @@ jobs:
 
       - name: Build frontend
         run: |
+          cp .env.production .env
           npm install --legacy-peer-deps
           npm run build
 
