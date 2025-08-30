@@ -30,12 +30,12 @@ jobs:
 
       - name: Deploy frontend to server
         run: |
-          rsync -az --delete \
+          rsync -az --delete -e "ssh -o StrictHostKeyChecking=no" \
             dist/ deploy@178.20.157.85:/var/www/time2fest/
 
       - name: Sync backend/strapi code to server
         run: |
-          rsync -az --delete \
+          rsync -az --delete -e "ssh -o StrictHostKeyChecking=no" \
             --exclude='db-data' \
             --exclude='strapi/.env' \
             --exclude='strapi/build' \
