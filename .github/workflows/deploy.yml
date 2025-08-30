@@ -1,4 +1,4 @@
-name: Deploy Frontend
+name: Deploy Project
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  deploy-frontend:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -30,4 +30,21 @@ jobs:
 
       - name: Deploy frontend to server
         run: |
-          rsync -az --delete dist/ deploy@178.20.157.85:/var/www/time2fest/
+          rsync -az --delete \
+            dist/ deploy@178.20.157.85:/var/www/time2fest/
+
+      - name: Sync backend/strapi code to server
+        run: |
+          rsync -az --delete \
+            --exclude='db-data' \
+            --exclude='strapi/.env' \
+            --exclude='strapi/build' \
+            --exclude='**/node_modules' \
+            ./ deploy@178.20.157.85:/home/deploy/time2fest
+
+      - name: Rebuild backend/strapi containers
+        run: |
+          ssh -o StrictHostKeyChecking=no deploy@178.20.157.85 "
+            cd /home/deploy/time2fest &&
+            docker compose up -d --build
+          "
