@@ -76,7 +76,7 @@ export default function SeoMeta() {
       )}
       <script
         async
-        src="https://analytics.time2fest.com/umami.js"
+        src="https://analytics.time2fest.com/script.js"
         data-website-id="0bbff623-9a64-40fd-be10-03d5e5dcda66м"
       ></script>
     </Helmet>
