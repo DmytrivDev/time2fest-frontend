@@ -43,7 +43,7 @@ export default function SeoMeta() {
 
   const hreflangs = [
     { locale, url: seo.canonicalURL },
-    ...(data.localizations || []).map((loc) => ({
+    ...(data.localizations || []).map(loc => ({
       locale: loc.locale,
       url: `${seo.canonicalURL.replace(/\/$/, '')}/${loc.locale}/`,
     })),
@@ -54,19 +54,31 @@ export default function SeoMeta() {
       <title>{seo.title}</title>
       <meta name="description" content={seo.description} />
       <link rel="canonical" href={seo.canonicalURL} />
-      {hreflangs.map((item) => (
-        <link key={item.locale} rel="alternate" hrefLang={item.locale} href={item.url} />
+      {hreflangs.map(item => (
+        <link
+          key={item.locale}
+          rel="alternate"
+          hrefLang={item.locale}
+          href={item.url}
+        />
       ))}
       <meta property="og:type" content={seo.ogType} />
       <meta property="og:title" content={seo.title} />
       <meta property="og:description" content={seo.description} />
-      {seo.shareImage?.url && <meta property="og:image" content={seo.shareImage.url} />}
+      {seo.shareImage?.url && (
+        <meta property="og:image" content={seo.shareImage.url} />
+      )}
       <meta name="twitter:card" content={seo.twitterCard} />
       {seo.structuredData && (
         <script type="application/ld+json">
           {JSON.stringify(seo.structuredData)}
         </script>
       )}
+      <script
+        async
+        src="http://178.20.157.85:3002/umami.js"
+        data-website-id="0bbff623-9a64-40fd-be10-03d5e5dcda66м"
+      ></script>
     </Helmet>
   );
 }

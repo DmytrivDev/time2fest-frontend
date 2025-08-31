@@ -42,10 +42,11 @@ export default function AboutPortalSection() {
       <img src={bg} className={styles.bgImage} alt="" />
       <div className="container">
         <h2>{data.Title}</h2>
+
         <ul className={styles.list}>
           {data.items.map((item) => (
             <li key={item.id}>
-              <div className={styles.topItem}> 
+              <div className={styles.topItem}>
                 {item.Icon?.url && (
                   <span>
                     <img
