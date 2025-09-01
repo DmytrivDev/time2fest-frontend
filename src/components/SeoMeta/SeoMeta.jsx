@@ -77,7 +77,7 @@ export default function SeoMeta() {
       <script
         async
         src="https://analytics.time2fest.com/script.js"
-        data-website-id="0bbff623-9a64-40fd-be10-03d5e5dcda66"
+        data-website-id="048259a6-4b0f-4ed4-a4bb-f147191524b3"
       ></script>
     </Helmet>
   );
