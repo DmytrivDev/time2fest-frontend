@@ -74,11 +74,7 @@ export default function SeoMeta() {
           {JSON.stringify(seo.structuredData)}
         </script>
       )}
-      <script
-        defer
-        src="https://analytics.time2fest.com/script.js"
-        data-website-id="8517b083-d901-4633-97ed-305be6cc208e"
-      ></script>
+      <script defer src="https://analytics.time2fest.com/script.js" data-website-id="fdc5ecb1-ac2e-4678-8faf-fafa15c19542"></script>
     </Helmet>
   );
 }
