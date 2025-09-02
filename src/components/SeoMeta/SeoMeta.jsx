@@ -75,7 +75,7 @@ export default function SeoMeta() {
         </script>
       )}
       <script
-        async
+        defer
         src="https://analytics.time2fest.com/script.js"
         data-website-id="735c9553-9aa6-45a4-a61f-8b4c132319e5"
       ></script>
