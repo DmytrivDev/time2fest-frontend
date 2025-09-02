@@ -21,6 +21,10 @@ const HeroContent = () => {
   };
 
   const addToCalendar = () => {
+    if (typeof window !== 'undefined' && window.umami) {
+      window.umami.track('add_to_calendar');
+    }
+
     const title = t('calendar_title');
     const description = `${t('calendar_desc')}\n\nhttps://time2fest.com`;
 
