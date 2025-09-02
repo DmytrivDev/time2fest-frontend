@@ -9,7 +9,7 @@ import girlImage from '@assets/become/video.mp4';
 export default function BecomeSection() {
   const locale = getValidLocale();
   const { data, isLoading, error } = useQuery({
-    queryKey: ['become',locale],
+    queryKey: ['become', locale],
     queryFn: async () => {
       const res = await api.get(`/become?locale=${locale}`);
       return res.data;
@@ -28,11 +28,16 @@ export default function BecomeSection() {
             </div>
             <ul className={styles.list}>
               {Array.from({ length: 4 }).map((_, index) => (
-                <li key={index} className={clsx(styles.loadingItem, 'loading')} />
+                <li
+                  key={index}
+                  className={clsx(styles.loadingItem, 'loading')}
+                />
               ))}
             </ul>
             <div className={styles.actions}>
-              <div className={clsx(styles.loadingBtn, 'btn_primary loading')}></div>
+              <div
+                className={clsx(styles.loadingBtn, 'btn_primary loading')}
+              ></div>
               <p className={clsx(styles.subtext, styles.subtextLoading)}>
                 <span className="loading"></span>
                 <span className="loading"></span>
@@ -57,7 +62,7 @@ export default function BecomeSection() {
           </h2>
 
           <ul className={styles.list}>
-            {data.items.map((item) => (
+            {data.items.map(item => (
               <li key={item.id}>
                 <p>{item.text}</p>
               </li>
@@ -65,7 +70,16 @@ export default function BecomeSection() {
           </ul>
 
           <div className={styles.actions}>
-            <a href={data.buttonlink} target='_blank' className="btn_primary">
+            <a
+              href={data.buttonlink}
+              target="_blank"
+              className="btn_primary"
+              onClick={() => {
+                if (typeof window !== 'undefined' && window.umami) {
+                  window.umami.track('click_google_form');
+                }
+              }}
+            >
               {data.buttontext}
             </a>
             <p className={styles.subtext}>{data.text}</p>

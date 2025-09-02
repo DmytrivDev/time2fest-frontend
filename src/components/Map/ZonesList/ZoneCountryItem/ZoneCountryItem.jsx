@@ -35,6 +35,10 @@ export default function ZoneCountryItem({
 
   // --- нова функція для додавання у календар ---
   const addToCalendar = () => {
+    if (typeof window !== 'undefined' && window.umami) {
+      window.umami.track('add_to_calendar');
+    }
+
     const title = `${t('calendar_titlecountry')} – ${name}`;
     const description = `${t('calendar_desc')}\n\nhttps://time2fest.com`;
 
