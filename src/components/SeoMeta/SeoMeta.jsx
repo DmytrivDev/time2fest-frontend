@@ -77,6 +77,7 @@ export default function SeoMeta() {
       <script
         async
         src="https://analytics.time2fest.com/script.js"
+        data-host-url="http://178.20.157.85:3002"
         data-website-id="735c9553-9aa6-45a4-a61f-8b4c132319e5"
       ></script>
     </Helmet>
