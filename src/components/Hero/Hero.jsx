@@ -26,6 +26,7 @@ const Hero = () => {
           className={styles.background}
           alt="Hero background"
           loading="eager"
+          fetchpriority="high"
           decoding="async"
         />
       </picture>
