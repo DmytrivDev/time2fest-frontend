@@ -2,7 +2,8 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import prerender from 'vite-plugin-prerender';
+import PrerenderSPAPlugin from 'prerender-spa-plugin';
+import { PuppeteerRenderer } from 'prerender-spa-plugin';
 import critical from 'rollup-plugin-critical';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -12,17 +13,25 @@ export default defineConfig({
   plugins: [
     react(),
 
-    // 1. Генерація статичних HTML
-    prerender({
-      routes: [
-        '/',      // головна
-        '/uk/',   // українська
-        '/en/',   // англійська
-        // можна додати ще інші
-      ],
-    }),
+    // 1. Пререндеринг сторінок у dist/
+    {
+      name: 'prerender-spa',
+      apply: 'build',
+      enforce: 'post',
+      async closeBundle() {
+        const plugin = new PrerenderSPAPlugin({
+          staticDir: path.join(__dirname, 'dist'),
+          routes: ['/', '/uk/', '/en/'],
+          renderer: new PuppeteerRenderer({
+            headless: true,
+            renderAfterTime: 2000, // зачекати поки React завантажить контент
+          }),
+        });
+        await plugin.apply({}); // запускаємо плагін вручну
+      },
+    },
 
-    // 2. Генерація critical CSS після білду
+    // 2. Генерація критикал CSS для готових HTML
     {
       ...critical({
         criticalBase: path.join(__dirname, 'dist'),
@@ -42,9 +51,11 @@ export default defineConfig({
       apply: 'build',
     },
   ],
+
   server: {
     port: 3001,
   },
+
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
