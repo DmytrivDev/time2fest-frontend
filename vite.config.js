@@ -40,7 +40,7 @@ export default defineConfig({
           data: ['@tanstack/react-query', 'axios'],
 
           // Важкі візуалізації
-          graphics: ['@pixi/react', 'd3'],
+          graphics: ['d3'],
 
           // UI та іконки
           ui: [
