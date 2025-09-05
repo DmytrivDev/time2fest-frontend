@@ -18,4 +18,44 @@ export default defineConfig({
       '@components': path.resolve(__dirname, './src/components'),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // React core
+          react: ['react', 'react-dom'],
+
+          // Роутінг
+          router: ['react-router-dom'],
+
+          // i18n
+          i18n: [
+            'i18next',
+            'react-i18next',
+            'i18next-http-backend',
+            'i18next-browser-languagedetector',
+          ],
+
+          // React Query + axios
+          data: ['@tanstack/react-query', 'axios'],
+
+          // Важкі візуалізації
+          graphics: ['@pixi/react', 'd3'],
+
+          // UI та іконки
+          ui: [
+            '@radix-ui/react-toggle-group',
+            'react-icons',
+            'react-circle-flags',
+          ],
+
+          // Стан
+          state: ['zustand'],
+
+          // Утиліти
+          utils: ['clsx', 'path'],
+        },
+      },
+    },
+  },
 });

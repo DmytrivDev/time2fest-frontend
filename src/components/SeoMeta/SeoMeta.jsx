@@ -63,46 +63,6 @@ export default function SeoMeta() {
         />
       ))}
 
-      <link
-        rel="preload"
-        href="/assets/Roboto-Regular.woff2"
-        as="font"
-        type="font/woff2"
-        crossorigin
-      />
-      <link
-        rel="preload"
-        href="/assets/Roboto-Medium.woff2"
-        as="font"
-        type="font/woff2"
-        crossorigin
-      />
-      <link
-        rel="preload"
-        href="/assets/Roboto-Bold.woff2"
-        as="font"
-        type="font/woff2"
-        crossorigin
-      />
-
-      {page === 'home' && (
-        <link
-          rel="preload"
-          as="image"
-          href="/hero/circle.svg"
-          fetchpriority="high"
-        />
-      )}
-
-      {page === 'home' && (
-        <link
-          rel="preload"
-          as="image"
-          href="/hero/bg.avif"
-          fetchpriority="high"
-        />
-      )}
-
       <meta property="og:type" content={seo.ogType} />
       <meta property="og:title" content={seo.title} />
       <meta property="og:description" content={seo.description} />

@@ -36,8 +36,6 @@
     "i18next-browser-languagedetector": "^8.2.0",
     "i18next-http-backend": "^3.0.2",
     "path": "^0.12.7",
-    "pixi-viewport": "^6.0.3",
-    "pixi.js": "^8.12.0",
     "react": "^19.1.0",
     "react-circle-flags": "^0.0.23",
     "react-dom": "^19.1.0",
@@ -45,7 +43,6 @@
     "react-i18next": "^15.6.1",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.5.3",
-    "react-zoom-pan-pinch": "^3.7.0",
     "sass": "^1.89.2",
     "zustand": "^5.0.7"
   }
