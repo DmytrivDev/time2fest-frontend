@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
 import { getValidLocale } from '@/utils/getValidLocale';
 import { api } from '@/utils/api';
 import clsx from 'clsx';
@@ -8,6 +9,20 @@ import girlImage from '@assets/become/video.mp4';
 
 export default function BecomeSection() {
   const locale = getValidLocale();
+  const [pageLoaded, setPageLoaded] = useState(false);
+
+  // ✅ чекаємо window.load
+  useEffect(() => {
+    const onLoad = () => setPageLoaded(true);
+
+    if (document.readyState === 'complete') {
+      setPageLoaded(true);
+    } else {
+      window.addEventListener('load', onLoad);
+      return () => window.removeEventListener('load', onLoad);
+    }
+  }, []);
+
   const { data, isLoading, error } = useQuery({
     queryKey: ['become', locale],
     queryFn: async () => {
@@ -15,7 +30,10 @@ export default function BecomeSection() {
       return res.data;
     },
     staleTime: 5 * 60 * 1000,
+    enabled: pageLoaded, // 🚀 запит лише після window.load
   });
+
+  if (!pageLoaded) return null;
 
   if (isLoading) {
     return (
@@ -84,6 +102,7 @@ export default function BecomeSection() {
             </a>
             <p className={styles.subtext}>{data.text}</p>
           </div>
+
           <div className={styles.imageWrapper}>
             <video src={girlImage} autoPlay muted loop playsInline />
           </div>

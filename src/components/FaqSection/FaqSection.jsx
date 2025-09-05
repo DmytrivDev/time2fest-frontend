@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getValidLocale } from '@/utils/getValidLocale';
 import { api } from '@/utils/api';
 import clsx from 'clsx';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import styles from './FaqSection.module.scss';
 import FaqItem from './FaqItem';
@@ -10,10 +10,23 @@ import FaqItem from './FaqItem';
 export default function FaqSection() {
   const locale = getValidLocale();
   const [openedId, setOpenedId] = useState(null);
+  const [pageLoaded, setPageLoaded] = useState(false);
 
-  const toggle = (id) => {
-    setOpenedId((prev) => (prev === id ? null : id));
+  const toggle = id => {
+    setOpenedId(prev => (prev === id ? null : id));
   };
+
+  // ✅ чекаємо window.load
+  useEffect(() => {
+    const onLoad = () => setPageLoaded(true);
+
+    if (document.readyState === 'complete') {
+      setPageLoaded(true);
+    } else {
+      window.addEventListener('load', onLoad);
+      return () => window.removeEventListener('load', onLoad);
+    }
+  }, []);
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['faq', locale],
@@ -22,7 +35,10 @@ export default function FaqSection() {
       return res.data;
     },
     staleTime: 5 * 60 * 1000,
+    enabled: pageLoaded, // 🚀 тільки після load
   });
+
+  if (!pageLoaded) return null;
 
   if (isLoading) {
     return (
@@ -33,12 +49,18 @@ export default function FaqSection() {
             <div className={styles.grid}>
               <ul className={styles.column}>
                 {Array.from({ length: 3 }).map((_, index) => (
-                  <li className={clsx(styles.loadingItem, 'loading')} key={index}></li>
+                  <li
+                    className={clsx(styles.loadingItem, 'loading')}
+                    key={index}
+                  ></li>
                 ))}
               </ul>
               <ul className={styles.column}>
                 {Array.from({ length: 3 }).map((_, index) => (
-                  <li className={clsx(styles.loadingItem, 'loading')} key={index}></li>
+                  <li
+                    className={clsx(styles.loadingItem, 'loading')}
+                    key={index}
+                  ></li>
                 ))}
               </ul>
             </div>
@@ -66,7 +88,7 @@ export default function FaqSection() {
           <div className={styles.grid}>
             {[left, right].map((column, colIdx) => (
               <ul key={colIdx} className={styles.column}>
-                {column.map((item) => (
+                {column.map(item => (
                   <FaqItem
                     key={item.id}
                     id={item.id}
