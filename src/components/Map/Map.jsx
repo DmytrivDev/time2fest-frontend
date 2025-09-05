@@ -4,6 +4,7 @@ import * as d3 from 'd3';
 import { useTranslation } from 'react-i18next';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import { useQuery } from '@tanstack/react-query';
+import { useAfterLoad } from '@/hooks/useAfterLoad';
 
 import Zones from './Zones';
 import TimeLines from './TimeLines';
@@ -34,17 +35,7 @@ const VB_H = WORLD_H;
 export default function Map() {
   const { t } = useTranslation('common');
   const locale = getValidLocale();
-  const [pageLoaded, setPageLoaded] = useState(false);
-
-  useEffect(() => {
-    const onLoad = () => setPageLoaded(true);
-    if (document.readyState === 'complete') {
-      setPageLoaded(true);
-    } else {
-      window.addEventListener('load', onLoad);
-      return () => window.removeEventListener('load', onLoad);
-    }
-  }, []);
+  const pageLoaded = useAfterLoad();
 
   // ---- глобальний стан із Zustand (персиститься) ----
   const mode = useMapStore(s => s.mode);
@@ -77,7 +68,6 @@ export default function Map() {
     isLoading: zonesLoading,
     error: zonesError,
   } = useQuery({
-    enabled: pageLoaded && mode === 'list' && listLevel === 'zones',
     queryKey: ['time-zones', locale],
     queryFn: async () => {
       const res = await api.get(
@@ -86,6 +76,7 @@ export default function Map() {
       return res.data?.data ?? res.data ?? [];
     },
     staleTime: 5 * 60 * 1000,
+    enabled: pageLoaded && mode === 'list' && listLevel === 'zones',
   });
 
   // --- дані для LIST: країни конкретної зони (коли провалилися всередину)

@@ -1,36 +1,24 @@
-import { useQuery } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
-import { getValidLocale } from '@/utils/getValidLocale'
-import { api } from '@/utils/api'
-import clsx from 'clsx'
+import { useQuery } from '@tanstack/react-query';
+import { getValidLocale } from '@/utils/getValidLocale';
+import { api } from '@/utils/api';
+import clsx from 'clsx';
+import { useAfterLoad } from '@/hooks/useAfterLoad';
 
-import styles from './AboutSection.module.scss'
+import styles from './AboutSection.module.scss';
 
 export default function AboutPortalSection() {
-  const [pageLoaded, setPageLoaded] = useState(false)
-  const locale = getValidLocale()
-
-  useEffect(() => {
-    const onLoad = () => setPageLoaded(true)
-    if (document.readyState === 'complete') {
-      setPageLoaded(true)
-    } else {
-      window.addEventListener('load', onLoad)
-      return () => window.removeEventListener('load', onLoad)
-    }
-  }, [])
+  const locale = getValidLocale();
+  const pageLoaded = useAfterLoad();
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['about', locale],
     queryFn: async () => {
-      const res = await api.get(`/about?locale=${locale}`)
-      return res.data
+      const res = await api.get(`/about?locale=${locale}`);
+      return res.data;
     },
     staleTime: 5 * 60 * 1000,
-    enabled: pageLoaded, // 🚀 запит піде тільки після load
-  })
-
-  if (!pageLoaded) return null
+    enabled: pageLoaded,
+  });
 
   if (isLoading) {
     return (
@@ -55,18 +43,24 @@ export default function AboutPortalSection() {
           <div className={clsx(styles.loadingTitle, 'loading')}></div>
           <ul className={styles.list}>
             {Array.from({ length: 6 }).map((_, index) => (
-              <li className={clsx(styles.loadingItem, 'loading')} key={index}></li>
+              <li
+                className={clsx(styles.loadingItem, 'loading')}
+                key={index}
+              ></li>
             ))}
           </ul>
         </div>
       </section>
-    )
+    );
   }
 
+  if (!pageLoaded) return null;
+
   if (error) {
-    console.error(error)
+    console.error(error);
   }
-  if (!data) return null
+
+  if (!data) return null;
 
   return (
     <section id="about" className={styles.section}>
@@ -110,5 +104,5 @@ export default function AboutPortalSection() {
         </ul>
       </div>
     </section>
-  )
+  );
 }

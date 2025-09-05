@@ -2,7 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import { getValidLocale } from '@/utils/getValidLocale';
 import { api } from '@/utils/api';
 import clsx from 'clsx';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useAfterLoad } from '@/hooks/useAfterLoad'
 
 import styles from './FaqSection.module.scss';
 import FaqItem from './FaqItem';
@@ -10,23 +11,11 @@ import FaqItem from './FaqItem';
 export default function FaqSection() {
   const locale = getValidLocale();
   const [openedId, setOpenedId] = useState(null);
-  const [pageLoaded, setPageLoaded] = useState(false);
+  const pageLoaded = useAfterLoad()
 
   const toggle = id => {
     setOpenedId(prev => (prev === id ? null : id));
   };
-
-  // ✅ чекаємо window.load
-  useEffect(() => {
-    const onLoad = () => setPageLoaded(true);
-
-    if (document.readyState === 'complete') {
-      setPageLoaded(true);
-    } else {
-      window.addEventListener('load', onLoad);
-      return () => window.removeEventListener('load', onLoad);
-    }
-  }, []);
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['faq', locale],
@@ -37,8 +26,6 @@ export default function FaqSection() {
     staleTime: 5 * 60 * 1000,
     enabled: pageLoaded, // 🚀 тільки після load
   });
-
-  if (!pageLoaded) return null;
 
   if (isLoading) {
     return (
@@ -69,6 +56,8 @@ export default function FaqSection() {
       </section>
     );
   }
+
+  if (!pageLoaded) return null;
 
   if (error) {
     console.error(error);
