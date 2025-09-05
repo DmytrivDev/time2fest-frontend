@@ -23,7 +23,7 @@ export default function AboutPortalSection() {
           <source srcSet="/about/bg.avif" type="image/avif" />
           <source srcSet="/about/bg.webp" type="image/webp" />
           <img
-            src="/about/bg.jpg" 
+            src="/about/bg.jpg"
             srcSet="/about/bg-480.jpg 480w,
                           /about/bg-768.jpg 768w,
                           /about/bg-1280.jpg 1280w,
@@ -56,7 +56,22 @@ export default function AboutPortalSection() {
 
   return (
     <section id="about" className={styles.section}>
-      <img src={bg} className={styles.bgImage} alt="" />
+      <picture>
+        <source srcSet="/about/bg.avif" type="image/avif" />
+        <source srcSet="/about/bg.webp" type="image/webp" />
+        <img
+          src="/about/bg.jpg"
+          srcSet="/about/bg-480.jpg 480w,
+                          /about/bg-768.jpg 768w,
+                          /about/bg-1280.jpg 1280w,
+                          /about/bg-1920.jpg 1920w"
+          sizes="100vw"
+          className={styles.bgImage}
+          alt=""
+          loading="eager"
+          decoding="async"
+        />
+      </picture>
       <div className="container">
         <h2>{data.Title}</h2>
 
