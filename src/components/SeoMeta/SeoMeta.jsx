@@ -63,6 +63,28 @@ export default function SeoMeta() {
         />
       ))}
 
+      <link
+        rel="preload"
+        href="/fonts/Roboto/Roboto-Regular.woff2"
+        as="font"
+        type="font/woff2"
+        crossorigin
+      />
+      <link
+        rel="preload"
+        href="/fonts/Roboto/Roboto-Medium.woff2"
+        as="font"
+        type="font/woff2"
+        crossorigin
+      />
+      <link
+        rel="preload"
+        href="/fonts/Roboto/Roboto-Bold.woff2"
+        as="font"
+        type="font/woff2"
+        crossorigin
+      />
+
       <meta property="og:type" content={seo.ogType} />
       <meta property="og:title" content={seo.title} />
       <meta property="og:description" content={seo.description} />
