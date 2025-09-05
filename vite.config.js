@@ -2,18 +2,20 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import PrerenderSPAPlugin from 'prerender-spa-plugin';
-import { PuppeteerRenderer } from 'prerender-spa-plugin';
+import prerenderSpaPluginPkg from 'prerender-spa-plugin';
 import critical from 'rollup-plugin-critical';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// витягуємо CJS-експорти
+const PrerenderSPAPlugin = prerenderSpaPluginPkg.default;
+const { PuppeteerRenderer } = prerenderSpaPluginPkg;
+
 export default defineConfig({
   plugins: [
     react(),
 
-    // 1. Пререндеринг сторінок у dist/
     {
       name: 'prerender-spa',
       apply: 'build',
@@ -24,14 +26,13 @@ export default defineConfig({
           routes: ['/', '/uk/', '/en/'],
           renderer: new PuppeteerRenderer({
             headless: true,
-            renderAfterTime: 2000, // зачекати поки React завантажить контент
+            renderAfterTime: 2000,
           }),
         });
-        await plugin.apply({}); // запускаємо плагін вручну
+        await plugin.apply({});
       },
     },
 
-    // 2. Генерація критикал CSS для готових HTML
     {
       ...critical({
         criticalBase: path.join(__dirname, 'dist'),
@@ -51,11 +52,9 @@ export default defineConfig({
       apply: 'build',
     },
   ],
-
   server: {
     port: 3001,
   },
-
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
