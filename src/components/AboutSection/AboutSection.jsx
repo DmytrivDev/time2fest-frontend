@@ -16,17 +16,35 @@ export default function AboutPortalSection() {
     },
     staleTime: 5 * 60 * 1000,
   });
-  
+
   if (isLoading)
     return (
       <section className={styles.section}>
-        <img src={bg} className={styles.bgImage} alt="" />
+        <picture>
+          <source srcSet="/about/bg.avif" type="image/avif" />
+          <source srcSet="/about/bg.webp" type="image/webp" />
+          <img
+            src="/about/bg.jpg"
+            srcSet="/about/bg-480.jpg 480w,
+                          /about/bg-768.jpg 768w,
+                          /about/bg-1280.jpg 1280w,
+                          /about/bg-1920.jpg 1920w"
+            sizes="100vw"
+            className={styles.bgImage}
+            alt=""
+            loading="eager"
+            decoding="async"
+          />
+        </picture>
         <div className="container">
           <div className={clsx(styles.loadingTitle, 'loading')}></div>
 
           <ul className={styles.list}>
             {Array.from({ length: 6 }).map((_, index) => (
-              <li className={clsx(styles.loadingItem, 'loading')} key={index}></li>
+              <li
+                className={clsx(styles.loadingItem, 'loading')}
+                key={index}
+              ></li>
             ))}
           </ul>
         </div>
@@ -44,7 +62,7 @@ export default function AboutPortalSection() {
         <h2>{data.Title}</h2>
 
         <ul className={styles.list}>
-          {data.items.map((item) => (
+          {data.items.map(item => (
             <li key={item.id}>
               <div className={styles.topItem}>
                 {item.Icon?.url && (
@@ -57,7 +75,9 @@ export default function AboutPortalSection() {
                 )}
                 <h3>{item.Title}</h3>
               </div>
-              {item.Description && <p className={styles.text}>{item.Description}</p>}
+              {item.Description && (
+                <p className={styles.text}>{item.Description}</p>
+              )}
             </li>
           ))}
         </ul>
