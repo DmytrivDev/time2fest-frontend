@@ -5,6 +5,8 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 
 import en from './locales/en/common.json';
 import uk from './locales/uk/common.json';
+import es from './locales/es/common.json';
+import fr from './locales/fr/common.json';
 
 i18n
   .use(HttpBackend)
@@ -14,6 +16,8 @@ i18n
     resources: {
       en: { common: en },
       uk: { common: uk },
+      es: { common: es },
+      fr: { common: fr },
     },
     fallbackLng: 'en',
     ns: ['common'],

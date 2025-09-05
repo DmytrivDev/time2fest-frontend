@@ -180,7 +180,7 @@ END:VCALENDAR`.trim();
 
         <div className={styles.itemTopRight}>
           <span>
-            {ny.display} {t('tooltip.by_your_time')}
+            {ny.display}
           </span>
         </div>
       </button>

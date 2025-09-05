@@ -57,7 +57,7 @@ export default function ZoneZonesItem({ id, code, countryCodes = [], onClick }) 
 
       {/* Праворуч: локальний час НР */}
       <div className={styles.localTime}>
-        <span>{nyDisplay} {t('tooltip.by_your_time')}</span>
+        <span>{nyDisplay}</span>
       </div>
     </button>
   );
