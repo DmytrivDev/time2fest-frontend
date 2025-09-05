@@ -12,20 +12,19 @@ export default defineConfig({
     react(),
     {
       ...critical({
-        criticalUrl: '/',                // яку сторінку аналізувати
-        criticalBase: './dist',          // вихідна папка білду
+        criticalBase: path.join(__dirname, 'dist'),
         criticalPages: [
-          { uri: '/', template: 'index' } // можна додати ще маршрути
+          { uri: '', template: 'index' }, // тільки index.html
         ],
         criticalConfig: {
-          inline: true,                  // вставити critical CSS у <head>
-          extract: true,                 // решта CSS окремо
-          minify: true,                  // мінімізувати
-          width: 1920,                   // десктоп viewport
+          inline: true,
+          extract: true,
+          minify: true,
+          width: 1920,
           height: 1080,
         },
       }),
-      apply: 'build', // тільки під час npm run build
+      apply: 'build',
     },
   ],
   server: {

@@ -62,6 +62,16 @@ export default function SeoMeta() {
           href={item.url}
         />
       ))}
+
+      {page === 'home' && (
+        <link
+          rel="preload"
+          as="image"
+          href="/hero/circle.svg"
+          fetchpriority="high"
+        />
+      )}
+
       <meta property="og:type" content={seo.ogType} />
       <meta property="og:title" content={seo.title} />
       <meta property="og:description" content={seo.description} />
@@ -74,7 +84,11 @@ export default function SeoMeta() {
           {JSON.stringify(seo.structuredData)}
         </script>
       )}
-      <script defer src="https://analytics.time2fest.com/script.js" data-website-id="fdc5ecb1-ac2e-4678-8faf-fafa15c19542"></script>
+      <script
+        defer
+        src="https://analytics.time2fest.com/script.js"
+        data-website-id="fdc5ecb1-ac2e-4678-8faf-fafa15c19542"
+      ></script>
     </Helmet>
   );
 }
