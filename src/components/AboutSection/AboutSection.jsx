@@ -4,7 +4,6 @@ import { api } from '@/utils/api';
 import clsx from 'clsx';
 
 import styles from './AboutSection.module.scss';
-import bg from '@assets/about/bg.png';
 
 export default function AboutPortalSection() {
   const locale = getValidLocale();
