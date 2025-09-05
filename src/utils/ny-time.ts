@@ -31,55 +31,39 @@ function normalizeUtcOffsetStr(utcStr: string): string {
   return `${sign < 0 ? '-' : '+'}${hhStr}:${mmStr}`;
 }
 
-/** Рік найближчого НР для заданого офсету (без DST): якщо вже минуло – наступний рік */
+/** Рік для НР у даному офсеті */
 function getTargetYearForOffset(now: Date, normOffset: string): number {
   const y = now.getFullYear();
   const thisNY = new Date(`${y}-01-01T00:00:00${normOffset}`);
   return now < thisNY ? y : y + 1;
 }
 
-/** Форматує дату у TZ користувача з локаллю користувача */
-function formatInUserTZ(d: Date, userTZ: string, opts?: { timeOnly?: boolean; locale?: string }) {
-  const locale = opts?.locale || getUserLocale();
-  const timeOnly = opts?.timeOnly !== false; // за замовчуванням true
-  const base: Intl.DateTimeFormatOptions = {
+/** Завжди форматує повну дату у TZ користувача з локаллю користувача */
+function formatFullInUserTZ(d: Date, userTZ: string, locale: string) {
+  const opts: Intl.DateTimeFormatOptions = {
     timeZone: userTZ,
-    hour: '2-digit',
-    minute: '2-digit',
-  };
-  const withDate: Intl.DateTimeFormatOptions = {
-    ...base,
     day: '2-digit',
     month: 'short',
     year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
   };
-  return new Intl.DateTimeFormat(locale, timeOnly ? base : withDate).format(d);
+  return new Intl.DateTimeFormat(locale, opts).format(d);
 }
 
 /**
- * Головна функція:
- * - utcOffsetStr: "UTC+2", "UTC-05", "UTC+05:30" (фіксований офсет; DST не враховується)
- * - options.userTimeZone: примусова TZ користувача (інакше береться з браузера)
- * - options.userLocale: примусова локаль (інакше береться з браузера)
- * - options.reference: дата «зараз» (для тестів; за замовчуванням new Date())
+ * Головна функція
  */
 export function getNextNYLocalForUtcOffset(
   utcOffsetStr: string,
   options?: { userTimeZone?: string; userLocale?: string; reference?: Date },
 ): {
-  /** Абсолютний момент настання НР у даному офсеті */
   instant: Date;
-  /** Тільки час у TZ користувача, напр. "23:00" */
   localTime: string;
-  /** Повний формат у TZ користувача, напр. "31 Dec 2025, 23:00" (залежно від локалі) */
   localFull: string;
-  /** Зручно для UI: якщо дата відрізняється від 1 січня — показувати localFull, інакше localTime */
   display: string;
-  /** Чи місцева календарна дата НЕ 1 січня */
   localDateDiffers: boolean;
-  /** Рік НР для даного офсету */
   year: number;
-  /** Нормалізований офсет "+02:00", "-05:00", ... */
   normOffset: string;
 } {
   const userTZ = options?.userTimeZone || getUserTimeZone();
@@ -90,24 +74,14 @@ export function getNextNYLocalForUtcOffset(
   const year = getTargetYearForOffset(now, norm);
   const nyInstant = new Date(`${year}-01-01T00:00:00${norm}`);
 
-  const localTime = formatInUserTZ(nyInstant, userTZ, { timeOnly: true, locale: userLocale });
-  const localFull = formatInUserTZ(nyInstant, userTZ, { timeOnly: false, locale: userLocale });
-
-  // Перевіряємо, чи у користувача це саме 1 січня
-  const day = new Intl.DateTimeFormat(userLocale, { timeZone: userTZ, day: '2-digit' }).format(
-    nyInstant,
-  );
-  const month = new Intl.DateTimeFormat(userLocale, { timeZone: userTZ, month: '2-digit' }).format(
-    nyInstant,
-  );
-  const localDateDiffers = !(day === '01' && month === '01');
+  const localFull = formatFullInUserTZ(nyInstant, userTZ, userLocale);
 
   return {
     instant: nyInstant,
-    localTime,
-    localFull,
-    display: localDateDiffers ? localFull : localTime,
-    localDateDiffers,
+    localTime: localFull,     // тепер і тут завжди повна дата
+    localFull,                // повна дата
+    display: localFull,       // завжди повна дата
+    localDateDiffers: true,   // поле лишаємо, але завжди true
     year,
     normOffset: norm,
   };
