@@ -20,7 +20,7 @@ export default defineConfig({
           inline: true,
           extract: true,
           minify: true,
-          width: 1920,
+          width: 1920, 
           height: 1080,
         },
       }),
