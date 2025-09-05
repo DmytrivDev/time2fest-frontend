@@ -10,7 +10,13 @@ const HeroCountdown = ({ days = 0, hours = 0, minutes = 0, seconds = 0 }) => {
 
   return (
     <div className={styles.hero_right}>
-      <img src='hero/circle.svg' className="conBg" alt="Sircle" />
+      <img
+        className="conBg"
+        alt="Circle"
+        src="/hero/circle.svg"
+        fetchpriority="high"
+        decoding="async"
+      />
       <picture>
         <source srcSet="/hero/top.avif" type="image/avif" />
         <source srcSet="/hero/top.webp" type="image/webp" />
