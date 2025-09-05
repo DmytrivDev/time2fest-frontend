@@ -24,7 +24,7 @@ export default function AboutPortalSection() {
           <source srcSet="/about/bg.avif" type="image/avif" />
           <source srcSet="/about/bg.webp" type="image/webp" />
           <img
-            src="/about/bg.jpg"
+            src="/about/bg.jpg" 
             srcSet="/about/bg-480.jpg 480w,
                           /about/bg-768.jpg 768w,
                           /about/bg-1280.jpg 1280w,
