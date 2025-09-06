@@ -4,6 +4,7 @@ import * as d3 from 'd3';
 import { useTranslation } from 'react-i18next';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import { useQuery } from '@tanstack/react-query';
+import { CircleFlag } from 'react-circle-flags';
 
 import Zones from './Zones';
 import TimeLines from './TimeLines';
@@ -14,53 +15,44 @@ import ZonesList from './ZonesList';
 import { useTimeZoneCountries } from '@/hooks/useTimeZoneCountries';
 import { getValidLocale } from '@/utils/getValidLocale';
 import { api } from '@/utils/api';
-import { CircleFlag } from 'react-circle-flags';
-
-// Zustand store з персистом
 import { useMapStore } from '@/stores/useMapStore';
 
 import styles from './Map.module.scss';
 
-const WORLD_W = 1440;
-const WORLD_H = 742;
+let WORLD_W = 1440;
+let WORLD_H = 742;
 const MAX_K = 8;
 const WHEEL_SENS = 0.0015;
 const EPS = 0.05;
 const BASE_S = 1;
-const ALIGN = { x: 'left', y: 'top' };
-const VB_W = WORLD_W;
-const VB_H = WORLD_H;
 
 export default function Map() {
   const { t } = useTranslation('common');
   const locale = getValidLocale();
 
-  // ---- глобальний стан із Zustand (персиститься) ----
-  const mode = useMapStore((s) => s.mode);
-  const setMode = useMapStore((s) => s.setMode);
+  // ---- Zustand state ----
+  const mode = useMapStore(s => s.mode);
+  const setMode = useMapStore(s => s.setMode);
+  const selectedZone = useMapStore(s => s.selectedZone);
+  const selectedCountry = useMapStore(s => s.selectedCountry);
+  const hasSelection = useMapStore(s => s.hasSelection);
+  const setMapSelection = useMapStore(s => s.setMapSelection);
+  const setHasSelection = useMapStore(s => s.setHasSelection);
+  const listLevel = useMapStore(s => s.listLevel);
+  const listZone = useMapStore(s => s.listZone);
+  const enterListCountries = useMapStore(s => s.enterListCountries);
+  const backToListZones = useMapStore(s => s.backToListZones);
 
-  const selectedZone = useMapStore((s) => s.selectedZone);
-  const selectedCountry = useMapStore((s) => s.selectedCountry);
-  const hasSelection = useMapStore((s) => s.hasSelection);
-  const setMapSelection = useMapStore((s) => s.setMapSelection);
-  const setHasSelection = useMapStore((s) => s.setHasSelection);
-
-  const listLevel = useMapStore((s) => s.listLevel);
-  const listZone = useMapStore((s) => s.listZone);
-  const enterListCountries = useMapStore((s) => s.enterListCountries);
-  const backToListZones = useMapStore((s) => s.backToListZones);
-
-  // посилання на контейнер списку (для скролу)
   const listRef = useRef(null);
 
-  // --- дані для MAP (країни вибраної зони)
+  // MAP data
   const {
     data: tzCountriesMap,
     isLoading: tzLoadingMap,
     error: tzErrorMap,
   } = useTimeZoneCountries(selectedZone);
 
-  // --- дані для LIST: список зон
+  // LIST zones
   const {
     data: zonesResp,
     isLoading: zonesLoading,
@@ -69,45 +61,52 @@ export default function Map() {
     enabled: mode === 'list' && listLevel === 'zones',
     queryKey: ['time-zones', locale],
     queryFn: async () => {
-      const res = await api.get(`/time-zones?populate=countries&locale=${locale}`);
+      const res = await api.get(
+        `/time-zones?populate=countries&locale=${locale}`
+      );
       return res.data?.data ?? res.data ?? [];
     },
     staleTime: 5 * 60 * 1000,
   });
 
-  // --- дані для LIST: країни конкретної зони (коли провалилися всередину)
+  // LIST countries
   const {
     data: tzCountriesList,
     isLoading: tzLoadingList,
     error: tzErrorList,
-  } = useTimeZoneCountries(mode === 'list' && listLevel === 'countries' ? listZone : null);
+  } = useTimeZoneCountries(
+    mode === 'list' && listLevel === 'countries' ? listZone : null
+  );
 
-  // нормалізатор коду країни
-  const getCode = (c) =>
-    (c?.CountryCode ?? c?.attributes?.CountryCode ?? c?.attributes?.code ?? c?.code ?? '')
+  const getCode = c =>
+    (
+      c?.CountryCode ??
+      c?.attributes?.CountryCode ??
+      c?.attributes?.code ??
+      c?.code ??
+      ''
+    )
       .toString()
       .toUpperCase();
 
-  // елементи списку під картою (MAP)
   const mapItems = selectedCountry
     ? Array.isArray(tzCountriesMap)
-      ? tzCountriesMap.filter((c) => getCode(c) === selectedCountry)
+      ? tzCountriesMap.filter(c => getCode(c) === selectedCountry)
       : []
     : Array.isArray(tzCountriesMap)
       ? tzCountriesMap
       : [];
 
-  // універсальна функція скролу до верху блока зі списком
   const scrollListTop = () => {
     requestAnimationFrame(() => {
       if (listRef.current) {
-        const top = listRef.current.getBoundingClientRect().top + window.scrollY - 45;
+        const top =
+          listRef.current.getBoundingClientRect().top + window.scrollY - 45;
         window.scrollTo({ top, behavior: 'smooth' });
       }
     });
   };
 
-  // клік по зоні/країні на КАРТІ
   const handleZoneClick = (zoneCode, countryCode) => {
     if (countryCode) {
       setMapSelection(zoneCode || null, countryCode);
@@ -118,19 +117,17 @@ export default function Map() {
     scrollListTop();
   };
 
-  // клік по зоні у LIST — НЕ переходимо до карти, показуємо країни цієї зони на місці
-  const handlePickZoneFromList = (zoneCode) => {
+  const handlePickZoneFromList = zoneCode => {
     enterListCountries(zoneCode);
     scrollListTop();
   };
 
-  // повернення зі списку країн до списку зон у LIST
   const handleBackToZones = () => {
     backToListZones();
     scrollListTop();
   };
 
-  return ( 
+  return (
     <section id="new-year" className={styles.map}>
       <div className="container">
         <div className={styles.top}>
@@ -138,7 +135,7 @@ export default function Map() {
           <ToggleGroup.Root
             type="single"
             value={mode}
-            onValueChange={(v) => v && setMode(v)}
+            onValueChange={v => v && setMode(v)}
             className={styles.toggleWrap}
           >
             <ToggleGroup.Item value="map" className={styles.toggleItem}>
@@ -150,11 +147,9 @@ export default function Map() {
           </ToggleGroup.Root>
         </div>
 
-        {/* Режим MAP: карта + під нею список країн вибраної зони */}
         {mode === 'map' && (
           <>
             <MapCanvas t={t} onZoneClick={handleZoneClick} />
-
             <div ref={listRef}>
               {hasSelection && (
                 <ZonesList
@@ -169,7 +164,6 @@ export default function Map() {
           </>
         )}
 
-        {/* Режим LIST: без карти; або список зон, або список країн обраної зони */}
         {mode === 'list' && (
           <div ref={listRef}>
             {listLevel === 'zones' && (
@@ -181,7 +175,6 @@ export default function Map() {
                 onZonePick={handlePickZoneFromList}
               />
             )}
-
             {listLevel === 'countries' && (
               <ZonesList
                 type="countries"
@@ -199,12 +192,38 @@ export default function Map() {
   );
 }
 
-/* --------------------- Карта (окремий підкомпонент) --------------------- */
+/* --------------------- MapCanvas --------------------- */
 function MapCanvas({ t, onZoneClick }) {
   const viewportRef = useRef(null);
   const svgRef = useRef(null);
   const worldRef = useRef(null);
   const zoomRef = useRef(null);
+
+  const [worldSize, setWorldSize] = useState({ w: 1440, h: 742 });
+  const VB_W = worldSize.w;
+  const VB_H = worldSize.h;
+
+  useEffect(() => {
+    const updateWorldSize = () => {
+      if (
+        window.matchMedia('(orientation: portrait)').matches &&
+        viewportRef.current
+      ) {
+        // 📱 тільки в книжковій орієнтації
+        setWorldSize({
+          w: viewportRef.current.clientWidth,
+          h: viewportRef.current.clientHeight,
+        });
+      } else {
+        // 🖥️ альбомна орієнтація
+        setWorldSize({ w: 1440, h: 742 });
+      }
+    };
+
+    updateWorldSize(); // одразу при завантаженні
+    window.addEventListener('resize', updateWorldSize);
+    return () => window.removeEventListener('resize', updateWorldSize);
+  }, []);
 
   const tfRef = useRef({ k: 1, x: 0, y: 0 });
   const baseKRef = useRef(1);
@@ -214,7 +233,9 @@ function MapCanvas({ t, onZoneClick }) {
   const rafRef = useRef(null);
   const hoveringRef = useRef(false);
 
-  // тултіп
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Tooltip state
   const tooltipRef = useRef(null);
   const tipSizeRef = useRef({ w: 220, h: 80 });
   const [tip, setTip] = useState({
@@ -228,6 +249,22 @@ function MapCanvas({ t, onZoneClick }) {
     country: null,
   });
 
+  useEffect(() => {
+    const check = () => {
+      const portrait = window.matchMedia('(orientation: portrait)').matches;
+      setIsMobile(portrait);
+    };
+
+    check(); // одразу при завантаженні
+    window.addEventListener('resize', check);
+    window.addEventListener('orientationchange', check);
+
+    return () => {
+      window.removeEventListener('resize', check);
+      window.removeEventListener('orientationchange', check);
+    };
+  }, []);
+
   const getDeviceScale = () => {
     const svg = svgRef.current;
     if (!svg) return 1;
@@ -236,20 +273,17 @@ function MapCanvas({ t, onZoneClick }) {
     return Math.min(vpW / VB_W, vpH / VB_H);
   };
 
-  const snapToPixel = (t) => {
+  const snapToPixel = t => {
     const s = getDeviceScale();
-    const snap = (v) => Math.round(v * s) / s;
+    const snap = v => Math.round(v * s) / s;
     return { k: t.k, x: snap(t.x), y: snap(t.y) };
   };
 
-  const clampTransform = (t) => {
+  const clampTransform = t => {
     const box = boxRef.current;
     const kpx = t.k * BASE_S;
     const contentW = box.width * kpx;
     const contentH = box.height * kpx;
-
-    const canPanX = contentW + EPS >= VB_W;
-    const canPanY = contentH + EPS >= VB_H;
 
     const minX = VB_W - kpx * (box.x + box.width);
     const maxX = -kpx * box.x;
@@ -259,36 +293,25 @@ function MapCanvas({ t, onZoneClick }) {
     let x = t.x;
     let y = t.y;
 
-    if (canPanX) {
+    if (isMobile) {
+      // cover + right/top alignment, не відліпає
       x = Math.min(Math.max(x, minX), maxX);
-    } else {
-      const freeX = VB_W - contentW;
-      x =
-        ALIGN.x === 'left'
-          ? -kpx * box.x
-          : ALIGN.x === 'right'
-            ? -kpx * box.x + freeX
-            : -kpx * box.x + Math.round(freeX / 2);
-    }
-
-    if (canPanY) {
       y = Math.min(Math.max(y, minY), maxY);
     } else {
-      const freeY = VB_H - contentH;
-      y =
-        ALIGN.y === 'top'
-          ? -kpx * box.y
-          : ALIGN.y === 'bottom'
-            ? -kpx * box.y + freeY
-            : -kpx * box.y + Math.round(freeY / 2);
+      // contain
+      x = Math.min(Math.max(x, minX), maxX);
+      y = Math.min(Math.max(y, minY), maxY);
     }
 
     return { k: t.k, x, y };
   };
 
-  const applyToDOM = (t) => {
+  const applyToDOM = t => {
     if (!worldRef.current) return;
-    worldRef.current.setAttribute('transform', `translate(${t.x},${t.y}) scale(${t.k * BASE_S})`);
+    worldRef.current.setAttribute(
+      'transform',
+      `translate(${t.x},${t.y}) scale(${t.k * BASE_S})`
+    );
     tfRef.current = t;
 
     if (!rafRef.current) {
@@ -301,14 +324,31 @@ function MapCanvas({ t, onZoneClick }) {
 
   const fitToViewport = (animate = false) => {
     const svg = d3.select(svgRef.current);
-    const box = boxRef.current;
+    if (!worldRef.current) return;
 
-    const baseK = Math.min(VB_W / box.width, VB_H / box.height);
+    const box = worldRef.current.getBBox(); // завжди свіже
+    boxRef.current = box;
+
+    const baseK = isMobile
+      ? Math.max(VB_W / box.width, VB_H / box.height) // cover
+      : Math.min(VB_W / box.width, VB_H / box.height); // contain
+
     baseKRef.current = baseK;
     zoomRef.current?.scaleExtent([baseK, MAX_K]);
 
-    const bounded = clampTransform({ k: baseK, x: 0, y: 0 });
-    const snapped = snapToPixel(bounded);
+    let x, y;
+    if (isMobile) {
+      // карта вирівнюється вправо
+      x = VB_W - baseK * (box.x + box.width);
+      y = -baseK * box.y;
+    } else {
+      // карта центрована
+      x = (VB_W - box.width * baseK) / 2 - box.x * baseK;
+      y = (VB_H - box.height * baseK) / 2 - box.y * baseK;
+    }
+
+    const t = { k: baseK, x, y };
+    const snapped = snapToPixel(t);
     const zt = d3.zoomIdentity.translate(snapped.x, snapped.y).scale(snapped.k);
 
     if (animate) {
@@ -318,7 +358,53 @@ function MapCanvas({ t, onZoneClick }) {
     }
   };
 
-  const zoomBy = (factor) => {
+  useEffect(() => {
+    const handleResize = () => {
+      if (!viewportRef.current) return;
+
+      // спочатку оновлюємо worldSize
+      setWorldSize({
+        w: viewportRef.current.clientWidth,
+        h: viewportRef.current.clientHeight,
+      });
+
+      // ⚡️ важливо: чекаємо 2 кадри поки DOM перераховує все
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          if (worldRef.current) {
+            const box = worldRef.current.getBBox();
+            boxRef.current = box;
+            fitToViewport(false);
+          }
+        });
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isMobile]);
+
+  // після зміни worldSize повністю скидаємо transform
+  useEffect(() => {
+    if (!svgRef.current || !zoomRef.current || !worldRef.current) return;
+
+    const svg = d3.select(svgRef.current);
+
+    // 1. Обнуляємо transform
+    svg.property('__zoom', d3.zoomIdentity);
+    tfRef.current = { k: 1, x: 0, y: 0 };
+
+    // 2. Зчитуємо актуальний box
+    const box = worldRef.current.getBBox();
+    boxRef.current = box;
+
+    // 3. Викликаємо fitToViewport з анімацією
+    requestAnimationFrame(() => {
+      fitToViewport(true);
+    });
+  }, [worldSize.w, worldSize.h, isMobile]);
+
+  const zoomBy = factor => {
     const svg = svgRef.current;
     if (!svg) return;
     const cur = tfRef.current;
@@ -341,11 +427,11 @@ function MapCanvas({ t, onZoneClick }) {
 
     d3.select(svgRef.current).call(
       zoomRef.current.transform,
-      d3.zoomIdentity.translate(snapped.x, snapped.y).scale(snapped.k),
+      d3.zoomIdentity.translate(snapped.x, snapped.y).scale(snapped.k)
     );
   };
 
-  // init zoom/pan
+  // init zoom
   useEffect(() => {
     const svg = d3.select(svgRef.current);
     const world = d3.select(worldRef.current);
@@ -353,17 +439,24 @@ function MapCanvas({ t, onZoneClick }) {
 
     const zoom = d3
       .zoom()
-      .filter((e) => (e.type === 'wheel' ? e.ctrlKey || e.metaKey : true))
-      .wheelDelta((e) => -e.deltaY * WHEEL_SENS)
-      .on('zoom', (event) => {
-        const raw = { k: event.transform.k, x: event.transform.x, y: event.transform.y };
+      .filter(e => (e.type === 'wheel' ? e.ctrlKey || e.metaKey : true))
+      .wheelDelta(e => -e.deltaY * WHEEL_SENS)
+      .on('zoom', event => {
+        const raw = {
+          k: event.transform.k,
+          x: event.transform.x,
+          y: event.transform.y,
+        };
         const bounded = clampTransform(raw);
         const snapped = snapToPixel(bounded);
 
-        svg.property('__zoom', d3.zoomIdentity.translate(snapped.x, snapped.y).scale(snapped.k));
+        svg.property(
+          '__zoom',
+          d3.zoomIdentity.translate(snapped.x, snapped.y).scale(snapped.k)
+        );
         world.attr(
           'transform',
-          `translate(${snapped.x},${snapped.y}) scale(${snapped.k * BASE_S})`,
+          `translate(${snapped.x},${snapped.y}) scale(${snapped.k * BASE_S})`
         );
         applyToDOM(snapped);
       });
@@ -377,7 +470,26 @@ function MapCanvas({ t, onZoneClick }) {
       fitToViewport(false);
     });
 
-    const onResize = () => fitToViewport(false);
+    const onResize = () => {
+      // чекаємо поки DOM перерахує розміри
+      requestAnimationFrame(() => {
+        if (viewportRef.current) {
+          setWorldSize({
+            w: viewportRef.current.clientWidth,
+            h: viewportRef.current.clientHeight,
+          });
+
+          // ще один кадр, щоб точно було оновлено
+          requestAnimationFrame(() => {
+            const box = worldRef.current?.getBBox();
+            if (box) {
+              boxRef.current = box;
+              fitToViewport(false);
+            }
+          });
+        }
+      });
+    };
     window.addEventListener('resize', onResize);
 
     return () => {
@@ -386,31 +498,55 @@ function MapCanvas({ t, onZoneClick }) {
       svg.on('.zoom', null);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, []);
+  }, [isMobile]);
+
+  useEffect(() => {
+    if (!svgRef.current || !zoomRef.current || !worldRef.current) return;
+
+    const svg = d3.select(svgRef.current);
+
+    // обнуляємо попередній transform
+    svg.property('__zoom', d3.zoomIdentity);
+
+    // оновлюємо box
+    const box = worldRef.current.getBBox();
+    boxRef.current = box;
+
+    // викликаємо fitToViewport, щоб заново підлаштуватися
+    fitToViewport(false);
+  }, [worldSize]);
 
   // wheel/gesture/keyboard
   useEffect(() => {
     const el = svgRef.current;
     if (!el) return;
 
-    const onWheelCapture = (e) => {
+    const onWheelCapture = e => {
       if (e.ctrlKey || e.metaKey) e.preventDefault();
     };
-    el.addEventListener('wheel', onWheelCapture, { passive: false, capture: true });
+    el.addEventListener('wheel', onWheelCapture, {
+      passive: false,
+      capture: true,
+    });
 
-    const stopGesture = (e) => e.preventDefault();
+    const stopGesture = e => e.preventDefault();
     el.addEventListener('gesturestart', stopGesture, { passive: false });
     el.addEventListener('gesturechange', stopGesture, { passive: false });
     el.addEventListener('gestureend', stopGesture, { passive: false });
 
-    const onKeyDown = (e) => {
+    const onKeyDown = e => {
       if (!hoveringRef.current) return;
       const mod = e.ctrlKey || e.metaKey;
       if (!mod) return;
-      const isMinus = e.key === '-' || e.code === 'Minus' || e.code === 'NumpadSubtract';
+      const isMinus =
+        e.key === '-' || e.code === 'Minus' || e.code === 'NumpadSubtract';
       const isPlus =
-        e.key === '+' || e.key === '=' /* Equal */ || e.code === 'Equal' || e.code === 'NumpadAdd';
-      const isZero = e.key === '0' || e.code === 'Digit0' || e.code === 'Numpad0';
+        e.key === '+' ||
+        e.key === '=' ||
+        e.code === 'Equal' ||
+        e.code === 'NumpadAdd';
+      const isZero =
+        e.key === '0' || e.code === 'Digit0' || e.code === 'Numpad0';
       if (isMinus || isPlus || isZero) e.preventDefault();
       if (isMinus) zoomBy(0.84);
       else if (isPlus) zoomBy(1.19);
@@ -427,7 +563,7 @@ function MapCanvas({ t, onZoneClick }) {
     };
   }, []);
 
-  // тултіп
+  // Tooltip
   const computeTipPos = (mx, my) => {
     const vp = viewportRef.current;
     const { w, h } = tipSizeRef.current;
@@ -450,7 +586,7 @@ function MapCanvas({ t, onZoneClick }) {
 
   const MAX_FLAGS_DISPLAY = 5;
 
-  const handlePointerMove = (e) => {
+  const handlePointerMove = e => {
     const vp = viewportRef.current;
     if (!vp) return;
 
@@ -460,7 +596,7 @@ function MapCanvas({ t, onZoneClick }) {
     const my = e.clientY - rect.top;
 
     if (!closest) {
-      if (tip.show) setTip((s) => ({ ...s, show: false }));
+      if (tip.show) setTip(s => ({ ...s, show: false }));
       return;
     }
 
@@ -468,16 +604,22 @@ function MapCanvas({ t, onZoneClick }) {
     const tt = ttRaw ? Number(ttRaw) : null;
 
     const label =
-      closest.getAttribute('data-label') || closest.getAttribute('data-name') || closest.id || '';
+      closest.getAttribute('data-label') ||
+      closest.getAttribute('data-name') ||
+      closest.id ||
+      '';
 
     const time = closest.getAttribute('data-time') || '';
     const flagsStr = closest.getAttribute('data-flags') || '';
     const flags = flagsStr
       .split(',')
-      .map((f) => f.trim().toLowerCase())
+      .map(f => f.trim().toLowerCase())
       .filter(Boolean);
 
-    const country = (closest.getAttribute('data-country') || '').toLowerCase() || flags[0] || null;
+    const country =
+      (closest.getAttribute('data-country') || '').toLowerCase() ||
+      flags[0] ||
+      null;
 
     const pos = computeTipPos(mx, my);
 
@@ -495,20 +637,26 @@ function MapCanvas({ t, onZoneClick }) {
 
   const handleMouseLeave = () => {
     hoveringRef.current = false;
-    setTip((s) => ({ ...s, show: false }));
+    setTip(s => ({ ...s, show: false }));
   };
 
-  const zoomByPublic = (factor) => zoomBy(factor);
+  const zoomByPublic = factor => zoomBy(factor);
   const fitPublic = () => fitToViewport(true);
 
   return (
     <div className={styles.wrap}>
       <div className={styles.controls}>
-        <button onClick={() => zoomByPublic(0.84)} aria-label={t('controls.zoom_out')}>
+        <button
+          onClick={() => zoomByPublic(0.84)}
+          aria-label={t('controls.zoom_out')}
+        >
           -
         </button>
         <span>{uiScale}%</span>
-        <button onClick={() => zoomByPublic(1.19)} aria-label={t('controls.zoom_in')}>
+        <button
+          onClick={() => zoomByPublic(1.19)}
+          aria-label={t('controls.zoom_in')}
+        >
           +
         </button>
         <button onClick={fitPublic}>{t('controls.reset')}</button>
@@ -524,22 +672,29 @@ function MapCanvas({ t, onZoneClick }) {
         <svg
           ref={svgRef}
           className={styles.svg}
-          viewBox={`0 0 ${VB_W} ${VB_H}`}
+          viewBox={`0 0 ${worldSize.w} ${worldSize.h}`}
           xmlns="http://www.w3.org/2000/svg"
         >
-          <rect x="0" y="0" width={VB_W} height={VB_H} fill="#484848" pointerEvents="all" />
+          <rect
+            x="0"
+            y="0"
+            width={worldSize.w}
+            height={worldSize.h}
+            fill="#484848"
+            pointerEvents="all"
+          />
           <g ref={worldRef}>
             <WorldContent onZoneClick={onZoneClick} />
           </g>
         </svg>
 
-        {/* Абсолютний тултіп поверх SVG */}
+        {/* Tooltip */}
         {tip.show && (
           <div
             ref={tooltipRef}
             className={styles.tooltip}
             style={{ left: tip.x, top: tip.y }}
-            onMouseEnter={(e) => e.stopPropagation()}
+            onMouseEnter={e => e.stopPropagation()}
           >
             {tip.tt === 1 && (
               <div>
@@ -547,7 +702,7 @@ function MapCanvas({ t, onZoneClick }) {
                   <strong>{tip.label}</strong>
                   {tip.flags?.length > 0 && (
                     <div className={styles.flagsList}>
-                      {tip.flags.slice(0, MAX_FLAGS_DISPLAY).map((code) => (
+                      {tip.flags.slice(0, MAX_FLAGS_DISPLAY).map(code => (
                         <CircleFlag key={code} countryCode={code} height={16} />
                       ))}
                       {tip.flags.length > MAX_FLAGS_DISPLAY && (
@@ -567,7 +722,9 @@ function MapCanvas({ t, onZoneClick }) {
             {tip.tt === 2 && (
               <div>
                 <div className={styles.topToolC}>
-                  {tip.country && <CircleFlag countryCode={tip.country} height={16} />}
+                  {tip.country && (
+                    <CircleFlag countryCode={tip.country} height={16} />
+                  )}
                   <strong style={{ lineHeight: 1.2 }}>{tip.label}</strong>
                 </div>
                 {tip.time && (
@@ -586,7 +743,7 @@ function MapCanvas({ t, onZoneClick }) {
   );
 }
 
-/* Обгортка для зони + бордери/лінії */
+/* --------------------- WorldContent --------------------- */
 function WorldContent({ onZoneClick }) {
   return (
     <svg
@@ -608,7 +765,6 @@ function WorldContent({ onZoneClick }) {
               fill="#474747"
             />
           </g>
-          {/* Всередині <Zones> кожна зона/країна викликає onZoneClick(zoneCode, countryCode) */}
           <Zones onZoneClick={onZoneClick} />
           <Borders />
           <TimeLines />

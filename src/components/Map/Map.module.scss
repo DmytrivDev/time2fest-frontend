@@ -170,7 +170,7 @@
 .topToolC {
   display: flex;
   align-items: center;
-  gap: .5rem;
+  gap: 0.5rem;
 
   strong {
     line-height: 1.2;
@@ -183,13 +183,12 @@
   opacity: 0.8;
 }
 
-
 .toggleWrap {
   display: inline-flex;
   border: 1px solid $color-light;
   border-radius: 999px;
   overflow: hidden;
-  background-color: rgba(255, 255, 255, 0.10);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .toggleItem {
@@ -209,21 +208,33 @@
   }
 
   &::after {
-      position: absolute;
-      content: "";
-      background-color: $color-primary;
-      border-radius: 5rem;
-      top: 0.11rem;
-      bottom: 0.11rem;
-      left: 0.11rem;
-      right: 0.11rem;
-      opacity: 0;
-      transition: .3s;
-    }
+    position: absolute;
+    content: "";
+    background-color: $color-primary;
+    border-radius: 5rem;
+    top: 0.11rem;
+    bottom: 0.11rem;
+    left: 0.11rem;
+    right: 0.11rem;
+    opacity: 0;
+    transition: 0.3s;
+  }
 
   &[data-state="on"] {
     &::after {
       opacity: 1;
     }
+  }
+}
+
+@media screen and (max-width: 1140px) {
+  .wrap {
+    height: 49vw;
+  }
+}
+
+@media screen and (orientation: portrait) {
+  .wrap {
+    height: calc(100vh - 7rem);
   }
 }
