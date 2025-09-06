@@ -440,20 +440,13 @@ function MapCanvas({ t, onZoneClick }) {
     const zoom = d3
       .zoom()
       .filter(e => {
-        // колесо миші — тільки з ctrl/cmd
         if (e.type === 'wheel') return e.ctrlKey || e.metaKey;
 
-        // жести на сенсорі — тільки якщо два пальці
-        if (
-          e.type === 'touchstart' ||
-          e.type === 'touchmove' ||
-          e.type === 'touchend'
-        ) {
+        if (e.type.startsWith('touch')) {
           return e.touches && e.touches.length === 2;
         }
 
-        // миша — залишаємо як є
-        return !e.ctrlKey && !e.metaKey;
+        return true;
       })
       .wheelDelta(e => -e.deltaY * WHEEL_SENS)
       .on('zoom', event => {
