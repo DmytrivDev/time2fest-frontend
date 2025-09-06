@@ -8,7 +8,7 @@ import styles from './AboutSection.module.scss';
 
 export default function AboutPortalSection() {
   const locale = getValidLocale();
-  const pageLoaded = useAfterLoad();
+  const pageLoaded = useAfterLoad(); // ✅ чекаємо window.load + 1s
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['about', locale],
@@ -17,10 +17,11 @@ export default function AboutPortalSection() {
       return res.data;
     },
     staleTime: 5 * 60 * 1000,
-    enabled: pageLoaded,
+    enabled: pageLoaded, // 🚀 запит запуститься тільки після завантаження сторінки
   });
 
-  if (isLoading) {
+  // 🟢 Показуємо прелоадер ДО window.load
+  if (!pageLoaded || isLoading) {
     return (
       <section className={styles.section}>
         <picture>
@@ -28,11 +29,6 @@ export default function AboutPortalSection() {
           <source srcSet="/about/bg.webp" type="image/webp" />
           <img
             src="/about/bg.jpg"
-            srcSet="/about/bg-480.jpg 480w,
-                    /about/bg-768.jpg 768w,
-                    /about/bg-1280.jpg 1280w,
-                    /about/bg-1920.jpg 1920w"
-            sizes="100vw"
             className={styles.bgImage}
             alt=""
             loading="eager"
@@ -43,10 +39,7 @@ export default function AboutPortalSection() {
           <div className={clsx(styles.loadingTitle, 'loading')}></div>
           <ul className={styles.list}>
             {Array.from({ length: 6 }).map((_, index) => (
-              <li
-                className={clsx(styles.loadingItem, 'loading')}
-                key={index}
-              ></li>
+              <li key={index} className={clsx(styles.loadingItem, 'loading')} />
             ))}
           </ul>
         </div>
@@ -54,14 +47,14 @@ export default function AboutPortalSection() {
     );
   }
 
-  if (!pageLoaded) return null;
-
   if (error) {
     console.error(error);
+    return null;
   }
 
   if (!data) return null;
 
+  // 🟢 Готові дані
   return (
     <section id="about" className={styles.section}>
       <picture>
@@ -69,11 +62,6 @@ export default function AboutPortalSection() {
         <source srcSet="/about/bg.webp" type="image/webp" />
         <img
           src="/about/bg.jpg"
-          srcSet="/about/bg-480.jpg 480w,
-                  /about/bg-768.jpg 768w,
-                  /about/bg-1280.jpg 1280w,
-                  /about/bg-1920.jpg 1920w"
-          sizes="100vw"
           className={styles.bgImage}
           alt=""
           loading="eager"

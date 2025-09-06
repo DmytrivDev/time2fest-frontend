@@ -4,7 +4,6 @@ import * as d3 from 'd3';
 import { useTranslation } from 'react-i18next';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import { useQuery } from '@tanstack/react-query';
-import { useAfterLoad } from '@/hooks/useAfterLoad';
 
 import Zones from './Zones';
 import TimeLines from './TimeLines';
@@ -35,22 +34,21 @@ const VB_H = WORLD_H;
 export default function Map() {
   const { t } = useTranslation('common');
   const locale = getValidLocale();
-  const pageLoaded = useAfterLoad();
 
   // ---- глобальний стан із Zustand (персиститься) ----
-  const mode = useMapStore(s => s.mode);
-  const setMode = useMapStore(s => s.setMode);
+  const mode = useMapStore((s) => s.mode);
+  const setMode = useMapStore((s) => s.setMode);
 
-  const selectedZone = useMapStore(s => s.selectedZone);
-  const selectedCountry = useMapStore(s => s.selectedCountry);
-  const hasSelection = useMapStore(s => s.hasSelection);
-  const setMapSelection = useMapStore(s => s.setMapSelection);
-  const setHasSelection = useMapStore(s => s.setHasSelection);
+  const selectedZone = useMapStore((s) => s.selectedZone);
+  const selectedCountry = useMapStore((s) => s.selectedCountry);
+  const hasSelection = useMapStore((s) => s.hasSelection);
+  const setMapSelection = useMapStore((s) => s.setMapSelection);
+  const setHasSelection = useMapStore((s) => s.setHasSelection);
 
-  const listLevel = useMapStore(s => s.listLevel);
-  const listZone = useMapStore(s => s.listZone);
-  const enterListCountries = useMapStore(s => s.enterListCountries);
-  const backToListZones = useMapStore(s => s.backToListZones);
+  const listLevel = useMapStore((s) => s.listLevel);
+  const listZone = useMapStore((s) => s.listZone);
+  const enterListCountries = useMapStore((s) => s.enterListCountries);
+  const backToListZones = useMapStore((s) => s.backToListZones);
 
   // посилання на контейнер списку (для скролу)
   const listRef = useRef(null);
@@ -68,15 +66,13 @@ export default function Map() {
     isLoading: zonesLoading,
     error: zonesError,
   } = useQuery({
+    enabled: mode === 'list' && listLevel === 'zones',
     queryKey: ['time-zones', locale],
     queryFn: async () => {
-      const res = await api.get(
-        `/time-zones?populate=countries&locale=${locale}`
-      );
+      const res = await api.get(`/time-zones?populate=countries&locale=${locale}`);
       return res.data?.data ?? res.data ?? [];
     },
     staleTime: 5 * 60 * 1000,
-    enabled: pageLoaded && mode === 'list' && listLevel === 'zones',
   });
 
   // --- дані для LIST: країни конкретної зони (коли провалилися всередину)
@@ -84,26 +80,18 @@ export default function Map() {
     data: tzCountriesList,
     isLoading: tzLoadingList,
     error: tzErrorList,
-  } = useTimeZoneCountries(
-    mode === 'list' && listLevel === 'countries' ? listZone : null
-  );
+  } = useTimeZoneCountries(mode === 'list' && listLevel === 'countries' ? listZone : null);
 
   // нормалізатор коду країни
-  const getCode = c =>
-    (
-      c?.CountryCode ??
-      c?.attributes?.CountryCode ??
-      c?.attributes?.code ??
-      c?.code ??
-      ''
-    )
+  const getCode = (c) =>
+    (c?.CountryCode ?? c?.attributes?.CountryCode ?? c?.attributes?.code ?? c?.code ?? '')
       .toString()
       .toUpperCase();
 
   // елементи списку під картою (MAP)
   const mapItems = selectedCountry
     ? Array.isArray(tzCountriesMap)
-      ? tzCountriesMap.filter(c => getCode(c) === selectedCountry)
+      ? tzCountriesMap.filter((c) => getCode(c) === selectedCountry)
       : []
     : Array.isArray(tzCountriesMap)
       ? tzCountriesMap
@@ -113,8 +101,7 @@ export default function Map() {
   const scrollListTop = () => {
     requestAnimationFrame(() => {
       if (listRef.current) {
-        const top =
-          listRef.current.getBoundingClientRect().top + window.scrollY - 45;
+        const top = listRef.current.getBoundingClientRect().top + window.scrollY - 45;
         window.scrollTo({ top, behavior: 'smooth' });
       }
     });
@@ -132,7 +119,7 @@ export default function Map() {
   };
 
   // клік по зоні у LIST — НЕ переходимо до карти, показуємо країни цієї зони на місці
-  const handlePickZoneFromList = zoneCode => {
+  const handlePickZoneFromList = (zoneCode) => {
     enterListCountries(zoneCode);
     scrollListTop();
   };
@@ -143,7 +130,7 @@ export default function Map() {
     scrollListTop();
   };
 
-  return (
+  return ( 
     <section id="new-year" className={styles.map}>
       <div className="container">
         <div className={styles.top}>
@@ -151,7 +138,7 @@ export default function Map() {
           <ToggleGroup.Root
             type="single"
             value={mode}
-            onValueChange={v => v && setMode(v)}
+            onValueChange={(v) => v && setMode(v)}
             className={styles.toggleWrap}
           >
             <ToggleGroup.Item value="map" className={styles.toggleItem}>
@@ -249,13 +236,13 @@ function MapCanvas({ t, onZoneClick }) {
     return Math.min(vpW / VB_W, vpH / VB_H);
   };
 
-  const snapToPixel = t => {
+  const snapToPixel = (t) => {
     const s = getDeviceScale();
-    const snap = v => Math.round(v * s) / s;
+    const snap = (v) => Math.round(v * s) / s;
     return { k: t.k, x: snap(t.x), y: snap(t.y) };
   };
 
-  const clampTransform = t => {
+  const clampTransform = (t) => {
     const box = boxRef.current;
     const kpx = t.k * BASE_S;
     const contentW = box.width * kpx;
@@ -299,12 +286,9 @@ function MapCanvas({ t, onZoneClick }) {
     return { k: t.k, x, y };
   };
 
-  const applyToDOM = t => {
+  const applyToDOM = (t) => {
     if (!worldRef.current) return;
-    worldRef.current.setAttribute(
-      'transform',
-      `translate(${t.x},${t.y}) scale(${t.k * BASE_S})`
-    );
+    worldRef.current.setAttribute('transform', `translate(${t.x},${t.y}) scale(${t.k * BASE_S})`);
     tfRef.current = t;
 
     if (!rafRef.current) {
@@ -334,7 +318,7 @@ function MapCanvas({ t, onZoneClick }) {
     }
   };
 
-  const zoomBy = factor => {
+  const zoomBy = (factor) => {
     const svg = svgRef.current;
     if (!svg) return;
     const cur = tfRef.current;
@@ -357,7 +341,7 @@ function MapCanvas({ t, onZoneClick }) {
 
     d3.select(svgRef.current).call(
       zoomRef.current.transform,
-      d3.zoomIdentity.translate(snapped.x, snapped.y).scale(snapped.k)
+      d3.zoomIdentity.translate(snapped.x, snapped.y).scale(snapped.k),
     );
   };
 
@@ -369,24 +353,17 @@ function MapCanvas({ t, onZoneClick }) {
 
     const zoom = d3
       .zoom()
-      .filter(e => (e.type === 'wheel' ? e.ctrlKey || e.metaKey : true))
-      .wheelDelta(e => -e.deltaY * WHEEL_SENS)
-      .on('zoom', event => {
-        const raw = {
-          k: event.transform.k,
-          x: event.transform.x,
-          y: event.transform.y,
-        };
+      .filter((e) => (e.type === 'wheel' ? e.ctrlKey || e.metaKey : true))
+      .wheelDelta((e) => -e.deltaY * WHEEL_SENS)
+      .on('zoom', (event) => {
+        const raw = { k: event.transform.k, x: event.transform.x, y: event.transform.y };
         const bounded = clampTransform(raw);
         const snapped = snapToPixel(bounded);
 
-        svg.property(
-          '__zoom',
-          d3.zoomIdentity.translate(snapped.x, snapped.y).scale(snapped.k)
-        );
+        svg.property('__zoom', d3.zoomIdentity.translate(snapped.x, snapped.y).scale(snapped.k));
         world.attr(
           'transform',
-          `translate(${snapped.x},${snapped.y}) scale(${snapped.k * BASE_S})`
+          `translate(${snapped.x},${snapped.y}) scale(${snapped.k * BASE_S})`,
         );
         applyToDOM(snapped);
       });
@@ -416,32 +393,24 @@ function MapCanvas({ t, onZoneClick }) {
     const el = svgRef.current;
     if (!el) return;
 
-    const onWheelCapture = e => {
+    const onWheelCapture = (e) => {
       if (e.ctrlKey || e.metaKey) e.preventDefault();
     };
-    el.addEventListener('wheel', onWheelCapture, {
-      passive: false,
-      capture: true,
-    });
+    el.addEventListener('wheel', onWheelCapture, { passive: false, capture: true });
 
-    const stopGesture = e => e.preventDefault();
+    const stopGesture = (e) => e.preventDefault();
     el.addEventListener('gesturestart', stopGesture, { passive: false });
     el.addEventListener('gesturechange', stopGesture, { passive: false });
     el.addEventListener('gestureend', stopGesture, { passive: false });
 
-    const onKeyDown = e => {
+    const onKeyDown = (e) => {
       if (!hoveringRef.current) return;
       const mod = e.ctrlKey || e.metaKey;
       if (!mod) return;
-      const isMinus =
-        e.key === '-' || e.code === 'Minus' || e.code === 'NumpadSubtract';
+      const isMinus = e.key === '-' || e.code === 'Minus' || e.code === 'NumpadSubtract';
       const isPlus =
-        e.key === '+' ||
-        e.key === '=' /* Equal */ ||
-        e.code === 'Equal' ||
-        e.code === 'NumpadAdd';
-      const isZero =
-        e.key === '0' || e.code === 'Digit0' || e.code === 'Numpad0';
+        e.key === '+' || e.key === '=' /* Equal */ || e.code === 'Equal' || e.code === 'NumpadAdd';
+      const isZero = e.key === '0' || e.code === 'Digit0' || e.code === 'Numpad0';
       if (isMinus || isPlus || isZero) e.preventDefault();
       if (isMinus) zoomBy(0.84);
       else if (isPlus) zoomBy(1.19);
@@ -481,7 +450,7 @@ function MapCanvas({ t, onZoneClick }) {
 
   const MAX_FLAGS_DISPLAY = 5;
 
-  const handlePointerMove = e => {
+  const handlePointerMove = (e) => {
     const vp = viewportRef.current;
     if (!vp) return;
 
@@ -491,7 +460,7 @@ function MapCanvas({ t, onZoneClick }) {
     const my = e.clientY - rect.top;
 
     if (!closest) {
-      if (tip.show) setTip(s => ({ ...s, show: false }));
+      if (tip.show) setTip((s) => ({ ...s, show: false }));
       return;
     }
 
@@ -499,22 +468,16 @@ function MapCanvas({ t, onZoneClick }) {
     const tt = ttRaw ? Number(ttRaw) : null;
 
     const label =
-      closest.getAttribute('data-label') ||
-      closest.getAttribute('data-name') ||
-      closest.id ||
-      '';
+      closest.getAttribute('data-label') || closest.getAttribute('data-name') || closest.id || '';
 
     const time = closest.getAttribute('data-time') || '';
     const flagsStr = closest.getAttribute('data-flags') || '';
     const flags = flagsStr
       .split(',')
-      .map(f => f.trim().toLowerCase())
+      .map((f) => f.trim().toLowerCase())
       .filter(Boolean);
 
-    const country =
-      (closest.getAttribute('data-country') || '').toLowerCase() ||
-      flags[0] ||
-      null;
+    const country = (closest.getAttribute('data-country') || '').toLowerCase() || flags[0] || null;
 
     const pos = computeTipPos(mx, my);
 
@@ -532,26 +495,20 @@ function MapCanvas({ t, onZoneClick }) {
 
   const handleMouseLeave = () => {
     hoveringRef.current = false;
-    setTip(s => ({ ...s, show: false }));
+    setTip((s) => ({ ...s, show: false }));
   };
 
-  const zoomByPublic = factor => zoomBy(factor);
+  const zoomByPublic = (factor) => zoomBy(factor);
   const fitPublic = () => fitToViewport(true);
 
   return (
     <div className={styles.wrap}>
       <div className={styles.controls}>
-        <button
-          onClick={() => zoomByPublic(0.84)}
-          aria-label={t('controls.zoom_out')}
-        >
+        <button onClick={() => zoomByPublic(0.84)} aria-label={t('controls.zoom_out')}>
           -
         </button>
         <span>{uiScale}%</span>
-        <button
-          onClick={() => zoomByPublic(1.19)}
-          aria-label={t('controls.zoom_in')}
-        >
+        <button onClick={() => zoomByPublic(1.19)} aria-label={t('controls.zoom_in')}>
           +
         </button>
         <button onClick={fitPublic}>{t('controls.reset')}</button>
@@ -570,14 +527,7 @@ function MapCanvas({ t, onZoneClick }) {
           viewBox={`0 0 ${VB_W} ${VB_H}`}
           xmlns="http://www.w3.org/2000/svg"
         >
-          <rect
-            x="0"
-            y="0"
-            width={VB_W}
-            height={VB_H}
-            fill="#484848"
-            pointerEvents="all"
-          />
+          <rect x="0" y="0" width={VB_W} height={VB_H} fill="#484848" pointerEvents="all" />
           <g ref={worldRef}>
             <WorldContent onZoneClick={onZoneClick} />
           </g>
@@ -589,7 +539,7 @@ function MapCanvas({ t, onZoneClick }) {
             ref={tooltipRef}
             className={styles.tooltip}
             style={{ left: tip.x, top: tip.y }}
-            onMouseEnter={e => e.stopPropagation()}
+            onMouseEnter={(e) => e.stopPropagation()}
           >
             {tip.tt === 1 && (
               <div>
@@ -597,7 +547,7 @@ function MapCanvas({ t, onZoneClick }) {
                   <strong>{tip.label}</strong>
                   {tip.flags?.length > 0 && (
                     <div className={styles.flagsList}>
-                      {tip.flags.slice(0, MAX_FLAGS_DISPLAY).map(code => (
+                      {tip.flags.slice(0, MAX_FLAGS_DISPLAY).map((code) => (
                         <CircleFlag key={code} countryCode={code} height={16} />
                       ))}
                       {tip.flags.length > MAX_FLAGS_DISPLAY && (
@@ -617,9 +567,7 @@ function MapCanvas({ t, onZoneClick }) {
             {tip.tt === 2 && (
               <div>
                 <div className={styles.topToolC}>
-                  {tip.country && (
-                    <CircleFlag countryCode={tip.country} height={16} />
-                  )}
+                  {tip.country && <CircleFlag countryCode={tip.country} height={16} />}
                   <strong style={{ lineHeight: 1.2 }}>{tip.label}</strong>
                 </div>
                 {tip.time && (

@@ -11,7 +11,7 @@ import FaqItem from './FaqItem';
 export default function FaqSection() {
   const locale = getValidLocale();
   const [openedId, setOpenedId] = useState(null);
-  const pageLoaded = useAfterLoad()
+  const pageLoaded = useAfterLoad();
 
   const toggle = id => {
     setOpenedId(prev => (prev === id ? null : id));
@@ -27,7 +27,7 @@ export default function FaqSection() {
     enabled: pageLoaded, // 🚀 тільки після load
   });
 
-  if (isLoading) {
+  if (!pageLoaded || isLoading) {
     return (
       <section className={styles.section}>
         <div className="container">
@@ -56,8 +56,6 @@ export default function FaqSection() {
       </section>
     );
   }
-
-  if (!pageLoaded) return null;
 
   if (error) {
     console.error(error);

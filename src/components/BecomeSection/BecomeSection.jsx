@@ -9,7 +9,7 @@ import girlImage from '@assets/become/video.mp4'
 
 export default function BecomeSection() {
   const locale = getValidLocale()
-  const pageLoaded = useAfterLoad() // ✅ заміна useEffect + useState
+  const pageLoaded = useAfterLoad();
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['become', locale],
@@ -22,7 +22,7 @@ export default function BecomeSection() {
   })
 
 
-  if (isLoading) {
+  if (!pageLoaded || isLoading) {
     return (
       <section className={styles.section}>
         <div className="container">
@@ -48,8 +48,6 @@ export default function BecomeSection() {
       </section>
     )
   }
-
-  if (!pageLoaded) return null
 
   if (error || !data) return null
 

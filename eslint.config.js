@@ -28,6 +28,7 @@ export default [
         Blob: 'readonly',
         URL: 'readonly',
         navigator: 'readonly',
+        clearTimeout: 'readonly',
       },
     },
     settings: {

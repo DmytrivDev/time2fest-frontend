@@ -1,22 +1,32 @@
 import { useEffect, useState } from 'react'
 
 /**
- * ✅ Хук повертає true після того,
+ * ✅ Хук повертає true через 1 секунду після того,
  * як спрацює подія window.load (сторінка повністю завантажена)
  */
-export function useAfterLoad() {
+export function useAfterLoad(delay = 5000) {
   const [pageLoaded, setPageLoaded] = useState(false)
 
   useEffect(() => {
-    const onLoad = () => setPageLoaded(true)
+    let timer = null
+
+    const trigger = () => {
+      timer = setTimeout(() => {
+        setPageLoaded(true)
+      }, delay)
+    }
 
     if (document.readyState === 'complete') {
-      setPageLoaded(true)
+      trigger()
     } else {
-      window.addEventListener('load', onLoad)
-      return () => window.removeEventListener('load', onLoad)
+      window.addEventListener('load', trigger)
     }
-  }, [])
+
+    return () => {
+      window.removeEventListener('load', trigger)
+      if (timer) clearTimeout(timer)
+    }
+  }, [delay])
 
   return pageLoaded
 }
