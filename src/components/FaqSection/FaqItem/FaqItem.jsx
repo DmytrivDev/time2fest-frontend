@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import styles from './FaqItem.module.scss';
 
-export default function FaqItem({ id, question, answer, isOpen, onToggle }) {
+const FaqItem = ({ id, question, answer, isOpen, onToggle }) => {
   const ref = useRef(null);
   const [height, setHeight] = useState('0px');
   const [visible, setVisible] = useState(false);
@@ -40,4 +40,6 @@ export default function FaqItem({ id, question, answer, isOpen, onToggle }) {
       </div>
     </li>
   );
-}
+};
+
+export default FaqItem;

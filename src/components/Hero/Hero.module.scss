@@ -1,23 +1,23 @@
 @use "@/styles/mixins" as *;
 
 .hero {
-    padding-top: 9.66rem;
-    padding-bottom: 16.34rem;
-    position: relative;
+	padding-top: 9.66rem;
+	padding-bottom: 16.34rem;
+	position: relative;
 }
 
 .overlay {
-    @include absolute;
-    background: linear-gradient(95deg, #020101 24.56%, rgba(2, 1, 1, 0) 89.02%);
-    z-index: 1;
+	@include absolute;
+	background: linear-gradient(95deg, #020101 24.56%, rgba(2, 1, 1, 0) 89.02%);
+	z-index: 1;
 }
 
 .background {
-    @include img-cover;
+	@include img-cover;
 }
 
 .hero__inner {
-    @include flex-btv;
-    align-items: flex-start;
-    align-content: flex-start;
+	@include flex-btv;
+	align-items: flex-start;
+	align-content: flex-start;
 }

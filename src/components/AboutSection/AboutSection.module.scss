@@ -2,64 +2,64 @@
 @use "@/styles/mixins" as *;
 
 .section {
-    padding-top: 5.44rem;
-    padding-bottom: 6.25rem;
-    position: relative;
+	padding-top: 5.44rem;
+	padding-bottom: 6.25rem;
+	position: relative;
 }
 
 .loadingTitle {
-    height: 3.688em;
-    width: 32rem;
+	height: 3.688em;
+	width: 32rem;
 }
 
 .loadingItem {
-    height: 14rem;
+	height: 14rem;
 }
 
 .bgImage {
-    @include img-cover;
-    width: auto;
-    height: 100%;
+	@include img-cover;
+	width: auto;
+	height: 100%;
 }
 
 .list {
-    margin-top: 2.5rem;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.38rem;
+	margin-top: 2.5rem;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 1.38rem;
 
-    li {
-        border-radius: 2.5rem;
-        padding: 2.5rem;
-        padding-bottom: 2rem;
-        background-color: $color-gray2;
-        border: $border;
-    }
+	li {
+		border-radius: 2.5rem;
+		padding: 2.5rem;
+		padding-bottom: 2rem;
+		background-color: $color-gray2;
+		border: $border;
+	}
 }
 
 .topItem {
-    gap: 1.25rem;
-    display: flex;
-    align-items: center;
+	gap: 1.25rem;
+	display: flex;
+	align-items: center;
 
-    span {
-        width: 3.75rem;
-        min-width: 3.75rem;
-        height: 3.75rem;
-        border-radius: 50%;
-        background-color: $color-yellow;
-        @include flex-center;
+	span {
+		width: 3.75rem;
+		min-width: 3.75rem;
+		height: 3.75rem;
+		border-radius: 50%;
+		background-color: $color-yellow;
+		@include flex-center;
 
-        img {
-            height: 2.125rem;
-            width: auto;
-        }
-    }
+		img {
+			height: 2.125rem;
+			width: auto;
+		}
+	}
 }
 
 .text {
-    margin-top: 0.87rem;
-    font-size: 1rem;
-    line-height: 1.6;
-    color: $color-sec2;
+	margin-top: 0.87rem;
+	font-size: 1rem;
+	line-height: 1.6;
+	color: $color-sec2;
 }

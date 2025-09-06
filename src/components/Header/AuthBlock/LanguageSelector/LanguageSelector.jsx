@@ -11,15 +11,20 @@ const LanguageSelector = () => {
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef(null);
 
-  const currentLang = LANGS.find((l) => l.code === i18n.language) || LANGS[0];
+  const currentLang = LANGS.find(l => l.code === i18n.language) || LANGS[0];
 
-  const handleSelect = (l) => {
+  const handleSelect = l => {
     if (l.code !== i18n.language) {
       i18n.changeLanguage(l.code);
 
-      const pathWithoutLang = window.location.pathname.replace(/^\/[a-z]{2}/, '');
+      const pathWithoutLang = window.location.pathname.replace(
+        /^\/[a-z]{2}/,
+        ''
+      );
       const newPath =
-        l.code === DEFAULT_LANG ? pathWithoutLang || '/' : `/${l.code}${pathWithoutLang}`;
+        l.code === DEFAULT_LANG
+          ? pathWithoutLang || '/'
+          : `/${l.code}${pathWithoutLang}`;
 
       navigate(newPath, { replace: true });
     }
@@ -29,7 +34,7 @@ const LanguageSelector = () => {
 
   // Закриття при кліку поза компонентом
   useEffect(() => {
-    const handleClickOutside = (e) => {
+    const handleClickOutside = e => {
       if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
         setOpen(false);
       }
@@ -46,12 +51,15 @@ const LanguageSelector = () => {
 
   return (
     <div className={styles.lang__selector} ref={wrapperRef}>
-      <button onClick={() => setOpen(!open)} className={open ? styles.opened : ''}>
+      <button
+        onClick={() => setOpen(!open)}
+        className={open ? styles.opened : ''}
+      >
         {currentLang.label} <span></span>
       </button>
       {open && (
         <ul>
-          {LANGS.map((l) => (
+          {LANGS.map(l => (
             <li key={l.code} onClick={() => handleSelect(l)}>
               {l.label}
             </li>

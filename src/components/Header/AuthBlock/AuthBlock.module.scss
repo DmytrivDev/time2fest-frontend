@@ -1,7 +1,7 @@
-@use '@/styles/mixins' as *;
+@use "@/styles/mixins" as *;
 
 .auth__block {
-    @include flex-btv;
-    margin-left: 1.7rem;
-    gap: 2.38rem;
+	@include flex-btv;
+	margin-left: 1.7rem;
+	gap: 2.38rem;
 }
