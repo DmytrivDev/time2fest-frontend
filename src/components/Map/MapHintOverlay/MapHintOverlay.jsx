@@ -4,19 +4,18 @@ import styles from './MapHintOverlay.module.scss';
 export default function MapHintOverlay({ viewportRef }) {
   const [visible, setVisible] = useState(false);  // чи показувати overlay
   const [fade, setFade] = useState(false);        // стан плавного зникання
+  const [animate, setAnimate] = useState(false);  // запуск анімації
   const onceRef = useRef(false);
 
-  // визначаємо сенсорні пристрої
   const isTouchDevice = () =>
     typeof window !== 'undefined' &&
     ('ontouchstart' in window || navigator.maxTouchPoints > 0);
 
-  // показуємо оверлей одразу після завантаження
   useEffect(() => {
     if (!isTouchDevice()) return;
     if (localStorage.getItem('mapHintShown')) return;
 
-    setVisible(true); // показуємо overlay одразу
+    setVisible(true);
 
     const observer = new IntersectionObserver(
       entries => {
@@ -24,10 +23,13 @@ export default function MapHintOverlay({ viewportRef }) {
           if (entry.isIntersecting && !onceRef.current) {
             onceRef.current = true;
 
-            // запускаємо таймер на 4с
+            // запускаємо анімацію
+            setAnimate(true);
+
+            // і таймер на 4с для плавного зникання
             const timer = setTimeout(() => {
               startFadeOut();
-            }, 4000);
+            }, 3500);
 
             return () => clearTimeout(timer);
           }
@@ -43,7 +45,6 @@ export default function MapHintOverlay({ viewportRef }) {
     return () => observer.disconnect();
   }, [viewportRef]);
 
-  // слухаємо pinch/zoom двома пальцями
   useEffect(() => {
     if (!visible) return;
 
@@ -66,10 +67,10 @@ export default function MapHintOverlay({ viewportRef }) {
   }, [visible, viewportRef]);
 
   const startFadeOut = () => {
-    if (fade) return; // вже зникає
+    if (fade) return;
     setFade(true);
     localStorage.setItem('mapHintShown', '1');
-    setTimeout(() => setVisible(false), 500); // після анімації повністю прибрати
+    setTimeout(() => setVisible(false), 500);
   };
 
   if (!visible) return null;
@@ -77,8 +78,10 @@ export default function MapHintOverlay({ viewportRef }) {
   return (
     <div className={`${styles.overlay} ${fade ? styles.hidden : ''}`}>
       <div className={styles.content}>
-        {/* 👉 Дизайнер вставляє свою анімацію */}
-        <img src="/hero/resizer.gif" alt="Use two fingers" />
+        <div className={styles.animCont}>
+          <div className={animate ? styles.play1 : ''}></div>
+          <div className={animate ? styles.play2 : ''}></div>
+        </div>
       </div>
     </div>
   );
