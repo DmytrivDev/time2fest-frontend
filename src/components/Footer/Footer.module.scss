@@ -1,7 +1,7 @@
 @use "@/styles/variables" as *;
 
 .footer {
-	padding: 3.44rem 0;
+	padding: 3.4375rem 0;
 }
 
 .content {
@@ -13,9 +13,13 @@
 
 .part {
 	display: flex;
-	font-size: 1rem;
-	line-height: 1.625rem;
+	line-height: 1.62;
+	text-align: center;
 	color: $color-sec;
+
+	p {
+		padding-top: 0.1875rem;
+	}
 
 	&:nth-child(2) {
 		justify-content: center;
@@ -23,5 +27,35 @@
 
 	&:last-child {
 		justify-content: flex-end;
+	}
+}
+
+@media screen and (max-width: 1140px) {
+	.footer {
+		padding: 2.5rem 0 2rem 0;
+	}
+
+	.part {
+		font-size: 0.875rem;
+		line-height: 1.85;
+	}
+}
+
+@media screen and (max-width: 868px) {
+	.content {
+		grid-template-columns: 1fr;
+		gap: 1.875rem 0;
+	}
+
+	.part {
+		justify-content: center;
+
+		&:nth-child(2) {
+			grid-area: 3 / 1 / 4 / 2;
+		}
+
+		&:last-child {
+			justify-content: center;
+		}
 	}
 }

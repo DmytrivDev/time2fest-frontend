@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import { getValidLocale } from '@/utils/getValidLocale';
-import { api } from '@/utils/api';
 import clsx from 'clsx';
-import { useAfterLoad } from '@/hooks/useAfterLoad';
+
+import { api } from '../../utils/api';
+import { getValidLocale } from '../../utils/getValidLocale';
+import { useAfterLoad } from '../../hooks/useAfterLoad';
 
 import styles from './AboutSection.module.scss';
 
@@ -35,8 +36,10 @@ const AboutPortalSection = () => {
             decoding="async"
           />
         </picture>
+
         <div className="container">
           <div className={clsx(styles.loadingTitle, 'loading')}></div>
+
           <ul className={styles.list}>
             {Array.from({ length: 6 }).map((_, index) => (
               <li key={index} className={clsx(styles.loadingItem, 'loading')} />
@@ -68,8 +71,10 @@ const AboutPortalSection = () => {
           decoding="async"
         />
       </picture>
+
       <div className="container">
         <h2>{data.Title}</h2>
+
         <ul className={styles.list}>
           {data.items.map(item => (
             <li key={item.id}>
@@ -82,8 +87,10 @@ const AboutPortalSection = () => {
                     />
                   </span>
                 )}
+
                 <h3>{item.Title}</h3>
               </div>
+
               {item.Description && (
                 <p className={styles.text}>{item.Description}</p>
               )}

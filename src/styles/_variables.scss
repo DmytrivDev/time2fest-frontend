@@ -12,7 +12,7 @@ $color-bages: #1c1a19;
 $color-load: #fff3b0;
 $color-yellow: #fce286;
 $color-text: #e8e8e8;
-$card-shadow: 0 0 40px 12px rgba(255, 235, 100, 0.6);
+$card-shadow: 0 0 2.5rem 0.75rem rgba(255, 235, 100, 0.6);
 
 $blue: #14d2dc;
 $red: #fa7850;
@@ -29,7 +29,7 @@ $brownwH: #b59d65;
 $font-main: "Roboto", sans-serif;
 
 //Border
-$border: 1px solid $color-border;
+$border: 0.0625rem solid $color-border;
 
 //Icons
 $lng-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='3' viewBox='0 0 6 3' fill='none'%3E%3Cpath d='M0.054375 0.386139L0.0881249 0.418968L2.63812 2.86556C2.72438 2.94841 2.85375 3 2.99813 3C3.1425 3 3.27188 2.94685 3.35813 2.86556L5.90625 0.423658L5.94938 0.383012C5.98125 0.343929 6 0.29703 6 0.247004C6 0.110995 5.86125 0 5.68875 0H0.31125C0.13875 0 0 0.110995 0 0.247004C0 0.298593 0.020625 0.347056 0.054375 0.386139Z' fill='white'/%3E%3C/svg%3E");

@@ -1,25 +1,19 @@
 @use "@/styles/variables" as *;
 @use "@/styles/mixins" as *;
 
+.section {
+	background-color: $color-gray2;
+	max-width: 112.5rem;
+	margin: 0 auto;
+	border-radius: 3.125rem;
+}
 .content {
-	padding-top: 5.5rem;
-	padding-bottom: 6.25rem;
 	position: relative;
+	padding: 5.5rem 0 6.25rem 0;
 
 	& > * {
 		position: relative;
 		z-index: 2;
-	}
-
-	&::before {
-		left: -10.94rem;
-		right: -10.94rem;
-		border-radius: 3.125rem;
-		content: "";
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		background-color: $color-gray2;
 	}
 }
 
@@ -41,14 +35,33 @@
 }
 
 .grid {
-	margin-top: 2.2rem;
-	gap: 1.87rem;
+	margin-top: 2.125rem;
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
+	gap: 1.875rem;
 
 	ul {
 		display: flex;
 		flex-direction: column;
-		gap: 1.99rem;
+		gap: 1.875rem;
+	}
+}
+
+@media screen and (max-width: 1140px) {
+	.section {
+		max-width: 100%;
+		border-radius: 1.25rem;
+	}
+	.content {
+		padding: 3.375rem 0 3.75rem 0;
+	}
+
+	.grid {
+		gap: 0.9375rem;
+		grid-template-columns: 1fr;
+
+		ul {
+			gap: 0.9375rem;
+		}
 	}
 }
