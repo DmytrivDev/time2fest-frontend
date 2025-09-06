@@ -11,6 +11,7 @@ import TimeLines from './TimeLines';
 import Borders from './Borders';
 import DayLine from './DayLine';
 import ZonesList from './ZonesList';
+import MapHintOverlay from './MapHintOverlay';
 
 import { useTimeZoneCountries } from '@/hooks/useTimeZoneCountries';
 import { getValidLocale } from '@/utils/getValidLocale';
@@ -440,13 +441,20 @@ function MapCanvas({ t, onZoneClick }) {
     const zoom = d3
       .zoom()
       .filter(e => {
+        // колесо миші — тільки з ctrl/cmd
         if (e.type === 'wheel') return e.ctrlKey || e.metaKey;
 
-        if (e.type.startsWith('touch')) {
+        // жести на сенсорі — тільки якщо два пальці
+        if (
+          e.type === 'touchstart' ||
+          e.type === 'touchmove' ||
+          e.type === 'touchend'
+        ) {
           return e.touches && e.touches.length === 2;
         }
 
-        return true;
+        // миша — залишаємо як є
+        return !e.ctrlKey && !e.metaKey;
       })
       .wheelDelta(e => -e.deltaY * WHEEL_SENS)
       .on('zoom', event => {
@@ -677,6 +685,7 @@ function MapCanvas({ t, onZoneClick }) {
         onMouseEnter={() => (hoveringRef.current = true)}
         onMouseMove={handlePointerMove}
       >
+        <MapHintOverlay viewportRef={viewportRef} />
         <svg
           ref={svgRef}
           className={styles.svg}

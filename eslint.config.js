@@ -29,6 +29,7 @@ export default [
         URL: 'readonly',
         navigator: 'readonly',
         clearTimeout: 'readonly',
+        IntersectionObserver: 'readonly',
       },
     },
     settings: {

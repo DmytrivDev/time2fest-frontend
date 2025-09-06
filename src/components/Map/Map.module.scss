@@ -228,6 +228,37 @@
   }
 }
 
+//////////////////////
+//////////////////////
+.map-hint-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeInOut 3s ease forwards;
+}
+
+.map-hint-content {
+  text-align: center;
+  color: #fff;
+}
+
+.map-hint-content img {
+  width: 100px; /* або під анімацію Lottie */
+  height: auto;
+  margin-bottom: 0.5rem;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
 @media screen and (max-width: 1140px) {
   .wrap {
     height: 49vw;
