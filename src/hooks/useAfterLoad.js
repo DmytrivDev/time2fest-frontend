@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
  * ✅ Хук повертає true через 1 секунду після того,
  * як спрацює подія window.load (сторінка повністю завантажена)
  */
-export function useAfterLoad(delay = 5000) {
+export function useAfterLoad(delay = 2000) {
   const [pageLoaded, setPageLoaded] = useState(false)
 
   useEffect(() => {
