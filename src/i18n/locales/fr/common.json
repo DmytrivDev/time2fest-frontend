@@ -1,8 +1,8 @@
 {
   "nav": {
-    "newYear": "Nouvel An",
-    "about": "À propos",
-    "becomeStreamer": "Devenir streamer",
+    "newYear": "Choisis un pays",
+    "about": "À propos du projet",
+    "becomeStreamer": "Devenir ambassadeur",
     "faq": "FAQ"
   },
   "log-in": "Se connecter",
