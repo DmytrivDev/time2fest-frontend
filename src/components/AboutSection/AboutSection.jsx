@@ -6,7 +6,7 @@ import { useAfterLoad } from '@/hooks/useAfterLoad';
 
 import styles from './AboutSection.module.scss';
 
-export default function AboutPortalSection() {
+const AboutPortalSection = () => {
   const locale = getValidLocale();
   const pageLoaded = useAfterLoad(); // ✅ чекаємо window.load + 1s
 
@@ -93,4 +93,6 @@ export default function AboutPortalSection() {
       </div>
     </section>
   );
-}
+};
+
+export default AboutPortalSection;

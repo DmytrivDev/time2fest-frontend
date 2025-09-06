@@ -20,7 +20,10 @@ const Header = () => {
           <div className={styles.header__part}>
             <SocialLinks />
             <AuthBlock />
-            <button className="burger" onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}>
+            <button
+              className="burger"
+              onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+            >
               <span />
               <span />
               <span />

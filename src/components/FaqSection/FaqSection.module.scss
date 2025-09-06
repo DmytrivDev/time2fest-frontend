@@ -2,53 +2,53 @@
 @use "@/styles/mixins" as *;
 
 .content {
-    padding-top: 5.5rem;
-    padding-bottom: 6.25rem;
-    position: relative;
+	padding-top: 5.5rem;
+	padding-bottom: 6.25rem;
+	position: relative;
 
-    & > * {
-        position: relative;
-        z-index: 2;
-    }
+	& > * {
+		position: relative;
+		z-index: 2;
+	}
 
-    &::before {
-        left: -10.94rem;
-        right: -10.94rem;
-        border-radius: 3.125rem;
-        content: "";
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        background-color: $color-gray2;
-    }
+	&::before {
+		left: -10.94rem;
+		right: -10.94rem;
+		border-radius: 3.125rem;
+		content: "";
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		background-color: $color-gray2;
+	}
 }
 
 .loadingTitle {
-    height: 3.688em;
-    width: 12rem;
+	height: 3.688em;
+	width: 12rem;
 }
 
 .loadingItem {
-    height: 5.9375rem;
-    border-radius: 2.5rem;
-    position: relative;
+	height: 5.9375rem;
+	border-radius: 2.5rem;
+	position: relative;
 }
 
 .bgImage {
-    @include img-cover;
-    width: auto;
-    height: 100%;
+	@include img-cover;
+	width: auto;
+	height: 100%;
 }
 
 .grid {
-    margin-top: 2.2rem;
-    gap: 1.87rem;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+	margin-top: 2.2rem;
+	gap: 1.87rem;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
 
-    ul {
-        display: flex;
-        flex-direction: column;
-        gap: 1.99rem;
-    }
+	ul {
+		display: flex;
+		flex-direction: column;
+		gap: 1.99rem;
+	}
 }

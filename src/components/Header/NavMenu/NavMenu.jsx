@@ -16,7 +16,7 @@ const NavMenu = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const smoothScrollToHash = (hash) => {
+  const smoothScrollToHash = hash => {
     const id = hash.replace('#', '');
     const el = document.getElementById(id);
     if (el) {
@@ -25,7 +25,7 @@ const NavMenu = () => {
   };
 
   // Прибираємо мовний префікс з pathname
-  const stripLangPrefix = (pathname) => {
+  const stripLangPrefix = pathname => {
     const parts = pathname.split('/');
     if (SUPPORTED_LANGS.includes(parts[1])) {
       return '/' + parts.slice(2).join('/');
@@ -57,7 +57,11 @@ const NavMenu = () => {
       <ul className={styles.nav__ist}>
         {links.map(({ to, i18n }) => (
           <li key={to}>
-            <a href={to} onClick={(e) => handleClick(e, to)} className={styles.nav__link}>
+            <a
+              href={to}
+              onClick={e => handleClick(e, to)}
+              className={styles.nav__link}
+            >
               {t(i18n)}
             </a>
           </li>

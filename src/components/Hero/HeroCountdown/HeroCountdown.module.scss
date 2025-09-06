@@ -2,69 +2,73 @@
 @use "@/styles/variables" as *;
 
 .hero_right {
-    @include flex-center;
-    width: 32.5rem;
-    height: 32.5rem;
-    border-radius: 50%;
-    position: relative;
-    z-index: 3;
-    background: linear-gradient(95deg, rgba(2, 1, 1, 0.5) 24.56%, rgba(2, 1, 1, 0) 89.02%);
-    backdrop-filter: blur(0.3rem);
+	@include flex-center;
+	width: 32.5rem;
+	height: 32.5rem;
+	border-radius: 50%;
+	position: relative;
+	z-index: 3;
+	background: linear-gradient(
+		95deg,
+		rgba(2, 1, 1, 0.5) 24.56%,
+		rgba(2, 1, 1, 0) 89.02%
+	);
+	backdrop-filter: blur(0.3rem);
 }
 
 .hero__circinner {
-    text-align: center;
-    position: relative;
-    z-index: 2;
+	text-align: center;
+	position: relative;
+	z-index: 2;
 }
 
 .hero__label {
-    font-size: 1.3125rem;
-    font-weight: 500;
-    line-height: 1.6;
+	font-size: 1.3125rem;
+	font-weight: 500;
+	line-height: 1.6;
 }
 
 .hero__timer {
-    @include flex-btv;
-    align-items: flex-start;
-    align-content: flex-start;
-    color: $color-yellow;
-    font-size: 3.75rem;
-    font-weight: 500;
-    line-height: 1rem;
-    display: inline-flex;
-    gap: 0.88rem;
-    margin-top: 0.88rem;
+	@include flex-btv;
+	align-items: flex-start;
+	align-content: flex-start;
+	color: $color-yellow;
+	font-size: 3.75rem;
+	font-weight: 500;
+	line-height: 1rem;
+	display: inline-flex;
+	gap: 0.88rem;
+	margin-top: 0.88rem;
 
-    & > small {
-        line-height: 1;
-    }
+	& > small {
+		line-height: 1;
+	}
 
-    span {
-        display: block;
+	span {
+		display: block;
 
-        strong {
-            line-height: 1;
-            display: block;
-        }
+		strong {
+			line-height: 1;
+			display: block;
+		}
 
-        small {
-            color: $color-light;
-            font-size: 1rem;
-            line-height: 1.8;
-            font-weight: 400;
-            position: relative;
-            top: -0.3125rem;
-        }
-    }
+		small {
+			color: $color-light;
+			font-size: 1rem;
+			line-height: 1.8;
+			font-weight: 400;
+			position: relative;
+			top: -0.3125rem;
+		}
+	}
 }
 
 .hero_top {
-    width: 3.5rem;
-    height: 2.9375rem;
-    left: 50%;
-    top: .35rem;
-    transform: translateX(-50%) translateY(-100%);
-    position: absolute;
-    display: block;
+	width: 3.5rem;
+	height: 2.9375rem;
+	left: 50%;
+	top: 0.35rem;
+	transform: translateX(-50%) translateY(-100%);
+	position: absolute;
+	display: block;
 }

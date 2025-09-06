@@ -1,281 +1,301 @@
 @use "./variables" as *;
 @use "./mixins" as *;
 
+html,
 body {
-  background-color: $color-dark;
-  color: $color-light;
-  font-size: 1.125rem;
-  font-family: "Roboto", sans-serif;
+	font-optical-sizing: auto;
+	font-family: $font-main;
+	background-color: $color-dark;
+	color: $color-light;
+	font-size: 16px;
+	line-height: 1.5;
+}
+
+.wrapper {
+	position: relative;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	overflow: clip;
+}
+
+main,
+.main {
+	flex: 1 1 auto;
 }
 
 .container {
-  max-width: 93rem;
-  padding: 0 1.5rem;
-  margin: 0 auto;
-  position: relative;
-  z-index: 2;
+	position: relative;
+	z-index: 2;
+	max-width: 93.75rem;
+	padding: 0 1.875rem;
+	margin: 0 auto;
 }
 
 .loading {
-  border: none !important;
-  background-color: #fff;
-  background-color: $color-load !important;
-  position: relative;
-  overflow: hidden !important;
+	border: none !important;
+	background-color: #fff;
+	background-color: $color-load !important;
+	position: relative;
+	overflow: hidden !important;
 
-  &::before {
-    content: "";
-    position: absolute;
-    top: -3rem;
-    bottom: -3rem;
-    transform: rotate(15deg);
-    left: -10%;
-    box-shadow: $card-shadow;
-    -webkit-box-shadow: $card-shadow;
-    -moz-box-shadow: $card-shadow;
-    animation: slideLoop 1.3s linear infinite;
-  }
+	&::before {
+		content: "";
+		position: absolute;
+		top: -3rem;
+		bottom: -3rem;
+		transform: rotate(15deg);
+		left: -10%;
+		box-shadow: $card-shadow;
+		-webkit-box-shadow: $card-shadow;
+		-moz-box-shadow: $card-shadow;
+		animation: slideLoop 1.3s linear infinite;
+	}
 }
 
 @keyframes slideLoop {
-  0% {
-    left: -10%;
-  }
-  60% {
-    left: 110%;
-  }
-  100% {
-    left: 110%;
-  }
+	0% {
+		left: -10%;
+	}
+	60% {
+		left: 110%;
+	}
+	100% {
+		left: 110%;
+	}
 }
 
 // Buttons
 .btn_primary {
-  @include button-base;
+	@include button-base;
 }
 
 .btn_transp {
-  @include button-base;
-  background-color: transparent;
-  color: $color-primary;
+	@include button-base;
+	background-color: transparent;
+	color: $color-primary;
 }
 
 .btn_secondary {
-  @include button-secondary;
-  position: relative;
+	@include button-secondary;
+	position: relative;
 
-  &::after {
-    @include absolute;
-    border-radius: 3rem;
-    border: 1px solid $color-light;
-    content: "";
-    display: block;
-  }
+	&::after {
+		@include absolute;
+		border-radius: 3rem;
+		border: 1px solid $color-light;
+		content: "";
+		display: block;
+	}
 }
 
 .conBg {
-  @include img-contain;
+	@include img-contain;
 }
 
 .zone {
-  &:hover {
-    & .zoneM path {
-      fill-opacity: 0.2;
-    }
+	&:hover {
+		& .zoneM path {
+			fill-opacity: 0.2;
+		}
 
-    &.blueCtrs {
-      .country {
-        fill: $blueH;
-      }
-      .countryGr {
-        path {
-          fill: $blueH;
-        }
-      }
-    }
+		&.blueCtrs {
+			.country {
+				fill: $blueH;
+			}
+			.countryGr {
+				path {
+					fill: $blueH;
+				}
+			}
+		}
 
-    &.redCtrs {
-      .country {
-        fill: $redH;
-      }
-      .countryGr {
-        path {
-          fill: $redH;
-        }
-      }
+		&.redCtrs {
+			.country {
+				fill: $redH;
+			}
+			.countryGr {
+				path {
+					fill: $redH;
+				}
+			}
 
-      .noBg {
-        fill: transparent !important;
-      }
-    }
+			.noBg {
+				fill: transparent !important;
+			}
+		}
 
-    &.brownCtrs {
-      .country {
-        fill: $brownwH;
-      }
-      .countryGr {
-        path {
-          fill: $brownwH;
-        }
-      }
-    }
+		&.brownCtrs {
+			.country {
+				fill: $brownwH;
+			}
+			.countryGr {
+				path {
+					fill: $brownwH;
+				}
+			}
+		}
 
-    &.yellowCtrs {
-      .country {
-        fill: $yellowH;
-      }
-      .countryGr {
-        path {
-          fill: $yellowH;
-        }
-      }
-    }
+		&.yellowCtrs {
+			.country {
+				fill: $yellowH;
+			}
+			.countryGr {
+				path {
+					fill: $yellowH;
+				}
+			}
+		}
 
-    &.greenCtrs {
-      .country {
-        fill: $greenH;
-      }
-      .countryGr {
-        path {
-          fill: $greenH;
-        }
-      }
+		&.greenCtrs {
+			.country {
+				fill: $greenH;
+			}
+			.countryGr {
+				path {
+					fill: $greenH;
+				}
+			}
 
-      .noBg {
-        fill: transparent !important;
-      }
-    }
-  }
+			.noBg {
+				fill: transparent !important;
+			}
+		}
+	}
 
-  .zoneM path {
-    transition: 0.2s 0.2s;
-  }
+	.zoneM path {
+		transition: 0.2s 0.2s;
+	}
 
-  .country {
-    transition: 0.2s 0.2s;
-  }
+	.country {
+		transition: 0.2s 0.2s;
+	}
 
-  .countryGr {
-    path {
-      transition: 0.2s 0.2s;
-    }
-  }
+	.countryGr {
+		path {
+			transition: 0.2s 0.2s;
+		}
+	}
 }
 
 .blueCtrs {
-  .country {
-    &:hover {
-      fill: $blue !important;
-    }
-  }
-  .countryGr {
-    &:hover path {
-      fill: $blue !important;
-    }
-  }
+	.country {
+		&:hover {
+			fill: $blue !important;
+		}
+	}
+	.countryGr {
+		&:hover path {
+			fill: $blue !important;
+		}
+	}
 }
 
 .redCtrs {
-  .country {
-    &:hover {
-      fill: $red !important;
-    }
-  }
-  .countryGr {
-    &:hover path {
-      fill: $red !important;
+	.country {
+		&:hover {
+			fill: $red !important;
+		}
+	}
+	.countryGr {
+		&:hover path {
+			fill: $red !important;
 
-      &.noBg {
-        fill: transparent !important;
-      }
-    }
-  }
+			&.noBg {
+				fill: transparent !important;
+			}
+		}
+	}
 }
 
 .brownCtrs {
-  .country {
-    &:hover {
-      fill: $brownw !important;
-    }
-  }
-  .countryGr {
-    &:hover path {
-      fill: $brownw !important;
-    }
-  }
+	.country {
+		&:hover {
+			fill: $brownw !important;
+		}
+	}
+	.countryGr {
+		&:hover path {
+			fill: $brownw !important;
+		}
+	}
 }
 
 .yellowCtrs {
-  .country {
-    &:hover {
-      fill: $yellow !important;
-    }
-  }
-  .countryGr {
-    &:hover path {
-      fill: $yellow !important;
-    }
-  }
+	.country {
+		&:hover {
+			fill: $yellow !important;
+		}
+	}
+	.countryGr {
+		&:hover path {
+			fill: $yellow !important;
+		}
+	}
 }
 
 .greenCtrs {
-  .country {
-    &:hover {
-      fill: $green !important;
-    }
-  }
-  .countryGr {
-    &:hover path {
-      fill: $green !important;
+	.country {
+		&:hover {
+			fill: $green !important;
+		}
+	}
+	.countryGr {
+		&:hover path {
+			fill: $green !important;
 
-      &.noBg {
-        fill: transparent !important;
-      }
-    }
-  }
+			&.noBg {
+				fill: transparent !important;
+			}
+		}
+	}
 }
 
 .countryGr {
-  &:hover {
-    .redH {
-      fill: $redH !important;
-    }
-    .yellowH {
-      fill: $yellowH !important;
-    }
-    .greenH {
-      fill: $greenH !important;
-    }
-    .blueH {
-      fill: $blueH !important;
-    }
-  }
+	&:hover {
+		.redH {
+			fill: $redH !important;
+		}
+		.yellowH {
+			fill: $yellowH !important;
+		}
+		.greenH {
+			fill: $greenH !important;
+		}
+		.blueH {
+			fill: $blueH !important;
+		}
+	}
 
-  .redH,
-  .yellowH,
-  .greenH,
-  .blueH {
-    transition: 0.2s 0.2s;
-  }
+	.redH,
+	.yellowH,
+	.greenH,
+	.blueH {
+		transition: 0.2s 0.2s;
+	}
 }
 
-@media screen and (max-width: 1488px) {
-  html {
-    font-size: 1.07vw;
-  }
+@media screen and (max-width: 1500px) {
+	html,
+	body {
+		font-size: 1.066667vh;
+	}
 }
 
 @media screen and (max-width: 1140px) {
-  html {
-    font-size: 16px;
-  }
+	html,
+	body {
+		font-size: 16px;
+	}
+
+	.container {
+		padding: 0 1rem;
+	}
 }
 
 @media screen and (max-width: 768px) {
-  html {
-    font-size: 2.1vw;
-  }
-  .container {
-    padding: 0 1.25rem;
-  }
+	html,
+	body {
+		font-size: 2.083333vh;
+	}
 }

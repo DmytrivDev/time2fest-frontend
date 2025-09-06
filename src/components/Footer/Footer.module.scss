@@ -1,27 +1,27 @@
 @use "@/styles/variables" as *;
 
 .footer {
-    padding: 3.44rem 0;
+	padding: 3.44rem 0;
 }
 
 .content {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    align-items: center;
-    align-content: center;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	align-items: center;
+	align-content: center;
 }
 
 .part {
-    display: flex;
-    font-size: 1rem;
-    line-height: 1.625rem;
-    color: $color-sec;
+	display: flex;
+	font-size: 1rem;
+	line-height: 1.625rem;
+	color: $color-sec;
 
-    &:nth-child(2) {
-        justify-content: center;
-    }
-    
-    &:last-child {
-        justify-content: flex-end;
-    }
+	&:nth-child(2) {
+		justify-content: center;
+	}
+
+	&:last-child {
+		justify-content: flex-end;
+	}
 }

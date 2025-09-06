@@ -1,14 +1,14 @@
+import { useState } from 'react';
+import { api } from '@/utils/api';
 import { useQuery } from '@tanstack/react-query';
 import { getValidLocale } from '@/utils/getValidLocale';
-import { api } from '@/utils/api';
+import { useAfterLoad } from '@/hooks/useAfterLoad';
 import clsx from 'clsx';
-import { useState } from 'react';
-import { useAfterLoad } from '@/hooks/useAfterLoad'
 
 import styles from './FaqSection.module.scss';
 import FaqItem from './FaqItem';
 
-export default function FaqSection() {
+const FaqSection = () => {
   const locale = getValidLocale();
   const [openedId, setOpenedId] = useState(null);
   const pageLoaded = useAfterLoad();
@@ -92,4 +92,6 @@ export default function FaqSection() {
       </div>
     </section>
   );
-}
+};
+
+export default FaqSection;

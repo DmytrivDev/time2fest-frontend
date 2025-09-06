@@ -11,7 +11,7 @@ function getPageFromPath(pathname) {
   return parts[1];
 }
 
-export default function SeoMeta() {
+const SeoMeta = () => {
   const locale = getValidLocale();
   const { pathname } = useLocation();
   const page = getPageFromPath(pathname);
@@ -104,4 +104,6 @@ export default function SeoMeta() {
       ></script>
     </Helmet>
   );
-}
+};
+
+export default SeoMeta;

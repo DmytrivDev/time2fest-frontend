@@ -1,7 +1,5 @@
-// utils/ny-time.ts
-
 /** IANA-таймзона користувача (fallback: 'UTC'; SSR-safe) */
-export function getUserTimeZone(): string {
+export function getUserTimeZone() {
   try {
     return Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
   } catch {
@@ -10,7 +8,7 @@ export function getUserTimeZone(): string {
 }
 
 /** Локаль користувача для форматування (SSR-safe) */
-export function getUserLocale(): string {
+export function getUserLocale() {
   if (typeof navigator !== 'undefined') {
     return (navigator.languages && navigator.languages[0]) || navigator.language || 'en-US';
   }
@@ -18,7 +16,7 @@ export function getUserLocale(): string {
 }
 
 /** Нормалізує "UTC+2", "UTC-05", "UTC+05:30" -> "+02:00", "-05:00", "+05:30" */
-function normalizeUtcOffsetStr(utcStr: string): string {
+function normalizeUtcOffsetStr(utcStr) {
   const s = utcStr.trim().toUpperCase().replace(/\s+/g, '');
   const m = /^UTC([+-])(\d{1,2})(?::?(\d{2}))?$/.exec(s);
   if (!m) throw new Error(`Invalid UTC offset string: "${utcStr}"`);
@@ -32,15 +30,15 @@ function normalizeUtcOffsetStr(utcStr: string): string {
 }
 
 /** Рік для НР у даному офсеті */
-function getTargetYearForOffset(now: Date, normOffset: string): number {
+function getTargetYearForOffset(now, normOffset) {
   const y = now.getFullYear();
   const thisNY = new Date(`${y}-01-01T00:00:00${normOffset}`);
   return now < thisNY ? y : y + 1;
 }
 
 /** Завжди форматує повну дату у TZ користувача з локаллю користувача */
-function formatFullInUserTZ(d: Date, userTZ: string, locale: string) {
-  const opts: Intl.DateTimeFormatOptions = {
+function formatFullInUserTZ(d, userTZ, locale) {
+  const opts = {
     timeZone: userTZ,
     day: '2-digit',
     month: 'short',
@@ -54,23 +52,12 @@ function formatFullInUserTZ(d: Date, userTZ: string, locale: string) {
 /**
  * Головна функція
  */
-export function getNextNYLocalForUtcOffset(
-  utcOffsetStr: string,
-  options?: { userTimeZone?: string; userLocale?: string; reference?: Date },
-): {
-  instant: Date;
-  localTime: string;
-  localFull: string;
-  display: string;
-  localDateDiffers: boolean;
-  year: number;
-  normOffset: string;
-} {
-  const userTZ = options?.userTimeZone || getUserTimeZone();
-  const userLocale = options?.userLocale || getUserLocale();
+export function getNextNYLocalForUtcOffset(utcOffsetStr, options = {}) {
+  const userTZ = options.userTimeZone || getUserTimeZone();
+  const userLocale = options.userLocale || getUserLocale();
   const norm = normalizeUtcOffsetStr(utcOffsetStr);
 
-  const now = options?.reference ?? new Date();
+  const now = options.reference ?? new Date();
   const year = getTargetYearForOffset(now, norm);
   const nyInstant = new Date(`${year}-01-01T00:00:00${norm}`);
 

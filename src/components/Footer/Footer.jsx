@@ -5,7 +5,7 @@ import SocialLinks from '@/components/common/SocialLinks';
 
 import styles from './Footer.module.scss';
 
-const Header = () => {
+const Footer = () => {
   const { t } = useTranslation('common');
 
   return (
@@ -29,4 +29,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Footer;
