@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import clsx from 'clsx';
+
 import styles from './FaqItem.module.scss';
 
 const FaqItem = ({ id, question, answer, isOpen, onToggle }) => {
@@ -21,10 +22,11 @@ const FaqItem = ({ id, question, answer, isOpen, onToggle }) => {
 
   return (
     <li className={clsx(styles.item, isOpen && styles.opened)}>
-      <button className={styles.toggle} onClick={onToggle}>
-        <span>{question}</span>
-        <span className={styles.icon}></span>
-      </button>
+      <div className={styles.toggle} onClick={onToggle}>
+        <h4>{question}</h4>
+        <button className={styles.icon}></button>
+      </div>
+
       <div
         ref={ref}
         className={styles.answer}

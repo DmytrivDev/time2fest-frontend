@@ -2,9 +2,9 @@
 @use "@/styles/mixins" as *;
 
 .section {
-	padding-top: 5.44rem;
-	padding-bottom: 6.25rem;
 	position: relative;
+	padding-top: 5.4375rem;
+	padding-bottom: 6.25rem;
 }
 
 .loadingTitle {
@@ -18,48 +18,81 @@
 
 .bgImage {
 	@include img-cover;
-	width: auto;
-	height: 100%;
 }
 
 .list {
 	margin-top: 2.5rem;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	gap: 1.38rem;
+	gap: 1.375rem;
 
 	li {
 		border-radius: 2.5rem;
-		padding: 2.5rem;
-		padding-bottom: 2rem;
+		padding: 2.5rem 2.5rem 2rem 2.5rem;
 		background-color: $color-gray2;
 		border: $border;
 	}
 }
 
 .topItem {
-	gap: 1.25rem;
+	gap: 0 1.25rem;
 	display: flex;
 	align-items: center;
 
 	span {
+		flex-shrink: 0;
 		width: 3.75rem;
-		min-width: 3.75rem;
 		height: 3.75rem;
 		border-radius: 50%;
 		background-color: $color-yellow;
 		@include flex-center;
 
 		img {
-			height: 2.125rem;
-			width: auto;
+			width: 1.875rem;
 		}
 	}
 }
 
 .text {
-	margin-top: 0.87rem;
-	font-size: 1rem;
+	margin-top: 0.875rem;
 	line-height: 1.6;
 	color: $color-sec2;
+}
+
+@media screen and (max-width: 1140px) {
+	.section {
+		padding-top: 3.25rem;
+		padding-bottom: 3.75rem;
+	}
+
+	.list {
+		margin-top: 2rem;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 0.9375rem;
+
+		li {
+			border-radius: 1.25rem;
+			padding: 1.5625rem 1.5625rem 1.25rem 1.5625rem;
+		}
+	}
+
+	.topItem {
+		gap: 0 0.625rem;
+
+		span {
+			width: 1.875rem;
+			height: 1.875rem;
+
+			img {
+				width: 1rem;
+			}
+		}
+	}
+
+	.text {
+		font-size: 0.875rem;
+	}
+}
+
+@media screen and (max-width: 768px) {
 }

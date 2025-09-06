@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Logo from '@/components/common/Logo';
-import SocialLinks from '@/components/common/SocialLinks';
+
+import Logo from '../common/Logo/Logo';
+import SocialLinks from '../common/SocialLinks/SocialLinks';
 
 import styles from './Footer.module.scss';
 
@@ -15,11 +15,13 @@ const Footer = () => {
           <div className={styles.part}>
             <Logo />
           </div>
+
           <div className={styles.part}>
-            <div className="copyright">
+            <p>
               © {new Date().getFullYear()} Time2Fest. {t('copy')}.
-            </div>
+            </p>
           </div>
+
           <div className={styles.part}>
             <SocialLinks />
           </div>

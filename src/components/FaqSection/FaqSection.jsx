@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import { api } from '@/utils/api';
 import { useQuery } from '@tanstack/react-query';
-import { getValidLocale } from '@/utils/getValidLocale';
-import { useAfterLoad } from '@/hooks/useAfterLoad';
 import clsx from 'clsx';
 
-import styles from './FaqSection.module.scss';
+import { api } from '../../utils/api';
+import { getValidLocale } from '../../utils/getValidLocale';
+import { useAfterLoad } from '../../hooks/useAfterLoad';
+
 import FaqItem from './FaqItem';
+
+import styles from './FaqSection.module.scss';
 
 const FaqSection = () => {
   const locale = getValidLocale();
@@ -33,6 +35,7 @@ const FaqSection = () => {
         <div className="container">
           <div className={styles.content}>
             <div className={clsx(styles.loadingTitle, 'loading')}></div>
+
             <div className={styles.grid}>
               <ul className={styles.column}>
                 {Array.from({ length: 3 }).map((_, index) => (
@@ -42,6 +45,7 @@ const FaqSection = () => {
                   ></li>
                 ))}
               </ul>
+
               <ul className={styles.column}>
                 {Array.from({ length: 3 }).map((_, index) => (
                   <li
@@ -72,6 +76,7 @@ const FaqSection = () => {
       <div className="container">
         <div className={styles.content}>
           <h2>{data.title}</h2>
+
           <div className={styles.grid}>
             {[left, right].map((column, colIdx) => (
               <ul key={colIdx} className={styles.column}>

@@ -1,9 +1,15 @@
 .logo {
-	width: 12.78138rem;
+	flex-shrink: 0;
 	display: block;
+	width: 12.7814rem;
 
 	img {
 		width: 100%;
-		height: auto;
+	}
+}
+
+@media screen and (max-width: 1140px) {
+	.logo {
+		width: 9.5625rem;
 	}
 }
