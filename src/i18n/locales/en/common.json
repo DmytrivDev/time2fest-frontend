@@ -1,8 +1,8 @@
 {
   "nav": {
-    "newYear": "New Year",
-    "about": "About",
-    "becomeStreamer": "Become a streamer",
+    "newYear": "Choose a country",
+    "about": "About the project",
+    "becomeStreamer": "Become an ambassador",
     "faq": "FAQ"
   },
   "log-in": "Sign in",
@@ -19,7 +19,7 @@
   "calendar_titlecountry": "Time2Fest! Next Stop",
   "calendar_desc": "Forget the usual traditions — we’re turning New Year’s celebrations upside down! Experience a unique New Year’s adventure together with millions of people at time2fest.com!",
   "hero__timertitle": "Time left until New Year:",
-  "hours": "hours", 
+  "hours": "hours",
   "minutes": "minutes",
   "seconds": "seconds",
   "copy": "All rights reserved",
