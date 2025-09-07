@@ -65,7 +65,7 @@ export default function ZoneZonesItem({
       </div>
 
       <span className={styles.next}>
-        <span>Список країн</span>
+        <span>{t('controls.countrylist')}</span>
       </span>
     </button>
   );

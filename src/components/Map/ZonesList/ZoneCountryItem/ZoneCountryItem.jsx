@@ -185,7 +185,7 @@ END:VCALENDAR`.trim();
         </div>
 
         <span className={styles.toggleBtn}>
-          <span>Розгорнути</span>
+          <span>{t(isOpen ? 'controls.hide' : 'controls.show')}</span>
         </span>
       </button>
 

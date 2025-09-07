@@ -29,7 +29,7 @@ export default function MapHintOverlay({ viewportRef }) {
             // і таймер на 4с для плавного зникання
             const timer = setTimeout(() => {
               startFadeOut();
-            }, 3500);
+            }, 4000);
 
             return () => clearTimeout(timer);
           }
