@@ -1,6 +1,51 @@
 @use "@/styles/mixins" as *;
+@use "@/styles/variables" as *;
 
-.nav__ist {
-	@include flex-btv;
-	gap: 2.2rem;
+.navmenu {
+	flex: 1 0 auto;
+	margin-left: 1.625rem;
+
+	ul {
+		display: flex;
+		align-items: center;
+		gap: 0 2.25rem;
+	}
+
+	li {
+		a {
+			padding-top: 0.125rem;
+			display: block;
+			font-size: 1.125rem;
+			font-weight: 500;
+			line-height: normal;
+			transition: all 0.3s;
+
+			&:hover {
+				color: $color-primary;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 1140px) {
+	.navmenu {
+		flex: 0 0 auto;
+		margin-left: 0;
+
+		ul {
+			flex-direction: column;
+			align-items: center;
+			gap: 1.875rem 0;
+		}
+
+		li {
+			a {
+				padding-top: 0.125rem;
+
+				&:hover {
+					color: $color-light;
+				}
+			}
+		}
+	}
 }
