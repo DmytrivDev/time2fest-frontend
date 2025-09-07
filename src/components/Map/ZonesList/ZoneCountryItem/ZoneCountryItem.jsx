@@ -163,11 +163,15 @@ END:VCALENDAR`.trim();
         id={`country-header-${id}`}
       >
         <div className={styles.itemTopLeft}>
-          {code && <CircleFlag countryCode={code} height="20" />}
-          <strong>{name}</strong>
+          <div className={styles.naming}>
+            {code && <CircleFlag countryCode={code} height="20" />}
+            <h3>{name}</h3>
+          </div>
+
           <span className={styles.timeZone}>
             {utcOffsetStr.replace('UTC', 'UTC ')}
           </span>
+
           <ul className={styles.propsList}>
             <li
               style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}
@@ -176,13 +180,13 @@ END:VCALENDAR`.trim();
               <span>{t('controls.countdown')}</span>
             </li>
           </ul>
+
+          <span className={styles.display}>{ny.display}</span>
         </div>
 
-        <div className={styles.itemTopRight}>
-          <span>
-            {ny.display}
-          </span>
-        </div>
+        <span className={styles.toggleBtn}>
+          <span>Розгорнути</span>
+        </span>
       </button>
 
       <div
