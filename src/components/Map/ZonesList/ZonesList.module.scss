@@ -20,8 +20,9 @@
 
 .zonesList {
 	margin-top: 2.5rem;
+
 	ul {
-		gap: 1.25rem;
+		gap: 1.25rem 0;
 		display: flex;
 		flex-direction: column;
 	}
@@ -87,8 +88,17 @@
 }
 
 @media screen and (max-width: 1140px) {
+	.zonesList {
+		margin-top: 1.875rem;
+
+		ul {
+			gap: 0.9375rem 0;
+		}
+	}
+
 	.backBtn {
 		gap: 0 0.75rem;
 		padding: 0.625rem 1.25rem 0.625rem 0.75rem;
 	}
 }
+

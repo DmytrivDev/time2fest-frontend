@@ -108,11 +108,11 @@
 }
 
 .imageWrapper {
-	width: 86.875rem;
-	left: 15.625rem;
 	position: absolute;
 	bottom: -0.625rem;
+	left: 15.625rem;
 	z-index: 0;
+	width: 86.875rem;
 
 	video {
 		width: 100%;
@@ -136,7 +136,6 @@
 		order: 3;
 		gap: 1rem;
 		margin-top: 0;
-		padding-top: clamp(19rem, 40%, 40%);
 
 		li {
 			border-radius: 1.25rem;
@@ -161,24 +160,34 @@
 	}
 
 	.imageWrapper {
+		position: relative;
+		bottom: auto;
+		left: auto;
 		width: 100%;
-		bottom: 9.375rem;
-		left: 50%;
-		transform: translateX(-50%);
+		padding-top: clamp(19rem, 40%, 20.625rem);
 
-		&::before {
-			content: "";
+		div {
 			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			z-index: 5;
-			background: linear-gradient(
-				180deg,
-				rgba(2, 1, 1, 0) 0%,
-				rgba(2, 1, 1, 1) 100%
-			);
+			bottom: -1.875rem;
+			left: 50%;
+			transform: translateX(-50%);
+			z-index: 1;
+			width: clamp(39rem, 100%, 51.5rem);
+
+			&::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				z-index: 5;
+				background: linear-gradient(
+					180deg,
+					rgba(2, 1, 1, 0) 0%,
+					rgba(2, 1, 1, 1) 100%
+				);
+			}
 		}
 	}
 }
@@ -187,8 +196,12 @@
 	.list {
 		grid-template-columns: repeat(2, 1fr);
 	}
+}
 
+@media screen and (max-width: 475px) {
 	.imageWrapper {
-		bottom: 15rem;
+		div {
+			transform: translateX(-60%);
+		}
 	}
 }

@@ -96,7 +96,9 @@ const BecomeSection = () => {
           </div>
 
           <div className={styles.imageWrapper}>
-            <video src={girlImage} autoPlay muted loop playsInline />
+            <div>
+              <video src={girlImage} autoPlay muted loop playsInline />
+            </div>
           </div>
         </div>
       </div>

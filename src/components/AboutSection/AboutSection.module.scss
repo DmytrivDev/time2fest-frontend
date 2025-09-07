@@ -107,9 +107,12 @@
 	}
 
 	.topItem {
+		align-items: start;
 		gap: 0 0.625rem;
 
 		span {
+			position: relative;
+			top: -0.3125rem;
 			width: 1.875rem;
 			height: 1.875rem;
 
@@ -125,4 +128,7 @@
 }
 
 @media screen and (max-width: 768px) {
+	.list {
+		grid-template-columns: 1fr;
+	}
 }
