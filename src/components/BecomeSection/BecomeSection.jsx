@@ -1,26 +1,27 @@
-import { useQuery } from '@tanstack/react-query'
-import { getValidLocale } from '@/utils/getValidLocale'
-import { api } from '@/utils/api'
-import clsx from 'clsx'
-import { useAfterLoad } from '@/hooks/useAfterLoad'
+import { useQuery } from '@tanstack/react-query';
+import clsx from 'clsx';
 
-import styles from './BecomeSection.module.scss'
-import girlImage from '@assets/become/video.mp4'
+import { api } from '../../utils/api';
+import { useAfterLoad } from '../../hooks/useAfterLoad';
+import { getValidLocale } from '../../utils/getValidLocale';
 
-export default function BecomeSection() {
-  const locale = getValidLocale()
+import girlImage from '../../assets/become/video.mp4';
+
+import styles from './BecomeSection.module.scss';
+
+const BecomeSection = () => {
+  const locale = getValidLocale();
   const pageLoaded = useAfterLoad();
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['become', locale],
     queryFn: async () => {
-      const res = await api.get(`/become?locale=${locale}`)
-      return res.data
+      const res = await api.get(`/become?locale=${locale}`);
+      return res.data;
     },
     staleTime: 5 * 60 * 1000,
     enabled: pageLoaded, // 🚀 запит лише після window.load
-  })
-
+  });
 
   if (!pageLoaded || isLoading) {
     return (
@@ -31,13 +32,21 @@ export default function BecomeSection() {
               <span className={clsx(styles.loadingTitle, 'loading')}></span>
               <span className={clsx(styles.loadingTitle, 'loading')}></span>
             </div>
+
             <ul className={styles.list}>
               {Array.from({ length: 4 }).map((_, index) => (
-                <li key={index} className={clsx(styles.loadingItem, 'loading')} />
+                <li
+                  key={index}
+                  className={clsx(styles.loadingItem, 'loading')}
+                />
               ))}
             </ul>
+
             <div className={styles.actions}>
-              <div className={clsx(styles.loadingBtn, 'btn_primary loading')}></div>
+              <div
+                className={clsx(styles.loadingBtn, 'btn_primary loading')}
+              ></div>
+
               <p className={clsx(styles.subtext, styles.subtextLoading)}>
                 <span className="loading"></span>
                 <span className="loading"></span>
@@ -46,10 +55,10 @@ export default function BecomeSection() {
           </div>
         </div>
       </section>
-    )
+    );
   }
 
-  if (error || !data) return null
+  if (error || !data) return null;
 
   return (
     <section id="become" className={styles.section}>
@@ -64,7 +73,7 @@ export default function BecomeSection() {
           <ul className={styles.list}>
             {data.items.map(item => (
               <li key={item.id}>
-                <p>{item.text}</p>
+                <h4>{item.text}</h4>
               </li>
             ))}
           </ul>
@@ -76,12 +85,13 @@ export default function BecomeSection() {
               className="btn_primary"
               onClick={() => {
                 if (typeof window !== 'undefined' && window.umami) {
-                  window.umami.track('click_google_form')
+                  window.umami.track('click_google_form');
                 }
               }}
             >
               {data.buttontext}
             </a>
+
             <p className={styles.subtext}>{data.text}</p>
           </div>
 
@@ -91,5 +101,7 @@ export default function BecomeSection() {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
+
+export default BecomeSection;

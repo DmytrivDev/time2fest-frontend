@@ -2,7 +2,7 @@
 @use "@/styles/mixins" as *;
 
 .section {
-	padding-top: 11.06rem;
+	padding-top: 11.0625rem;
 	position: relative;
 	overflow: hidden;
 }
@@ -50,14 +50,8 @@
 	}
 }
 
-.bgImage {
-	@include img-cover;
-	width: auto;
-	height: 100%;
-}
-
 .content {
-	max-width: 52.44rem;
+	max-width: 52.5rem;
 	padding-bottom: 9.38rem;
 	position: relative;
 
@@ -74,58 +68,127 @@
 }
 
 .list {
-	margin-top: 2.2rem;
+	margin-top: 2.1875rem;
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
-	gap: 1.38rem;
+	gap: 1.375rem;
 
 	li {
-		border-radius: 2.5rem;
-		padding: 4.5rem 1.45rem 1.38rem 1.85rem;
-		border: $border;
-		font-size: 1.125rem;
-		font-style: normal;
-		font-weight: 600;
-		line-height: 160%;
 		position: relative;
+		border-radius: 2.5rem;
+		padding: 4.5rem 1.375rem 1.375rem 1.875rem;
+		border: $border;
+		line-height: 160%;
 		background-color: $color-dark;
 
 		&::after {
-			width: 1.25rem;
-			height: 1.25rem;
-			top: 1.87rem;
-			left: 1.85rem;
-			border-radius: 50%;
-			background-color: $color-primary;
 			content: "";
 			position: absolute;
+			width: 1.25rem;
+			height: 1.25rem;
+			top: 1.875rem;
+			left: 1.875rem;
+			border-radius: 50%;
+			background-color: $color-primary;
 		}
 	}
 }
 
 .actions {
-	margin-top: 3.13rem;
-	gap: 2.06rem;
-	@include flex-btv;
-	display: inline-flex;
+	display: flex;
+	align-items: center;
+	gap: 2rem;
+	margin-top: 3.125rem;
 }
 
 .subtext {
-	font-size: 1rem;
+	color: $color-sec2;
 	line-height: 1.6;
 	max-width: 16.625rem;
 }
 
 .imageWrapper {
-	width: 86.88888rem;
-	height: 48.875rem;
-	left: 18.75rem;
+	width: 86.875rem;
+	left: 15.625rem;
 	position: absolute;
-	bottom: 0;
+	bottom: -0.625rem;
 	z-index: 0;
 
 	video {
 		width: 100%;
 		height: 100%;
+	}
+}
+
+@media screen and (max-width: 1140px) {
+	.section {
+		padding-top: 3.375rem;
+	}
+
+	.content {
+		display: flex;
+		flex-direction: column;
+		max-width: none;
+		padding-bottom: 3.75rem;
+	}
+
+	.list {
+		order: 3;
+		gap: 1rem;
+		margin-top: 0;
+		padding-top: clamp(19rem, 40%, 40%);
+
+		li {
+			border-radius: 1.25rem;
+			padding: 3.5rem 1.25rem 1rem 1.25rem;
+
+			&::after {
+				top: 1.25rem;
+				left: 1.25rem;
+			}
+		}
+	}
+
+	.actions {
+		flex-direction: column-reverse;
+		align-items: start;
+		margin-top: 1rem;
+	}
+
+	.subtext {
+		font-size: 0.875rem;
+		max-width: 20rem;
+	}
+
+	.imageWrapper {
+		width: 100%;
+		bottom: 9.375rem;
+		left: 50%;
+		transform: translateX(-50%);
+
+		&::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			z-index: 5;
+			background: linear-gradient(
+				180deg,
+				rgba(2, 1, 1, 0) 0%,
+				rgba(2, 1, 1, 1) 100%
+			);
+		}
+	}
+}
+
+@media screen and (max-width: 868px) {
+	.list {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.imageWrapper {
+		bottom: 15rem;
 	}
 }

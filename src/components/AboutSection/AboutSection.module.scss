@@ -5,6 +5,32 @@
 	position: relative;
 	padding-top: 5.4375rem;
 	padding-bottom: 6.25rem;
+
+	picture {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translateX(-50%) translateY(-50%);
+		z-index: 1;
+		height: 100%;
+		width: 112.5rem;
+
+		&::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			z-index: 2;
+			background: linear-gradient(
+				180deg,
+				rgba(2, 1, 1, 1) 0%,
+				rgba(2, 1, 1, 0) 50%,
+				rgba(2, 1, 1, 1) 100%
+			);
+		}
+	}
 }
 
 .loadingTitle {
@@ -63,6 +89,10 @@
 	.section {
 		padding-top: 3.25rem;
 		padding-bottom: 3.75rem;
+
+		picture {
+			width: 100%;
+		}
 	}
 
 	.list {

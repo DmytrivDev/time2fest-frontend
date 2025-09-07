@@ -8,7 +8,7 @@ const HomePage = () => {
   return (
     <>
       <Hero />
-      <Map />
+      {/* <Map /> */}
       <AboutSection />
       <BecomeSection />
       <FaqSection />

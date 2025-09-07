@@ -85,7 +85,7 @@ export default function ZonesList({
           <div className={styles.backRow}>
             <button
               type="button"
-              className={clsx(styles.backBtn, 'btn_secondary')}
+              className={clsx(styles.backBtn, 'btn_transp')}
               onClick={onBack}
               aria-label={t('controls.back_to_zones')}
             >
@@ -100,7 +100,7 @@ export default function ZonesList({
               className={clsx(
                 'loading',
                 styles.loadingItem,
-                type === 'zones' && styles.loadingZones,
+                type === 'zones' && styles.loadingZones
               )}
             />
           ))}
@@ -132,7 +132,7 @@ export default function ZonesList({
           <div className={styles.backRow}>
             <button
               type="button"
-              className={clsx(styles.backBtn, 'btn_secondary')}
+              className={clsx(styles.backBtn, 'btn_transp')}
               onClick={onBack}
               aria-label={t('controls.back_to_zones')}
             >
@@ -152,7 +152,7 @@ export default function ZonesList({
         <div className={styles.backRow}>
           <button
             type="button"
-            className={clsx(styles.backBtn, 'btn_secondary')}
+            className={clsx(styles.backBtn, 'btn_transp')}
             onClick={onBack}
             aria-label={t('controls.back_to_zones')}
           >
@@ -163,19 +163,19 @@ export default function ZonesList({
 
       <ul>
         {type === 'zones' &&
-          list.map((z) => (
+          list.map(z => (
             <li key={z.id}>
               <ZoneZonesItem
                 id={z.id}
                 code={z.code}
                 countryCodes={z.countryCodes}
-                onClick={(code) => onZonePick?.(code)}
+                onClick={code => onZonePick?.(code)}
               />
             </li>
           ))}
 
         {type === 'countries' &&
-          list.map((c) => (
+          list.map(c => (
             <li key={c.id}>
               <ZoneCountryItem
                 id={c.id}

@@ -1,5 +1,6 @@
 @use "./variables" as *;
 @use "./mixins" as *;
+@use "./btns" as *;
 
 .loading {
 	border: none !important;
@@ -14,23 +15,21 @@
 		top: -3rem;
 		bottom: -3rem;
 		transform: rotate(15deg);
-		left: -10%;
+		left: -20%;
 		box-shadow: $card-shadow;
 		-webkit-box-shadow: $card-shadow;
 		-moz-box-shadow: $card-shadow;
-		animation: slideLoop 1.3s linear infinite;
+		animation: slideLoop 1.5s linear infinite;
 	}
 }
 
 @keyframes slideLoop {
 	0% {
-		left: -10%;
+		left: -20%;
 	}
-	60% {
-		left: 110%;
-	}
+
 	100% {
-		left: 110%;
+		left: 140%;
 	}
 }
 
@@ -40,21 +39,23 @@
 }
 
 .btn_transp {
-	@include button-base;
-	background-color: transparent;
-	color: $color-primary;
+	@include button-transp;
 }
 
-.btn_secondary {
-	@include button-secondary;
-	position: relative;
+.btn_small {
+	@include button-small;
+}
 
-	&::after {
-		@include absolute;
-		border-radius: 3rem;
-		border: 0.0625rem solid $color-light;
-		content: "";
-		display: block;
+@media screen and (max-width: 1140px) {
+	.btn_primary,
+	.btn_transp {
+		font-size: 0.875rem;
+		padding: 0.875rem 1.1875rem;
+	}
+
+	.btn_small {
+		font-size: 0.875rem;
+		padding: 0.6875rem 1.1875rem;
 	}
 }
 

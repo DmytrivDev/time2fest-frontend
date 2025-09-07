@@ -1,6 +1,0 @@
-@use '@/styles/mixins' as *;
-
-.login__btn {
-    @include button-base;
-    @include button-sm;
-}

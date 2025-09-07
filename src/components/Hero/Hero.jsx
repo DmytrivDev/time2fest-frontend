@@ -1,8 +1,8 @@
-import React from 'react';
+import { useCountdownToTimezone } from '../../hooks/useKiritimatiNYCountdown';
+
 import HeroContent from './HeroContent';
 import HeroCountdown from './HeroCountdown';
 
-import { useCountdownToTimezone } from '@/hooks/useKiritimatiNYCountdown';
 import styles from './Hero.module.scss';
 
 const Hero = () => {

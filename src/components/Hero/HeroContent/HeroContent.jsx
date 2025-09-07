@@ -96,7 +96,7 @@ END:VCALENDAR`.trim();
         >
           {t('hero_btn1')}
         </button>
-        <button onClick={addToCalendar} className="btn btn_secondary">
+        <button onClick={addToCalendar} className="btn btn_transp">
           {t('hero_btn2')}
         </button>
       </div>
