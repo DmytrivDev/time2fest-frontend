@@ -1,40 +1,69 @@
 @use "@/styles/variables" as *;
 @use "@/styles/mixins" as *;
 
-.hero__left {
-	padding-top: 3rem;
-	max-width: 44.3125rem;
+.hero_left {
 	position: relative;
 	z-index: 2;
+	padding-top: 3rem;
+	max-width: 44.375rem;
 }
 
-.hero__badges {
-	@include flex-btv;
-	display: inline-flex;
+.hero_badges {
+	display: flex;
+	flex-wrap: wrap;
 	gap: 1.25rem;
+	margin-bottom: 1.25rem;
 
 	li {
 		@include flex-btv;
 		color: $color-sec;
 		background-color: $color-bages;
 		padding: 0.5625rem 0.8125rem;
+		line-height: normal;
 		gap: 0.4375rem;
 		border-radius: 1.25rem;
+
+		svg {
+			position: relative;
+			top: -0.0625rem;
+		}
 	}
 }
 
-.hero__title {
-	margin-top: 1.25rem;
-}
-
 .hero_description {
-	margin-top: 0.94rem;
+	margin-top: 0.9375rem;
+	font-size: 1.125rem;
 	line-height: 1.8;
 }
 
 .hero_buttons {
-	@include flex-btv;
-	display: inline-flex;
-	gap: 1.94rem;
-	margin-top: 3.12rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1.875rem;
+	margin-top: 3.125rem;
+}
+
+@media screen and (max-width: 1140px) {
+	.hero_left {
+		padding-top: 0;
+		max-width: none;
+	}
+
+	.hero_badges {
+		gap: 0.625rem;
+		margin-bottom: 2rem;
+
+		li {
+			font-size: 0.875rem;
+		}
+	}
+
+	.hero_description {
+		font-size: 0.875rem;
+	}
+
+	.hero_buttons {
+		gap: 1rem;
+		margin-top: 2rem;
+	}
 }

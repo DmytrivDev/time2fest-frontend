@@ -1,10 +1,9 @@
-// Map.jsx
-import React, { useEffect, useRef, useState } from 'react';
-import * as d3 from 'd3';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import { useQuery } from '@tanstack/react-query';
 import { CircleFlag } from 'react-circle-flags';
+import * as ToggleGroup from '@radix-ui/react-toggle-group';
+import * as d3 from 'd3';
 
 import Zones from './Zones';
 import TimeLines from './TimeLines';
@@ -13,10 +12,10 @@ import DayLine from './DayLine';
 import ZonesList from './ZonesList';
 import MapHintOverlay from './MapHintOverlay';
 
-import { useTimeZoneCountries } from '@/hooks/useTimeZoneCountries';
-import { getValidLocale } from '@/utils/getValidLocale';
-import { api } from '@/utils/api';
-import { useMapStore } from '@/stores/useMapStore';
+import { api } from '../../utils/api';
+import { getValidLocale } from '../../utils/getValidLocale';
+import { useMapStore } from '../../stores/useMapStore';
+import { useTimeZoneCountries } from '../../hooks/useTimeZoneCountries';
 
 import styles from './Map.module.scss';
 
@@ -133,6 +132,7 @@ export default function Map() {
       <div className="container">
         <div className={styles.top}>
           <h2>{t('controls.map_title')}</h2>
+
           <ToggleGroup.Root
             type="single"
             value={mode}
@@ -142,6 +142,7 @@ export default function Map() {
             <ToggleGroup.Item value="map" className={styles.toggleItem}>
               <span>{t('controls.map')}</span>
             </ToggleGroup.Item>
+
             <ToggleGroup.Item value="list" className={styles.toggleItem}>
               <span>{t('controls.list')}</span>
             </ToggleGroup.Item>

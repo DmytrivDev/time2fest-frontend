@@ -1,3 +1,5 @@
+@use "./variables" as *;
+
 h1,
 h2,
 h3 {
@@ -18,20 +20,6 @@ h4 {
 	font-size: 1.125rem;
 	font-weight: 600;
 	line-height: 1.44;
-}
-
-.subtitle {
-	font-size: 1rem;
-	// color: $color-gray;
-	line-height: 1.6;
-}
-
-.text-center {
-	text-align: center;
-}
-
-.uppercase {
-	text-transform: uppercase;
 }
 
 @media screen and (max-width: 1140px) {

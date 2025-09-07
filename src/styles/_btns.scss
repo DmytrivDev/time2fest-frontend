@@ -1,0 +1,43 @@
+@use "./variables" as *;
+
+@mixin btn-main {
+	flex-shrink: 0;
+	display: block;
+	text-align: center;
+	font-weight: 500;
+	padding: 1.5rem 1.8125rem;
+	line-height: normal;
+	border-radius: 6.25rem;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 100%;
+	transition: all 0.3s;
+}
+
+@mixin button-base {
+	@include btn-main;
+	background-color: $color-primary;
+	border: 0.0625rem solid $color-primary;
+
+	&:hover {
+		background-color: $red2;
+	}
+}
+
+@mixin button-transp {
+	@include btn-main;
+	background-color: $color-dark-rgba;
+	border: 0.0625rem solid $color-light;
+
+	&:hover {
+		background-color: $red2;
+		border-color: $red2;
+	}
+}
+
+@mixin button-small {
+	@include btn-main;
+	@include button-base;
+	padding: 0.875rem 1.5rem;
+}

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import { IoTime, IoGlobeOutline, IoPersonAddSharp } from 'react-icons/io5';
 
@@ -77,18 +76,21 @@ END:VCALENDAR`.trim();
   };
 
   return (
-    <div className={styles.hero__left}>
-      <ul className={styles.hero__badges}>
+    <div className={styles.hero_left}>
+      <ul className={styles.hero_badges}>
         {badges.map((badge, index) => (
           <li key={index}>
             {badge.icon} {badge.label}
           </li>
         ))}
       </ul>
-      <h1 className={styles.hero__title}>{t('hero_title')}</h1>
+
+      <h1 className={styles.hero_title}>{t('hero_title')}</h1>
+
       <p className={styles.hero_description}>
         <Trans i18nKey="hero_desc" components={[<br />]} />
       </p>
+
       <div className={styles.hero_buttons}>
         <button
           onClick={() => scrollToBlock('new-year')}
@@ -96,7 +98,8 @@ END:VCALENDAR`.trim();
         >
           {t('hero_btn1')}
         </button>
-        <button onClick={addToCalendar} className="btn btn_secondary">
+
+        <button onClick={addToCalendar} className="btn btn_transp">
           {t('hero_btn2')}
         </button>
       </div>

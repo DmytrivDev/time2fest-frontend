@@ -1,15 +1,31 @@
 @use "@/styles/mixins" as *;
 
 .hero {
-	padding-top: 9.66rem;
-	padding-bottom: 16.34rem;
 	position: relative;
+	padding-top: 9.375rem;
+	padding-bottom: 16.25rem;
+
+	&::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 2;
+		background: linear-gradient(
+			180deg,
+			rgba(2, 1, 1, 0) 0%,
+			rgba(2, 1, 1, 0) 70%,
+			rgba(2, 1, 1, 1) 100%
+		);
+	}
 }
 
 .overlay {
 	@include absolute;
-	background: linear-gradient(95deg, #020101 24.56%, rgba(2, 1, 1, 0) 89.02%);
 	z-index: 1;
+	background: linear-gradient(95deg, #020101 24.56%, rgba(2, 1, 1, 0) 89.02%);
 }
 
 .background {
@@ -20,4 +36,15 @@
 	@include flex-btv;
 	align-items: flex-start;
 	align-content: flex-start;
+}
+
+@media screen and (max-width: 1140px) {
+	.hero {
+		padding: 3.75rem 0;
+	}
+
+	.hero__inner {
+		flex-direction: column;
+		gap: 5.375rem 0;
+	}
 }
