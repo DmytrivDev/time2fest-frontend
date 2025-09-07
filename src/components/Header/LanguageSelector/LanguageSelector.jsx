@@ -1,7 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { LANGS, DEFAULT_LANG } from '@/i18n/languages';
+import clsx from 'clsx';
 
 import styles from './LanguageSelector.module.scss';
 
@@ -50,22 +51,29 @@ const LanguageSelector = () => {
   }, [open]);
 
   return (
-    <div className={styles.lang__selector} ref={wrapperRef}>
-      <button
-        onClick={() => setOpen(!open)}
-        className={open ? styles.opened : ''}
-      >
-        {currentLang.label} <span></span>
+    <div
+      className={clsx(styles.lang__selector, {
+        [styles['is-open']]: open,
+      })}
+      ref={wrapperRef}
+    >
+      <button onClick={() => setOpen(!open)}>
+        <span>{currentLang.label}</span>
+        <span>Мова сайту:</span>
       </button>
-      {open && (
-        <ul>
-          {LANGS.map(l => (
-            <li key={l.code} onClick={() => handleSelect(l)}>
-              {l.label}
-            </li>
-          ))}
-        </ul>
-      )}
+
+      <ul>
+        {LANGS.map(l => (
+          <li key={l.code} onClick={() => handleSelect(l)}>
+            {l.label}
+            <span
+              style={{
+                opacity: l.code === i18n.language ? '1' : '0',
+              }}
+            ></span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

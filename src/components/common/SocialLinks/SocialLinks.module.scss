@@ -2,7 +2,7 @@
 @use "@/styles/variables" as *;
 
 .socials__list {
-	@include flex-btv;
+	display: flex;
 	gap: 0 0.3125rem;
 
 	a {

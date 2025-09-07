@@ -1,43 +1,64 @@
-import React, { useState } from 'react';
-import Logo from '@/components/common/Logo';
+import { useState } from 'react';
+import clsx from 'clsx';
+
+import { useMediaQuery } from '../../hooks/useMediaQuery';
+import { useVh } from '../../hooks/useVh';
+
+import Logo from '../common/Logo/Logo';
+import SocialLinks from '../common/SocialLinks/SocialLinks';
+
 import NavMenu from './NavMenu';
-import SocialLinks from '@/components/common/SocialLinks';
-import AuthBlock from './AuthBlock';
+import UserMenu from './UserMenu';
+import LanguageSelector from './LanguageSelector';
+import MobMenu from './MobMenu/MobMenu';
 
 import styles from './Header.module.scss';
 
 const Header = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const isMobile = useMediaQuery(1140);
+  useVh();
+
   return (
-    <header className={styles.header}>
-      <div className="container">
-        <div className={styles.header__inner}>
-          <div className={styles.header__part}>
+    <header
+      className={clsx(styles.header, {
+        [styles['is-open']]: isMobileMenuOpen,
+      })}
+    >
+      <div className={styles.header__main}>
+        <div className="container">
+          <div className={styles.header__body}>
             <Logo />
-            <NavMenu />
-          </div>
-          <div className={styles.header__part}>
-            <SocialLinks />
-            <AuthBlock />
-            <button
-              className="burger"
-              onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
-            >
-              <span />
-              <span />
-              <span />
-            </button>
+
+            {!isMobile && <NavMenu />}
+
+            {!isMobile && <SocialLinks />}
+
+            <div className={styles.header__actions}>
+              {/* <UserMenu /> */}
+
+              {!isMobile && <LanguageSelector />}
+
+              <button
+                onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+                className={clsx(styles.burger, {
+                  [styles['is-open']]: isMobileMenuOpen,
+                })}
+              >
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
+            </div>
           </div>
         </div>
-
-        {isMobileMenuOpen && (
-          <div className="mobile-menu">
-            <NavMenu isMobile />
-            <SocialLinks isMobile />
-          </div>
-        )}
       </div>
+
+      <MobMenu
+        isMobileMenuOpen={isMobileMenuOpen}
+        setMobileMenuOpen={setMobileMenuOpen}
+      />
     </header>
   );
 };

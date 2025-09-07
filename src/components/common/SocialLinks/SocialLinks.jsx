@@ -1,4 +1,3 @@
-import React from 'react';
 import { FaFacebookF, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { BsThreads } from 'react-icons/bs';
 
@@ -27,7 +26,7 @@ const socials = [
   },
 ];
 
-const SocialLinks = ({ isMobile = false }) => (
+const SocialLinks = () => (
   <ul className={styles.socials__list}>
     {socials.map(({ href, icon, label }) => (
       <li key={label}>

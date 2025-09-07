@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { SUPPORTED_LANGS } from '@/i18n/languages'; // твій файл з мовами
+import { SUPPORTED_LANGS } from '@/i18n/languages';
+
 import styles from './NavMenu.module.scss';
 
 const links = [
@@ -11,7 +12,7 @@ const links = [
   { to: '/#faq', i18n: 'nav.faq' },
 ];
 
-const NavMenu = () => {
+const NavMenu = ({ setMobileMenuOpen }) => {
   const { t } = useTranslation('common');
   const navigate = useNavigate();
   const location = useLocation();
@@ -42,6 +43,11 @@ const NavMenu = () => {
     } else {
       navigate(link);
     }
+
+    // ⬇️ закриваємо меню після кліку
+    if (setMobileMenuOpen) {
+      setMobileMenuOpen(false);
+    }
   };
 
   useEffect(() => {
@@ -53,15 +59,11 @@ const NavMenu = () => {
   }, [location]);
 
   return (
-    <nav>
-      <ul className={styles.nav__ist}>
+    <nav className={styles.navmenu}>
+      <ul>
         {links.map(({ to, i18n }) => (
           <li key={to}>
-            <a
-              href={to}
-              onClick={e => handleClick(e, to)}
-              className={styles.nav__link}
-            >
+            <a href={to} onClick={e => handleClick(e, to)}>
               {t(i18n)}
             </a>
           </li>
