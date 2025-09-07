@@ -2,12 +2,12 @@
 @use "@/styles/variables" as *;
 
 .map {
-	padding-top: 9.63rem;
-	padding-bottom: 6.56rem;
+	padding-top: 9.625rem 0 6.25rem 0;
 }
 
 .top {
 	@include flex-btv;
+	flex-wrap: wrap;
 }
 
 .wrap {
@@ -185,7 +185,7 @@
 }
 
 .toggleWrap {
-	display: inline-flex;
+	display: flex;
 	border: 0.0625rem solid $color-light;
 	border-radius: 6.25rem;
 	overflow: hidden;
@@ -193,9 +193,10 @@
 }
 
 .toggleItem {
+	flex: 1 1 auto;
 	color: $color-light;
 	padding: 1.25rem 1.5rem;
-	min-width: 7.5rem;
+	min-width: 8rem;
 	font-size: 1.125rem;
 	font-weight: 500;
 	line-height: normal;
@@ -273,12 +274,29 @@
 }
 
 @media screen and (max-width: 1140px) {
+	.map {
+		padding: 3.375rem 0 3.75rem 0;
+	}
+
 	.wrap {
 		height: 49vw;
 	}
 
 	.toggleItem {
 		padding: 1.125rem 1.5rem;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.top {
+		flex-direction: column;
+		align-items: start;
+		gap: 1.875rem 0;
+	}
+
+	.toggleWrap {
+		margin: 0 auto;
+		width: 100%;
 	}
 }
 

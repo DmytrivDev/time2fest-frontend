@@ -1,10 +1,11 @@
 import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import clsx from 'clsx';
 import { IoWarningOutline } from 'react-icons/io5';
+import clsx from 'clsx';
 
 import ZoneCountryItem from './ZoneCountryItem';
 import ZoneZonesItem from './ZoneZonesItem';
+
 import styles from './ZonesList.module.scss';
 
 // ---- нормалізація country (для режиму countries) ----
@@ -35,9 +36,15 @@ function normalizeZone(item) {
         ? attrs.countries
         : [];
 
-    codes = raw.map((c) => {
+    codes = raw.map(c => {
       if (typeof c === 'string') return c;
-      return c?.attributes?.CountryCode ?? c?.attributes?.code ?? c?.CountryCode ?? c?.code ?? '';
+      return (
+        c?.attributes?.CountryCode ??
+        c?.attributes?.code ??
+        c?.CountryCode ??
+        c?.code ??
+        ''
+      );
     });
   }
 
@@ -46,9 +53,9 @@ function normalizeZone(item) {
     new Set(
       (codes || [])
         .map(String)
-        .map((s) => s.trim().toUpperCase())
-        .filter((s) => /^[A-Z]{2}$/.test(s)),
-    ),
+        .map(s => s.trim().toUpperCase())
+        .filter(s => /^[A-Z]{2}$/.test(s))
+    )
   );
 
   return { id, code, countryCodes };
@@ -67,13 +74,15 @@ export default function ZonesList({
 
   // відкриття country-акордеонів лише в режимі countries
   const [openedId, setOpenedId] = useState(null);
-  const toggle = (id) => setOpenedId((prev) => (prev === id ? null : id));
+  const toggle = id => setOpenedId(prev => (prev === id ? null : id));
 
   const showBackBtn = type === 'countries' && typeof onBack === 'function';
 
   const list = useMemo(() => {
     if (!Array.isArray(items)) return [];
-    return type === 'zones' ? items.map(normalizeZone) : items.map(normalizeCountry);
+    return type === 'zones'
+      ? items.map(normalizeZone)
+      : items.map(normalizeCountry);
   }, [items, type]);
 
   // ---- LOADING ----
