@@ -36,7 +36,10 @@
     "add_to_shel": "Add a reminder",
     "error": "An error occurred while loading the list",
     "no_data": "No data available yet",
-    "back_to_zones": "Back to time zones"
+    "back_to_zones": "Back to time zones",
+    "countrylist": "Country list",
+    "show": "Show",
+    "hide": "Hide"
   },
   "tooltip": {
     "by_your_time": "(your local time)",

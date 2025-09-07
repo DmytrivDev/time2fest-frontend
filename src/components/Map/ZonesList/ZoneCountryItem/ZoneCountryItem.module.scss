@@ -246,4 +246,10 @@
 		width: 100%;
 		margin-bottom: 0.625rem;
 	}
+	.propsList {
+		margin-bottom: 0.25rem;
+		width: 100%;
+		justify-content: flex-start;
+		flex-direction: row !important;
+	}
 }

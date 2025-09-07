@@ -36,7 +36,10 @@
     "add_to_shel": "Agregar un recordatorio",
     "error": "Ocurrió un error al cargar la lista",
     "no_data": "Aún no hay datos disponibles",
-    "back_to_zones": "Volver a las zonas horarias"
+    "back_to_zones": "Volver a las zonas horarias",
+    "countrylist": "Lista de países",
+    "show": "Mostrar",
+    "hide": "Ocultar"
   },
   "tooltip": {
     "by_your_time": "(tu hora local)",
