@@ -70,9 +70,9 @@ export default function Zone({ onZoneClick }) {
       <Oman ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
       <UAE ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
       <Armania ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
-      <Azerbaijan ny={ny} utc={ZONE_ID} onClick={Azerbaijan} />
-      <Georgia ny={ny} utc={ZONE_ID} onClick={Azerbaijan} />
-      <Russia ny={ny} utc={ZONE_ID} onClick={Azerbaijan} /> 
+      <Azerbaijan ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <Georgia ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      <Russia ny={ny} utc={ZONE_ID} onClick={onZoneClick} /> 
     </g>
   );
 }

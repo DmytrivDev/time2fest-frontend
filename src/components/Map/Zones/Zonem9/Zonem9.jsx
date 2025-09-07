@@ -14,7 +14,7 @@ export default function Zone({ onZoneClick }) {
   };
 
   return (
-    <g className={clsx('zone', 'yellowCtrs')}>
+    <g className={clsx('zone', 'redCtrs')}>
       <g
         className="zoneM"
         data-tt="1"
