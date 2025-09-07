@@ -20,8 +20,19 @@ const NavMenu = ({ setMobileMenuOpen }) => {
   const smoothScrollToHash = hash => {
     const id = hash.replace('#', '');
     const el = document.getElementById(id);
+
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+      const header = document.querySelector('header'); // якщо хедер завжди один
+      const headerHeight = header ? header.offsetHeight : 0;
+
+      const isMobile = window.innerWidth < 1140;
+
+      const y =
+        el.getBoundingClientRect().top +
+        window.scrollY -
+        (isMobile ? headerHeight : 0);
+
+      window.scrollTo({ top: y, behavior: 'smooth' });
     }
   };
 

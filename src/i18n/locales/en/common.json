@@ -24,6 +24,7 @@
   "minutes": "minutes",
   "seconds": "seconds",
   "copy": "All rights reserved",
+  "language": "Site language:",
   "controls": {
     "zoom_in": "Zoom in",
     "zoom_out": "Zoom out",

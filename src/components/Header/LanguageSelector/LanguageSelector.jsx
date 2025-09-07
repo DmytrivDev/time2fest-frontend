@@ -7,7 +7,7 @@ import clsx from 'clsx';
 import styles from './LanguageSelector.module.scss';
 
 const LanguageSelector = () => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef(null);
@@ -59,7 +59,7 @@ const LanguageSelector = () => {
     >
       <button onClick={() => setOpen(!open)}>
         <span>{currentLang.label}</span>
-        <span>Мова сайту:</span>
+        <span>{t('language')}</span> 
       </button>
 
       <ul>
