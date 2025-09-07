@@ -23,7 +23,6 @@
 }
 
 .hero__label {
-	font-size: 1.3125rem;
 	font-weight: 500;
 	line-height: 1.6;
 }
@@ -35,9 +34,9 @@
 	color: $color-yellow;
 	font-size: 3.75rem;
 	font-weight: 500;
-	line-height: 1rem;
+	line-height: 0.3;
 	display: inline-flex;
-	gap: 0.88rem;
+	gap: 0.875rem;
 	margin-top: 0.88rem;
 
 	& > small {
@@ -53,7 +52,7 @@
 		}
 
 		small {
-			color: $color-light;
+			color: $color-sec2;
 			font-size: 1rem;
 			line-height: 1.8;
 			font-weight: 400;
@@ -70,5 +69,25 @@
 	top: 0.35rem;
 	transform: translateX(-50%) translateY(-100%);
 	position: absolute;
-	display: block;
+}
+
+@media screen and (max-width: 1140px) {
+	.hero_right {
+		margin: 0 auto;
+		width: 25rem;
+		height: 25rem;
+	}
+
+	.hero__timer {
+		font-size: 2rem;
+		margin-top: 0.75rem;
+		line-height: 1;
+
+		span {
+			small {
+				font-size: 0.875rem;
+				top: -0.4375rem;
+			}
+		}
+	}
 }

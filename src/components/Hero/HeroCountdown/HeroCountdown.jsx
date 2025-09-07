@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import styles from './HeroCountdown.module.scss';
@@ -28,25 +27,33 @@ const HeroCountdown = ({ days = 0, hours = 0, minutes = 0, seconds = 0 }) => {
           decoding="async"
         />
       </picture>
+
       <div className={styles.hero__circinner}>
-        <p className={styles.hero__label}>{t('hero__timertitle')}</p>
+        <h3 className={styles.hero__label}>{t('hero__timertitle')}</h3>
+
         <div className={styles.hero__timer}>
           <span>
             <strong>{days}</strong>
             <small>{t('days')}</small>
-          </span>{' '}
+          </span>
+
           <small>:</small>
+
           <span>
             {/* години/хвилини/секунди падимо до 2 знаків */}
             <strong>{pad2(hours)}</strong>
             <small>{t('hours')}</small>
-          </span>{' '}
+          </span>
+
           <small>:</small>
+
           <span>
             <strong>{pad2(minutes)}</strong>
             <small>{t('minutes')}</small>
-          </span>{' '}
+          </span>
+
           <small>:</small>
+
           <span>
             <strong>{pad2(seconds)}</strong>
             <small>{t('seconds')}</small>
