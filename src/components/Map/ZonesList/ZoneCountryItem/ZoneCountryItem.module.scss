@@ -2,120 +2,248 @@
 @use "@/styles/mixins" as *;
 
 .countryItem {
-    background-color: $color-gray2;
-    border: $border;
-    border-radius: 2.5rem;
+	position: relative;
+	background-color: $color-gray2;
+	border: $border;
+	border-radius: 2.5rem;
+	overflow: hidden;
 }
 
 .itemCtrl {
-    @include flex-btv;
-    padding: 1.63rem 3.2rem;
-    padding-bottom: 1.5rem;
-    width: 100%;
+	position: relative;
+	display: flex;
+	align-items: center;
+	padding: 1.8125rem 8.125rem 1.8125rem 3.125rem;
+	width: 100%;
 }
 
-.itemTopLeft {
-    @include flex-btv;
+.toggleBtn {
+	position: absolute;
+	top: 50%;
+	right: 3.125rem;
+	transform: translateY(-50%);
+	width: 3.0625rem;
+	height: 3.0625rem;
+	border-radius: 50%;
+	background-color: $color-primary;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: 0.3s;
 
-    img {
-        width: 1.875rem;
-        height: 1.875rem;
-        margin-right: 0.94rem;
-    }
+	&::before {
+		content: "";
+		flex-shrink: 0;
+		width: 0.5625rem;
+		height: 0.5625rem;
+		background-image: $lng-arrow2;
+		background-size: 0.5625rem;
+		background-repeat: no-repeat;
+		background-position: center center;
+		transition: 0.3s;
+	}
 
-    strong {
-        font-size: 1.3125rem;
-        font-style: normal;
-        font-weight: 700;
-        margin-right: 2.25rem;
-    }
-}
-
-.timeZone {
-    padding: 0.625rem 0.75rem;
-    border-radius: 3rem;
-    margin-right: 2.25rem;
-    background-color: $color-light;
-    font-weight: 500;
-    color: $color-gray2;
-}
-
-.propsList {
-    @include flex-btv;
-    gap: 0.94rem;
-
-    li {
-        background-color: $color-yellow;
-        color: $color-sec3;
-        padding: 0.44rem 1.69rem 0.37rem 1.25rem;
-        border-radius: 3rem;
-        line-height: 1.6;
-
-        svg {
-            height: 1.375rem;
-            width: auto;
-        }
-    }
-}
-
-.itemTopRight {
-    @include flex-btv;
-    gap: 2rem;
-
-    span {
-        line-height: 1.6;
-        font-weight: 500;
-    }
-
-    &::after {
-        content: "";
-        width: 3.0625rem;
-        height: 3.0625rem;
-        background-color: $color-primary;
-        border-radius: 50%;
-        background-image: $lng-arrow2;
-        background-size: 0.5625rem;
-        background-repeat: no-repeat;
-        background-position: center center;
-        transition: .3s;
-        transform: rotate(0deg);
-    }
-}
-
-.itemFull {
-    border-top: $border;
-    padding: 0 3.2rem;
-    overflow: hidden;
-    transition:
-        max-height 0.4s ease,
-        opacity 0.3s ease;
-    opacity: 0;
-    visibility: hidden;
-}
-
-.opened .itemFull {
-    opacity: 1;
-    visibility: visible;
+	span {
+		display: none;
+	}
 }
 
 .opened {
-    .itemTopRight {
-        &::after {
-            transform: rotate(-180deg);
-        }
-    }
+	.toggleBtn {
+		&::before {
+			transform: rotate(-180deg);
+		}
+	}
+}
+
+.itemTopLeft {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	flex: 1 1 auto;
+	gap: 1.25rem 2.25rem;
+}
+
+.naming {
+	display: flex;
+	align-items: center;
+	gap: 0 0.9375rem;
+
+	img {
+		flex-shrink: 0;
+		width: 1.875rem;
+		height: 1.875rem;
+	}
+	h3 {
+		font-weight: 600;
+		line-height: 1.6;
+	}
+}
+
+.timeZone {
+	padding: 0.625rem 0.75rem;
+	border-radius: 3rem;
+	background-color: $color-light;
+	font-weight: 500;
+	line-height: normal;
+	color: $color-gray2;
+}
+
+.propsList {
+	@include flex-btv;
+	gap: 0.94rem;
+
+	li {
+		background-color: $color-yellow;
+		color: $color-sec3;
+		padding: 0.44rem 1.69rem 0.37rem 1.25rem;
+		border-radius: 3rem;
+		line-height: 1.6;
+
+		svg {
+			flex-shrink: 0;
+			height: 1.375rem;
+			width: auto;
+		}
+	}
+}
+
+.display {
+	margin-left: auto;
+	line-height: 1.6;
+	font-weight: 500;
+}
+
+.itemFull {
+	border-top: $border;
+	padding: 0 3.2rem;
+	overflow: hidden;
+	transition:
+		max-height 0.4s ease,
+		opacity 0.3s ease;
+	opacity: 0;
+	visibility: hidden;
+}
+
+.opened {
+	.itemFull {
+		opacity: 1;
+		visibility: visible;
+	}
 }
 
 .itemDesc {
-    margin-top: 1.5rem;
-    line-height: 1.8;
-    color: $color-sec2;
+	margin: 1.5rem 0;
+	line-height: 1.8;
+	color: $color-sec2;
 }
 
 .itemActions {
-    @include flex-btv;
-    display: inline-flex;
-    margin-top: 1.62rem;
-    gap: .94rem;
-    margin-bottom: 2.2rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.9375rem;
+	margin: 0.125rem 0 2.1875rem 0;
+}
+
+@media screen and (max-width: 1140px) {
+	.countryItem {
+		border-radius: 1.25rem;
+		padding-bottom: 2.8125rem;
+	}
+
+	.itemCtrl {
+		position: static;
+		padding: 1.5rem;
+	}
+
+	.toggleBtn {
+		top: auto;
+		right: auto;
+		left: 0;
+		bottom: 0;
+		transform: translateY(0);
+		width: 100%;
+		border-radius: 0;
+		justify-content: start;
+		gap: 0 0.75rem;
+		padding: 1rem 1.5rem;
+		border-top: $border;
+
+		span {
+			display: block;
+			font-size: 0.875rem;
+			line-height: normal;
+		}
+	}
+
+	.opened {
+		.toggleBtn {
+			background-color: transparent;
+		}
+	}
+
+	.itemTopLeft {
+		gap: 0.625rem 0.875rem;
+	}
+
+	.naming {
+		gap: 0 0.625rem;
+
+		img {
+			width: 1.625rem;
+			height: 1.625rem;
+		}
+	}
+
+	.timeZone {
+		order: 3;
+		padding: 0.3125rem 0.625rem;
+		font-size: 0.875rem;
+	}
+
+	.propsList {
+		order: 2;
+		gap: 0.625rem;
+
+		li {
+			padding: 0.4375rem 0.75rem 0.3125rem 0.75rem;
+			font-size: 0.875rem;
+
+			svg {
+				position: relative;
+				top: -0.0625rem;
+				height: 1rem;
+			}
+		}
+	}
+
+	.display {
+		order: 4;
+		margin-left: 0;
+		font-size: 0.875rem;
+		padding: 0.125rem 0 0.0625rem 0;
+	}
+
+	.itemFull {
+		border-top: none;
+		padding: 0 1.5rem;
+	}
+
+	.itemDesc {
+		margin: 0 0 1.5rem 0;
+		font-size: 0.875rem;
+		line-height: 1.6;
+	}
+
+	.itemActions {
+		margin: 0 0 1.5rem 0;
+		gap: 1.25rem;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.naming {
+		width: 100%;
+		margin-bottom: 0.625rem;
+	}
 }

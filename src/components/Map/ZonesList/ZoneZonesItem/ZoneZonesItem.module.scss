@@ -2,29 +2,37 @@
 @use "@/styles/mixins" as *;
 
 .zoneItem {
+	@include flex-btv;
+	position: relative;
 	background-color: $color-gray2;
 	border: $border;
-	@include flex-btv;
 	border-radius: 2.5rem;
 	width: 100%;
-	padding: 1.2rem;
-	padding-left: 3.38rem;
+	padding: 1.1875rem 5.3125rem 1.1875rem 3.38rem;
+	overflow: hidden;
 }
 
 .itemLeft {
-	@include flex-btv;
-	strong {
-		font-size: 1.3125rem;
-		font-style: normal;
+	flex: 1 1 auto;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 1.25rem 2.5rem;
+
+	h3 {
+		text-align: start;
+		flex-shrink: 0;
 		font-weight: 600;
 		line-height: 1.6;
-		margin-right: 2.5rem;
-		min-width: 5.5rem;
+		min-width: 7.5rem;
 	}
 }
 
 .flags {
-	@include flex-btv;
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	min-width: 11.25rem;
 
 	img {
 		width: 1.875rem;
@@ -44,33 +52,112 @@
 }
 
 .localTime {
-	@include flex-btv;
-	gap: 1.94rem;
+	margin-left: auto;
+	line-height: 1.6;
+	font-weight: 500;
+}
 
-	span {
-		line-height: 1.6;
-		font-weight: 500;
-	}
+.next {
+	position: absolute;
+	top: 50%;
+	right: 1.1875rem;
+	transform: translateY(-50%);
+	width: 2.1875rem;
+	height: 2.1875rem;
+	background-color: $color-primary;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 
-	&::after {
+	&::before {
 		content: "";
-		width: 2.1875rem;
-		height: 2.1875rem;
-		background-color: $color-primary;
-		border-radius: 50%;
+		flex-shrink: 0;
+		width: 0.5625rem;
+		height: 0.5625rem;
 		background-image: $lng-arrow2;
 		background-size: 0.5625rem;
 		background-repeat: no-repeat;
 		background-position: center center;
 		transform: rotate(-90deg);
 	}
+
+	span {
+		display: none;
+	}
 }
 
 @media screen and (max-width: 1140px) {
+	.zoneItem {
+		border-radius: 1.25rem;
+		padding: 1.5rem 1.5rem 4rem 1.5rem;
+	}
+
+	.itemLeft {
+		gap: 0.875rem 1.25rem;
+
+		h3 {
+			font-size: 1.3125rem;
+			font-weight: 700;
+			line-height: normal;
+			min-width: 7.5rem;
+		}
+	}
+
+	.flags {
+		margin-right: 1.5rem;
+		min-width: 9.0625rem;
+
+		img {
+			width: 1.5rem;
+			height: 1.5rem;
+			margin-left: -0.3125rem;
+		}
+
+		span {
+			margin-left: 0.625rem;
+			font-size: 0.875rem;
+		}
+	}
+
+	.localTime {
+		margin-left: 0;
+		padding-top: 0.0625rem;
+	}
+
+	.next {
+		border-top: $border;
+		top: auto;
+		right: auto;
+		left: 0;
+		bottom: 0;
+		transform: translateY(0);
+		width: 100%;
+		height: auto;
+		border-radius: 0;
+		justify-content: start;
+		gap: 0 0.875rem;
+		padding: 0.875rem 1.5rem;
+
+		span {
+			display: block;
+			font-size: 0.875rem;
+			line-height: normal;
+		}
+	}
 }
 
 @media screen and (max-width: 868px) {
 }
 
 @media screen and (max-width: 768px) {
+	.flags {
+		margin-right: 0;
+	}
+
+	.localTime {
+		flex-grow: 1;
+		width: 100%;
+		text-align: start;
+	}
 }
