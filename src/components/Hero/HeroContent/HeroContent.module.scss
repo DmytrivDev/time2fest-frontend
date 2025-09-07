@@ -67,3 +67,12 @@
 		margin-top: 2rem;
 	}
 }
+
+@media screen and (max-width: 480px) {
+	.hero_description {
+		max-width: 92%;
+		br {
+			display: none;
+		}
+	}
+}

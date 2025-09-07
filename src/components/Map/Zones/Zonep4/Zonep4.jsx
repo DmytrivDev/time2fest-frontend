@@ -63,7 +63,7 @@ export default function Zone({ onZoneClick }) {
           fillOpacity="0.01"
         />
       </g>
-      <Kashmir ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
+      {/* <Kashmir ny={ny} utc={ZONE_ID} onClick={onZoneClick} /> */}
       <Reunion ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
       <Mauritus ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
       <Seysheles ny={ny} utc={ZONE_ID} onClick={onZoneClick} />
