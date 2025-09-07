@@ -112,6 +112,27 @@ const SeoMeta = () => {
           {JSON.stringify(seo.structuredData)}
         </script>
       )}
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            name: 'Time2Fest',
+            url: 'https://time2fest.com',
+            logo: 'https://time2fest.com/logo.svg',
+            sameAs: [
+              'https://www.facebook.com/profile.php?id=61574092427016',
+              'https://www.instagram.com/time_2_fest/',
+              'https://www.threads.com/@time_2_fest',
+              'https://www.linkedin.com/company/time2fest/',
+              'https://x.com/Time2Fest',
+            ],
+          }),
+        }}
+      />
+
       <script
         defer
         src="https://analytics.time2fest.com/script.js"

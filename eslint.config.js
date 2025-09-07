@@ -38,6 +38,7 @@ export default [
       },
     },
     rules: {
+      "no-unexpected-multiline": "off",
       'react/jsx-uses-react': 'off',
       'react/jsx-uses-vars': 'warn',
       'react/react-in-jsx-scope': 'off',
