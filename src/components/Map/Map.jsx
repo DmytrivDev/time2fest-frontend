@@ -239,7 +239,6 @@ function MapCanvas({ t, onZoneClick }) {
         WORLD_W = Math.min(WORLD_W, 1440);
         WORLD_H = WORLD_W * 0.55;
 
-        console.log(WORLD_W, WORLD_H)
         setWorldSize({ w: WORLD_W, h: WORLD_H });
       }
     };
