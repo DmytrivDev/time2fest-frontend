@@ -222,15 +222,24 @@ function MapCanvas({ t, onZoneClick }) {
         window.matchMedia('(orientation: portrait)').matches &&
         viewportRef.current
       ) {
-              console.log('1111')
-
         // 📱 тільки в книжковій орієнтації
         setWorldSize({
           w: viewportRef.current.clientWidth,
           h: viewportRef.current.clientHeight,
         });
       } else {
-        // 🖥️ альбомна орієнтація
+        let WORLD_W = window.innerWidth;
+
+        if (WORLD_W > 1140) {
+          WORLD_W = WORLD_W - 3.75 * rem;
+        } else {
+          WORLD_W = WORLD_W - 2 * rem;
+        }
+
+        WORLD_W = Math.min(WORLD_W, 1440);
+        WORLD_H = WORLD_W * 0.55;
+
+        console.log(WORLD_W, WORLD_H)
         setWorldSize({ w: WORLD_W, h: WORLD_H });
       }
     };
@@ -338,7 +347,7 @@ function MapCanvas({ t, onZoneClick }) {
     const box = worldRef.current.getBBox(); // завжди свіже
     boxRef.current = box;
 
-    const baseK = Math.max(VB_W / box.width, VB_H / box.height)
+    const baseK = Math.max(VB_W / box.width, VB_H / box.height);
 
     baseKRef.current = baseK;
     zoomRef.current?.scaleExtent([baseK, MAX_K]);
