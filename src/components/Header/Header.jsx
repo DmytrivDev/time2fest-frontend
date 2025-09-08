@@ -18,6 +18,7 @@ const Header = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const isMobile = useMediaQuery(1140);
+
   useVh();
 
   return (

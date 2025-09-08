@@ -1,19 +1,20 @@
 import { useState, useEffect } from 'react';
 
 export function useMediaQuery(maxWidth) {
-  const query = `(max-width: ${maxWidth}px)`;
-
-  const [matches, setMatches] = useState(false);
+  const [matches, setMatches] = useState(() =>
+    typeof window !== 'undefined'
+      ? window.matchMedia(`(max-width: ${maxWidth}px)`).matches
+      : false
+  );
 
   useEffect(() => {
-    const media = window.matchMedia(query);
-    setMatches(media.matches);
+    const media = window.matchMedia(`(max-width: ${maxWidth}px)`);
+    const handler = () => setMatches(media.matches);
+    handler();
 
-    const listener = e => setMatches(e.matches);
-    media.addEventListener('change', listener);
-
-    return () => media.removeEventListener('change', listener);
-  }, [query]);
+    media.addEventListener('change', handler);
+    return () => media.removeEventListener('change', handler);
+  }, [maxWidth]);
 
   return matches;
 }

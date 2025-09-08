@@ -8,12 +8,20 @@ export const useVh = () => {
     };
 
     setVh();
+
     window.addEventListener('resize', setVh);
     window.addEventListener('orientationchange', setVh);
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') {
+        setVh();
+      }
+    });
 
     return () => {
       window.removeEventListener('resize', setVh);
       window.removeEventListener('orientationchange', setVh);
+      document.removeEventListener('visibilitychange', setVh);
     };
   }, []);
 };
