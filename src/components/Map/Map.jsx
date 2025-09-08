@@ -231,7 +231,7 @@ function MapCanvas({ t, onZoneClick }) {
         });
       } else {
         // 🖥️ альбомна орієнтація
-        setWorldSize({ w: VB_W, h: VB_H });
+        setWorldSize({ w: WORLD_W, h: WORLD_H });
       }
     };
 
