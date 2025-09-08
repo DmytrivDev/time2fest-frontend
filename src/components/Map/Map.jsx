@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { CircleFlag } from 'react-circle-flags';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import * as d3 from 'd3';
+import clsx from 'clsx';
 
 import Zones from './Zones';
 import TimeLines from './TimeLines';
@@ -19,8 +20,18 @@ import { useTimeZoneCountries } from '../../hooks/useTimeZoneCountries';
 
 import styles from './Map.module.scss';
 
-let WORLD_W = 1440;
-let WORLD_H = 742;
+const rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+
+let WORLD_W = window.innerWidth;
+
+if (WORLD_W > 1140) {
+  WORLD_W = WORLD_W - 3.75 * rem;
+} else {
+  WORLD_W = WORLD_W - 2 * rem;
+}
+
+WORLD_W = Math.min(WORLD_W, 1440);
+let WORLD_H = WORLD_W * 0.55;
 const MAX_K = 8;
 const WHEEL_SENS = 0.0015;
 const EPS = 0.05;
@@ -201,7 +212,7 @@ function MapCanvas({ t, onZoneClick }) {
   const worldRef = useRef(null);
   const zoomRef = useRef(null);
 
-  const [worldSize, setWorldSize] = useState({ w: 1440, h: 742 });
+  const [worldSize, setWorldSize] = useState({ w: WORLD_W, h: WORLD_H });
   const VB_W = worldSize.w;
   const VB_H = worldSize.h;
 
@@ -211,6 +222,8 @@ function MapCanvas({ t, onZoneClick }) {
         window.matchMedia('(orientation: portrait)').matches &&
         viewportRef.current
       ) {
+              console.log('1111')
+
         // 📱 тільки в книжковій орієнтації
         setWorldSize({
           w: viewportRef.current.clientWidth,
@@ -218,13 +231,14 @@ function MapCanvas({ t, onZoneClick }) {
         });
       } else {
         // 🖥️ альбомна орієнтація
-        setWorldSize({ w: 1440, h: 742 });
+        setWorldSize({ w: VB_W, h: VB_H });
       }
     };
 
     updateWorldSize(); // одразу при завантаженні
-    window.addEventListener('orientationchange', updateWorldSize);
-    return () => window.removeEventListener('orientationchange', updateWorldSize);
+    window.addEventListener('resize', updateWorldSize);
+    return () =>
+      window.removeEventListener('orientationchange', updateWorldSize);
   }, []);
 
   const tfRef = useRef({ k: 1, x: 0, y: 0 });
@@ -295,15 +309,8 @@ function MapCanvas({ t, onZoneClick }) {
     let x = t.x;
     let y = t.y;
 
-    if (isMobile) {
-      // cover + right/top alignment, не відліпає
-      x = Math.min(Math.max(x, minX), maxX);
-      y = Math.min(Math.max(y, minY), maxY);
-    } else {
-      // contain
-      x = Math.min(Math.max(x, minX), maxX);
-      y = Math.min(Math.max(y, minY), maxY);
-    }
+    x = Math.min(Math.max(x, minX), maxX);
+    y = Math.min(Math.max(y, minY), maxY);
 
     return { k: t.k, x, y };
   };
@@ -331,9 +338,7 @@ function MapCanvas({ t, onZoneClick }) {
     const box = worldRef.current.getBBox(); // завжди свіже
     boxRef.current = box;
 
-    const baseK = isMobile
-      ? Math.max(VB_W / box.width, VB_H / box.height) // cover
-      : Math.min(VB_W / box.width, VB_H / box.height); // contain
+    const baseK = Math.max(VB_W / box.width, VB_H / box.height)
 
     baseKRef.current = baseK;
     zoomRef.current?.scaleExtent([baseK, MAX_K]);
@@ -390,17 +395,19 @@ function MapCanvas({ t, onZoneClick }) {
 
     const svg = d3.select(svgRef.current);
 
-    // 1. Обнуляємо transform
-    svg.property('__zoom', d3.zoomIdentity);
-    tfRef.current = { k: 1, x: 0, y: 0 };
-
-    // 2. Зчитуємо актуальний box
-    const box = worldRef.current.getBBox();
-    boxRef.current = box;
-
-    // 3. Викликаємо fitToViewport з анімацією
+    // чекаємо, поки DOM відміряє нові розміри
     requestAnimationFrame(() => {
-      fitToViewport(true);
+      const box = worldRef.current.getBBox();
+      boxRef.current = box;
+
+      // тепер скидаємо transform
+      svg.property('__zoom', d3.zoomIdentity);
+      tfRef.current = { k: 1, x: 0, y: 0 };
+
+      // і викликаємо fitToViewport вже після оновленого box
+      requestAnimationFrame(() => {
+        fitToViewport(true);
+      });
     });
   }, [worldSize.w, worldSize.h, isMobile]);
 
@@ -514,22 +521,6 @@ function MapCanvas({ t, onZoneClick }) {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, [isMobile]);
-
-  useEffect(() => {
-    if (!svgRef.current || !zoomRef.current || !worldRef.current) return;
-
-    const svg = d3.select(svgRef.current);
-
-    // обнуляємо попередній transform
-    svg.property('__zoom', d3.zoomIdentity);
-
-    // оновлюємо box
-    const box = worldRef.current.getBBox();
-    boxRef.current = box;
-
-    // викликаємо fitToViewport, щоб заново підлаштуватися
-    fitToViewport(false);
-  }, [worldSize]);
 
   // wheel/gesture/keyboard
   useEffect(() => {
@@ -659,7 +650,7 @@ function MapCanvas({ t, onZoneClick }) {
   const fitPublic = () => fitToViewport(true);
 
   return (
-    <div className={styles.wrap}>
+    <div className={clsx(styles.wrap, 'mapWrap')}>
       <div className={styles.controls}>
         <button
           onClick={() => zoomByPublic(0.84)}

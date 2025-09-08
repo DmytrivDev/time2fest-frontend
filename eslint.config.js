@@ -30,6 +30,7 @@ export default [
         navigator: 'readonly',
         clearTimeout: 'readonly',
         IntersectionObserver: 'readonly',
+        getComputedStyle: 'readonly',
       },
     },
     settings: {
