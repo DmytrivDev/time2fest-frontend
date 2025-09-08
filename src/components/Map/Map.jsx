@@ -364,26 +364,24 @@ function MapCanvas({ t, onZoneClick }) {
     const handleResize = () => {
       if (!viewportRef.current) return;
 
-      // спочатку оновлюємо worldSize
       setWorldSize({
         w: viewportRef.current.clientWidth,
         h: viewportRef.current.clientHeight,
       });
 
-      // ⚡️ важливо: чекаємо 2 кадри поки DOM перераховує все
+      // ⚡️ одразу підлаштовуємо карту
       requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          if (worldRef.current) {
-            const box = worldRef.current.getBBox();
-            boxRef.current = box;
-            fitToViewport(false);
-          }
-        });
+        if (worldRef.current) {
+          const box = worldRef.current.getBBox();
+          boxRef.current = box;
+          fitToViewport(false);
+        }
       });
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', handleResize);
+    handleResize();
+    return () => window.removeEventListener('orientationchange', handleResize);
   }, [isMobile]);
 
   // після зміни worldSize повністю скидаємо transform
