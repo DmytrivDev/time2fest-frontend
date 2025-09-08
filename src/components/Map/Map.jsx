@@ -217,19 +217,30 @@ function MapCanvas({ t, onZoneClick }) {
   const VB_H = worldSize.h;
 
   useEffect(() => {
+    const prevWidthRef = { current: window.innerWidth };
+
     const updateWorldSize = () => {
+      const newWidth = window.innerWidth;
+
+      // ⚡ нічого не робимо, якщо ширина не змінилась
+      if (newWidth === prevWidthRef.current) return;
+      prevWidthRef.current = newWidth;
+
       if (
         window.matchMedia('(orientation: portrait)').matches &&
         viewportRef.current
       ) {
-        // 📱 тільки в книжковій орієнтації
+        // 📱 тільки в портреті
         setWorldSize({
           w: viewportRef.current.clientWidth,
           h: viewportRef.current.clientHeight,
         });
       } else {
-        let WORLD_W = window.innerWidth;
-        rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+        const rem = parseFloat(
+          getComputedStyle(document.documentElement).fontSize
+        );
+
+        let WORLD_W = newWidth;
 
         if (WORLD_W > 1140) {
           WORLD_W = WORLD_W - 3.75 * rem;
@@ -238,16 +249,15 @@ function MapCanvas({ t, onZoneClick }) {
         }
 
         WORLD_W = Math.min(WORLD_W, 1440);
-        WORLD_H = WORLD_W * 0.55;
+        const WORLD_H = WORLD_W * 0.55;
 
         setWorldSize({ w: WORLD_W, h: WORLD_H });
       }
     };
 
-    updateWorldSize(); // одразу при завантаженні
+    updateWorldSize(); // виклик при монтуванні
     window.addEventListener('resize', updateWorldSize);
-    return () =>
-      window.removeEventListener('orientationchange', updateWorldSize);
+    return () => window.removeEventListener('resize', updateWorldSize);
   }, []);
 
   const tfRef = useRef({ k: 1, x: 0, y: 0 });
