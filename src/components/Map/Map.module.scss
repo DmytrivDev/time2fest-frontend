@@ -279,7 +279,7 @@
 	}
 
 	.wrap {
-		height: 49vw;
+		height: calc(49vw - 2rem);
 	}
 
 	.toggleItem {
