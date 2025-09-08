@@ -53,6 +53,7 @@ const SeoMeta = () => {
     <Helmet>
       <title>{seo.title}</title>
       <meta name="description" content={seo.description} />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
       <link rel="canonical" href={seo.canonicalURL} />
       {hreflangs.map(item => (
         <link
