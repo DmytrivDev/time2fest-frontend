@@ -258,11 +258,11 @@ function MapCanvas({ t, onZoneClick }) {
     };
 
     check(); // одразу при завантаженні
-    window.addEventListener('orientationchange', check);
+    window.addEventListener('resize', check);
     window.addEventListener('orientationchange', check);
 
     return () => {
-      window.removeEventListener('orientationchange', check);
+      window.removeEventListener('resize', check);
       window.removeEventListener('orientationchange', check);
     };
   }, []);
