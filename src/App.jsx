@@ -1,7 +1,6 @@
 import { lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useEffect } from 'react';
 
 import { DEFAULT_LANG, SUPPORTED_LANGS } from './i18n/languages';
 import LanguageLayout from './layouts/LanguageLayout/LanguageLayout';
@@ -15,19 +14,6 @@ const App = () => {
 
   const detectedLang = i18n.language;
   const isSupported = SUPPORTED_LANGS.includes(detectedLang);
-
-  useEffect(() => {
-    const preventPinch = e => {
-      if (e.touches.length > 1) {
-        e.preventDefault();
-      }
-    };
-
-    document.addEventListener('touchmove', preventPinch, { passive: false });
-    return () => {
-      document.removeEventListener('touchmove', preventPinch);
-    };
-  }, []);
 
   return (
     <Routes>
