@@ -390,13 +390,13 @@ function MapCanvas({ t, onZoneClick }) {
 
     const svg = d3.select(svgRef.current);
 
-    // 1. Обнуляємо transform
-    svg.property('__zoom', d3.zoomIdentity);
-    tfRef.current = { k: 1, x: 0, y: 0 };
-
-    // 2. Зчитуємо актуальний box
+    // 1. Зчитуємо актуальний box
     const box = worldRef.current.getBBox();
     boxRef.current = box;
+
+    // 2. Обнуляємо transform
+    svg.property('__zoom', d3.zoomIdentity);
+    tfRef.current = { k: 1, x: 0, y: 0 };
 
     // 3. Викликаємо fitToViewport з анімацією
     requestAnimationFrame(() => {
