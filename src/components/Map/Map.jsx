@@ -223,8 +223,8 @@ function MapCanvas({ t, onZoneClick }) {
     };
 
     updateWorldSize(); // одразу при завантаженні
-    window.addEventListener('resize', updateWorldSize);
-    return () => window.removeEventListener('resize', updateWorldSize);
+    window.addEventListener('orientationchange', updateWorldSize);
+    return () => window.removeEventListener('orientationchange', updateWorldSize);
   }, []);
 
   const tfRef = useRef({ k: 1, x: 0, y: 0 });
@@ -258,11 +258,11 @@ function MapCanvas({ t, onZoneClick }) {
     };
 
     check(); // одразу при завантаженні
-    window.addEventListener('resize', check);
+    window.addEventListener('orientationchange', check);
     window.addEventListener('orientationchange', check);
 
     return () => {
-      window.removeEventListener('resize', check);
+      window.removeEventListener('orientationchange', check);
       window.removeEventListener('orientationchange', check);
     };
   }, []);
@@ -505,11 +505,11 @@ function MapCanvas({ t, onZoneClick }) {
         }
       });
     };
-    window.addEventListener('resize', onResize);
+    window.addEventListener('orientationchange', onResize);
 
     return () => {
       cancelAnimationFrame(rId);
-      window.removeEventListener('resize', onResize);
+      window.removeEventListener('orientationchange', onResize);
       svg.on('.zoom', null);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
