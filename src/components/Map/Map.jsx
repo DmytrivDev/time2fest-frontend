@@ -20,7 +20,7 @@ import { useTimeZoneCountries } from '../../hooks/useTimeZoneCountries';
 
 import styles from './Map.module.scss';
 
-const rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+let rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
 
 let WORLD_W = window.innerWidth;
 
@@ -229,6 +229,7 @@ function MapCanvas({ t, onZoneClick }) {
         });
       } else {
         let WORLD_W = window.innerWidth;
+        rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
 
         if (WORLD_W > 1140) {
           WORLD_W = WORLD_W - 3.75 * rem;
