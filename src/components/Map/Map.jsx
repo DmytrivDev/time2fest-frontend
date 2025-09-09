@@ -401,7 +401,6 @@ function MapCanvas({ t, onZoneClick }) {
 
     // чекаємо, поки DOM відміряє нові розміри
     requestAnimationFrame(() => {
-
       if (!worldRef.current) return;
       const box = worldRef.current.getBBox();
       boxRef.current = box;
