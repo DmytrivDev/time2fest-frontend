@@ -21,7 +21,9 @@ import { useTimeZoneCountries } from '../../hooks/useTimeZoneCountries';
 import styles from './Map.module.scss';
 
 let rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+
 let WORLD_W = window.innerWidth;
+
 if (WORLD_W > 1140) {
   WORLD_W = WORLD_W - 3.75 * rem;
 } else {
@@ -32,6 +34,7 @@ WORLD_W = Math.min(WORLD_W, 1440);
 let WORLD_H = WORLD_W * 0.55;
 const MAX_K = 8;
 const WHEEL_SENS = 0.0015;
+const EPS = 0.05;
 const BASE_S = 1;
 
 export default function Map() {
@@ -116,14 +119,15 @@ export default function Map() {
   const scrollListTop = () => {
     requestAnimationFrame(() => {
       if (listRef.current) {
-        const header = document.querySelector('header');
-        const headerHeight =
-          window.innerWidth <= 1140 && header ? header.offsetHeight + 20 : 30;
+        let offset = 45;
+
+        if (window.innerWidth < 1140) {
+          const header = document.querySelector('header');
+          offset = header ? header.offsetHeight + 20 : 45;
+        }
 
         const top =
-          listRef.current.getBoundingClientRect().top +
-          window.scrollY -
-          headerHeight;
+          listRef.current.getBoundingClientRect().top + window.scrollY - offset;
 
         window.scrollTo({ top, behavior: 'smooth' });
       }
@@ -226,12 +230,14 @@ function MapCanvas({ t, onZoneClick }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // одразу показуємо loading
     setIsLoading(true);
 
+    // знімаємо після першого кадру + невеликої затримки
     requestAnimationFrame(() => {
       setTimeout(() => {
         setIsLoading(false);
-      }, 500);
+      }, 500); // можна підрегулювати час
     });
   }, []);
 
@@ -332,24 +338,23 @@ function MapCanvas({ t, onZoneClick }) {
   };
 
   const fitToViewport = (animate = false) => {
-    const svg = d3.select(svgRef.current);
-    if (!worldRef.current) return;
+    if (!svgRef.current || !worldRef.current || !zoomRef.current) return;
 
-    const box = worldRef.current.getBBox(); // завжди свіже
+    const svg = d3.select(svgRef.current);
+    const box = worldRef.current?.getBBox();
+    if (!box) return;
+
     boxRef.current = box;
 
     const baseK = Math.max(VB_W / box.width, VB_H / box.height);
-
     baseKRef.current = baseK;
-    zoomRef.current?.scaleExtent([baseK, MAX_K]);
+    zoomRef.current.scaleExtent([baseK, MAX_K]);
 
     let x, y;
     if (isMobile) {
-      // карта вирівнюється вправо
       x = VB_W - baseK * (box.x + box.width);
       y = -baseK * box.y;
     } else {
-      // карта центрована
       x = (VB_W - box.width * baseK) / 2 - box.x * baseK;
       y = (VB_H - box.height * baseK) / 2 - box.y * baseK;
     }
@@ -377,6 +382,7 @@ function MapCanvas({ t, onZoneClick }) {
       // ⚡️ одразу підлаштовуємо карту
       requestAnimationFrame(() => {
         if (worldRef.current) {
+          if (!worldRef.current) return;
           const box = worldRef.current.getBBox();
           boxRef.current = box;
           fitToViewport(false);
@@ -395,7 +401,11 @@ function MapCanvas({ t, onZoneClick }) {
 
     // чекаємо, поки DOM відміряє нові розміри
     requestAnimationFrame(() => {
+<<<<<<< Updated upstream
       console.log(worldRef.current);
+=======
+      if (!worldRef.current) return;
+>>>>>>> Stashed changes
       const box = worldRef.current.getBBox();
       boxRef.current = box;
 

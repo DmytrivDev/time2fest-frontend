@@ -18,7 +18,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(2.5);
+  transform: translate(-50%, -50%) scale(2);
   width: 14.9375rem;
   height: 14.9375rem;
 
@@ -36,13 +36,13 @@
 .play1 {
   top: 4.5rem;
   left: 7.56rem;
-  animation: div1 3500ms .5s ease-out forwards;
+  animation: div1 3000ms .5s ease-out forwards;
 }
 
 .play2 {
   bottom: 4.5rem;
   right: 7.56rem;
-  animation: div2 3500ms .5s ease-out forwards;
+  animation: div2 3000ms .5s ease-out forwards;
 }
 
 @keyframes div1 {

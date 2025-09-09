@@ -67,6 +67,27 @@
 	}
 }
 
+<<<<<<< Updated upstream
+=======
+.content {
+	max-width: 52.5rem;
+	padding-bottom: 9.38rem;
+	position: relative;
+
+	* {
+		position: relative;
+		z-index: 2;
+	}
+
+	h2 {
+		max-width: 45rem;
+		span {
+			display: block;
+		}
+	}
+}
+
+>>>>>>> Stashed changes
 .list {
 	margin-top: 2.1875rem;
 	display: grid;
