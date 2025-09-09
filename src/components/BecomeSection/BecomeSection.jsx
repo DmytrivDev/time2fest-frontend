@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 
@@ -10,6 +11,8 @@ import girlImage from '../../assets/become/video.mp4';
 import styles from './BecomeSection.module.scss';
 
 const BecomeSection = () => {
+  const [hasError, setHasError] = useState(false);
+
   const locale = getValidLocale();
   const pageLoaded = useAfterLoad();
 
@@ -52,6 +55,10 @@ const BecomeSection = () => {
                 <span className="loading"></span>
               </p>
             </div>
+
+            <div
+              className={clsx(styles.imageWrapper, hasError && styles.noimage)}
+            ></div>
           </div>
         </div>
       </section>
@@ -95,9 +102,18 @@ const BecomeSection = () => {
             <p className={styles.subtext}>{data.text}</p>
           </div>
 
-          <div className={styles.imageWrapper}>
+          <div
+            className={clsx(styles.imageWrapper, hasError && styles.noimage)}
+          >
             <div>
-              <video src={girlImage} autoPlay muted loop playsInline />
+              <video
+                src={girlImage}
+                autoPlay
+                muted
+                loop
+                playsInline
+                onError={() => setHasError(true)}
+              />
             </div>
           </div>
         </div>

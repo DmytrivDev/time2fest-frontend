@@ -21,7 +21,6 @@ const AboutPortalSection = () => {
     enabled: pageLoaded, // 🚀 запит запуститься тільки після завантаження сторінки
   });
 
-  // 🟢 Показуємо прелоадер ДО window.load
   if (!pageLoaded || isLoading) {
     return (
       <section className={styles.section}>
@@ -57,7 +56,6 @@ const AboutPortalSection = () => {
 
   if (!data) return null;
 
-  // 🟢 Готові дані
   return (
     <section id="about" className={styles.section}>
       <picture>

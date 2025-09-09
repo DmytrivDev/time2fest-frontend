@@ -1,6 +1,7 @@
 {
   "name": "time2fest-frontend",
   "version": "1.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite --port 3000",
@@ -8,22 +9,6 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write ."
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.26.0",
-    "@vitejs/plugin-react": "^4.4.1",
-    "eslint": "^9.26.0",
-    "eslint-config-prettier": "^10.1.2",
-    "eslint-plugin-prettier": "^5.3.1",
-    "eslint-plugin-react": "^7.37.5",
-    "globals": "^16.0.0",
-    "lint-staged": "^15.5.1",
-    "prerender-spa-plugin": "^3.4.0",
-    "prettier": "^3.5.3",
-    "rollup-plugin-critical": "^1.0.15",
-    "vite": "^6.3.4",
-    "vite-plugin-beasties": "^0.3.5",
-    "vite-plugin-prerender": "^1.0.8"
   },
   "dependencies": {
     "@fluejs/noscroll": "^1.0.0",
@@ -36,7 +21,6 @@
     "i18next-browser-languagedetector": "^8.2.0",
     "i18next-http-backend": "^3.0.2",
     "lodash": "^4.17.21",
-    "path": "^0.12.7",
     "react": "^18.0.0",
     "react-circle-flags": "^0.0.23",
     "react-dom": "^18.0.0",
@@ -44,7 +28,24 @@
     "react-i18next": "^15.6.1",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.5.3",
-    "sass": "^1.89.2",
     "zustand": "^5.0.7"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.26.0",
+    "@vitejs/plugin-react": "^4.4.1",
+    "eslint": "^9.26.0",
+    "eslint-config-prettier": "^10.1.2",
+    "eslint-plugin-prettier": "^5.3.1",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.0.0",
+    "lint-staged": "^15.5.1",
+    "path": "^0.12.7",
+    "prettier": "^3.5.3",
+    "prerender-spa-plugin": "^3.4.0",
+    "rollup-plugin-critical": "^1.0.15",
+    "sass": "^1.89.2",
+    "vite": "^6.3.4",
+    "vite-plugin-beasties": "^0.3.5",
+    "vite-plugin-prerender": "^1.0.8"
   }
 }
