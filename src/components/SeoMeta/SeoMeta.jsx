@@ -54,6 +54,7 @@ const SeoMeta = () => {
       <title>{seo.title}</title>
       <meta name="description" content={seo.description} />
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+      <meta name="google" content="notranslate"></meta>
       <link rel="canonical" href={seo.canonicalURL} />
       {hreflangs.map(item => (
         <link
