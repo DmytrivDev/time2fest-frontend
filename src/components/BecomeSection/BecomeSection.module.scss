@@ -7,6 +7,23 @@
 	overflow: hidden;
 }
 
+.content {
+	max-width: 52.5rem;
+	padding-bottom: 9.38rem;
+	position: relative;
+
+	* {
+		position: relative;
+		z-index: 2;
+	}
+
+	h2 {
+		span {
+			display: block;
+		}
+	}
+}
+
 .loadingTitleCont {
 	display: flex;
 	flex-direction: column;
@@ -14,7 +31,7 @@
 }
 
 .loadingTitle {
-	height: 3.438em;
+	height: 3.4375rem;
 	width: 32rem;
 
 	&:last-child {
@@ -61,6 +78,7 @@
 	}
 
 	h2 {
+		max-width: 45rem;
 		span {
 			display: block;
 		}
@@ -132,6 +150,35 @@
 		padding-bottom: 3.75rem;
 	}
 
+	.loadingTitle {
+		height: 1.8125rem;
+		width: 21.4375rem;
+
+		&:last-child {
+			width: 15.1875rem;
+		}
+	}
+
+	.loadingItem {
+		height: 8.75rem;
+	}
+
+	.loadingBtn {
+		width: 9.5rem;
+		height: 2.875rem;
+	}
+
+	.subtextLoading {
+		span {
+			width: 15.625rem;
+			height: 1.125rem;
+
+			&:last-child {
+				width: 13.125rem;
+			}
+		}
+	}
+
 	.list {
 		order: 3;
 		gap: 1rem;
@@ -187,6 +234,14 @@
 					rgba(2, 1, 1, 0) 0%,
 					rgba(2, 1, 1, 1) 100%
 				);
+			}
+		}
+
+		&.noimage {
+			padding-top: 3.5rem;
+
+			&::before {
+				content: none;
 			}
 		}
 	}

@@ -59,7 +59,7 @@ const LanguageSelector = () => {
     >
       <button onClick={() => setOpen(!open)}>
         <span>{currentLang.label}</span>
-        <span>{t('language')}</span> 
+        <span>{t('language')}</span>
       </button>
 
       <ul>

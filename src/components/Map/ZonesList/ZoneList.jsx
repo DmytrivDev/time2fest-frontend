@@ -87,9 +87,15 @@ export default function ZonesList({
 
   // ---- LOADING ----
   if (loading) {
-    const count = type === 'zones' ? 12 : 6;
+    const count = type === 'zones' ? 5 : 3;
     return (
-      <div className={clsx(styles.zonesList, styles.loadingList)}>
+      <div
+        className={clsx(
+          styles.zonesList,
+          styles.loadingList,
+          type === 'zones' && styles.loadingZones
+        )}
+      >
         {showBackBtn && (
           <div className={styles.backRow}>
             <button
@@ -104,14 +110,7 @@ export default function ZonesList({
         )}
         <ul>
           {Array.from({ length: count }).map((_, i) => (
-            <li
-              key={i}
-              className={clsx(
-                'loading',
-                styles.loadingItem,
-                type === 'zones' && styles.loadingZones
-              )}
-            />
+            <li key={i} className={clsx('loading', styles.loadingItem)} />
           ))}
         </ul>
       </div>

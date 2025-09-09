@@ -2,18 +2,24 @@
 @use "@/styles/mixins" as *;
 
 .loadingList {
+	&.loadingZones {
+		ul {
+			gap: 0.625rem;
+
+			li {
+				height: 4.5rem;
+			}
+		}
+	}
+
 	ul {
-		gap: 1.25rem;
 		display: flex;
 		flex-direction: column;
+		gap: 1.25rem;
 
 		li {
 			border-radius: 2.5rem;
-			height: 6.192rem;
-
-			&.loadingZones {
-				height: 4.5rem;
-			}
+			height: 6.1875rem;
 		}
 	}
 }
@@ -88,6 +94,27 @@
 }
 
 @media screen and (max-width: 1140px) {
+	.loadingList {
+		&.loadingZones {
+			ul {
+				gap: 0.9375rem;
+
+				li {
+					height: 7.25rem;
+				}
+			}
+		}
+
+		ul {
+			gap: 0.9375rem;
+
+			li {
+				border-radius: 1.25rem;
+				height: 8.125rem;
+			}
+		}
+	}
+
 	.zonesList {
 		margin-top: 1.875rem;
 
@@ -102,3 +129,20 @@
 	}
 }
 
+@media screen and (max-width: 768px) {
+	.loadingList {
+		&.loadingZones {
+			ul {
+				li {
+					height: 9.75rem;
+				}
+			}
+		}
+
+		ul {
+			li {
+				height: 13.5rem;
+			}
+		}
+	}
+}

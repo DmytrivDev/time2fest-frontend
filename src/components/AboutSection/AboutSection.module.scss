@@ -34,7 +34,7 @@
 }
 
 .loadingTitle {
-	height: 3.688em;
+	height: 3.6875rem;
 	width: 32rem;
 }
 
@@ -95,6 +95,15 @@
 		}
 	}
 
+	.loadingTitle {
+		height: 1.8125rem;
+		width: 18.75rem;
+	}
+
+	.loadingItem {
+		height: 8.125rem;
+	}
+
 	.list {
 		margin-top: 2rem;
 		grid-template-columns: repeat(2, 1fr);
@@ -128,6 +137,10 @@
 }
 
 @media screen and (max-width: 768px) {
+	.loadingItem {
+		height: 9.625rem;
+	}
+
 	.list {
 		grid-template-columns: 1fr;
 	}

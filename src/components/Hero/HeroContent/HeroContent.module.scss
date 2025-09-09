@@ -69,7 +69,7 @@
 }
 
 @media screen and (max-width: 480px) {
-	.hero_description {
+	.hero_description, .hero_title {
 		max-width: 92%;
 		br {
 			display: none;

@@ -18,7 +18,7 @@
 }
 
 .loadingTitle {
-	height: 3.688em;
+	height: 3.6875rem;
 	width: 12rem;
 }
 
@@ -26,12 +26,6 @@
 	height: 5.9375rem;
 	border-radius: 2.5rem;
 	position: relative;
-}
-
-.bgImage {
-	@include img-cover;
-	width: auto;
-	height: 100%;
 }
 
 .grid {
@@ -54,6 +48,16 @@
 	}
 	.content {
 		padding: 3.375rem 0 3.75rem 0;
+	}
+
+	.loadingTitle {
+		height: 1.8125rem;
+		width: 8.875rem;
+	}
+
+	.loadingItem {
+		height: 5.25rem;
+		border-radius: 1.25rem;
 	}
 
 	.grid {
