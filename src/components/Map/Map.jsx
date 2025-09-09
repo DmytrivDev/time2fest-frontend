@@ -401,19 +401,8 @@ function MapCanvas({ t, onZoneClick }) {
 
     // чекаємо, поки DOM відміряє нові розміри
     requestAnimationFrame(() => {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-      console.log(worldRef.current);
-=======
+
       if (!worldRef.current) return;
->>>>>>> Stashed changes
-=======
-      if (!worldRef.current) return;
->>>>>>> Stashed changes
-=======
-      if (!worldRef.current) return;
->>>>>>> Stashed changes
       const box = worldRef.current.getBBox();
       boxRef.current = box;
 
