@@ -247,62 +247,8 @@ function MapCanvas({ t, onZoneClick }) {
   const VB_W = worldSize.w;
   const VB_H = worldSize.h;
 
-  useEffect(() => {
-    const prevWidthRef = { current: window.innerWidth };
-
-    const updateWorldSize = () => {
-      const newWidth = window.innerWidth;
-
-      // ⚡ нічого не робимо, якщо ширина не змінилась
-      if (newWidth === prevWidthRef.current) return;
-      prevWidthRef.current = newWidth;
-
-      if (
-        window.matchMedia('(orientation: portrait)').matches &&
-        viewportRef.current
-      ) {
-        // 📱 тільки в портреті
-        setWorldSize({
-          w: viewportRef.current.clientWidth,
-          h: viewportRef.current.clientHeight,
-        });
-      } else {
-        const rem = parseFloat(
-          getComputedStyle(document.documentElement).fontSize
-        );
-
-        WORLD_W = newWidth;
-
-        if (WORLD_W > 1140) {
-          WORLD_W = WORLD_W - 3.75 * rem;
-        } else {
-          WORLD_W = WORLD_W - 2 * rem;
-        }
-
-        WORLD_W = Math.min(WORLD_W, 1440);
-        WORLD_H = WORLD_W * 0.55;
-
-        setWorldSize({ w: WORLD_W, h: WORLD_H });
-      }
-    };
-
-    updateWorldSize(); // виклик при монтуванні
-    window.addEventListener('resize', updateWorldSize);
-    return () => window.removeEventListener('resize', updateWorldSize);
-  }, []);
-
   const tfRef = useRef({ k: 1, x: 0, y: 0 });
   const baseKRef = useRef(1);
-
-  rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
-  WORLD_W = window.innerWidth;
-  if (WORLD_W > 1140) {
-    WORLD_W = WORLD_W - 3.75 * rem;
-  } else {
-    WORLD_W = WORLD_W - 2 * rem;
-  }
-  WORLD_W = Math.min(WORLD_W, 1440);
-  WORLD_H = WORLD_W * 0.55;
 
   const boxRef = useRef({ x: 0, y: 0, width: WORLD_W, height: WORLD_H });
 
@@ -332,14 +278,7 @@ function MapCanvas({ t, onZoneClick }) {
       setIsMobile(portrait);
     };
 
-    check(); // одразу при завантаженні
-    window.addEventListener('resize', check);
-    window.addEventListener('orientationchange', check);
-
-    return () => {
-      window.removeEventListener('resize', check);
-      window.removeEventListener('orientationchange', check);
-    };
+    check();
   }, []);
 
   const getDeviceScale = () => {
@@ -359,8 +298,6 @@ function MapCanvas({ t, onZoneClick }) {
   const clampTransform = t => {
     const box = boxRef.current;
     const kpx = t.k * BASE_S;
-    const contentW = box.width * kpx;
-    const contentH = box.height * kpx;
 
     const minX = VB_W - kpx * (box.x + box.width);
     const maxX = -kpx * box.x;
@@ -445,9 +382,7 @@ function MapCanvas({ t, onZoneClick }) {
       });
     };
 
-    window.addEventListener('orientationchange', handleResize);
     handleResize();
-    return () => window.removeEventListener('orientationchange', handleResize);
   }, [isMobile]);
 
   // після зміни worldSize повністю скидаємо transform
@@ -546,41 +481,6 @@ function MapCanvas({ t, onZoneClick }) {
 
     zoomRef.current = zoom;
     svg.call(zoom);
-
-    const rId = requestAnimationFrame(() => {
-      const box = worldRef.current.getBBox();
-      boxRef.current = box;
-      fitToViewport(false);
-    });
-
-    const onResize = () => {
-      // чекаємо поки DOM перерахує розміри
-      requestAnimationFrame(() => {
-        if (viewportRef.current) {
-          setWorldSize({
-            w: viewportRef.current.clientWidth,
-            h: viewportRef.current.clientHeight,
-          });
-
-          // ще один кадр, щоб точно було оновлено
-          requestAnimationFrame(() => {
-            const box = worldRef.current?.getBBox();
-            if (box) {
-              boxRef.current = box;
-              fitToViewport(false);
-            }
-          });
-        }
-      });
-    };
-    window.addEventListener('orientationchange', onResize);
-
-    return () => {
-      cancelAnimationFrame(rId);
-      window.removeEventListener('orientationchange', onResize);
-      svg.on('.zoom', null);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
   }, [isMobile]);
 
   // wheel/gesture/keyboard
