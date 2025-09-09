@@ -403,7 +403,11 @@ function MapCanvas({ t, onZoneClick }) {
     requestAnimationFrame(() => {
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       console.log(worldRef.current);
+=======
+      if (!worldRef.current) return;
+>>>>>>> Stashed changes
 =======
       if (!worldRef.current) return;
 >>>>>>> Stashed changes
