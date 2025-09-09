@@ -19,7 +19,7 @@
 		box-shadow: $card-shadow;
 		-webkit-box-shadow: $card-shadow;
 		-moz-box-shadow: $card-shadow;
-		animation: slideLoop .5s linear infinite;
+		animation: slideLoop 0.5s linear infinite;
 	}
 }
 
@@ -242,5 +242,23 @@
 	.greenH,
 	.blueH {
 		transition: 0.2s 0.2s;
+	}
+}
+
+@media (pointer: coarse) {
+	.zone {
+		.zoneM path {
+			transition: 0s 0s;
+		}
+
+		.country {
+			transition: 0s 0s;
+		}
+
+		.countryGr {
+			path {
+				transition: 0s 0s;
+			}
+		}
 	}
 }

@@ -8,7 +8,7 @@ export default function Country({ ny, utc, onClick }) {
     e.stopPropagation(); // не віддаємо подію зоні
     const zoneId = e.currentTarget.getAttribute('data-id'); // "UTC+2"
     const code = (e.currentTarget.getAttribute('data-country') || '').toUpperCase(); // "CY"
-    onClick?.(zoneId, code);
+    onClick?.(zoneId, code, e);
   };
 
   return (

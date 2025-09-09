@@ -13,7 +13,7 @@ export default function Country({ ny, utc, onClick }) {
     const code = (
       e.currentTarget.getAttribute('data-country') || ''
     ).toUpperCase();
-    onClick?.(zoneId, code);
+    onClick?.(zoneId, code, e);
   };
 
   return (

@@ -10,7 +10,7 @@ export default function Country({ ny, utc, onClick }) {
     const code = (
       e.currentTarget.getAttribute('data-country') || ''
     ).toUpperCase(); // "CY"
-    onClick?.(zoneId, code);
+    onClick?.(zoneId, code, e);
   };
 
   return (

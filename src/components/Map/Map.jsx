@@ -21,9 +21,7 @@ import { useTimeZoneCountries } from '../../hooks/useTimeZoneCountries';
 import styles from './Map.module.scss';
 
 let rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
-
 let WORLD_W = window.innerWidth;
-
 if (WORLD_W > 1140) {
   WORLD_W = WORLD_W - 3.75 * rem;
 } else {
@@ -34,7 +32,6 @@ WORLD_W = Math.min(WORLD_W, 1440);
 let WORLD_H = WORLD_W * 0.55;
 const MAX_K = 8;
 const WHEEL_SENS = 0.0015;
-const EPS = 0.05;
 const BASE_S = 1;
 
 export default function Map() {
@@ -119,8 +116,15 @@ export default function Map() {
   const scrollListTop = () => {
     requestAnimationFrame(() => {
       if (listRef.current) {
+        const header = document.querySelector('header');
+        const headerHeight =
+          window.innerWidth <= 1140 && header ? header.offsetHeight + 20 : 30;
+
         const top =
-          listRef.current.getBoundingClientRect().top + window.scrollY - 45;
+          listRef.current.getBoundingClientRect().top +
+          window.scrollY -
+          headerHeight;
+
         window.scrollTo({ top, behavior: 'smooth' });
       }
     });
@@ -222,14 +226,12 @@ function MapCanvas({ t, onZoneClick }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // одразу показуємо loading
     setIsLoading(true);
 
-    // знімаємо після першого кадру + невеликої затримки
     requestAnimationFrame(() => {
       setTimeout(() => {
         setIsLoading(false);
-      }, 500); // можна підрегулювати час
+      }, 500);
     });
   }, []);
 
