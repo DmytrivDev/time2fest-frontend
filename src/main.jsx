@@ -11,6 +11,15 @@ import './styles/index.scss';
 
 const queryClient = new QueryClient();
 
+// 👇 додаємо цей блок перед ReactDOM.createRoot
+const supported = ['uk', 'en', 'es', 'fr'];
+const firstSegment = window.location.pathname.split('/')[1];
+
+// якщо є префікс зі списку → беремо його, інакше дефолт en
+const lang = supported.includes(firstSegment) ? firstSegment : 'en';
+document.documentElement.lang = lang;
+// 👆 тепер Chrome одразу бачить правильну мову
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
