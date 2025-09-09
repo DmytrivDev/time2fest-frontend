@@ -56,6 +56,14 @@ export default function Map() {
 
   const listRef = useRef(null);
 
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   // MAP data
   const {
     data: tzCountriesMap,
@@ -162,7 +170,7 @@ export default function Map() {
 
         {mode === 'map' && (
           <>
-            <MapCanvas t={t} onZoneClick={handleZoneClick} />
+            <MapCanvas t={t} key={windowWidth} onZoneClick={handleZoneClick} />
             <div ref={listRef}>
               {hasSelection && (
                 <ZonesList
@@ -211,6 +219,29 @@ function MapCanvas({ t, onZoneClick }) {
   const svgRef = useRef(null);
   const worldRef = useRef(null);
   const zoomRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // одразу показуємо loading
+    setIsLoading(true);
+
+    // знімаємо після першого кадру + невеликої затримки
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 500); // можна підрегулювати час
+    });
+  }, []);
+
+  rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+  WORLD_W = window.innerWidth;
+  if (WORLD_W > 1140) {
+    WORLD_W = WORLD_W - 3.75 * rem;
+  } else {
+    WORLD_W = WORLD_W - 2 * rem;
+  }
+  WORLD_W = Math.min(WORLD_W, 1440);
+  WORLD_H = WORLD_W * 0.55;
 
   const [worldSize, setWorldSize] = useState({ w: WORLD_W, h: WORLD_H });
   const VB_W = worldSize.w;
@@ -240,7 +271,7 @@ function MapCanvas({ t, onZoneClick }) {
           getComputedStyle(document.documentElement).fontSize
         );
 
-        let WORLD_W = newWidth;
+        WORLD_W = newWidth;
 
         if (WORLD_W > 1140) {
           WORLD_W = WORLD_W - 3.75 * rem;
@@ -249,7 +280,7 @@ function MapCanvas({ t, onZoneClick }) {
         }
 
         WORLD_W = Math.min(WORLD_W, 1440);
-        const WORLD_H = WORLD_W * 0.55;
+        WORLD_H = WORLD_W * 0.55;
 
         setWorldSize({ w: WORLD_W, h: WORLD_H });
       }
@@ -262,6 +293,17 @@ function MapCanvas({ t, onZoneClick }) {
 
   const tfRef = useRef({ k: 1, x: 0, y: 0 });
   const baseKRef = useRef(1);
+
+  rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+  WORLD_W = window.innerWidth;
+  if (WORLD_W > 1140) {
+    WORLD_W = WORLD_W - 3.75 * rem;
+  } else {
+    WORLD_W = WORLD_W - 2 * rem;
+  }
+  WORLD_W = Math.min(WORLD_W, 1440);
+  WORLD_H = WORLD_W * 0.55;
+
   const boxRef = useRef({ x: 0, y: 0, width: WORLD_W, height: WORLD_H });
 
   const [uiScale, setUiScale] = useState(100);
@@ -669,7 +711,10 @@ function MapCanvas({ t, onZoneClick }) {
   const fitPublic = () => fitToViewport(true);
 
   return (
-    <div className={clsx(styles.wrap, 'mapWrap')}>
+    <div
+      className={clsx(styles.wrap, 'mapWrap', { [styles.loading]: isLoading })}
+    >
+      <div className={clsx(styles.loadingMap, 'loading')}></div>
       <div className={styles.controls}>
         <button
           onClick={() => zoomByPublic(0.84)}
