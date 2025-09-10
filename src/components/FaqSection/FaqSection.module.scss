@@ -7,6 +7,7 @@
 	margin: 0 auto;
 	border-radius: 3.125rem;
 }
+
 .content {
 	position: relative;
 	padding: 5.5rem 0 6.25rem 0;
@@ -17,9 +18,23 @@
 	}
 }
 
+/* ========= LOADING ========= */
+.loadingTitle,
+.loadingItem {
+	background: linear-gradient(
+		90deg,
+		rgba(255, 255, 255, 0.05) 25%,
+		rgba(255, 255, 255, 0.15) 50%,
+		rgba(255, 255, 255, 0.05) 75%
+	);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite linear;
+}
+
 .loadingTitle {
 	height: 3.6875rem;
 	width: 12rem;
+	border-radius: 0.75rem;
 }
 
 .loadingItem {
@@ -28,6 +43,13 @@
 	position: relative;
 }
 
+@keyframes shimmer {
+	100% {
+		background-position: -200% 0;
+	}
+}
+
+/* ========= GRID ========= */
 .grid {
 	margin-top: 2.125rem;
 	display: grid;
@@ -41,6 +63,8 @@
 	}
 }
 
+
+/* ========= MEDIA ========= */
 @media screen and (max-width: 1140px) {
 	.section {
 		max-width: 100%;
