@@ -13,10 +13,17 @@ import styles from './FaqSection.module.scss';
 const FaqSection = () => {
   const locale = getValidLocale();
   const [openedId, setOpenedId] = useState(null);
+  const [locked, setLocked] = useState(false);
   const pageLoaded = useAfterLoad();
 
   const toggle = id => {
+    if (locked) return; // 🚫 блокуємо дуже швидкі кліки
+    setLocked(true);
+
     setOpenedId(prev => (prev === id ? null : id));
+
+    // ⏳ розблокування після анімації (0.35s)
+    setTimeout(() => setLocked(false), 350);
   };
 
   const { data, isLoading, error } = useQuery({
@@ -34,26 +41,19 @@ const FaqSection = () => {
       <section className={styles.section}>
         <div className="container">
           <div className={styles.content}>
-            <div className={clsx(styles.loadingTitle, 'loading')}></div>
+            <div className={clsx(styles.loadingTitle, 'loading')} />
 
             <div className={styles.grid}>
-              <ul className={styles.column}>
-                {Array.from({ length: 3 }).map((_, index) => (
-                  <li
-                    className={clsx(styles.loadingItem, 'loading')}
-                    key={index}
-                  ></li>
-                ))}
-              </ul>
-
-              <ul className={styles.column}>
-                {Array.from({ length: 3 }).map((_, index) => (
-                  <li
-                    className={clsx(styles.loadingItem, 'loading')}
-                    key={index}
-                  ></li>
-                ))}
-              </ul>
+              {[0, 1].map(col => (
+                <ul key={col} className={styles.column}>
+                  {Array.from({ length: 3 }).map((_, index) => (
+                    <li
+                      key={index}
+                      className={clsx(styles.loadingItem, 'loading')}
+                    />
+                  ))}
+                </ul>
+              ))}
             </div>
           </div>
         </div>
@@ -63,6 +63,7 @@ const FaqSection = () => {
 
   if (error) {
     console.error(error);
+    return null;
   }
 
   if (!data) return null;
