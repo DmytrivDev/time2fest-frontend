@@ -6,17 +6,16 @@ import styles from './FaqItem.module.scss';
 const FaqItem = ({ id, question, answer, isOpen, onToggle }) => {
   const ref = useRef(null);
   const [height, setHeight] = useState('0px');
-  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    if (ref.current) {
-      if (isOpen) {
-        setHeight(`${ref.current.scrollHeight}px`);
-        setVisible(true);
-      } else {
-        setHeight('0px');
-        setTimeout(() => setVisible(false), 300);
-      }
+    if (!ref.current) return;
+
+    if (isOpen) {
+      // плавно відкриваємо
+      setHeight(`${ref.current.scrollHeight}px`);
+    } else {
+      // закриваємо
+      setHeight('0px');
     }
   }, [isOpen]);
 
@@ -24,18 +23,22 @@ const FaqItem = ({ id, question, answer, isOpen, onToggle }) => {
     <li className={clsx(styles.item, isOpen && styles.opened)}>
       <div className={styles.toggle} onClick={onToggle}>
         <h4>{question}</h4>
-        <button className={styles.icon}></button>
+        <button
+          type="button"
+          className={clsx(styles.icon, isOpen && styles.rotated)}
+          aria-expanded={isOpen}
+          aria-controls={`faq-answer-${id}`}
+        />
       </div>
 
       <div
+        id={`faq-answer-${id}`}
         ref={ref}
         className={styles.answer}
         style={{
           maxHeight: height,
-          opacity: isOpen ? 1 : 0,
-          transition: 'max-height 0.4s ease, opacity 0.3s ease',
+          transition: 'max-height 0.4s ease',
           overflow: 'hidden',
-          visibility: visible ? 'visible' : 'hidden',
         }}
       >
         <p>{answer}</p>

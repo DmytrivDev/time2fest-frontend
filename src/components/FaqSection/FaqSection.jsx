@@ -10,20 +10,13 @@ import FaqItem from './FaqItem';
 
 import styles from './FaqSection.module.scss';
 
-const FaqSection = () => {
+export default function FaqSection() {
   const locale = getValidLocale();
   const [openedId, setOpenedId] = useState(null);
-  const [locked, setLocked] = useState(false);
   const pageLoaded = useAfterLoad();
 
   const toggle = id => {
-    if (locked) return; // 🚫 блокуємо дуже швидкі кліки
-    setLocked(true);
-
     setOpenedId(prev => (prev === id ? null : id));
-
-    // ⏳ розблокування після анімації (0.35s)
-    setTimeout(() => setLocked(false), 350);
   };
 
   const { data, isLoading, error } = useQuery({
@@ -33,22 +26,22 @@ const FaqSection = () => {
       return res.data;
     },
     staleTime: 5 * 60 * 1000,
-    enabled: pageLoaded, // 🚀 тільки після load
+    enabled: pageLoaded,
   });
 
+  // ---- LOADING ----
   if (!pageLoaded || isLoading) {
     return (
       <section className={styles.section}>
         <div className="container">
           <div className={styles.content}>
             <div className={clsx(styles.loadingTitle, 'loading')} />
-
             <div className={styles.grid}>
               {[0, 1].map(col => (
                 <ul key={col} className={styles.column}>
-                  {Array.from({ length: 3 }).map((_, index) => (
+                  {Array.from({ length: 4 }).map((_, i) => (
                     <li
-                      key={index}
+                      key={i}
                       className={clsx(styles.loadingItem, 'loading')}
                     />
                   ))}
@@ -68,6 +61,7 @@ const FaqSection = () => {
 
   if (!data) return null;
 
+  // ---- SPLIT DATA ----
   const half = Math.ceil(data.faq.length / 2);
   const left = data.faq.slice(0, half);
   const right = data.faq.slice(half);
@@ -77,7 +71,6 @@ const FaqSection = () => {
       <div className="container">
         <div className={styles.content}>
           <h2>{data.title}</h2>
-
           <div className={styles.grid}>
             {[left, right].map((column, colIdx) => (
               <ul key={colIdx} className={styles.column}>
@@ -98,6 +91,4 @@ const FaqSection = () => {
       </div>
     </section>
   );
-};
-
-export default FaqSection;
+}

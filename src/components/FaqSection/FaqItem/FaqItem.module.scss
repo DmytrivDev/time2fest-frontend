@@ -6,6 +6,7 @@
 	overflow: hidden;
 	border: $border;
 	padding-bottom: 1.25rem;
+	transition: background 0.3s ease;
 }
 
 .toggle {
@@ -15,6 +16,17 @@
 	cursor: pointer;
 	gap: 0 2rem;
 	padding: 1.875rem 2.5rem 0.625rem 2.5rem;
+
+	h4 {
+		margin: 0;
+		font-size: 1.1rem;
+		font-weight: 600;
+		color: $color-text;
+	}
+
+	&:hover .icon {
+		background-color: $red2;
+	}
 }
 
 .icon {
@@ -26,6 +38,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	transition: .3s;
 
 	&::before {
 		content: "";
@@ -36,39 +49,37 @@
 		background-position: center center;
 		background-repeat: no-repeat;
 		background-image: $lng-arrow2;
-		transition: 0.3s;
+		transition: transform 0.3s ease;
+		will-change: transform;
 	}
 }
 
 .answer {
 	overflow: hidden;
-	opacity: 0;
-	visibility: hidden;
+	max-height: 0;
 	line-height: 1.62;
 	color: $color-text;
 	padding: 0 2.5rem;
 	transition:
 		max-height 0.4s ease,
-		opacity 0.3s ease;
+		visibility 0.3s ease;
 
 	p {
 		padding-bottom: 0.625rem;
 	}
 }
 
-.opened .answer {
-	opacity: 1;
-	visibility: visible;
-}
-
 .opened {
-	.icon {
-		&::before {
-			transform: rotate(-180deg);
-		}
+	.answer {
+		max-height: 1000px; // достатньо велике значення
+	}
+
+	.icon::before {
+		transform: rotate(-180deg);
 	}
 }
 
+/* ====== MOBILE ====== */
 @media screen and (max-width: 1140px) {
 	.item {
 		border-radius: 1.25rem;
@@ -78,6 +89,10 @@
 	.toggle {
 		gap: 0 1.5rem;
 		padding: 1.125rem 1.375rem 0.625rem 1.375rem;
+
+		h4 {
+			font-size: 1rem;
+		}
 	}
 
 	.icon {
