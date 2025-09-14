@@ -28,7 +28,7 @@ const BecomeSection = () => {
 
   if (!pageLoaded || isLoading) {
     return (
-      <section id="become-streamer" className={styles.section}>
+      <section className={styles.section}>
         <div className="container">
           <div className={styles.content}>
             <div className={styles.loadingTitleCont}>
@@ -68,7 +68,7 @@ const BecomeSection = () => {
   if (error || !data) return null;
 
   return (
-    <section id="become" className={styles.section}>
+    <section id="become-streamer" className={styles.section}>
       <div className="container">
         <div className={styles.content}>
           <h2 className={styles.title}>
