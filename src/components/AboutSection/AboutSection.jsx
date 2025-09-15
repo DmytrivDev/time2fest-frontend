@@ -23,7 +23,7 @@ const AboutPortalSection = () => {
 
   if (!pageLoaded || isLoading) {
     return (
-      <section className={styles.section}>
+      <section id="about" className={styles.section}>
         <picture>
           <source srcSet="/about/bg.avif" type="image/avif" />
           <source srcSet="/about/bg.webp" type="image/webp" />

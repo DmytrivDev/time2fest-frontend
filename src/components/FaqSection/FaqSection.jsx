@@ -32,7 +32,7 @@ export default function FaqSection() {
   // ---- LOADING ----
   if (!pageLoaded || isLoading) {
     return (
-      <section className={styles.section}>
+      <section id="faq" className={styles.section}>
         <div className="container">
           <div className={styles.content}>
             <div className={clsx(styles.loadingTitle, 'loading')} />

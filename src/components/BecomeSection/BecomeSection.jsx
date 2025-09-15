@@ -28,7 +28,7 @@ const BecomeSection = () => {
 
   if (!pageLoaded || isLoading) {
     return (
-      <section className={styles.section}>
+      <section id="become-streamer" className={styles.section}>
         <div className="container">
           <div className={styles.content}>
             <div className={styles.loadingTitleCont}>
