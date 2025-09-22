@@ -23,6 +23,14 @@
 	}
 }
 
+.dec {
+	transition: transform 0.15s ease-out;
+	will-change: transform;
+	position: absolute;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
 @keyframes slideLoop {
 	0% {
 		left: -20%;

@@ -6,44 +6,38 @@ import { DEFAULT_LANG, SUPPORTED_LANGS } from './i18n/languages';
 import LanguageLayout from './layouts/LanguageLayout/LanguageLayout';
 
 const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
+const AmbassPage = lazy(() => import('./pages/AmbassPage/AmbassPage'));
 
 const App = () => {
   const { i18n, ready } = useTranslation();
 
-  if (!ready) return null; // або показати <Loader />
+  if (!ready) return null; // або <Loader />
 
-  const detectedLang = i18n.language;
+  const detectedLang = i18n.language.split('-')[0];
   const isSupported = SUPPORTED_LANGS.includes(detectedLang);
 
   return (
     <Routes>
-      {/* Кореневий маршрут */}
-      <Route
-        path="/"
-        element={
-          isSupported && detectedLang !== DEFAULT_LANG ? (
-            <Navigate to={`/${detectedLang}`} replace />
-          ) : (
-            <LanguageLayout />
-          )
-        }
-      >
+      {/* Корінь без префікса (default lang) */}
+      <Route path="/" element={<LanguageLayout />}>
         <Route index element={<HomePage />} />
+        <Route path="ambassadors" element={<AmbassPage />} />
       </Route>
 
-      {/* Якщо явно вказали default_lang — редіректимо */}
+      {/* Якщо явно вказали default_lang → редіректимо, але зберігаємо підшлях */}
       <Route
         path={`/${DEFAULT_LANG}/*`}
-        element={<Navigate to="/" replace />}
+        element={<Navigate to={window.location.pathname.replace(`/${DEFAULT_LANG}`, '') || '/'} replace />}
       />
 
       {/* Інші мови */}
       <Route path="/:lang/*" element={<LanguageLayout />}>
         <Route index element={<HomePage />} />
+        <Route path="ambassadors" element={<AmbassPage />} />
       </Route>
 
       {/* 404 → редірект на головну */}
-      <Route path="*" element={<Navigate to="/" />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 };
