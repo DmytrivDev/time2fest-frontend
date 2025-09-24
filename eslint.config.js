@@ -31,6 +31,7 @@ export default [
         clearTimeout: 'readonly',
         IntersectionObserver: 'readonly',
         getComputedStyle: 'readonly',
+        alert: 'readonly',
       },
     },
     settings: {

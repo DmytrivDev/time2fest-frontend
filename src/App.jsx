@@ -7,6 +7,7 @@ import LanguageLayout from './layouts/LanguageLayout/LanguageLayout';
 
 const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
 const AmbassPage = lazy(() => import('./pages/AmbassPage/AmbassPage'));
+const FormPage = lazy(() => import('./pages/FormPage/FormPage'));
 
 const App = () => {
   const { i18n, ready } = useTranslation();
@@ -22,6 +23,7 @@ const App = () => {
       <Route path="/" element={<LanguageLayout />}>
         <Route index element={<HomePage />} />
         <Route path="ambassadors" element={<AmbassPage />} />
+        <Route path="become-ambassador" element={<FormPage />} />
       </Route>
 
       {/* Якщо явно вказали default_lang → редіректимо, але зберігаємо підшлях */}
@@ -34,6 +36,7 @@ const App = () => {
       <Route path="/:lang/*" element={<LanguageLayout />}>
         <Route index element={<HomePage />} />
         <Route path="ambassadors" element={<AmbassPage />} />
+        <Route path="become-ambassador" element={<FormPage />} />
       </Route>
 
       {/* 404 → редірект на головну */}
