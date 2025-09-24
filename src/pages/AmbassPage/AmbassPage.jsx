@@ -5,6 +5,10 @@ import { useAfterLoad } from '../../hooks/useAfterLoad';
 
 import AmbassHero from '../../components/AmbassHero/AmbassHero';
 import AmbassWork from '../../components/AmbassWork/AmbassWork';
+import AmbassGet from '../../components/AmbassGet/AmbassGet';
+import AmbassStream from '../../components/AmbassStream/AmbassStream';
+import AmbassBecome from '../../components/AmbassBecome/AmbassBecome';
+import FaqSection from '../../components/FaqSection/FaqSection';
 
 const AmbassPage = () => {
   const locale = getValidLocale();
@@ -48,7 +52,29 @@ const AmbassPage = () => {
       />
       <AmbassWork
         data={restData?.WhatDo}
-        isLoading={isLoadingRest}
+        isLoading={!pageLoaded || isLoadingRest}
+        error={errorRest}
+      />
+      <AmbassGet
+        data={restData?.WhatGet}
+        isLoading={!pageLoaded || isLoadingRest}
+        error={errorRest}
+      />
+      <AmbassStream
+        data={restData?.Stream}
+        isLoading={!pageLoaded || isLoadingRest}
+        error={errorRest}
+      />
+      <AmbassBecome
+        data={restData?.WhatBecome}
+        isLoading={!pageLoaded || isLoadingRest}
+        error={errorRest}
+      />
+      <FaqSection
+        loafCount={2}
+        propData={true}
+        data={restData?.FAQ}
+        isLoading={!pageLoaded || isLoadingRest}
         error={errorRest}
       />
     </>

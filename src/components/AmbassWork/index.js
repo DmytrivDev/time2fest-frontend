@@ -1,2 +1,2 @@
 // components/AmbassWork/AmbassWork/index.js
-export { default } from './AmbassHero';
+export { default } from './AmbassWork';

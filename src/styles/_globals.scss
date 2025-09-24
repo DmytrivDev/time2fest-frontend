@@ -31,6 +31,72 @@
 	background-size: contain;
 }
 
+.streamSlider {
+	overflow: visible !important;
+
+	.swiper-wrapper {
+		overflow: visible !important;
+	}
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+	position: absolute !important;
+	top: 50% !important;
+	transform: translateY(-50%) !important;
+	width: 3.5625rem !important;
+	height: 3.5625rem !important;
+	border-radius: 50%;
+	background-color: $color-primary;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: 0.5625rem;
+	transition: 0.3s;
+	margin: 0 !important;
+
+	svg {
+		display: none;
+	}
+
+	&.disabled {
+		background-color: $color-primary !important;
+		opacity: 0.4 !important;
+	}
+
+	&:hover {
+		background-color: $red2;
+	}
+
+	&.swiper-button-prev {
+		background-image: $arrow-left;
+		left: 0.5rem !important;
+	}
+
+	&.swiper-button-next {
+		background-image: $arrow-right;
+		right: 0.5rem !important;
+	}
+}
+
+.swiper-pagination {
+	bottom: 0 !important;
+	display: flex !important;
+	gap: 0.62rem;
+	justify-content: center;
+
+	.swiper-pagination-bullet {
+		margin: 0 !important;
+		width: 0.5rem;
+		height: 0.5rem;
+		background-color: #CCC;
+		opacity: 1;
+
+		&.swiper-pagination-bullet-active {
+			background-color: $color-primary;
+		}
+	}
+}
+
 @keyframes slideLoop {
 	0% {
 		left: -20%;

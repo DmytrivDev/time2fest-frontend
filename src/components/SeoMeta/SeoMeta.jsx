@@ -3,12 +3,21 @@ import { useQuery } from '@tanstack/react-query';
 import { getValidLocale } from '@/utils/getValidLocale';
 import { api } from '@/utils/api';
 import { useLocation } from 'react-router-dom';
+import { SUPPORTED_LANGS, DEFAULT_LANG } from '@/i18n/languages';
 
 function getPageFromPath(pathname) {
   const parts = pathname.split('/').filter(Boolean);
-  // parts[0] — мова, parts[1] — сторінка
-  if (!parts[1]) return 'home'; // fallback для головної
-  return parts[1];
+
+  // якщо перший сегмент — мова → видаляємо
+  if (parts[0] && SUPPORTED_LANGS.includes(parts[0])) {
+    parts.shift();
+  }
+
+  // якщо після цього нічого не лишилось → home
+  if (parts.length === 0) return 'home';
+
+  // перший сегмент після мови — сторінка
+  return parts[0];
 }
 
 const SeoMeta = () => {
@@ -16,10 +25,16 @@ const SeoMeta = () => {
   const { pathname } = useLocation();
   const page = getPageFromPath(pathname);
 
+  let pageS = page;
+  if (page === 'ambassadors') {
+    pageS = 'ambass';
+  }
+
   const { data, error, isLoading } = useQuery({
     queryKey: ['seo', page, locale],
     queryFn: async () => {
-      const res = await api.get(`/seo?page=${page}&locale=${locale}`);
+      const res = await api.get(`/seo?page=${pageS}&locale=${locale}`);
+
       return res.data;
     },
     staleTime: 5 * 60 * 1000,
@@ -33,7 +48,8 @@ const SeoMeta = () => {
   // Поки чекаємо — нічого не рендеримо, але не валимо все
   if (isLoading) return null;
 
-  const componentKey = `${page.charAt(0).toUpperCase()}${page.slice(1)}SeoMeta`;
+  const componentKey = `${pageS.charAt(0).toUpperCase()}${pageS.slice(1)}SeoMeta`;
+
   const seo = data?.[componentKey];
 
   if (!seo) {
@@ -53,7 +69,10 @@ const SeoMeta = () => {
     <Helmet>
       <title>{seo.title}</title>
       <meta name="description" content={seo.description} />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+      />
       <link rel="canonical" href={seo.canonicalURL} />
       {hreflangs.map(item => (
         <link

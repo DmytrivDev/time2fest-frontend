@@ -1,0 +1,161 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.section {
+	padding-top: 5.75rem;
+	position: relative;
+}
+
+.loadingTitle {
+	height: 3.05rem;
+	width: 22rem;
+	display: block;
+}
+
+.loadingTestCont {
+	margin-top: 1.37rem;
+	display: flex;
+	flex-direction: column;
+	height: 6.069rem;
+	justify-content: space-between;
+
+	span {
+		width: 100%;
+		height: 1.5rem;
+
+		&:last-child {
+			width: 50%;
+		}
+	}
+}
+
+.loadingCard {
+	height: 14.5625rem;
+}
+
+.background {
+	position: absolute;
+	min-width: 120rem;
+	width: 100%;
+	height: 71.375rem;
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: -10.25rem;
+
+	&::after {
+		content: "";
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		top: 0;
+		background: linear-gradient(185deg, #020101 9.16%, rgba(2, 1, 1, 0.6) 46.04%, #020101 88.89%);
+	}
+
+	img {
+		@include img-cover;
+	}
+}
+
+.content {
+	position: relative;
+	z-index: 2;
+}
+
+.header {
+	max-width: 50rem;
+}
+
+.title {
+	margin-top: 1.5rem;
+	font-size: 2.5rem;
+}
+
+.text {
+	margin-top: 1.38rem;
+	font-size: 1.125rem;
+	line-height: 1.8;
+}
+
+.cardsCont {
+	margin-top: 3.25rem;
+	position: relative;
+}
+
+.cards {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 1.88rem;
+	position: relative;
+	z-index: 1;
+}
+
+.card {
+	border-radius: 2.5rem;
+	padding: 2.5rem;
+	padding-bottom: 2rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	background-color: $color-gray2;
+
+	.iconWrapper {
+		width: 2.5rem;
+		height: 2.5rem;
+		position: relative;
+
+		img {
+			@include img-contain;
+		}
+	}
+}
+
+.cardContent {
+	margin-top: 1.5rem;
+
+	p {
+		margin-top: 0.638rem;
+		font-size: 1.125rem;
+		color: rgba(255, 255, 255, 0.8);
+	}
+}
+
+.dec {
+	position: absolute;
+	width: 9.8rem;
+	height: 9.438em;
+	top: -4.44rem;
+	left: 41.12rem;
+	background-repeat: no-repeat;
+	background-size: auto 100%;
+
+	&.dec1 {
+		background-image: url(/public/aboutPage/dec_g1.png);
+		background-position: 0 top;
+	}
+
+	&.dec2 {
+		background-image: url(/public/aboutPage/dec_g2.png);
+		z-index: 3;
+		background-position: right -0.1rem;
+	}
+}
+
+.dec3 {
+	width: 16.2255rem;
+	height: 13.14825rem;
+	transform: rotate(72.308deg);
+	right: -1.84rem;
+	top: -7.35rem;
+	background-image: url("/public/aboutPage/dec2.png");
+	z-index: 3;
+}
+
+@media screen and (max-width: 1140px) {
+}
+
+@media screen and (max-width: 868px) {
+}
+
+@media screen and (max-width: 475px) {
+}

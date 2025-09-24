@@ -1,0 +1,107 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.section {
+	padding-top: 5.75rem;
+	position: relative;
+}
+
+.loadingTitle {
+	height: 3.05rem;
+	width: 25rem;
+	display: block;
+}
+
+.loadSlTitle {
+	height: 2.125rem;
+	width: 15rem;
+}
+
+.textLoadCont {
+	margin-top: 0.7rem;
+	height: 5.4375rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+
+	span {
+		height: 1.5rem;
+		display: block;
+
+		&:last-child {
+			width: 80%;
+		}
+	}
+}
+
+.content {
+	position: relative;
+}
+
+.header {
+	max-width: 50rem;
+}
+
+.title {
+	font-size: 2.5rem;
+}
+
+.slideCont {
+	margin-top: 2.88rem;
+	padding-bottom: 3.75rem;
+	position: relative;
+}
+
+.slider {
+	margin: 0;
+	width: 74.375rem;
+	position: static;
+}
+
+.slide {
+	display: flex;
+	align-items: center;
+	align-content: center;
+}
+
+.imageWrapper {
+	width: 33.875rem;
+	min-width: 33.875rem;
+	height: 22.562rem;
+	border-radius: 2.5rem;
+	overflow: hidden;
+	position: relative;
+
+	img {
+		@include img-cover;
+		width: 101%;
+		height: 101%;
+	}
+}
+
+.textWrapper {
+	padding-left: 3.75rem;
+	padding-right: 6.25rem;
+	width: 100%;
+
+	h3 {
+		font-size: 1.5rem;
+		line-height: 1.4;
+	}
+
+	p {
+		margin-top: 0.7rem;
+		font-size: 1.125rem;
+		color: rgba(255, 255, 255, 0.8);
+		line-height: 1.6;
+	}
+}
+
+@media screen and (max-width: 1140px) {
+}
+
+@media screen and (max-width: 868px) {
+}
+
+@media screen and (max-width: 475px) {
+}

@@ -19,6 +19,7 @@ export default function useFloatingDecors(selector = '.dec', amplitude = 20) {
         // забираємо поточний transform (наприклад rotate)
         const baseTransform = el.dataset.baseTransform || window.getComputedStyle(el).transform;
 
+
         // якщо transform був none → базовий трансформ порожній
         const base = baseTransform === 'none' ? '' : baseTransform;
 
