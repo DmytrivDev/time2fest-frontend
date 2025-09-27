@@ -2,150 +2,141 @@
 @use "@/styles/mixins" as *;
 
 .section {
-	padding-top: 11.0625rem;
-	position: relative;
-	overflow: hidden;
+	padding-top: 6.25rem;
+	padding-bottom: 6.25rem;
 }
 
-.content {
-	max-width: 52.5rem;
-	padding-bottom: 9.38rem;
-	position: relative;
+.form {
+	max-width: 50rem;
+	width: 100%;
+	margin: 0 auto;
+}
 
-	* {
-		position: relative;
-		z-index: 2;
+.heading {
+	.tagline {
+		padding: 0.5625rem 0.9375rem;
+		border-radius: 1.25rem;
+		background: $color-bages;
+		color: $color-sec;
+		display: inline-block;
 	}
+
+	h1 {
+		font-size: 2.5rem;
+		font-weight: 700;
+		margin-top: 1.5rem;
+	}
+
+	.text {
+		margin-top: 1rem;
+		color: rgba(255, 255, 255, 0.6);
+		font-size: 1.125rem;
+		line-height: 1.8;
+	}
+}
+
+.block {
+	margin-top: 3.3rem;
 
 	h2 {
-		span {
-			display: block;
-		}
+		font-size: 1.5rem;
 	}
 }
 
-.loadingTitleCont {
+.fields {
 	display: flex;
 	flex-direction: column;
-	gap: 0.5rem;
+	margin-top: 1.69rem;
+	gap: 1.64rem;
 }
 
-.loadingTitle {
-	height: 3.4375rem;
-	width: 32rem;
+.fieldGr {
+	width: 100%;
 
-	&:last-child {
-		width: 27rem;
+	label {
+		font-size: 1.125rem;
+		line-height: 1.6;
+		display: block;
+		margin-bottom: 0.62rem;
 	}
 }
 
-.loadingItem {
-	height: 11.3125rem;
-
-	&::after {
-		display: none;
-	}
-}
-
-.loadingBtn {
-	width: 12.75rem;
-	height: 4.4375rem;
-}
-
-.subtextLoading {
+.checkboxes {
 	display: flex;
 	flex-direction: column;
-	gap: 0.5rem;
+	align-items: flex-start;
+	align-content: flex-start;
+	gap: 0.62rem;
 
-	span {
-		width: 16.5rem;
-		height: 1.375rem;
+	.checkbox {
+		border-radius: 1.25rem;
+		background: rgba(255, 255, 255, 0.1);
 
-		&:last-child {
-			width: 14rem;
+		&.checked {
+			width: 100%;
+
+			label {
+				span {
+					background-image: $checkSpCh;
+					background-color: $color-light;
+					background-position: center center;
+					background-size: 0.83331rem;
+					border-radius: 0.625rem;
+				}
+			}
+		}
+
+		label {
+			display: inline-flex;
+			padding: 0.94rem 1.25rem;
+			min-width: 10.5rem;
+			margin: 0;
+			align-items: center;
+			align-content: center;
+			gap: 0.75rem;
+			font-size: 1.125rem;
+
+			span {
+				width: 1.875rem;
+				height: 1.875rem;
+				background-repeat: no-repeat;
+				background-size: contain;
+				background-image: $checkSp;
+			}
+
+			input {
+				display: none;
+			}
+		}
+
+		input {
+			margin: 1.25rem;
+			margin-top: 0;
+			width: calc(100% - 2.5rem);
 		}
 	}
 }
 
-.content {
-	max-width: 52.5rem;
-	padding-bottom: 9.38rem;
-	position: relative;
-
-	* {
-		position: relative;
-		z-index: 2;
-	}
-
-	h2 {
-		max-width: 45rem;
-		span {
-			display: block;
-		}
-	}
-}
-
-.list {
-	margin-top: 2.1875rem;
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	gap: 1.375rem;
-
-	li {
-		position: relative;
-		border-radius: 2.5rem;
-		padding: 4.5rem 1.375rem 1.375rem 1.875rem;
-		border: $border;
-		line-height: 160%;
-		background-color: $color-dark;
-
-		&::after {
-			content: "";
-			position: absolute;
-			width: 1.25rem;
-			height: 1.25rem;
-			top: 1.875rem;
-			left: 1.875rem;
-			border-radius: 50%;
-			background-color: $color-primary;
-		}
-	}
-}
-
-.actions {
+.bottom {
+	margin-top: 2.8rem;
 	display: flex;
+	justify-content: space-between;
 	align-items: center;
-	gap: 2rem;
-	margin-top: 3.125rem;
+	align-content: center;
 }
 
-.subtext {
-	color: $color-sec2;
-	line-height: 1.6;
-	max-width: 16.625rem;
-}
-
-.imageWrapper {
-	position: absolute;
-	bottom: -0.625rem;
-	left: 15.625rem;
-	z-index: 0;
-	width: 86.875rem;
-
-	video {
-		width: 100%;
-		height: 100%;
-	}
+.error {
+	margin-top: 0.25rem;
+	font-size: 0.875rem;
+	color: rgb(213, 65, 65);
+	display: inline-block;
 }
 
 @media screen and (max-width: 1140px) {
-	
 }
 
 @media screen and (max-width: 868px) {
-	
 }
 
 @media screen and (max-width: 475px) {
-	
 }
