@@ -48,6 +48,77 @@
     "and_more": "та ще {{count}}",
     "and_more_plural": "та ще {{count}}"
   },
+  "form": {
+    "tagline": "Станьте обличчям свого міста або країни на глобальному святкуванні Нового року!",
+    "title": "Станьте амбасадором Time2Fest",
+    "subtitle": "Амбасадори Time2Fest виходять в прямий ефір, щоб показати, як їхній регіон зустрічає Новий рік, ділячись атмосферою та традиціями.",
+    "block1Title": "Блок 1. Основна інформація",
+    "nameLabel": "Ваше повне ім’я або псевдонім (обов’язково)",
+    "countryLabel": "Країна, місто або регіон, який ви будете представляти (обов’язково)",
+    "ageLabel": "Ваш вік (оберіть проміжок) (обов’язково)",
+    "contactLabel": "Контактна інформація (оберіть зручний спосіб зв’язку, обов’язково)",
+    "contactLinkLabel": "Посилання на акаунт або номер телефону",
+    "block2Title": "Блок 2. Досвід і соцмережі",
+    "socialLabel": "Чи ведете ви активні блоги в соціальних мережах? (оберіть платформи)",
+    "experienceLabel": "Чи маєте ви досвід у створенні контенту чи прямих ефірів?",
+    "block3Title": "Блок 3. Мова і формат стріму",
+    "englishLabel": "Ваш рівень знання англійської мови",
+    "streamLangLabel": "Мова, якою ви плануєте вести стрім",
+    "block4Title": "Блок 4. Мотивація",
+    "motivationLabel": "Чому ви хочете стати амбасадором Time2Fest? (обов’язково)",
+    "policyText": "Я погоджуюсь з умовами",
+    "policyLink": "політики конфіденційності",
+    "submit": "Відправити заявку",
+    "placeholder": "Пишіть тут",
+    "selectPlaceholder": "Виберіть...",
+    "linkPlaceholder": "Посилання на",
+    "errorRequired": "Це поле є обов'язковим",
+    "errorSelect": "Виберіть один з варіантів",
+    "errorPolicy": "Необхідно погодитись",
+    "age": {
+      "under18": "До 18",
+      "18_24": "18–24",
+      "25_34": "25–34",
+      "35_44": "35–44",
+      "45_plus": "45+"
+    },
+    "contact": {
+      "telegram": "Telegram",
+      "whatsapp": "WhatsApp",
+      "viber": "Viber",
+      "instagram": "Instagram",
+      "facebook": "Facebook Messenger",
+      "email": "Email",
+      "other": "Інше (вкажіть)"
+    },
+    "social": {
+      "instagram": "Instagram",
+      "tiktok": "TikTok",
+      "youtube": "YouTube",
+      "facebook": "Facebook",
+      "x": "X (Twitter)",
+      "threads": "Threads",
+      "linkedin": "LinkedIn",
+      "reddit": "Reddit",
+      "onlyfans": "OnlyFans",
+      "other": "Інше"
+    },
+    "english": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "experience": {
+      "yes": "Так",
+      "no": "Ні",
+      "minimal": "Мінімальний"
+    },
+    "streamLang": {
+      "english": "Англійська",
+      "native": "Рідна",
+      "both": "Обидві"
+    }
+  },
   "countries": {
     "kiribati": "Кірібаті",
     "chatham_islands": "Острови Чатем (НЗ)",

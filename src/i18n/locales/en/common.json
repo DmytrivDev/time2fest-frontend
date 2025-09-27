@@ -48,6 +48,77 @@
     "and_more": "and {{count}} more",
     "and_more_plural": "and {{count}} more"
   },
+  "form": {
+    "tagline": "Become the face of your city or country at the global New Year’s celebration!",
+    "title": "Become a Time2Fest Ambassador",
+    "subtitle": "Time2Fest Ambassadors go live to show how their region welcomes the New Year, sharing atmosphere and traditions.",
+    "block1Title": "Block 1. Basic Information",
+    "nameLabel": "Your full name or nickname (required)",
+    "countryLabel": "Country, city, or region you will represent (required)",
+    "ageLabel": "Your age (choose a range) (required)",
+    "contactLabel": "Contact information (choose a convenient method, required)",
+    "contactLinkLabel": "Link to your account or phone number",
+    "block2Title": "Block 2. Experience and Social Media",
+    "socialLabel": "Do you run active blogs on social media? (choose platforms)",
+    "experienceLabel": "Do you have experience creating content or live streams?",
+    "block3Title": "Block 3. Language and Stream Format",
+    "englishLabel": "Your English language proficiency",
+    "streamLangLabel": "Language you plan to stream in",
+    "block4Title": "Block 4. Motivation",
+    "motivationLabel": "Why do you want to become a Time2Fest Ambassador? (required)",
+    "policyText": "I agree with the terms of",
+    "policyLink": "privacy policy",
+    "submit": "Submit application",
+    "placeholder": "Type here",
+    "selectPlaceholder": "Select...",
+    "linkPlaceholder": "Link to",
+    "errorRequired": "This field is required",
+    "errorSelect": "Please select one option",
+    "errorPolicy": "You must agree",
+    "age": {
+      "under18": "Under 18",
+      "18_24": "18–24",
+      "25_34": "25–34",
+      "35_44": "35–44",
+      "45_plus": "45+"
+    },
+    "contact": {
+      "telegram": "Telegram",
+      "whatsapp": "WhatsApp",
+      "viber": "Viber",
+      "instagram": "Instagram",
+      "facebook": "Facebook Messenger",
+      "email": "Email",
+      "other": "Other (specify)"
+    },
+    "social": {
+      "instagram": "Instagram",
+      "tiktok": "TikTok",
+      "youtube": "YouTube",
+      "facebook": "Facebook",
+      "x": "X (Twitter)",
+      "threads": "Threads",
+      "linkedin": "LinkedIn",
+      "reddit": "Reddit",
+      "onlyfans": "OnlyFans",
+      "other": "Other"
+    },
+    "english": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "experience": {
+      "yes": "Yes",
+      "no": "No",
+      "minimal": "Minimal"
+    },
+    "streamLang": {
+      "english": "English",
+      "native": "Native",
+      "both": "Both"
+    }
+  },
   "countries": {
     "kiribati": "Kiribati",
     "chatham_islands": "Chatham Island (NZ)",

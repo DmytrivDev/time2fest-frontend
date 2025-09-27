@@ -32,6 +32,7 @@ export default [
         IntersectionObserver: 'readonly',
         getComputedStyle: 'readonly',
         alert: 'readonly',
+        sessionStorage: 'readonly',
       },
     },
     settings: {
