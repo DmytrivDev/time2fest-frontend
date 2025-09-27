@@ -17,6 +17,7 @@ const submitForm = async formData => {
 
 export default function AmbassadorForm() {
   const { t } = useTranslation();
+  const isClearingRef = useRef(false);
 
   const savedData = JSON.parse(sessionStorage.getItem(STORAGE_KEY) || '{}');
 
@@ -24,9 +25,28 @@ export default function AmbassadorForm() {
     mutationFn: submitForm,
     onSuccess: () => {
       alert('Заявка відправлена!');
-      sessionStorage.removeItem(STORAGE_KEY); // очищаємо сховище
-      reset(); // очищаємо форму
-      setSelectedSocials([]); // очищаємо вибрані соцмережі
+      isClearingRef.current = true; // блокуємо автозбереження
+      sessionStorage.removeItem(STORAGE_KEY);
+
+      reset({
+        name: '',
+        country: '',
+        age: null,
+        contactMethod: null,
+        contactLink: '',
+        socialLinks: {},
+        experience: null,
+        englishLevel: null,
+        streamLang: null,
+        motivation: '',
+        policy: false,
+      });
+
+      setSelectedSocials([]); // чистимо чекбокси
+
+      setTimeout(() => {
+        isClearingRef.current = false; // дозволяємо знову автозбереження
+      }, 0);
     },
     onError: () => {
       alert('Помилка при відправці');
@@ -125,7 +145,9 @@ export default function AmbassadorForm() {
   // збереження у sessionStorage при будь-якій зміні
   useEffect(() => {
     const subscription = watch(values => {
-      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(values));
+      if (!isClearingRef.current) {
+        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(values));
+      }
     });
     return () => subscription.unsubscribe();
   }, [watch]);
