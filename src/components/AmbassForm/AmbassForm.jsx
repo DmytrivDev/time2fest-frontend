@@ -99,7 +99,18 @@ export default function AmbassadorForm() {
   const formRef = useRef(null);
 
   const onSubmit = data => {
-    mutation.mutate(data);
+    // Перетворюємо select-поля в прості строки
+    const payload = {
+      ...data,
+      age: data.age?.value || data.age,
+      contactMethod: data.contactMethod?.value || data.contactMethod,
+      englishLevel: data.englishLevel?.value || data.englishLevel,
+      experience: data.experience?.value || data.experience,
+      streamLang: data.streamLang?.value || data.streamLang,
+      policy: Boolean(data.policy), // щоб точно було true/false
+    };
+
+    mutation.mutate(payload);
   };
 
   const handleSocialChange = e => {
