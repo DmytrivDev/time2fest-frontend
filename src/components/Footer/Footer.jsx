@@ -11,7 +11,7 @@ const Footer = () => {
   const { t } = useTranslation('common');
   const location = useLocation();
 
-  const isFormPage = location.pathname === '/become-ambassador';
+  const isFormPage = location.pathname === '/become-ambassador' || location.pathname === '/privacy';
 
   return (
     <footer className={clsx(styles.footer, isFormPage && styles.gray)}>

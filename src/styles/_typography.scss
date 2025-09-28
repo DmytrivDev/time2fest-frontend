@@ -22,6 +22,79 @@ h4 {
 	line-height: 1.44;
 }
 
+.embed {
+	& > * {
+		margin-top: 1em;
+		font-size: 1.175rem;
+
+		&:first-child {
+			margin-top: 0;
+		}
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-weight: 700;
+
+		& + * {
+			margin-top: 0.5em;
+		}
+	}
+
+	strong {
+		font-weight: 600;
+	}
+
+	ul,
+	ol {
+		margin-left: 1em;
+	}
+
+	ul {
+		li {
+			list-style-type: disc;
+		}
+	}
+
+	ol {
+		li {
+			list-style-type: decimal;
+		}
+	}
+
+	h1 {
+		font-size: 2.5rem;
+	}
+
+	h2 {
+		font-size: 2rem;
+	}
+
+	h3 {
+		font-size: 1.75rem;
+	}
+
+	h4 {
+		font-size: 1.5rem;
+	}
+
+	h5 {
+		font-size: 1.25rem;
+	}
+
+	h6 {
+		font-size: 1.175rem;
+	}
+
+	a {
+		text-decoration: underline;
+	}
+}
+
 @media screen and (max-width: 1140px) {
 	h1,
 	h2 {
@@ -33,5 +106,28 @@ h4 {
 	h4 {
 		font-size: 0.875rem;
 		line-height: 1.6;
+	}
+	.embed {
+		& > * {
+			font-size: .870em;
+		}
+		h1 {
+			font-size: 1.625rem;
+		}
+		h2 {
+			font-size: 1.25rem;
+		}
+		h3 {
+			font-size: 1.2rem;
+		}
+		h4 {
+			font-size: 1.15rem;
+		}
+		h5 {
+			font-size: 1rem;
+		}
+		h6 {
+			font-size: .9rem;
+		}
 	}
 }

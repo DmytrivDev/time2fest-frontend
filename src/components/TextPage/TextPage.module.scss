@@ -1,0 +1,64 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.section {
+	padding-top: 5.56rem;
+	padding-bottom: 5.56rem;
+}
+
+.titleLoading {
+	height: 3.5rem;
+	width: 32rem;
+	max-width: 100%;
+}
+
+.content {
+	max-width: 50rem;
+	width: 100%;
+	margin: 0 auto;
+}
+
+.embedLoading {
+	display: flex;
+	flex-direction: column;
+	gap: 0.875rem;
+
+	span {
+		height: 1.125rem;
+	}
+}
+
+.heading {
+	h1 {
+		font-size: 2.5rem;
+	}
+}
+
+.embedCont {
+	margin-top: 2.3rem;
+}
+
+@media screen and (max-width: 1140px) {
+	.section {
+		padding-top: 4rem;
+		padding-bottom: 4rem;
+	}
+	.titleLoading {
+		height: 2.25rem;
+	}
+	.embedLoading {
+		gap: 0.875rem;
+
+		span {
+			height: 6.88rem;
+		}
+	}
+	.heading {
+		h1 {
+			font-size: 1.625rem;
+		}
+	}
+	.embedCont {
+		margin-top: 2rem;
+	}
+}

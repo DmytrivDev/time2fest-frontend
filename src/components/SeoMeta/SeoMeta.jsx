@@ -32,6 +32,9 @@ const SeoMeta = () => {
   if (page === 'become-ambassador') {
     pageS = 'Form';
   }
+  if (page === 'privacy') {
+    pageS = 'polict';
+  }
 
   const { data, error, isLoading } = useQuery({
     queryKey: ['seo', page, locale],
