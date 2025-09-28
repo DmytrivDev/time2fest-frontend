@@ -9,6 +9,9 @@ const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
 const AmbassPage = lazy(() => import('./pages/AmbassPage/AmbassPage'));
 const FormPage = lazy(() => import('./pages/FormPage/FormPage'));
 const PrivacyPage = lazy(() => import('./pages/PrivacyPage/PrivacyPage'));
+const AgreementPage = lazy(() => import('./pages/AgreementPage/AgreementPage'));
+const ResponsibilityPage = lazy(() => import('./pages/ResponsibilityPage/ResponsibilityPage'));
+const TermsPage = lazy(() => import('./pages/TermsPage/TermsPage'));
 
 const App = () => {
   const { i18n, ready } = useTranslation();
@@ -26,6 +29,9 @@ const App = () => {
         <Route path="ambassadors" element={<AmbassPage />} />
         <Route path="become-ambassador" element={<FormPage />} />
         <Route path="privacy" element={<PrivacyPage />} />
+        <Route path="agreement" element={<AgreementPage />} />
+        <Route path="disclaimer" element={<ResponsibilityPage />} />
+        <Route path="terms" element={<TermsPage />} />
       </Route>
 
       {/* Якщо явно вказали default_lang → редіректимо, але зберігаємо підшлях */}
@@ -40,6 +46,9 @@ const App = () => {
         <Route path="ambassadors" element={<AmbassPage />} />
         <Route path="become-ambassador" element={<FormPage />} />
         <Route path="privacy" element={<PrivacyPage />} />
+        <Route path="agreement" element={<AgreementPage />} />
+        <Route path="disclaimer" element={<ResponsibilityPage />} />
+        <Route path="terms" element={<TermsPage />} />
       </Route>
 
       {/* 404 → редірект на головну */}

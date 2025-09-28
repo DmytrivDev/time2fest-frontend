@@ -35,6 +35,9 @@ const SeoMeta = () => {
   if (page === 'privacy') {
     pageS = 'polict';
   }
+  if (page === 'disclaimer') {
+    pageS = 'responsibility';
+  }
 
   const { data, error, isLoading } = useQuery({
     queryKey: ['seo', page, locale],
