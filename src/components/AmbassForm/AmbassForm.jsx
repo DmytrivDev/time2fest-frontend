@@ -7,6 +7,7 @@ import { useMutation } from '@tanstack/react-query';
 import { api } from '@/utils/api';
 
 import styles from './AmbassForm.module.scss';
+import Modal from '../Modal/Modal';
 
 const STORAGE_KEY = 'ambassadorForm';
 
@@ -19,12 +20,16 @@ export default function AmbassadorForm() {
   const { t } = useTranslation();
   const isClearingRef = useRef(false);
 
+  const [isSuccessOpen, setSuccessOpen] = useState(false);
+  const [isInvalidOpen, setInvalidOpen] = useState(false);
+  const [isErrorOpen, setErrorOpen] = useState(false);
+
   const savedData = JSON.parse(sessionStorage.getItem(STORAGE_KEY) || '{}');
 
   const mutation = useMutation({
     mutationFn: submitForm,
     onSuccess: () => {
-      alert('Заявка відправлена!');
+      setSuccessOpen(true);
       isClearingRef.current = true; // блокуємо автозбереження
       sessionStorage.removeItem(STORAGE_KEY);
 
@@ -49,7 +54,7 @@ export default function AmbassadorForm() {
       }, 0);
     },
     onError: () => {
-      alert('Помилка при відправці');
+      setErrorOpen(true);
     },
   });
 
@@ -133,6 +138,10 @@ export default function AmbassadorForm() {
     mutation.mutate(payload);
   };
 
+  const onInvalid = () => {
+    setInvalidOpen(true);
+  };
+
   const handleSocialChange = e => {
     const { value, checked } = e.target;
     if (checked) {
@@ -160,231 +169,273 @@ export default function AmbassadorForm() {
   }, [errors]);
 
   return (
-    <section className={styles.section} ref={formRef}>
-      <div className="container">
-        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-          <div className={styles.heading}>
-            <p className={styles.tagline}>{t('form.tagline')}</p>
-            <h1>{t('form.title')}</h1>
-            <p className={styles.text}>{t('form.subtitle')}</p>
-          </div>
-
-          {/* Блок 1 */}
-          <div className={styles.block}>
-            <h2>{t('form.block1Title')}</h2>
-            <div className={styles.fields}>
-              <div className={styles.fieldGr}>
-                <label>{t('form.nameLabel')}</label>
-                <input
-                  type="text"
-                  placeholder={t('form.placeholder')}
-                  {...register('name', { required: true })}
-                />
-                {errors.name && (
-                  <p className={styles.error}>{t('form.errorRequired')}</p>
-                )}
-              </div>
-
-              <div className={styles.fieldGr}>
-                <label>{t('form.countryLabel')}</label>
-                <input
-                  type="text"
-                  placeholder={t('form.placeholder')}
-                  {...register('country', { required: true })}
-                />
-                {errors.country && (
-                  <p className={styles.error}>{t('form.errorRequired')}</p>
-                )}
-              </div>
-
-              <div className={styles.fieldGr}>
-                <label>{t('form.ageLabel')}</label>
-                <Controller
-                  name="age"
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field }) => (
-                    <Select
-                      {...field}
-                      options={ageOptions}
-                      placeholder={t('form.selectPlaceholder')}
-                      className="selector"
-                    />
-                  )}
-                />
-                {errors.age && (
-                  <p className={styles.error}>{t('form.errorSelect')}</p>
-                )}
-              </div>
-
-              <div className={styles.fieldGr}>
-                <label>{t('form.contactLabel')}</label>
-                <Controller
-                  name="contactMethod"
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field }) => (
-                    <Select
-                      {...field}
-                      options={contactOptions}
-                      placeholder={t('form.selectPlaceholder')}
-                      className="selector"
-                    />
-                  )}
-                />
-                {errors.contactMethod && (
-                  <p className={styles.error}>{t('form.errorSelect')}</p>
-                )}
-              </div>
-
-              <div className={styles.fieldGr}>
-                <label>{t('form.contactLinkLabel')}</label>
-                <input
-                  type="text"
-                  placeholder={t('form.placeholder')}
-                  {...register('contactLink', { required: true })}
-                />
-                {errors.contactLink && (
-                  <p className={styles.error}>{t('form.errorRequired')}</p>
-                )}
-              </div>
+    <>
+      <section className={styles.section} ref={formRef}>
+        <div className="container">
+          <form
+            onSubmit={handleSubmit(onSubmit, onInvalid)}
+            className={styles.form}
+          >
+            <div className={styles.heading}>
+              <p className={styles.tagline}>{t('form.tagline')}</p>
+              <h1>{t('form.title')}</h1>
+              <p className={styles.text}>{t('form.subtitle')}</p>
             </div>
-          </div>
 
-          {/* Блок 2 */}
-          <div className={styles.block}>
-            <h2>{t('form.block2Title')}</h2>
-            <div className={styles.fields}>
-              <div className={styles.fieldGr}>
-                <label>{t('form.socialLabel')}</label>
-                <div className={styles.checkboxes}>
-                  {socialOptions.map(soc => (
-                    <div
-                      key={soc}
-                      className={clsx(
-                        styles.checkbox,
-                        selectedSocials.includes(soc) && styles.checked
-                      )}
-                    >
-                      <label>
-                        <input
-                          type="checkbox"
-                          value={soc}
-                          onChange={handleSocialChange}
-                        />
-                        <span></span>
-                        {soc}
-                      </label>
-                      {selectedSocials.includes(soc) && (
-                        <input
-                          type="text"
-                          placeholder={`${t('form.linkPlaceholder')} ${soc}`}
-                          {...register(`socialLinks.${soc}`, {
-                            required: true,
-                          })}
-                        />
-                      )}
-                    </div>
-                  ))}
+            {/* Блок 1 */}
+            <div className={styles.block}>
+              <h2>{t('form.block1Title')}</h2>
+              <div className={styles.fields}>
+                <div className={styles.fieldGr}>
+                  <label>{t('form.nameLabel')}</label>
+                  <input
+                    type="text"
+                    placeholder={t('form.placeholder')}
+                    {...register('name', { required: true })}
+                  />
+                  {errors.name && (
+                    <p className={styles.error}>{t('form.errorRequired')}</p>
+                  )}
+                </div>
+
+                <div className={styles.fieldGr}>
+                  <label>{t('form.countryLabel')}</label>
+                  <input
+                    type="text"
+                    placeholder={t('form.placeholder')}
+                    {...register('country', { required: true })}
+                  />
+                  {errors.country && (
+                    <p className={styles.error}>{t('form.errorRequired')}</p>
+                  )}
+                </div>
+
+                <div className={styles.fieldGr}>
+                  <label>{t('form.ageLabel')}</label>
+                  <Controller
+                    name="age"
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field }) => (
+                      <Select
+                        {...field}
+                        options={ageOptions}
+                        placeholder={t('form.selectPlaceholder')}
+                        className="selector"
+                      />
+                    )}
+                  />
+                  {errors.age && (
+                    <p className={styles.error}>{t('form.errorSelect')}</p>
+                  )}
+                </div>
+
+                <div className={styles.fieldGr}>
+                  <label>{t('form.contactLabel')}</label>
+                  <Controller
+                    name="contactMethod"
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field }) => (
+                      <Select
+                        {...field}
+                        options={contactOptions}
+                        placeholder={t('form.selectPlaceholder')}
+                        className="selector"
+                      />
+                    )}
+                  />
+                  {errors.contactMethod && (
+                    <p className={styles.error}>{t('form.errorSelect')}</p>
+                  )}
+                </div>
+
+                <div className={styles.fieldGr}>
+                  <label>{t('form.contactLinkLabel')}</label>
+                  <input
+                    type="text"
+                    placeholder={t('form.placeholder')}
+                    {...register('contactLink', { required: true })}
+                  />
+                  {errors.contactLink && (
+                    <p className={styles.error}>{t('form.errorRequired')}</p>
+                  )}
                 </div>
               </div>
+            </div>
 
-              <div className={styles.fieldGr}>
-                <label>{t('form.experienceLabel')}</label>
-                <Controller
-                  name="experience"
-                  control={control}
-                  render={({ field }) => (
-                    <Select
-                      {...field}
-                      options={experienceOptions}
-                      placeholder={t('form.selectPlaceholder')}
-                      className="selector"
-                    />
-                  )}
-                />
+            {/* Блок 2 */}
+            <div className={styles.block}>
+              <h2>{t('form.block2Title')}</h2>
+              <div className={styles.fields}>
+                <div className={styles.fieldGr}>
+                  <label>{t('form.socialLabel')}</label>
+                  <div className={styles.checkboxes}>
+                    {socialOptions.map(soc => (
+                      <div
+                        key={soc}
+                        className={clsx(
+                          styles.checkbox,
+                          selectedSocials.includes(soc) && styles.checked
+                        )}
+                      >
+                        <label>
+                          <input
+                            type="checkbox"
+                            value={soc}
+                            onChange={handleSocialChange}
+                          />
+                          <span></span>
+                          {soc}
+                        </label>
+                        {selectedSocials.includes(soc) && (
+                          <input
+                            type="text"
+                            placeholder={`${t('form.linkPlaceholder')} ${soc}`}
+                            {...register(`socialLinks.${soc}`, {
+                              required: true,
+                            })}
+                          />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className={styles.fieldGr}>
+                  <label>{t('form.experienceLabel')}</label>
+                  <Controller
+                    name="experience"
+                    control={control}
+                    render={({ field }) => (
+                      <Select
+                        {...field}
+                        options={experienceOptions}
+                        placeholder={t('form.selectPlaceholder')}
+                        className="selector"
+                      />
+                    )}
+                  />
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Блок 3 */}
-          <div className={styles.block}>
-            <h2>{t('form.block3Title')}</h2>
-            <div className={styles.fields}>
-              <div className={styles.fieldGr}>
-                <label>{t('form.englishLabel')}</label>
-                <Controller
-                  name="englishLevel"
-                  control={control}
-                  render={({ field }) => (
-                    <Select
-                      {...field}
-                      options={englishOptions}
-                      placeholder={t('form.selectPlaceholder')}
-                      className="selector"
-                    />
-                  )}
-                />
-              </div>
+            {/* Блок 3 */}
+            <div className={styles.block}>
+              <h2>{t('form.block3Title')}</h2>
+              <div className={styles.fields}>
+                <div className={styles.fieldGr}>
+                  <label>{t('form.englishLabel')}</label>
+                  <Controller
+                    name="englishLevel"
+                    control={control}
+                    render={({ field }) => (
+                      <Select
+                        {...field}
+                        options={englishOptions}
+                        placeholder={t('form.selectPlaceholder')}
+                        className="selector"
+                      />
+                    )}
+                  />
+                </div>
 
-              <div className={styles.fieldGr}>
-                <label>{t('form.streamLangLabel')}</label>
-                <Controller
-                  name="streamLang"
-                  control={control}
-                  render={({ field }) => (
-                    <Select
-                      {...field}
-                      options={streamLangOptions}
-                      placeholder={t('form.selectPlaceholder')}
-                      className="selector"
-                    />
-                  )}
-                />
+                <div className={styles.fieldGr}>
+                  <label>{t('form.streamLangLabel')}</label>
+                  <Controller
+                    name="streamLang"
+                    control={control}
+                    render={({ field }) => (
+                      <Select
+                        {...field}
+                        options={streamLangOptions}
+                        placeholder={t('form.selectPlaceholder')}
+                        className="selector"
+                      />
+                    )}
+                  />
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Блок 4 */}
-          <div className={styles.block}>
-            <h2>{t('form.block4Title')}</h2>
-            <div className={styles.fields}>
-              <div className={styles.fieldGr}>
-                <label>{t('form.motivationLabel')}</label>
-                <textarea
-                  placeholder={t('form.placeholder')}
-                  {...register('motivation', { required: true })}
-                />
-                {errors.motivation && (
-                  <p className={styles.error}>{t('form.errorRequired')}</p>
+            {/* Блок 4 */}
+            <div className={styles.block}>
+              <h2>{t('form.block4Title')}</h2>
+              <div className={styles.fields}>
+                <div className={styles.fieldGr}>
+                  <label>{t('form.motivationLabel')}</label>
+                  <textarea
+                    placeholder={t('form.placeholder')}
+                    {...register('motivation', { required: true })}
+                  />
+                  {errors.motivation && (
+                    <p className={styles.error}>{t('form.errorRequired')}</p>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className={styles.bottom}>
+              <div className="checkAgree">
+                <label>
+                  <input
+                    type="checkbox"
+                    {...register('policy', { required: true })}
+                  />{' '}
+                  <span></span>
+                  <p>
+                    {t('form.policyText')}{' '}
+                    <a href="#">{t('form.policyLink')}</a>
+                  </p>
+                </label>
+                {errors.policy && (
+                  <p className={styles.error}>{t('form.errorPolicy')}</p>
                 )}
               </div>
-            </div>
-          </div>
 
-          <div className={styles.bottom}>
-            <div className="checkAgree">
-              <label>
-                <input
-                  type="checkbox"
-                  {...register('policy', { required: true })}
-                />{' '}
+              <button
+                type="submit"
+                disabled={mutation.isPending}
+                className={clsx(
+                  'btn_primary',
+                  styles.submit,
+                  mutation.isPending && styles.load
+                )}
+              >
                 <span></span>
-                <p>
-                  {t('form.policyText')} <a href="#">{t('form.policyLink')}</a>
-                </p>
-              </label>
-              {errors.policy && (
-                <p className={styles.error}>{t('form.errorPolicy')}</p>
-              )}
+                {t('form.submit')}
+              </button>
             </div>
+          </form>
+        </div>
+      </section>
 
-            <button type="submit" className="btn_primary">
-              {t('form.submit')}
-            </button>
-          </div>
-        </form>
-      </div>
-    </section>
+      <Modal
+        isOpen={isSuccessOpen}
+        onClose={() => setSuccessOpen(false)}
+        title="Дякуємо за вашу заявку!"
+      >
+        <p>
+          Ми отримали вашу анкету амбасадора Time2Fest. Найближчим часом наша
+          команда зв’яжеться з вами для подальших кроків.
+        </p>
+      </Modal>
+
+      <Modal
+        isOpen={isInvalidOpen}
+        onClose={() => setInvalidOpen(false)}
+        title="Помилка!"
+      >
+        <p>Заповніть обов’язкові поля перед відправкою.</p>
+      </Modal>
+
+      <Modal
+        isOpen={isErrorOpen}
+        onClose={() => setErrorOpen(false)}
+        title="Cталася помилка!"
+      >
+        <p>Спробуйте перезавантажити сторінку або спробуйте пізніше.</p>
+      </Modal>
+    </>
   );
 }

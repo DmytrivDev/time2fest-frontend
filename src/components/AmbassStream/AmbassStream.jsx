@@ -25,14 +25,13 @@ const AmbassStream = ({ data, isLoading, error }) => {
             <div className={styles.slideCont}>
               <div className={styles.slider}>
                 <div className={clsx(styles.slide)}>
-                  <div className={clsx(styles.imageWrapper, 'loading')}>
-                  </div>
+                  <div className={clsx(styles.imageWrapper, 'loading')}></div>
                   <div className={styles.textWrapper}>
-                    <div className={clsx(styles.loadSlTitle, 'loading')} ></div>
+                    <div className={clsx(styles.loadSlTitle, 'loading')}></div>
                     <div className={clsx(styles.textLoadCont)}>
-                      <span className='loading'></span>
-                      <span className='loading'></span>
-                      <span className='loading'></span>
+                      <span className="loading"></span>
+                      <span className="loading"></span>
+                      <span className="loading"></span>
                     </div>
                   </div>
                 </div>

@@ -1,0 +1,100 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	z-index: 1200;
+	overflow-y: auto;
+	background-color: rgba(2, 1, 1, 0.6);
+	display: flex;
+	flex-flow: column nowrap;
+	transition: all 0.15s ease-in;
+	-webkit-overflow-scrolling: touch;
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+}
+.open {
+	opacity: 1;
+	visibility: visible;
+	pointer-events: auto;
+
+	.modal__body {
+		transform: scale(1);
+	}
+}
+
+.modal__container {
+	flex: 0 0 auto;
+	width: 100%;
+	padding: 0 1.875rem;
+	max-width: 100%;
+	min-height: 100%;
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	justify-content: center;
+}
+
+.modal__body {
+	flex: 0 0 auto;
+	margin: 4rem 0;
+	position: relative;
+	background-color: $color-light;
+	width: 100%;
+	max-width: 50rem;
+	overflow: hidden;
+	padding: 3.125rem 3.75rem;
+	border-radius: 2.5rem;
+	transform: scale(0.9);
+	will-change: transform;
+	transition: all 0.15s ease-in;
+	box-shadow: 0 0 5rem 0 rgba(255, 255, 255, 0.3);
+}
+
+.tl {
+	color: $color-dark;
+	font-size: 1.75rem;
+	font-weight: 600;
+	line-height: 1.6;
+	margin-bottom: 0.625rem;
+}
+.txt {
+	color: $color-dark;
+	font-size: 1.125rem;
+	line-height: 1.6;
+}
+
+.modal__close {
+	margin-top: 2rem;
+	padding: 1.25rem 1.875rem;
+}
+
+@media screen and (max-width: 1140px) {
+	.modal__container {
+		padding: 0 1rem;
+	}
+
+	.modal__body {
+		max-width: 31.25rem;
+		padding: 1.875rem;
+		border-radius: 1.25rem;
+	}
+
+	.tl {
+		font-size: 1.5rem;
+		line-height: 1.4;
+	}
+	.txt {
+		font-size: 0.9375rem;
+	}
+
+	.modal__close {
+		margin-top: 2rem;
+		padding: 1rem 1.5rem;
+	}
+}

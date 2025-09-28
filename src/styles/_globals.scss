@@ -88,7 +88,6 @@ textarea {
 	width: 100%;
 	font-size: 1.125rem;
 }
-
 textarea {
 	height: 7.5rem;
 	padding: 0.87rem 1.62rem;
@@ -107,7 +106,7 @@ textarea {
 
 			& > div {
 				&:nth-child(1) {
-					padding: 0 1.63rem;
+					padding: 0 1.625rem;
 
 					& > div {
 						&:nth-child(1) {
@@ -209,11 +208,12 @@ textarea {
 }
 
 .checkAgree {
+	width: 100%;
+
 	label {
 		display: flex;
-		align-items: center;
-		align-content: center;
-		gap: 1rem;
+		align-items: start;
+		gap: 0 1rem;
 		font-size: 1.125rem;
 		line-height: 1.8;
 
@@ -290,6 +290,65 @@ textarea {
 }
 
 @media screen and (max-width: 1140px) {
+	input[type="text"],
+	textarea {
+		border-radius: 0.625rem;
+		height: 3.125rem;
+		padding: 0 1.125rem;
+		font-size: 0.9375rem;
+	}
+
+	textarea {
+		height: 6.25rem;
+		padding: 0.625rem 1.125rem;
+	}
+
+	.selector {
+		& > div {
+			&:nth-child(3) {
+				min-height: 3.125rem;
+				border-radius: 0.625rem;
+
+				& > div {
+					&:nth-child(1) {
+						padding: 0 1.125rem;
+
+						& > div {
+							&:nth-child(1) {
+								font-size: 0.9375rem;
+							}
+						}
+					}
+				}
+			}
+
+			&:nth-child(4) {
+				border-radius: 0.625rem;
+
+				& > div {
+					padding: 0 1.125rem;
+
+					div {
+						height: 3.125rem;
+						font-size: 0.9375rem;
+					}
+				}
+			}
+		}
+	}
+
+	.checkAgree {
+		label {
+			font-size: 0.9375rem;
+			line-height: 1.6;
+
+			span {
+				position: relative;
+				top: -0.25rem;
+			}
+		}
+	}
+
 	.btn_primary,
 	.btn_transp {
 		font-size: 0.875rem;
