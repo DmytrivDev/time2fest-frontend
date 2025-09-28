@@ -21,7 +21,6 @@ export default function AmbassadorForm() {
   const isClearingRef = useRef(false);
 
   const [isSuccessOpen, setSuccessOpen] = useState(false);
-  const [isInvalidOpen, setInvalidOpen] = useState(false);
   const [isErrorOpen, setErrorOpen] = useState(false);
 
   const savedData = JSON.parse(sessionStorage.getItem(STORAGE_KEY) || '{}');
@@ -138,10 +137,6 @@ export default function AmbassadorForm() {
     mutation.mutate(payload);
   };
 
-  const onInvalid = () => {
-    setInvalidOpen(true);
-  };
-
   const handleSocialChange = e => {
     const { value, checked } = e.target;
     if (checked) {
@@ -172,10 +167,7 @@ export default function AmbassadorForm() {
     <>
       <section className={styles.section} ref={formRef}>
         <div className="container">
-          <form
-            onSubmit={handleSubmit(onSubmit, onInvalid)}
-            className={styles.form}
-          >
+          <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
             <div className={styles.heading}>
               <p className={styles.tagline}>{t('form.tagline')}</p>
               <h1>{t('form.title')}</h1>
@@ -419,14 +411,6 @@ export default function AmbassadorForm() {
           Ми отримали вашу анкету амбасадора Time2Fest. Найближчим часом наша
           команда зв’яжеться з вами для подальших кроків.
         </p>
-      </Modal>
-
-      <Modal
-        isOpen={isInvalidOpen}
-        onClose={() => setInvalidOpen(false)}
-        title="Помилка!"
-      >
-        <p>Заповніть обов’язкові поля перед відправкою.</p>
       </Modal>
 
       <Modal
