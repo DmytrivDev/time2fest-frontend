@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 
 import { api } from '../../utils/api';
@@ -86,18 +87,17 @@ const BecomeSection = () => {
           </ul>
 
           <div className={styles.actions}>
-            <a
-              href={data.buttonlink}
-              target="_blank"
+            <Link
+              to="/become-ambassador"
               className="btn_primary"
               onClick={() => {
                 if (typeof window !== 'undefined' && window.umami) {
-                  window.umami.track('click_google_form');
+                  window.umami.track('click_become_ambassador');
                 }
               }}
             >
               {data.buttontext}
-            </a>
+            </Link>
 
             <p className={styles.subtext}>{data.text}</p>
           </div>

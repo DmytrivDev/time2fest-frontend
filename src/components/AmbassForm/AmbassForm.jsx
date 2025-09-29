@@ -17,7 +17,7 @@ const submitForm = async formData => {
 };
 
 export default function AmbassadorForm() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const isClearingRef = useRef(false);
 
   const [isSuccessOpen, setSuccessOpen] = useState(false);
@@ -376,8 +376,22 @@ export default function AmbassadorForm() {
                   />{' '}
                   <span></span>
                   <p>
-                    {t('form.policyText')}{' '}
-                    <a href="#">{t('form.policyLink')}</a>
+                    {t('form.iAgree')}{' '}
+                    <a
+                      href={`/${i18n.language !== 'en' ? i18n.language + '/' : ''}privacy`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {t('form.privacy')}
+                    </a>{' '}
+                    <b dangerouslySetInnerHTML={{ __html: t('form.and') }} />
+                    <a
+                      href={`/${i18n.language !== 'en' ? i18n.language + '/' : ''}agreement`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {t('form.agreement')}
+                    </a>
                   </p>
                 </label>
                 {errors.policy && (
@@ -405,20 +419,17 @@ export default function AmbassadorForm() {
       <Modal
         isOpen={isSuccessOpen}
         onClose={() => setSuccessOpen(false)}
-        title="Дякуємо за вашу заявку!"
+        title={t('modal.success.title')}
       >
-        <p>
-          Ми отримали вашу анкету амбасадора Time2Fest. Найближчим часом наша
-          команда зв’яжеться з вами для подальших кроків.
-        </p>
+        <p>{t('modal.success.text')}</p>
       </Modal>
 
       <Modal
         isOpen={isErrorOpen}
         onClose={() => setErrorOpen(false)}
-        title="Cталася помилка!"
+        title={t('modal.error.title')}
       >
-        <p>Спробуйте перезавантажити сторінку або спробуйте пізніше.</p>
+        <p>{t('modal.error.text')}</p>
       </Modal>
     </>
   );

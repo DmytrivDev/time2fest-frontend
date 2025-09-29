@@ -215,10 +215,18 @@ textarea {
 		align-items: start;
 		gap: 0 1rem;
 		font-size: 1.125rem;
-		line-height: 1.8;
+		line-height: 1.4;
 
 		a {
 			text-decoration: underline;
+		}
+
+		p {
+			padding-top: 0.175rem;
+		}
+
+		b {
+			font-weight: normal;
 		}
 
 		input {
@@ -341,6 +349,14 @@ textarea {
 		label {
 			font-size: 0.9375rem;
 			line-height: 1.6;
+
+			br {
+				display: none;
+			}
+
+			p {
+				margin-top: -.1rem;
+			}
 
 			span {
 				position: relative;

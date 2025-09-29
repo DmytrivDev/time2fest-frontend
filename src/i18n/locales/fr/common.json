@@ -117,7 +117,23 @@
       "english": "Anglais",
       "native": "Langue maternelle",
       "both": "Les deux"
-    }
+    },
+    "iAgree": "J’accepte la",
+    "privacy": "Politique de Confidentialité",
+    "and": "<br/>et l’ ",
+    "agreement": "Accord d’Ambassadeur",
+    "errorPolicy": "Vous devez accepter pour continuer."
+  },
+  "modal": {
+    "success": {
+      "title": "Merci pour votre candidature !",
+      "text": "Nous avons bien reçu votre formulaire d’ambassadeur Time2Fest. Notre équipe vous contactera prochainement pour les prochaines étapes."
+    },
+    "error": {
+      "title": "Une erreur est survenue !",
+      "text": "Veuillez essayer de recharger la page ou réessayer plus tard."
+    },
+    "close": "Fermer"
   },
   "countries": {
     "kiribati": "Kiribati",

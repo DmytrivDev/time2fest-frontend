@@ -14,6 +14,14 @@ const LanguageSelector = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 1140);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 1140);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef(null);
 
@@ -82,7 +90,7 @@ const LanguageSelector = () => {
         <span>{t('language')}</span>
       </button>
 
-      {open && (
+      {(isMobile || open) && (
         <ul role="listbox">
           {LANGS.map(l => (
             <li

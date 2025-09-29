@@ -1,11 +1,14 @@
 import clsx from 'clsx';
 import { useEffect, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { lockScroll, unlockScroll } from '../../utils/lockScroll';
 
 import styles from './Modal.module.scss';
 
 const Modal = ({ isOpen, onClose, title, children }) => {
+  const { t } = useTranslation();
+
   const handleKeyDown = useCallback(
     e => {
       if (e.key === 'Escape') {
@@ -46,7 +49,7 @@ const Modal = ({ isOpen, onClose, title, children }) => {
             className={clsx(styles.modal__close, 'btn_primary')}
             onClick={onClose}
           >
-            Закрити
+            {t('modal.close')}
           </button>
         </div>
       </div>
