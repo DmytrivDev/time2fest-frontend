@@ -1,0 +1,147 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.section {
+	position: relative;
+	overflow: hidden;
+}
+
+.loadingTitle {
+	height: 3.5rem;
+	width: 21rem;
+	display: block;
+}
+
+.loadingText {
+	display: block;
+	width: 100%;
+	height: 6rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+
+	span {
+		height: 1.5rem;
+
+		&:last-child {
+			width: 50%;
+		}
+	}
+}
+
+.loadingCard {
+	&::before {
+		opacity: 0.1;
+	}
+}
+
+.iconWrapperLoading {
+	width: 2.125rem;
+	min-width: 2.125rem;
+	height: 2.125rem;
+}
+
+.cardContentLoading {
+	width: 100%;
+
+	span {
+		height: 2.125rem;
+		display: block;
+
+		&:last-child {
+			margin-top: 0.25rem;
+			height: 1.5625rem;
+			max-width: 80%;
+		}
+	}
+}
+
+.content {
+	border-radius: 2.5rem;
+	padding: 4.2rem 5.2rem;
+	padding-bottom: 4rem;
+	padding-right: 7.38rem;
+	background-color: $color-gray2;
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+}
+
+.header {
+	max-width: 37.375rem;
+}
+
+.title {
+	font-size: 2.5rem;
+}
+
+.text {
+	margin-top: 1.44rem;
+	font-size: 1.125rem;
+	line-height: 1.8;
+}
+
+.cards {
+	max-width: 31rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+	width: 100%;
+}
+
+.card {
+	display: flex;
+	gap: 1.56rem;
+	padding-bottom: 1.5rem;
+	position: relative;
+
+	&::before {
+		position: absolute;
+		content: "";
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 1px;
+		background: linear-gradient(90deg, #232323 0%, #fff 50%, #1e1e1e 100%);
+	}
+
+	&:last-child {
+		padding-bottom: 0;
+
+		&::before {
+			display: none;
+		}
+	}
+
+	.iconWrapper {
+		margin-top: 0.5rem;
+	}
+
+	img {
+		width: 2.125rem;
+		min-width: 2.125rem;
+		height: auto;
+	}
+}
+
+.cardContent {
+	h3 {
+		font-size: 1.5rem;
+		line-height: 1.4;
+	}
+
+	p {
+		margin-top: 0.25rem;
+		font-size: 1.125rem;
+		color: rgba(255, 255, 255, 0.6);
+	}
+}
+
+@media screen and (max-width: 1140px) {
+}
+
+@media screen and (max-width: 868px) {
+}
+
+@media screen and (max-width: 475px) {
+}

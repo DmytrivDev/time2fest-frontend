@@ -1,0 +1,214 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.section {
+	padding-top: 5.44rem;
+	position: relative;
+}
+
+.bg {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 120rem;
+	height: 63.125rem;
+	top: -10.5625rem;
+
+	img {
+		@include img-cover;
+	}
+}
+
+.loadingTitle {
+	height: 3.5rem;
+	width: 29.375rem;
+	display: block;
+}
+
+.loadingPrice {
+	width: 16.8125rem;
+	height: 3rem;
+}
+
+.loadingText {
+	display: block;
+	width: 100%;
+	height: 4rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+
+	span {
+		height: 1.5rem;
+
+		&:last-child {
+			width: 80%;
+		}
+	}
+}
+
+.loadingCard, .loadingSubcard {
+	&::after {
+		display: none;
+	}
+}
+
+.loadingBtn {
+	width: 18.125rem;
+	height: 4.4375rem;
+}
+
+.content {
+	position: relative;
+}
+
+.headerTop {
+	gap: 2.25rem;
+	display: flex;
+	align-items: center;
+	align-content: center;
+}
+
+.title {
+	font-size: 2.5rem;
+}
+
+.price {
+	background-color: #fcd16e;
+	color: $color-sec3;
+	padding: 0.44rem 1.5rem;
+	border-radius: 2rem;
+	font-size: 1.3125rem;
+	line-height: 1.6;
+	font-weight: 500;
+}
+
+.text {
+	max-width: 53.125rem;
+	margin-top: 1.38rem;
+	font-size: 1.125rem;
+	line-height: 1.8;
+}
+
+.cards {
+	margin-top: 4rem;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 1.87rem;
+}
+
+.card {
+	height: 18.375rem;
+	border-radius: 2.5rem;
+	position: relative;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+
+	&::after {
+		content: "";
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		top: 0;
+		background: linear-gradient(
+			222deg,
+			rgba(2, 1, 1, 0.9) 9.4%,
+			rgba(28, 28, 28, 0.36) 42.25%,
+			rgba(2, 1, 1, 0.9) 82.51%
+		);
+	}
+
+	img {
+		@include img-cover;
+		width: 101%;
+		height: 101%;
+	}
+}
+
+.cardLast {
+	position: relative;
+	overflow: visible;
+
+	&::after {
+		display: none;
+	}
+
+	.dec {
+		width: 17.20119rem;
+		height: 16.0625rem;
+		right: 0;
+		top: -6.06rem;
+		position: absolute;
+		z-index: 6;
+		display: block;
+		object-fit: inherit;
+		transform: none;
+		left: auto;
+	}
+}
+
+.subCards {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 1.2rem;
+	height: 100%;
+
+	.subCard {
+		border-radius: 2.5rem;
+		position: relative;
+		overflow: hidden;
+
+		&::after {
+			content: "";
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			top: 0;
+			background: linear-gradient(
+				222deg,
+				rgba(2, 1, 1, 0.9) 9.4%,
+				rgba(28, 28, 28, 0.36) 42.25%,
+				rgba(2, 1, 1, 0.9) 82.51%
+			);
+		}
+	}
+}
+
+.cardContent {
+	padding: 2rem 1.6rem;
+	position: relative;
+	z-index: 3;
+
+	p {
+		font-size: 1.3125rem;
+		line-height: 1.6;
+		font-weight: 700;
+	}
+}
+
+.actions {
+	margin-top: 3.75rem;
+	justify-content: center;
+	display: flex;
+}
+
+.dec {
+	position: absolute;
+	width: 23.75rem;
+	height: 22.17781rem;
+	top: -8.37rem;
+	right: 0;
+}
+
+@media screen and (max-width: 1140px) {
+}
+
+@media screen and (max-width: 868px) {
+}
+
+@media screen and (max-width: 475px) {
+}

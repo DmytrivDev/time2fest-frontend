@@ -1,0 +1,136 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.section {
+	padding-top: 5.44rem;
+	padding-bottom: 6.25rem;
+	position: relative;
+}
+
+.loadingTitle {
+	height: 3.5rem;
+	width: 25rem;
+	display: block;
+}
+
+.content {
+	position: relative;
+	z-index: 2;
+}
+
+.header {
+	max-width: 50rem;
+}
+
+.title {
+	font-size: 2.5rem;
+}
+
+.cardsCont {
+	margin-top: 2.62rem;
+	position: relative;
+}
+
+.cards {
+	justify-content: space-between;
+	display: flex;
+	z-index: 1;
+}
+
+.card {
+	width: 15.5rem;
+	height: 15.5rem;
+	padding: 0.87rem;
+	display: flex;
+	align-items: center;
+	align-content: center;
+	position: static;
+	align-items: flex-start;
+	align-content: flex-start;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-image: url("/public/aboutPage/circle2.png");
+
+	&:nth-child(1) {
+		margin-top: 7.88rem;
+	}
+
+	&:nth-child(2) {
+		margin-top: 0.875rem;
+		transform: rotate(-74.96deg);
+
+		.cardInner {
+			transform: rotate(74.96deg);
+		}
+	}
+
+	&:nth-child(3) {
+		margin-top: 7.87rem;
+		transform: rotate(150deg);
+
+		.cardInner {
+			transform: rotate(-150deg);
+		}
+	}
+
+	&:nth-child(4) {
+		transform: rotate(248deg);
+
+		.cardInner {
+			transform: rotate(-248deg);
+		}
+	}
+
+	.iconWrapper {
+		width: 2.1875rem;
+		height: 2.1875rem;
+		position: relative;
+
+		img {
+			@include img-contain;
+		}
+	}
+}
+
+.cardInner {
+	background-color: $color-gray2;
+	border-radius: 50%;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	align-content: center;
+	justify-content: center;
+	flex-direction: column;
+	gap: 0.94rem;
+	padding: 0.81rem;
+	height: 100%;
+	position: relative;
+	z-index: 2;
+}
+
+.text {
+	font-size: 1.3125rem;
+	font-weight: 700;
+	line-height: 140%;
+	position: relative;
+	text-align: center;
+}
+
+.wave {
+	position: absolute;
+	min-width: 121rem;
+	width: 121rem;
+	height: 15.49744rem;
+	left: 50%;
+	top: 6.34rem;
+	transform: translateX(-50%);
+}
+
+@media screen and (max-width: 1140px) {
+}
+
+@media screen and (max-width: 868px) {
+}
+
+@media screen and (max-width: 475px) {
+}

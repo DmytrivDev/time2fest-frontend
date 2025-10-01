@@ -8,6 +8,7 @@ import LanguageLayout from './layouts/LanguageLayout/LanguageLayout';
 import HomePage from './pages/HomePage/HomePage';
 
 // Lazy-сторінки
+const AboutPage = lazy(() => import('./pages/AboutPage/AboutPage'));
 const AmbassPage = lazy(() => import('./pages/AmbassPage/AmbassPage'));
 const FormPage = lazy(() => import('./pages/FormPage/FormPage'));
 const PrivacyPage = lazy(() => import('./pages/PrivacyPage/PrivacyPage'));
@@ -37,11 +38,12 @@ const App = () => {
   return (
     <>
       <ScrollToTop />
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div></div>}>
         <Routes>
           {/* Корінь без префікса (default lang) */}
           <Route path="/" element={<LanguageLayout />}>
             <Route index element={<HomePage />} />
+            <Route path="about" element={<AboutPage />} />
             <Route path="ambassadors" element={<AmbassPage />} />
             <Route path="become-ambassador" element={<FormPage />} />
             <Route path="privacy" element={<PrivacyPage />} />
@@ -67,6 +69,7 @@ const App = () => {
           {/* Інші мови */}
           <Route path="/:lang/*" element={<LanguageLayout />}>
             <Route index element={<HomePage />} />
+            <Route path="about" element={<AboutPage />} />
             <Route path="ambassadors" element={<AmbassPage />} />
             <Route path="become-ambassador" element={<FormPage />} />
             <Route path="privacy" element={<PrivacyPage />} />

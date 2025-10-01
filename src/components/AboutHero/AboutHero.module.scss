@@ -1,0 +1,187 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.section {
+	padding-top: 4.56rem;
+	padding-bottom: 5.52rem;
+	position: relative;
+	overflow: hidden;
+}
+
+.sectionLoading {
+	.leftpart,
+	.heroList {
+		&::after {
+			display: none;
+		}
+	}
+}
+
+.loadingTag {
+	width: 32.75rem;
+	height: 2.35rem;
+	border-radius: 1.5rem;
+	display: inline-block;
+}
+
+.loadingTitleCont {
+	margin-top: 1.06rem;
+}
+
+.loadingTitle {
+	height: 6.125rem;
+	width: 21rem;
+	display: block;
+}
+
+.loadingSubtitleCont {
+	height: 7rem;
+	margin-top: 0.44rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+
+	span {
+		height: 3.25rem;
+		display: block;
+		width: 100%;
+
+		&:last-child {
+			max-width: 23.5rem;
+		}
+	}
+}
+
+.loadingTextCont {
+	height: 6rem;
+	margin-top: 2rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+
+	span {
+		width: 100%;
+		height: 1.5rem;
+
+		&:last-child {
+			width: 50%;
+		}
+	}
+}
+
+.loadingItem {
+	height: 13.0625rem;
+
+	&::after {
+		display: none;
+	}
+}
+
+.loadingBtn {
+	width: 12.75rem;
+	height: 4.3rem;
+}
+
+.rightpartLoading {
+	span {
+		width: 40.625rem;
+		height: 40.625rem;
+		border-radius: 50%;
+		display: block;
+	}
+}
+
+.content {
+	position: relative;
+	display: flex;
+	align-items: center;
+	align-content: center;
+	justify-content: space-between;
+}
+
+.leftpart {
+	max-width: 38.1rem;
+	position: relative;
+	z-index: 2;
+
+	.dec {
+		position: absolute;
+		width: 9rem;
+		height: 8.4375rem;
+		right: 7.25rem;
+		bottom: -2rem;
+		background-image: url("/public/aboutPage/dec1.png");
+	}
+}
+
+.tag {
+	padding: 0.5625rem 0.9375rem;
+	border-radius: 1.25rem;
+	background-color: $color-bages;
+	color: $color-sec;
+	gap: 0.44rem;
+	display: inline-flex;
+	align-items: center;
+	align-content: center;
+
+	img {
+		height: 0.875rem;
+		width: auto;
+	}
+}
+
+.title {
+	margin-top: 1.06rem;
+	font-size: 4.375rem;
+	color: $color-yellow;
+}
+
+.Undertitle {
+	font-size: 2.5rem;
+	margin-top: 0.44rem;
+}
+
+.text {
+	margin-top: 2rem;
+	font-size: 1.125rem;
+	line-height: 1.8;
+}
+
+.actions {
+	display: flex;
+	align-items: center;
+	gap: 1.12rem;
+	margin-top: 3rem;
+}
+
+.aboutDeccont {
+	width: 134.375rem;
+	height: 80.25rem;
+	top: -9.8rem;
+	left: calc(50% + 5.5rem);
+	transform: translateX(-50%);
+	position: absolute;
+
+	.dec {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		background-repeat: no-repeat;
+		background-position: center center;
+		background-size: contain;
+		background-image: url("/public/aboutPage/about_bg2.webp");
+
+		&:nth-child(2) {
+			background-image: url("/public/aboutPage/about_bg1.webp");
+		}
+	}
+}
+
+@media screen and (max-width: 1140px) {
+}
+
+@media screen and (max-width: 868px) {
+}
+
+@media screen and (max-width: 475px) {
+}

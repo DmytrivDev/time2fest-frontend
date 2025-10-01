@@ -1,0 +1,124 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.section {
+	position: relative;
+}
+
+.loadingTitle {
+	height: 3.5rem;
+	width: 37.375rem;
+	display: block;
+}
+
+.loadingText {
+	display: block;
+	width: 44rem;
+	height: 2rem;
+}
+
+.loadingCard {
+	&::after {
+		display: none;
+	}
+}
+
+.loadingBtn {
+	width: 18.125rem;
+	height: 4.4375rem;
+}
+
+.content {
+	padding: 4.2rem 5.3rem;
+	padding-bottom: 5rem;
+	border-radius: 2.5rem;
+	background-color: $color-gray2;
+	position: relative;
+}
+
+.header {
+	max-width: 50rem;
+}
+
+.title {
+	font-size: 2.5rem;
+}
+
+.text {
+	margin-top: 1.38rem;
+	font-size: 1.125rem;
+	line-height: 1.8;
+}
+
+.cards {
+	margin-top: 3.12rem;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 2.19rem;
+}
+
+.card {
+	height: 18.375rem;
+	border-radius: 2.5rem;
+	position: relative;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+
+	&::after {
+		content: "";
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		top: 0;
+		background: linear-gradient(
+			222deg,
+			rgba(2, 1, 1, 0.9) 9.4%,
+			rgba(28, 28, 28, 0.36) 42.25%,
+			rgba(2, 1, 1, 0.9) 82.51%
+		);
+	}
+
+	img {
+		@include img-cover;
+		width: 101%;
+		height: 101%;
+	}
+}
+
+.cardContent {
+	padding: 1.6rem;
+	position: relative;
+	z-index: 3;
+
+	p {
+		font-size: 1.3125rem;
+		line-height: 1.6;
+		font-weight: 700;
+	}
+}
+
+.actions {
+	margin-top: 3.75rem;
+	justify-content: center;
+	display: flex;
+}
+
+.dec {
+	position: absolute;
+	width: 23.75rem;
+	height: 22.17781rem;
+	top: -8.37rem;
+	right: 0;
+}
+
+@media screen and (max-width: 1140px) {
+}
+
+@media screen and (max-width: 868px) {
+}
+
+@media screen and (max-width: 475px) {
+}

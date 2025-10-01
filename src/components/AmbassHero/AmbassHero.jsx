@@ -10,7 +10,7 @@ import girlImage from '../../assets/become/video.mp4';
 const AmbassHero = ({ data, isLoading, error }) => {
   const { t } = useTranslation('common');
 
-  useFloatingDecors(!isLoading ? `#ambass-hero .dec` : null, 20);
+  useFloatingDecors(!isLoading ? `#ambass-hero .dec` : null, 10);
 
   const [hasError, setHasError] = useState(false);
 

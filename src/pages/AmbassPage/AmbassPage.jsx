@@ -40,7 +40,6 @@ const AmbassPage = () => {
       return res.data;
     },
     staleTime: 5 * 60 * 1000,
-    enabled: pageLoaded,
   });
 
   return (

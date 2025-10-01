@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
 import { api } from '../../utils/api';
@@ -12,6 +13,7 @@ import girlImage from '../../assets/become/video.mp4';
 import styles from './BecomeSection.module.scss';
 
 const BecomeSection = () => {
+  const { i18n } = useTranslation();
   const [hasError, setHasError] = useState(false);
 
   const locale = getValidLocale();
@@ -88,7 +90,7 @@ const BecomeSection = () => {
 
           <div className={styles.actions}>
             <Link
-              to="/become-ambassador"
+            to={`/${i18n.language !== 'en' ? i18n.language + '/become-ambassador' : ''}`}
               className="btn_primary"
               onClick={() => {
                 if (typeof window !== 'undefined' && window.umami) {
