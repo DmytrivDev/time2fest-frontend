@@ -10,6 +10,7 @@ import AboutFree from '../../components/AboutFree/AboutFree';
 import AboutPaid from '../../components/AboutPaid/AboutPaid';
 import AmbassHero from '../../components/AmbassHero/AmbassHero';
 import FaqSection from '../../components/FaqSection/FaqSection';
+import AboutTech from '../../components/AboutTech/AboutTech';
 
 const AboutPage = () => {
   const locale = getValidLocale();
@@ -90,6 +91,11 @@ const AboutPage = () => {
         error={errorambass}
       />
       <FaqSection />
+      <AboutTech
+        data={restData?.Technic}
+        isLoading={isLoadingRest}
+        error={errorRest}
+      />
     </>
   );
 };

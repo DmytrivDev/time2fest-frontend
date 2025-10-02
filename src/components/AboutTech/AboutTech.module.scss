@@ -1,0 +1,179 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.section {
+	padding-top: 5.44rem;
+	position: relative;
+}
+
+.loadingTitle {
+	height: 3.5rem;
+	width: 22.375rem;
+	display: block;
+}
+
+.loadingText {
+	height: 2rem;
+	width: 25rem;
+}
+
+.marqueeLineLoad {
+	height: 3.8125rem;
+	z-index: 5;
+}
+
+.content {
+	position: relative;
+	padding-bottom: 4rem;
+
+	.sircle {
+		position: absolute;
+		filter: blur(100px);
+
+		&.s1 {
+			width: 16.5625rem;
+			height: 42.4375rem;
+			transform: translateX(-100%) rotate(143.315deg);
+			border-radius: 42.4375rem;
+			background: #f94a51;
+			left: -16.46rem;
+			top: -3.13rem;
+		}
+
+		&.s2,
+		&.s3 {
+			width: 9.4375rem;
+			height: 24.1875rem;
+			border-radius: 24.1875rem;
+			background: #fcd16e;
+			top: 10.3125rem;
+		}
+
+		&.s2 {
+			left: calc(50% - 11.13rem);
+			transform: translateX(-100%);
+		}
+
+		&.s3 {
+			left: calc(50% + 10.87rem);
+			transform: translateX(100%);
+		}
+
+		&.s4 {
+			width: 16.5625rem;
+			height: 42.4375rem;
+			transform: translateX(-50%) rotate(-90deg);
+			border-radius: 42.4375rem;
+			background: #f94a51;
+			left: 50%;
+			top: 0;
+		}
+
+		&.s5 {
+			width: 12.89863rem;
+			height: 33.03988rem;
+			border-radius: 33.03988rem;
+			transform: rotate(-18.217deg) translateX(100%);
+			background: #fcd16e;
+			right: -14.53rem;
+			top: 1.56rem;
+		}
+	}
+
+	.dec {
+		position: absolute;
+
+		&.dec1 {
+			width: 10.25rem;
+			height: 9.6875rem;
+			left: -5.12rem;
+			top: 8.25rem;
+			background-image: url("/public/aboutPage/dec1.png");
+		}
+
+		&.dec2 {
+			width: 17.57338rem;
+			height: 14.2405rem;
+			transform: rotate(72.308deg);
+			right: -8.8rem;
+			top: 9.41rem;
+			background-image: url("/public/aboutPage/dec2.png");
+			z-index: 3;
+		}
+	}
+}
+
+.header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	align-content: center;
+	gap: 1.37rem;
+}
+
+.title {
+	font-size: 2.5rem;
+}
+
+.text {
+	font-size: 1.125rem;
+	line-height: 1.8;
+}
+
+.imageWrapper {
+	position: relative;
+	margin: 0 auto;
+	margin-top: 3.25rem;
+	left: 4.5rem;
+	width: 84.5rem;
+	z-index: 2;
+
+	img {
+		width: 100%;
+		display: block;
+		height: auto;
+	}
+}
+
+.marqueeLine {
+	width: 100vw;
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%) rotate(-1.117deg);
+
+	& > div {
+		padding: 0.94rem 0;
+		background-color: $color-gray2;
+
+		.marqueeItem {
+			padding: 0 0.78rem;
+			display: flex;
+			align-items: center;
+			align-content: center;
+			gap: 1.56rem;
+
+			img {
+				height: 1.375rem;
+				width: auto;
+			}
+		}
+	}
+}
+
+.dec {
+	position: absolute;
+	width: 23.75rem;
+	height: 22.17781rem;
+	top: -8.37rem;
+	right: 0;
+}
+
+@media screen and (max-width: 1140px) {
+}
+
+@media screen and (max-width: 868px) {
+}
+
+@media screen and (max-width: 475px) {
+}
