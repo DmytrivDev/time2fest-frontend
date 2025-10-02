@@ -13,7 +13,7 @@ import girlImage from '../../assets/become/video.mp4';
 import styles from './BecomeSection.module.scss';
 
 const BecomeSection = () => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [hasError, setHasError] = useState(false);
 
   const locale = getValidLocale();
@@ -90,18 +90,18 @@ const BecomeSection = () => {
 
           <div className={styles.actions}>
             <Link
-            to={`/${i18n.language !== 'en' ? i18n.language + '/become-ambassador' : ''}`}
+              to={`/${i18n.language !== 'en' ? i18n.language + '/' : ''}become-ambassador`}
               className="btn_primary"
-              onClick={() => {
-                if (typeof window !== 'undefined' && window.umami) {
-                  window.umami.track('click_become_ambassador');
-                }
-              }}
             >
               {data.buttontext}
             </Link>
 
-            <p className={styles.subtext}>{data.text}</p>
+            <Link
+              to={`/${i18n.language !== 'en' ? i18n.language + '/' : ''}ambassadors`}
+              className="btn_transp"
+            >
+              {t('about_ambass')}
+            </Link>
           </div>
 
           <div

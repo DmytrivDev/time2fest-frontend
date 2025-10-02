@@ -5,10 +5,35 @@
 	padding-top: 11rem;
 	position: relative;
 	overflow: hidden;
+
+	&.secAbout {
+		padding-top: 19.87rem;
+		margin-bottom: 6.25rem;
+		overflow: visible;
+
+		.leftpart {
+			.dec {
+				left: -6.81rem;
+				width: 13.62rem;
+				height: 12.75rem;
+				top: -23.56rem;
+			}
+		}
+
+		.heroListCont {
+			.dec {
+				width: 19.91475rem;
+				height: 16.13781rem;
+				right: -9.8rem;
+				top: -48rem;
+			}
+		}
+	}
 }
 
 .sectionLoading {
-	.leftpart, .heroList {
+	.leftpart,
+	.heroList {
 		&::after {
 			display: none;
 		}
@@ -167,13 +192,10 @@
 }
 
 @media screen and (max-width: 1140px) {
-	
 }
 
 @media screen and (max-width: 868px) {
-	
 }
 
 @media screen and (max-width: 475px) {
-	
 }

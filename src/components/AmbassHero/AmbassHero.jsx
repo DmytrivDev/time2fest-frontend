@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link, useLocation } from 'react-router-dom';
 
 import useFloatingDecors from '../../hooks/useFloatingDecors';
 import styles from './AmbassHero.module.scss';
@@ -8,7 +9,9 @@ import styles from './AmbassHero.module.scss';
 import girlImage from '../../assets/become/video.mp4';
 
 const AmbassHero = ({ data, isLoading, error }) => {
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation();
+
+  const location = useLocation();
 
   useFloatingDecors(!isLoading ? `#ambass-hero .dec` : null, 10);
 
@@ -18,7 +21,11 @@ const AmbassHero = ({ data, isLoading, error }) => {
     return (
       <section
         id="ambass-hero"
-        className={clsx(styles.section, styles.sectionLoading)}
+        className={clsx(
+          styles.section,
+          styles.sectionLoading,
+          location.pathname === '/about' && styles.secAbout
+        )}
       >
         <div className="container">
           <div className={styles.content}>
@@ -57,7 +64,13 @@ const AmbassHero = ({ data, isLoading, error }) => {
   if (error || !data) return null;
 
   return (
-    <section id="ambass-hero" className={styles.section}>
+    <section
+      id="ambass-hero"
+      className={clsx(
+        styles.section,
+        location.pathname === '/about' && styles.secAbout
+      )}
+    >
       <div className="container">
         <div className={styles.content}>
           <div className={styles.leftpart}>
@@ -72,9 +85,20 @@ const AmbassHero = ({ data, isLoading, error }) => {
             {data.Text && <p className={styles.text}>{data.Text}</p>}
 
             <div className={styles.actions}>
-              <a href="#form" className="btn_primary">
+              <Link
+                to={`/${i18n.language !== 'en' ? i18n.language + '/' : ''}become-ambassador`}
+                className="btn_primary"
+              >
                 {t('nav.becomeStreamer')}
-              </a>
+              </Link>
+              {location.pathname === '/about' && (
+                <Link
+                  to={`/${i18n.language !== 'en' ? i18n.language + '/' : ''}ambassadors`}
+                  className="btn_transp"
+                >
+                  {t('about_ambass')}
+                </Link>
+              )}
             </div>
             <div className={clsx(styles.dec, 'dec')}></div>
           </div>

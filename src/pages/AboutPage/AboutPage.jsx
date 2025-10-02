@@ -8,6 +8,8 @@ import AboutWhyWe from '../../components/AboutWhyWe/AboutWhyWe';
 import AboutSteps from '../../components/AboutSteps/AboutSteps';
 import AboutFree from '../../components/AboutFree/AboutFree';
 import AboutPaid from '../../components/AboutPaid/AboutPaid';
+import AmbassHero from '../../components/AmbassHero/AmbassHero';
+import FaqSection from '../../components/FaqSection/FaqSection';
 
 const AboutPage = () => {
   const locale = getValidLocale();
@@ -41,6 +43,19 @@ const AboutPage = () => {
     staleTime: 5 * 60 * 1000,
   });
 
+  const {
+    data: ambassData,
+    isLoading: isLoadingambass,
+    error: errorambass,
+  } = useQuery({
+    queryKey: ['ambass-page-top', locale],
+    queryFn: async () => {
+      const res = await api.get(`/ambass-page-top?locale=${locale}`);
+      return res.data;
+    },
+    staleTime: 5 * 60 * 1000,
+  });
+
   return (
     <>
       <AboutHero
@@ -69,6 +84,12 @@ const AboutPage = () => {
         isLoading={isLoadingRest}
         error={errorRest}
       />
+      <AmbassHero
+        data={ambassData?.Hero}
+        isLoading={isLoadingambass}
+        error={errorambass}
+      />
+      <FaqSection />
     </>
   );
 };
