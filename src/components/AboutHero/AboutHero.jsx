@@ -15,7 +15,6 @@ const AboutHero = ({ data, isLoading, error }) => {
   if (isLoading) {
     return (
       <section
-        id="about-hero"
         className={clsx(styles.section, styles.sectionLoading)}
       >
         <div className="container">

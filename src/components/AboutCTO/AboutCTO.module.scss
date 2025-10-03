@@ -1,0 +1,160 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.section {
+	max-width: 112.5rem;
+	margin: 0 auto;
+	margin-top: 6.5rem;
+	z-index: 5;
+	position: relative;
+
+	&::before {
+		border-radius: 3.125rem;
+		background-color: $color-gray2;
+		content: "";
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		top: 0;
+	}
+}
+
+.loadingTitle {
+	height: 3.5rem;
+	width: 42.375rem;
+	display: block;
+
+	&.title2 {
+		height: 7rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+
+		span {
+			height: 3.25rem;
+			display: block;
+
+			&:last-child {
+				width: 80%;
+			}
+		}
+	}
+}
+
+.loadingText {
+	height: 6rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+
+	span {
+		height: 1.75rem;
+
+		&:last-child {
+			width: 80%;
+		}
+	}
+}
+
+.loadingBtn {
+	width: 17.375rem;
+	height: 4.4375rem;
+}
+
+.loadingImage {
+	width: 100%;
+	height: 20rem;
+}
+
+.content {
+	padding-top: 5.44rem;
+	padding-bottom: 6.25rem;
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	align-content: flex-start;
+	z-index: 2;
+}
+
+.left {
+	max-width: 42.5rem;
+}
+
+.title1,
+.title2 {
+	font-size: 2.5rem;
+}
+
+.title1 {
+	margin-bottom: 0.37rem;
+	color: $color-yellow;
+}
+
+.text {
+	font-size: 1.125rem;
+	margin-top: 2.56em;
+	line-height: 1.8;
+}
+
+.actions {
+	margin-top: 3.12rem;
+
+	a {
+		display: inline-flex;
+	}
+}
+
+.right {
+	max-width: 39.1875rem;
+	margin-top: 0.87rem;
+	width: 100%;
+
+	img {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+}
+
+.dec {
+	position: absolute;
+	width: 9.8rem;
+	height: 9.438em;
+	top: -4.44rem;
+	left: calc(50% + -2rem);
+	background-repeat: no-repeat;
+	background-size: auto 100%;
+
+	&.dec1 {
+		background-image: url(/public/aboutPage/dec_g1.png);
+		background-position: 0 top;
+		z-index: -1;
+	}
+
+	&.dec2 {
+		background-image: url(/public/aboutPage/dec_g2.png);
+		z-index: 3;
+		background-position: right -0.1rem;
+	}
+}
+
+.dec3 {
+	width: 12.15856rem;
+	height: 9.85263rem;
+	transform: rotate(72.308deg);
+	right: calc(50% - 48rem);
+	bottom: 2.85rem;
+	background-image: url("/public/aboutPage/dec2.png");
+	z-index: 3;
+}
+
+@media screen and (max-width: 1140px) {
+}
+
+@media screen and (max-width: 868px) {
+}
+
+@media screen and (max-width: 475px) {
+}

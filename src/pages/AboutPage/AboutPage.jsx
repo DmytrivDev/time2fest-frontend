@@ -12,10 +12,10 @@ import AmbassHero from '../../components/AmbassHero/AmbassHero';
 import FaqSection from '../../components/FaqSection/FaqSection';
 import AboutTech from '../../components/AboutTech/AboutTech';
 import AboutWay from '../../components/AboutWay/AboutWay';
+import AboutCTO from '../../components/AboutCTO/AboutCTO';
 
 const AboutPage = () => {
   const locale = getValidLocale();
-  const pageLoaded = useAfterLoad();
 
   // Запит на верхній блок (Hero)
   const {
@@ -99,6 +99,11 @@ const AboutPage = () => {
       />
       <AboutWay
         data={restData?.Way}
+        isLoading={isLoadingRest}
+        error={errorRest}
+      />
+      <AboutCTO
+        data={restData?.CTO}
         isLoading={isLoadingRest}
         error={errorRest}
       />
