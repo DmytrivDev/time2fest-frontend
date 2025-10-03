@@ -1,0 +1,115 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.section {
+	padding-top: 7rem;
+	position: relative;
+}
+
+.loadingTitle {
+	height: 3.5rem;
+	width: 42.375rem;
+	display: block;
+}
+
+.loadingText {
+	height: 4rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+
+	span {
+		height: 1.75rem;
+
+		&:last-child {
+			width: 80%;
+		}
+	}
+}
+
+.loadingBtn {
+	width: 17.375rem;
+	height: 4.4375rem;
+}
+
+.loadingItem {
+	height: 4.0625rem;
+}
+
+.marqueeLineLoad {
+	height: 3.8125rem;
+	z-index: 5;
+}
+
+.content {
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+}
+
+.left {
+	padding-top: 3.56rem;
+	max-width: 48.125rem;
+}
+
+.title {
+	font-size: 2.5rem;
+}
+
+.text {
+	font-size: 1.125rem;
+	margin-top: 1.37em;
+	line-height: 1.8;
+}
+
+.actions {
+	margin-top: 3.12rem;
+
+	a {
+		display: inline-flex;
+	}
+}
+
+.right {
+	max-width: 39.1875rem;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 0.63rem;
+	position: relative;
+
+	&::after {
+		content: "";
+		position: absolute;
+		background: linear-gradient(180deg, rgba(2, 1, 1, 0.00) 0%, #020101 100%);
+		bottom: 0;
+		right: 0;
+		left: 0;
+		height: 13.6875rem;
+	}
+
+	.list {
+		display: flex;
+		flex-direction: column;
+		gap: 0.63rem;
+
+		.item {
+			padding: 1.15rem 1.75rem;
+			font-size: 1.1875rem;
+			line-height: 1.4;
+			color: $color-dark;
+			border-radius: 2.5rem;
+			background: rgba(255, 255, 255, 0.9);
+			box-shadow: 0 4px 40px 0 rgba(0, 0, 0, 0.6);
+		}
+	}
+}
+
+@media screen and (max-width: 1140px) {
+}
+
+@media screen and (max-width: 868px) {
+}
+
+@media screen and (max-width: 475px) {
+}
