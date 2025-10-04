@@ -49,7 +49,7 @@ const AmbassPage = () => {
         isLoading={isLoadingTop}
         error={errorTop}
       />
-      <AmbassWork
+      {/* <AmbassWork
         data={restData?.WhatDo}
         isLoading={!pageLoaded || isLoadingRest}
         error={errorRest}
@@ -68,7 +68,7 @@ const AmbassPage = () => {
         data={restData?.WhatBecome}
         isLoading={!pageLoaded || isLoadingRest}
         error={errorRest}
-      />
+      /> */}
       <FaqSection
         loafCount={2}
         propData={true}

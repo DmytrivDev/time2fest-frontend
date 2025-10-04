@@ -107,6 +107,8 @@
 }
 
 .tag {
+	width: fit-content;
+	display: block;
 	padding: 0.5625rem 0.9375rem;
 	border-radius: 1.25rem;
 	background-color: $color-bages;
@@ -192,9 +194,111 @@
 }
 
 @media screen and (max-width: 1140px) {
+	.section {
+		padding-top: 3.75rem;
+	}
+
+	.leftpart {
+		max-width: 25rem;
+
+		.dec {
+			right: -12.5rem;
+			top: -3rem;
+			bottom: auto;
+			width: 6.3125rem;
+			height: 5.9375rem;
+		}
+	}
+
+	.tag {
+		padding: 0.5625rem 0.8125rem;
+		border-radius: 0.625rem;
+	}
+
+	.title {
+		margin-top: 1.1875rem;
+		font-size: 1.3125rem;
+	}
+
+	.text {
+		margin-top: 0.75rem;
+		font-size: 0.875rem;
+	}
+
+	.actions {
+		margin-top: 2rem;
+	}
+
+	.imageWrapper {
+		left: auto;
+		right: -5rem;
+		width: 48.875rem;
+	}
+
+	.heroListCont {
+		margin-top: 6rem;
+
+		.dec {
+			width: 7.1522rem;
+			height: 5.7957rem;
+			right: -1.25rem;
+			top: -3.75rem;
+		}
+	}
+	.heroList {
+		gap: 1rem;
+
+		li {
+			border-radius: 1.25rem;
+			padding: 1.25rem 1.5rem;
+
+			p {
+				margin-top: 0.5rem;
+				font-size: 0.875rem;
+				line-height: 1.6;
+			}
+		}
+	}
 }
 
 @media screen and (max-width: 868px) {
+	.leftpart {
+		margin-bottom: 2.5rem;
+		max-width: none;
+
+		.dec {
+			right: -2.8125rem;
+		}
+	}
+
+	.imageWrapper {
+		position: relative;
+		right: auto;
+		bottom: auto;
+		width: 100%;
+		padding-top: clamp(19rem, 40%, 20.625rem);
+
+		div {
+			position: absolute;
+			bottom: -1.875rem;
+			left: 50%;
+			transform: translateX(-50%);
+			z-index: 1;
+			width: clamp(39rem, 100%, 51.5rem);
+		}
+	}
+
+	.heroListCont {
+		margin-top: 0;
+
+		.dec {
+			right: -0.625rem;
+			top: -24.375rem;
+		}
+	}
+	.heroList {
+		grid-template-columns: none;
+	}
 }
 
 @media screen and (max-width: 475px) {

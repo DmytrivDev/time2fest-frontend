@@ -103,19 +103,6 @@ const AmbassHero = ({ data, isLoading, error }) => {
             <div className={clsx(styles.dec, 'dec')}></div>
           </div>
 
-          {/* Hero list */}
-          <div className={styles.heroListCont}>
-            <div className={clsx(styles.dec, 'dec')}></div>
-            <ul className={styles.heroList}>
-              {data.HeroList?.map(item => (
-                <li key={item.id} className={styles.heroItem}>
-                  <h3>{item.Name}</h3>
-                  <p>{item.Text}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-
           <div
             className={clsx(styles.imageWrapper, hasError && styles.noimage)}
           >
@@ -129,6 +116,19 @@ const AmbassHero = ({ data, isLoading, error }) => {
                 onError={() => setHasError(true)}
               />
             </div>
+          </div>
+
+          {/* Hero list */}
+          <div className={styles.heroListCont}>
+            <div className={clsx(styles.dec, 'dec')}></div>
+            <ul className={styles.heroList}>
+              {data.HeroList?.map(item => (
+                <li key={item.id} className={styles.heroItem}>
+                  <h3>{item.Name}</h3>
+                  <p>{item.Text}</p>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
