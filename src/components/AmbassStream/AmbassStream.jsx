@@ -62,6 +62,16 @@ const AmbassStream = ({ data, isLoading, error }) => {
               pagination={{ clickable: true }}
               spaceBetween={0}
               slidesPerView={1}
+              breakpoints={{
+                1140: {
+                  spaceBetween: 0,
+                  navigation: true,
+                },
+                0: {
+                  spaceBetween: 16,
+                  navigation: false,
+                },
+              }}
               className={clsx(styles.slider, 'streamSlider')}
             >
               {slides.map((item, index) => (

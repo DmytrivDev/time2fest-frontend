@@ -8,13 +8,15 @@
 
 .loadingTitle {
 	height: 3.05rem;
-	width: 25rem;
+	width: 100%;
+	max-width: 25rem;
 	display: block;
 }
 
 .loadSlTitle {
 	height: 2.125rem;
-	width: 15rem;
+	width: 100%;
+	max-width: 15rem;
 }
 
 .textLoadCont {
@@ -47,8 +49,7 @@
 }
 
 .slideCont {
-	margin-top: 2.88rem;
-	padding-bottom: 3.75rem;
+	padding: 2.875rem 0 3.75rem 0;
 	position: relative;
 }
 
@@ -80,8 +81,7 @@
 }
 
 .textWrapper {
-	padding-left: 3.75rem;
-	padding-right: 6.25rem;
+	padding: 0 3.75rem 0 6.25rem;
 	width: 100%;
 
 	h3 {
@@ -98,10 +98,69 @@
 }
 
 @media screen and (max-width: 1140px) {
-}
+	.section {
+		padding-top: 3.5rem;
+	}
 
-@media screen and (max-width: 868px) {
-}
+	.header {
+		max-width: 43.75rem;
+	}
 
-@media screen and (max-width: 475px) {
+	.title {
+		font-size: 1.3125rem;
+	}
+	.loadingTitle {
+		height: 1.875rem;
+		max-width: 18.75rem;
+	}
+	.loadSlTitle {
+		height: 1.375rem;
+		max-width: 12.5rem;
+	}
+
+	.textLoadCont {
+		margin-top: 0.5rem;
+		height: 4.625rem;
+
+		span {
+			height: 1.25rem;
+		}
+	}
+
+	.slideCont {
+		padding: 2rem 0 2.625rem 0;
+	}
+
+	.slider {
+		width: 100%;
+	}
+
+	.slide {
+		flex-direction: column;
+		align-items: stretch;
+		align-content: stretch;
+	}
+
+	.imageWrapper {
+		width: 100%;
+		min-width: auto;
+		height: auto;
+		border-radius: 1.25rem;
+		min-height: 13.5rem;
+		padding-top: 56%;
+	}
+
+	.textWrapper {
+		margin-top: 1.375rem;
+		padding: 0;
+
+		h3 {
+			font-size: 1rem;
+		}
+
+		p {
+			margin-top: 0.5rem;
+			font-size: 0.875rem;
+		}
+	}
 }
