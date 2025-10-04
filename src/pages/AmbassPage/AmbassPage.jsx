@@ -64,11 +64,11 @@ const AmbassPage = () => {
         isLoading={!pageLoaded || isLoadingRest}
         error={errorRest}
       />
-      {/* <AmbassBecome
+      <AmbassBecome
         data={restData?.WhatBecome}
         isLoading={!pageLoaded || isLoadingRest}
         error={errorRest}
-      /> */}
+      />
       <FaqSection
         loafCount={2}
         propData={true}
