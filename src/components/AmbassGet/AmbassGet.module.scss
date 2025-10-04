@@ -8,7 +8,8 @@
 
 .loadingTitle {
 	height: 3.05rem;
-	width: 22rem;
+	width: 100%;
+	max-width: 22rem;
 	display: block;
 }
 
@@ -49,7 +50,12 @@
 		right: 0;
 		bottom: 0;
 		top: 0;
-		background: linear-gradient(185deg, #020101 9.16%, rgba(2, 1, 1, 0.6) 46.04%, #020101 88.89%);
+		background: linear-gradient(
+			185deg,
+			#020101 9.16%,
+			rgba(2, 1, 1, 0.6) 46.04%,
+			#020101 88.89%
+		);
 	}
 
 	img {
@@ -67,7 +73,6 @@
 }
 
 .title {
-	margin-top: 1.5rem;
 	font-size: 2.5rem;
 }
 
@@ -91,6 +96,7 @@
 }
 
 .card {
+	position: relative;
 	border-radius: 2.5rem;
 	padding: 2.5rem;
 	padding-bottom: 2rem;
@@ -123,19 +129,19 @@
 .dec {
 	position: absolute;
 	width: 9.8rem;
-	height: 9.438em;
+	height: 9.438rem;
 	top: -4.44rem;
 	left: 41.12rem;
 	background-repeat: no-repeat;
 	background-size: auto 100%;
 
 	&.dec1 {
-		background-image: url(/public/aboutPage/dec_g1.png);
+		background-image: url("/public/aboutPage/dec_g1.png");
 		background-position: 0 top;
 	}
 
 	&.dec2 {
-		background-image: url(/public/aboutPage/dec_g2.png);
+		background-image: url("/public/aboutPage/dec_g2.png");
 		z-index: 3;
 		background-position: right -0.1rem;
 	}
@@ -152,10 +158,101 @@
 }
 
 @media screen and (max-width: 1140px) {
+	.section {
+		padding-top: 3.5rem;
+	}
+
+	.background {
+		height: 100%;
+		bottom: 0;
+	}
+
+	.title {
+		font-size: 1.3125rem;
+	}
+	.loadingTitle {
+		height: 1.875rem;
+		max-width: 18.75rem;
+	}
+
+	.text {
+		margin-top: 0.75rem;
+		font-size: 0.875rem;
+	}
+	.loadingTestCont {
+		margin-top: 0.75rem;
+		height: 5rem;
+
+		span {
+			height: 1.25rem;
+		}
+	}
+
+	.cardsCont {
+		margin-top: 2rem;
+	}
+
+	.cards {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1rem;
+	}
+
+	.card {
+		border-radius: 1.25rem;
+		padding: 1.625rem 1.875rem 1.5rem 1.875rem;
+		justify-content: stretch;
+
+		.iconWrapper {
+			position: absolute;
+			top: 1.5rem;
+			left: 1.875rem;
+			width: 1.5rem;
+			height: 1.5rem;
+		}
+	}
+	.loadingCard {
+		height: 8.125rem;
+	}
+
+	.cardContent {
+		margin-top: 0;
+
+		h3 {
+			padding-left: 2.5rem;
+		}
+		p {
+			margin-top: 1rem;
+			font-size: 0.875rem;
+			line-height: 1.6;
+		}
+	}
+
+	.dec {
+		width: 5rem;
+		height: 5.1875rem;
+		top: -3.375rem;
+		left: auto;
+		right: 3.125rem;
+	}
+
+	.dec3 {
+		width: 4.5878rem;
+		height: 3.7177rem;
+		right: auto;
+		top: auto;
+		left: -1.25rem;
+		bottom: 6.25rem;
+	}
 }
 
 @media screen and (max-width: 868px) {
-}
+	.cards {
+		grid-template-columns: none;
+	}
 
-@media screen and (max-width: 475px) {
+	.dec3 {
+		right: -1.25rem;
+		left: auto;
+		bottom: 16.875rem;
+	}
 }

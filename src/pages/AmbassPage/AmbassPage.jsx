@@ -54,12 +54,12 @@ const AmbassPage = () => {
         isLoading={!pageLoaded || isLoadingRest}
         error={errorRest}
       />
-      {/* <AmbassGet
+      <AmbassGet
         data={restData?.WhatGet}
         isLoading={!pageLoaded || isLoadingRest}
         error={errorRest}
       />
-      <AmbassStream
+      {/*<AmbassStream
         data={restData?.Stream}
         isLoading={!pageLoaded || isLoadingRest}
         error={errorRest}
