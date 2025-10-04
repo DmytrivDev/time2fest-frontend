@@ -49,12 +49,12 @@ const AmbassPage = () => {
         isLoading={isLoadingTop}
         error={errorTop}
       />
-      {/* <AmbassWork
+      <AmbassWork
         data={restData?.WhatDo}
         isLoading={!pageLoaded || isLoadingRest}
         error={errorRest}
       />
-      <AmbassGet
+      {/* <AmbassGet
         data={restData?.WhatGet}
         isLoading={!pageLoaded || isLoadingRest}
         error={errorRest}

@@ -45,6 +45,9 @@ const AmbassHero = ({ data, isLoading, error }) => {
                 />
               </div>
             </div>
+            <div
+              className={clsx(styles.imageWrapper, hasError && styles.noimage)}
+            ></div>
             <div className={styles.heroListCont}>
               <ul className={styles.heroList}>
                 {Array.from({ length: 3 }).map((_, i) => (
@@ -52,9 +55,6 @@ const AmbassHero = ({ data, isLoading, error }) => {
                 ))}
               </ul>
             </div>
-            <div
-              className={clsx(styles.imageWrapper, hasError && styles.noimage)}
-            ></div>
           </div>
         </div>
       </section>

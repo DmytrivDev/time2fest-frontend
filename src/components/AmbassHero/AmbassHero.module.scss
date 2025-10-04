@@ -180,6 +180,7 @@
 	&::after {
 		content: "";
 		position: absolute;
+		z-index: 2;
 		left: 0;
 		right: 0;
 		bottom: 0;
@@ -215,18 +216,43 @@
 		border-radius: 0.625rem;
 	}
 
+	.loadingTag {
+		width: 25rem;
+		height: 2.625rem;
+		border-radius: 0.625rem;
+	}
+
 	.title {
 		margin-top: 1.1875rem;
 		font-size: 1.3125rem;
+	}
+	.loadingTitleCont {
+		margin-top: 1.1875rem;
+	}
+	.loadingTitle {
+		height: 1.875rem;
+		width: 31.25rem;
 	}
 
 	.text {
 		margin-top: 0.75rem;
 		font-size: 0.875rem;
 	}
+	.loadingTestCont {
+		margin-top: 0.75rem;
+		height: 5rem;
+
+		span {
+			height: 1.25rem;
+		}
+	}
 
 	.actions {
 		margin-top: 2rem;
+	}
+	.loadingBtn {
+		width: 11.25rem;
+		height: 2.875rem;
 	}
 
 	.imageWrapper {
@@ -259,6 +285,9 @@
 			}
 		}
 	}
+	.loadingItem {
+		height: 8.125rem;
+	}
 }
 
 @media screen and (max-width: 868px) {
@@ -269,6 +298,10 @@
 		.dec {
 			right: -2.8125rem;
 		}
+	}
+
+	.text {
+		max-width: 31.25rem;
 	}
 
 	.imageWrapper {

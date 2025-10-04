@@ -12,12 +12,19 @@ const AmbassWork = ({ data, isLoading, error }) => {
         <div className="container">
           <div className={styles.content}>
             <div className={styles.header}>
-              <div className={clsx(styles.loadingTitle, styles.title, 'loading')}></div>
-              <div className={clsx(styles.loadingTest, styles.text, 'loading')}></div>
+              <div
+                className={clsx(styles.loadingTitle, styles.title, 'loading')}
+              ></div>
+              <div
+                className={clsx(styles.loadingTest, styles.text, 'loading')}
+              ></div>
             </div>
             <div className={styles.cards}>
               {Array.from({ length: 3 }).map((_, i) => (
-                <div key={i} className={clsx(styles.card, styles.loadingCard, 'loading')} />
+                <div
+                  key={i}
+                  className={clsx(styles.card, styles.loadingCard, 'loading')}
+                />
               ))}
             </div>
           </div>
