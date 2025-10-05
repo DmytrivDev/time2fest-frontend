@@ -137,6 +137,10 @@
     },
     "close": "Close"
   },
+  "ambassadors": {
+    "ambassadors_title": "Time2Fest Ambassadors",
+    "ambassadors_subtitle": "Meet the people who share their celebrations, traditions, and festive spirit on New Year’s Eve."
+  },
   "countries": {
     "kiribati": "Kiribati",
     "chatham_islands": "Chatham Island (NZ)",

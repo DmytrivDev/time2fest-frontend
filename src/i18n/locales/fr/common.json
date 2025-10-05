@@ -137,6 +137,10 @@
     },
     "close": "Fermer"
   },
+  "ambassadors": {
+    "ambassadors_title": "Ambassadeurs de Time2Fest",
+    "ambassadors_subtitle": "Rencontrez les personnes qui partagent leurs fêtes, leurs traditions et leur esprit festif lors du réveillon du Nouvel An."
+  },
   "countries": {
     "kiribati": "Kiribati",
     "chatham_islands": "Île Chatham (NZ)",
