@@ -2,8 +2,7 @@
 @use "@/styles/mixins" as *;
 
 .section {
-	padding-top: 5.44rem;
-	padding-bottom: 6.25rem;
+	padding: 5.5rem 0 6.25rem 0;
 	position: relative;
 }
 
@@ -63,7 +62,6 @@
 }
 
 .title {
-	margin-top: 1.5rem;
 	font-size: 2.5rem;
 }
 
@@ -73,14 +71,16 @@
 }
 
 .cards {
+	position: relative;
 	justify-content: space-between;
 	display: flex;
 	z-index: 1;
 }
 
 .card {
+	flex-shrink: 0;
 	width: 24.375rem;
-	height: 24.4375rem;
+	height: 24.375rem;
 	padding: 1.37rem;
 	display: flex;
 	align-items: center;
@@ -134,7 +134,7 @@
 	align-content: center;
 	justify-content: center;
 	flex-direction: column;
-	gap: 0.96rem;
+	gap: 1rem;
 	padding: 2.12rem;
 	height: 100%;
 	position: relative;
@@ -144,7 +144,7 @@
 .text {
 	font-size: 1.3125rem;
 	font-weight: 700;
-	line-height: 140%;
+	line-height: 1.4;
 	position: relative;
 	text-align: center;
 }
@@ -162,15 +162,18 @@
 	z-index: 3;
 	filter: blur(5px);
 }
+.dec2 {
+	display: none;
+}
 
 .wave {
 	position: absolute;
-	min-width: 121rem;
-	width: 121rem;
-	height: 15.49744rem;
 	left: 50%;
 	top: 7.05rem;
 	transform: translateX(-50%);
+	min-width: 121rem;
+	width: 121rem;
+	height: 15.49744rem;
 }
 
 .actions {
@@ -180,10 +183,158 @@
 }
 
 @media screen and (max-width: 1140px) {
+	.section {
+		padding: 3.375rem 0 3.75rem 0;
+	}
+
+	.background {
+		height: 100%;
+		bottom: 0;
+	}
+
+	.header {
+		max-width: 43.75rem;
+	}
+
+	.title {
+		font-size: 1.3125rem;
+	}
+	.loadingTitle {
+		height: 1.875rem;
+		width: 18.75rem;
+	}
+
+	.cardsCont {
+		margin-top: 0;
+		padding-top: 2.125rem;
+	}
+	.loadingTestCont {
+		padding-top: 2.125rem;
+		height: 5rem;
+
+		span {
+			height: 1.25rem;
+		}
+	}
+
+	.card {
+		width: 12.875rem;
+		height: 12.875rem;
+		padding: 0.8125rem;
+
+		&:nth-child(1) {
+			margin-top: 0;
+			margin-top: 2.5rem;
+		}
+		&:nth-child(3) {
+			margin-top: 0;
+			margin-top: 1rem;
+		}
+
+		.iconWrapper {
+			width: 1.875rem;
+			height: 1.875rem;
+		}
+	}
+	.loadingCard {
+		height: 12.875rem;
+	}
+
+	.cardInner {
+		padding: 1rem;
+	}
+
+	.text {
+		font-size: 1rem;
+		font-weight: 400;
+	}
+
+	.dec {
+		width: 6.9331rem;
+		height: 5.6182rem;
+		top: -2.35rem;
+		right: 14.425rem;
+		filter: blur(2.5px);
+	}
+
+	.wave {
+		min-width: auto;
+		width: 100%;
+		min-width: auto;
+		height: auto;
+		top: 3.125rem;
+	}
+
+	.actions {
+		margin-top: 2.5rem;
+	}
+	.loadingBtn {
+		width: 11.25rem;
+		height: 2.875rem;
+	}
 }
 
 @media screen and (max-width: 868px) {
-}
+	.cardsCont {
+		overflow: hidden;
+	}
 
-@media screen and (max-width: 475px) {
+	.cards {
+		align-items: center;
+		justify-content: stretch;
+		flex-direction: column;
+		gap: 2.75rem 0;
+	}
+
+	.card {
+		width: 12.875rem;
+		height: 12.875rem;
+		padding: 0.8125rem;
+
+		&:nth-child(1) {
+			margin-top: 0;
+			margin-left: -4rem;
+		}
+		&:nth-child(2) {
+			margin-right: -4rem;
+		}
+		&:nth-child(3) {
+			margin-top: 0;
+			margin-left: -4rem;
+		}
+
+		.iconWrapper {
+			width: 1.875rem;
+			height: 1.875rem;
+		}
+	}
+
+	.dec {
+		top: 11.25rem;
+		transform: rotate(-80deg) rotateY(180deg) !important;
+		right: 1.25rem;
+	}
+	.dec2 {
+		display: block;
+		position: absolute;
+		bottom: 13.125rem;
+		left: 0;
+		width: 6.9331rem;
+		height: 5.6182rem;
+		transform: rotate(65deg) !important;
+		background-repeat: no-repeat;
+		background-size: auto 100%;
+		background-image: url("/public/aboutPage/dec2.png");
+		z-index: 3;
+		filter: blur(2.5px);
+	}
+
+	.wave {
+		top: 8.75rem;
+		left: 50%;
+		transform: translateX(-50%) rotate(90deg) rotateY(180deg);
+		width: 51.375rem;
+		min-width: 51.375rem;
+		height: 12.6875rem;
+	}
 }
