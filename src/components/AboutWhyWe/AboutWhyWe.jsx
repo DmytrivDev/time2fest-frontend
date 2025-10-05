@@ -22,12 +22,20 @@ const AboutWhyWe = ({ data, isLoading, error }) => {
             </div>
             <div className={styles.cards}>
               {Array.from({ length: 3 }).map((_, i) => (
-                <div
-                  key={i}
-                  className={clsx(styles.card, styles.loadingCard)}
-                >
-                  <div className={clsx(styles.iconWrapper, styles.iconWrapperLoading, 'loading')} />
-                  <div className={clsx(styles.cardContent, styles.cardContentLoading)}>
+                <div key={i} className={clsx(styles.card, styles.loadingCard)}>
+                  <div
+                    className={clsx(
+                      styles.iconWrapper,
+                      styles.iconWrapperLoading,
+                      'loading'
+                    )}
+                  />
+                  <div
+                    className={clsx(
+                      styles.cardContent,
+                      styles.cardContentLoading
+                    )}
+                  >
                     <span className="loading"></span>
                     <span className="loading"></span>
                   </div>

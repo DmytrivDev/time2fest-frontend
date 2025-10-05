@@ -7,13 +7,15 @@
 
 .loadingTitle {
 	height: 3.5rem;
-	width: 37.375rem;
+	width: 100%;
+	max-width: 37.375rem;
 	display: block;
 }
 
 .loadingText {
 	display: block;
-	width: 44rem;
+	width: 100%;
+	max-width: 44rem;
 	height: 2rem;
 }
 
@@ -58,7 +60,7 @@
 }
 
 .card {
-	height: 18.375rem;
+	min-height: 18.375rem;
 	border-radius: 2.5rem;
 	position: relative;
 	overflow: hidden;
@@ -115,10 +117,72 @@
 }
 
 @media screen and (max-width: 1140px) {
+	.content {
+		padding: 2.125rem 1.5rem;
+		border-radius: 1.25rem;
+	}
+
+	.header {
+		max-width: 43.75rem;
+	}
+
+	.title {
+		font-size: 1.3125rem;
+	}
+	.loadingTitle {
+		height: 1.875rem;
+		max-width: 25rem;
+	}
+
+	.text {
+		margin-top: 1rem;
+		font-size: 0.875rem;
+	}
+	.loadingText {
+		max-width: 37.5rem;
+		height: 1.25rem;
+	}
+
+	.cards {
+		margin-top: 2rem;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1rem;
+	}
+
+	.card {
+		min-height: 15rem;
+		border-radius: 1.25rem;
+	}
+
+	.cardContent {
+		padding: 1.125rem 0.75rem;
+
+		p {
+			font-size: 1rem;
+		}
+	}
+
+	.actions {
+		margin-top: 2rem;
+	}
+	.loadingBtn {
+		width: 11.25rem;
+		height: 2.875rem;
+	}
+
+	.dec {
+		width: 8.5rem;
+		height: 7.9375rem;
+		top: -3rem;
+	}
 }
 
 @media screen and (max-width: 868px) {
-}
+	.cards {
+		grid-template-columns: none;
+	}
 
-@media screen and (max-width: 475px) {
+	.card {
+		min-height: 9.375rem;
+	}
 }

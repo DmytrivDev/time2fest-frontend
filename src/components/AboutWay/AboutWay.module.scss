@@ -8,7 +8,8 @@
 
 .loadingTitle {
 	height: 3.5rem;
-	width: 42.375rem;
+	width: 100%;
+	max-width: 42.375rem;
 	display: block;
 }
 
@@ -58,7 +59,7 @@
 
 .text {
 	font-size: 1.125rem;
-	margin-top: 1.37em;
+	margin-top: 1.37rem;
 	line-height: 1.8;
 }
 
@@ -75,13 +76,13 @@
 	width: 100%;
 	display: flex;
 	flex-direction: column;
-	gap: 0.63rem;
+	gap: 0.625rem;
 	position: relative;
 
 	&::after {
 		content: "";
 		position: absolute;
-		background: linear-gradient(180deg, rgba(2, 1, 1, 0.00) 0%, #020101 100%);
+		background: linear-gradient(180deg, rgba(2, 1, 1, 0) 0%, #020101 100%);
 		bottom: 0;
 		right: 0;
 		left: 0;
@@ -91,7 +92,7 @@
 	.list {
 		display: flex;
 		flex-direction: column;
-		gap: 0.63rem;
+		gap: 0.625rem;
 
 		.item {
 			padding: 1.15rem 1.75rem;
@@ -106,10 +107,71 @@
 }
 
 @media screen and (max-width: 1140px) {
-}
+	.section {
+		padding-top: 3.5rem;
+	}
 
-@media screen and (max-width: 868px) {
-}
+	.content {
+		flex-direction: column;
+		justify-content: stretch;
+		gap: 2.5rem 0;
 
-@media screen and (max-width: 475px) {
+		.left {
+			padding-top: 0;
+			max-width: 100%;
+		}
+	}
+
+	.title {
+		font-size: 1.3125rem;
+	}
+	.loadingTitle {
+		height: 1.875rem;
+		max-width: 25rem;
+	}
+
+	.text {
+		font-size: 0.875rem;
+		margin-top: 0.75rem;
+	}
+	.loadingText {
+		height: 3rem;
+
+		span {
+			height: 1.25rem;
+		}
+	}
+
+	.actions {
+		margin-top: 2rem;
+	}
+	.loadingBtn {
+		width: 11.25rem;
+		height: 2.875rem;
+	}
+
+	.right {
+		max-width: 100%;
+		gap: 0.625rem;
+
+		&::after {
+			height: 11.25rem;
+		}
+
+		.list {
+			.item {
+				padding: 0.75rem 1rem;
+				font-size: 0.875rem;
+				border-radius: 0.625rem;
+			}
+		}
+	}
+
+	.loadingItem {
+		height: 2.75rem;
+	}
+
+	.marqueeLineLoad {
+		height: 3.125rem;
+	}
 }
