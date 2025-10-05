@@ -165,7 +165,7 @@ const SeoMeta = () => {
       <script
         defer
         src="https://analytics.time2fest.com/script.js"
-        data-website-id="e317ffd8-2837-4a66-a6ad-6f9b2c34eed1"
+        data-website-id="ffa2346f-7a21-40bd-9cfd-76e6e1cfdd9f"
       ></script>
     </Helmet>
   );
