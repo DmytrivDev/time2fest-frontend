@@ -55,6 +55,7 @@ const AmbassBecome = ({ data, isLoading, error }) => {
 
           <div className={styles.cardsCont}>
             <div className={clsx(styles.dec, 'dec')}></div>
+            <div className={clsx(styles.dec2, 'dec')}></div>
             <img
               src="/public/aboutPage/wave.png"
               className={styles.wave}
