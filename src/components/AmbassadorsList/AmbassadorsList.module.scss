@@ -7,177 +7,27 @@
 	position: relative;
 }
 
-.loadingTitle {
-	height: 3.05rem;
-	width: 30rem;
-	display: block;
-}
-
-.loadingTestCont {
-	margin-top: 1.37rem;
-	display: flex;
-	flex-direction: column;
-	height: 6.069rem;
-	justify-content: space-between;
-
-	span {
-		width: 100%;
-		height: 1.5rem;
-
-		&:last-child {
-			width: 50%;
-		}
-	}
-}
-
-.loadingCard {
-	height: 14.5625rem;
-}
-
-.loadingBtn {
-	width: 13.375rem;
-	height: 4.4375rem;
-}
-
-.background {
-	position: absolute;
-	min-width: 125.625rem;
-	height: 63.6875rem;
-	width: 100%;
-	left: 50%;
-	transform: translateX(-50%);
-	bottom: -9.187rem;
-
-	img {
-		@include img-cover;
-	}
-}
-
-.content {
-	position: relative;
-	z-index: 2;
-}
-
-.header {
-	max-width: 50rem;
-}
-
 .title {
-	margin-top: 1.5rem;
 	font-size: 2.5rem;
+	line-height: 1.4;
 }
 
-.cardsCont {
-	margin-top: 3.83rem;
-	position: relative;
+.subtitle {
+	font-size: 1.125rem;
+	line-height: 1.8;
+	margin-top: 1rem;
 }
 
-.cards {
+.inner {
+	margin-top: 3.12rem;
+	display: grid;
+	grid-template-columns: 23.5rem 64.0625rem;
 	justify-content: space-between;
-	display: flex;
-	z-index: 1;
-}
-
-.card {
-	width: 24.375rem;
-	height: 24.4375rem;
-	padding: 1.37rem;
-	display: flex;
-	align-items: center;
-	align-content: center;
-	position: static;
 	align-items: flex-start;
 	align-content: flex-start;
-	background-repeat: no-repeat;
-	background-size: contain;
-	background-image: url("/public/aboutPage/circle.png");
-
-	&:nth-child(1) {
-		margin-top: 4.12rem;
-	}
-
-	&:nth-child(2) {
-		margin-top: 0;
-		transform: rotate(-30deg);
-
-		.cardInner {
-			transform: rotate(30deg);
-		}
-	}
-
-	&:nth-child(3) {
-		margin-top: 1.81rem;
-		transform: rotate(-18.23deg);
-
-		.cardInner {
-			transform: rotate(18.23deg);
-		}
-	}
-
-	.iconWrapper {
-		width: 2.5rem;
-		height: 2.5rem;
-		position: relative;
-
-		img {
-			@include img-contain;
-		}
-	}
 }
 
-.cardInner {
-	background-color: $color-gray2;
-	border-radius: 50%;
-	width: 100%;
-	display: flex;
-	align-items: center;
-	align-content: center;
-	justify-content: center;
-	flex-direction: column;
-	gap: 0.96rem;
-	padding: 2.12rem;
-	height: 100%;
-	position: relative;
-	z-index: 2;
-}
 
-.text {
-	font-size: 1.3125rem;
-	font-weight: 700;
-	line-height: 140%;
-	position: relative;
-	text-align: center;
-}
-
-.dec {
-	position: absolute;
-	width: 13.09206rem;
-	height: 10.60906rem;
-	top: -8.6rem;
-	right: 23.8rem;
-	transform: rotate(-107.692deg);
-	background-repeat: no-repeat;
-	background-size: auto 100%;
-	background-image: url("/public/aboutPage/dec2.png");
-	z-index: 3;
-	filter: blur(5px);
-}
-
-.wave {
-	position: absolute;
-	min-width: 121rem;
-	width: 121rem;
-	height: 15.49744rem;
-	left: 50%;
-	top: 7.05rem;
-	transform: translateX(-50%);
-}
-
-.actions {
-	display: flex;
-	justify-content: center;
-	margin-top: 0.92rem;
-}
 
 @media screen and (max-width: 1140px) {
 }

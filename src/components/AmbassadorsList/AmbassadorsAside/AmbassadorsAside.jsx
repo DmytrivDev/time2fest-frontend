@@ -1,41 +1,78 @@
+import { useLocation, useNavigate } from 'react-router-dom';
+import { CircleFlag } from 'react-circle-flags';
 import clsx from 'clsx';
 import styles from './AmbassadorsAside.module.scss';
 
-const AmbassadorsAside = ({ isLoading, error, data }) => {
+const AmbassadorsAside = ({ isLoading, error, data, activeZone }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   if (isLoading) {
     return (
       <aside className={styles.aside}>
-        <ul>
-          {Array.from({ length: 12 }).map((_, i) => (
-            <li key={i} className="loading" />
+        <div className={styles.inner}>
+          {Array.from({ length: 13 }).map((_, i) => (
+            <div
+              key={i}
+              className={clsx(styles.item, styles.loadingItem, 'loading')}
+            />
           ))}
-        </ul>
+        </div>
       </aside>
     );
   }
 
-  if (error || !data) {
-    return (
-      <aside className={styles.aside}>
-        <p className={styles.errorText}>Error loading time zones</p>
-      </aside>
-    );
-  }
+  if (error || !data) return null;
 
-  const timeZones = [...new Set(data.map(a => a.timeZone).filter(Boolean))];
+  const handleClick = code => {
+    const params = new URLSearchParams(location.search);
+    if (activeZone === code) {
+      params.delete('tz');
+    } else {
+      params.set('tz', code);
+    }
+    navigate(`${location.pathname}?${params.toString()}`);
+  };
 
   return (
     <aside className={styles.aside}>
-      <ul>
-        {timeZones.map(tz => (
-          <li key={tz}>
-            <span>{tz}</span>
-            <div className={styles.flags}>
-              {/* Тут пізніше будуть прапорці країн */}
+      <div className={styles.inner}>
+        {data.map(({ code, flags, count }) => (
+          <button
+            key={code}
+            onClick={() => handleClick(code)}
+            className={clsx(styles.item, {
+              [styles.active]: activeZone === code,
+            })}
+          >
+            <div className={styles.left}>
+              <span className={styles.code}>{code}</span>
             </div>
-          </li>
+
+            <div className={styles.right}>
+              <div className={styles.flags}>
+                {flags && flags.length > 0 ? (
+                  <>
+                    {flags.slice(0, 3).map((f, i) => (
+                      <CircleFlag
+                        key={i}
+                        countryCode={f.toLowerCase()}
+                        height="18"
+                      />
+                    ))}
+                    {flags.length > 3 && (
+                      <span className={styles.more}>+{flags.length - 3}</span>
+                    )}
+                  </>
+                ) : (
+                  <span className={styles.noFlags}>🌍</span>
+                )}
+              </div>
+              {count > 0 && <span className={styles.count}>+{count}</span>}
+            </div>
+          </button>
         ))}
-      </ul>
+      </div>
     </aside>
   );
 };

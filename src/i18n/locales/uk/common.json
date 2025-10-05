@@ -137,6 +137,10 @@
     },
     "close": "Закрити"
   },
+  "ambassadors": {
+    "ambassadors_title": "Амбасадори Time2Fest",
+    "ambassadors_subtitle": "Познайомся з людьми, які діляться своїми святами, традиціями та настроєм у новорічну ніч."
+  },
   "countries": {
     "kiribati": "Кірібаті",
     "chatham_islands": "Острови Чатем (НЗ)",

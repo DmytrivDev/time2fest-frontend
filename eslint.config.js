@@ -33,6 +33,7 @@ export default [
         getComputedStyle: 'readonly',
         alert: 'readonly',
         sessionStorage: 'readonly',
+        URLSearchParams: 'readonly',
       },
     },
     settings: {
