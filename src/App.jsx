@@ -4,10 +4,9 @@ import { lazy, Suspense, useEffect } from 'react';
 
 import { DEFAULT_LANG, SUPPORTED_LANGS } from './i18n/languages';
 import LanguageLayout from './layouts/LanguageLayout/LanguageLayout';
-
 import HomePage from './pages/HomePage/HomePage';
 
-// Lazy-сторінки
+// 💤 Lazy сторінки
 const AboutPage = lazy(() => import('./pages/AboutPage/AboutPage'));
 const AmbassPage = lazy(() => import('./pages/AmbassPage/AmbassPage'));
 const FormPage = lazy(() => import('./pages/FormPage/FormPage'));
@@ -17,8 +16,14 @@ const ResponsibilityPage = lazy(
   () => import('./pages/ResponsibilityPage/ResponsibilityPage')
 );
 const TermsPage = lazy(() => import('./pages/TermsPage/TermsPage'));
+const AmbassadorsListPage = lazy(
+  () => import('./pages/AmbassadorsListPage/AmbassadorsListPage')
+);
 
-// Компонент для скролу нагору при зміні маршруту
+// 🧩 Мінімальний Layout для амбасадорів
+const AmbassLayout = lazy(() => import('./layouts/AmbassLayout/AmbassLayout'));
+
+// 📜 Скрол до верху при зміні сторінки
 const ScrollToTop = () => {
   const { pathname } = useLocation();
   useEffect(() => {
@@ -30,7 +35,7 @@ const ScrollToTop = () => {
 const App = () => {
   const { i18n, ready } = useTranslation();
 
-  if (!ready) return null; // або <Loader />
+  if (!ready) return null;
 
   const detectedLang = i18n.language.split('-')[0];
   const isSupported = SUPPORTED_LANGS.includes(detectedLang);
@@ -40,11 +45,15 @@ const App = () => {
       <ScrollToTop />
       <Suspense fallback={<div></div>}>
         <Routes>
-          {/* Корінь без префікса (default lang) */}
           <Route path="/" element={<LanguageLayout />}>
             <Route index element={<HomePage />} />
             <Route path="about" element={<AboutPage />} />
-            <Route path="ambassadors" element={<AmbassPage />} />
+
+            <Route path="ambassadors" element={<AmbassLayout />}>
+              <Route index element={<AmbassPage />} />
+              <Route path="list" element={<AmbassadorsListPage />} />
+            </Route>
+
             <Route path="become-ambassador" element={<FormPage />} />
             <Route path="privacy" element={<PrivacyPage />} />
             <Route path="agreement" element={<AgreementPage />} />
@@ -52,7 +61,6 @@ const App = () => {
             <Route path="terms" element={<TermsPage />} />
           </Route>
 
-          {/* Якщо явно вказали default_lang → редіректимо без префікса */}
           <Route
             path={`/${DEFAULT_LANG}/*`}
             element={
@@ -66,19 +74,21 @@ const App = () => {
             }
           />
 
-          {/* Інші мови */}
           <Route path="/:lang/*" element={<LanguageLayout />}>
             <Route index element={<HomePage />} />
             <Route path="about" element={<AboutPage />} />
-            <Route path="ambassadors" element={<AmbassPage />} />
+
+            <Route path="ambassadors" element={<AmbassLayout />}>
+              <Route index element={<AmbassPage />} />
+              <Route path="list" element={<AmbassadorsListPage />} />
+            </Route>
+
             <Route path="become-ambassador" element={<FormPage />} />
             <Route path="privacy" element={<PrivacyPage />} />
             <Route path="agreement" element={<AgreementPage />} />
             <Route path="disclaimer" element={<ResponsibilityPage />} />
             <Route path="terms" element={<TermsPage />} />
           </Route>
-
-          {/* 404 → редірект на головну */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>
