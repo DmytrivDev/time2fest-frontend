@@ -30,7 +30,10 @@ const AboutWay = ({ data, isLoading, error }) => {
             <div className={styles.right}>
               <ul className={styles.list}>
                 {Array.from({ length: 6 }).map((_, i) => (
-                  <li key={i} className={clsx(styles.loadingItem, styles.item, 'loading')} />
+                  <li
+                    key={i}
+                    className={clsx(styles.loadingItem, styles.item, 'loading')}
+                  />
                 ))}
               </ul>
             </div>
