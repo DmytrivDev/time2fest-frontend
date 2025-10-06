@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
+import { useLocation } from 'react-router-dom';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -9,6 +10,8 @@ import 'swiper/css/pagination';
 import styles from './AmbassStream.module.scss';
 
 const AmbassStream = ({ data, isLoading, error }) => {
+  const location = useLocation();
+
   if (isLoading) {
     return (
       <section
@@ -18,9 +21,7 @@ const AmbassStream = ({ data, isLoading, error }) => {
         <div className="container">
           <div className={styles.content}>
             <div className={styles.header}>
-              <div
-                className={clsx(styles.loadingTitle, styles.title, 'loading')}
-              ></div>
+              <div className={clsx(styles.loadingTitle, styles.title, 'loading')}></div>
             </div>
             <div className={styles.slideCont}>
               <div className={styles.slider}>
@@ -57,20 +58,18 @@ const AmbassStream = ({ data, isLoading, error }) => {
 
           <div className={styles.slideCont}>
             <Swiper
+              key={location.pathname}
               modules={[Navigation, Pagination]}
-              navigation
+              navigation={{
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+              }}
               pagination={{ clickable: true }}
               spaceBetween={0}
               slidesPerView={1}
               breakpoints={{
-                1140: {
-                  spaceBetween: 0,
-                  navigation: true,
-                },
-                0: {
-                  spaceBetween: 16,
-                  navigation: false,
-                },
+                1140: { spaceBetween: 0 },
+                0: { spaceBetween: 16 },
               }}
               className={clsx(styles.slider, 'streamSlider')}
             >
@@ -92,6 +91,10 @@ const AmbassStream = ({ data, isLoading, error }) => {
                   </div>
                 </SwiperSlide>
               ))}
+
+              {/* 🔽 Додай ці кнопки в DOM */}
+              <div className="swiper-button-prev"></div>
+              <div className="swiper-button-next"></div>
             </Swiper>
           </div>
         </div>

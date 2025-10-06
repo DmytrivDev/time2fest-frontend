@@ -1,37 +1,40 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { SUPPORTED_LANGS } from '@/i18n/languages';
+import { SUPPORTED_LANGS, DEFAULT_LANG } from '@/i18n/languages';
 
 import styles from './NavMenu.module.scss';
 
 const links = [
   { to: '/#new-year', i18n: 'nav.newYear' },
   { to: '/#about', i18n: 'nav.about' },
-  { to: '/#become-streamer', i18n: 'nav.becomeStreamer' },
+  { to: '/ambassadors', i18n: 'nav.aboutAmbass' },
   { to: '/#faq', i18n: 'nav.faq' },
 ];
 
 const NavMenu = ({ setMobileMenuOpen }) => {
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
   const navigate = useNavigate();
   const location = useLocation();
+
+  const currentLang = i18n.language.split('-')[0];
+  const langPrefix =
+    currentLang !== DEFAULT_LANG && SUPPORTED_LANGS.includes(currentLang)
+      ? `/${currentLang}`
+      : '';
 
   const smoothScrollToHash = hash => {
     const id = hash.replace('#', '');
     const el = document.getElementById(id);
 
     if (el) {
-      const header = document.querySelector('header'); // якщо хедер завжди один
+      const header = document.querySelector('header');
       const headerHeight = header ? header.offsetHeight : 0;
-
       const isMobile = window.innerWidth < 1140;
-
       const y =
         el.getBoundingClientRect().top +
         window.scrollY -
         (isMobile ? headerHeight : 0);
-
       window.scrollTo({ top: y, behavior: 'smooth' });
     }
   };
@@ -49,23 +52,21 @@ const NavMenu = ({ setMobileMenuOpen }) => {
     e.preventDefault();
     const [path, hash] = link.split('#');
 
-    if (stripLangPrefix(location.pathname) === path) {
+    const targetPath = `${langPrefix}${path}`;
+    const targetFull = hash ? `${targetPath}#${hash}` : targetPath;
+
+    if (stripLangPrefix(location.pathname) === path && hash) {
       smoothScrollToHash(`#${hash}`);
     } else {
-      navigate(link);
+      navigate(targetFull);
     }
 
-    // ⬇️ закриваємо меню після кліку
-    if (setMobileMenuOpen) {
-      setMobileMenuOpen(false);
-    }
+    if (setMobileMenuOpen) setMobileMenuOpen(false);
   };
 
   useEffect(() => {
     if (location.hash) {
-      setTimeout(() => {
-        smoothScrollToHash(location.hash);
-      }, 50);
+      setTimeout(() => smoothScrollToHash(location.hash), 50);
     }
   }, [location]);
 

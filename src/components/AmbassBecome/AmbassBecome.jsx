@@ -1,11 +1,14 @@
 import clsx from 'clsx';
 import useFloatingDecors from '../../hooks/useFloatingDecors';
 import { useTranslation } from 'react-i18next';
+import { Link, useLocation } from 'react-router-dom';
 
 import styles from './AmbassBecome.module.scss';
 
 const AmbassBecome = ({ data, isLoading, error }) => {
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
+
+  const location = useLocation();
 
   useFloatingDecors(!isLoading ? `#ambass-become .dec` : null, 20);
 
@@ -79,9 +82,12 @@ const AmbassBecome = ({ data, isLoading, error }) => {
           </div>
 
           <div className={styles.actions}>
-            <a href="#form" className="btn_primary">
+            <Link
+              to={`/${i18n.language !== 'en' ? i18n.language + '/' : ''}become-ambassador`}
+              className="btn_primary"
+            >
               {t('join')}
-            </a>
+            </Link>
           </div>
         </div>
       </div>
