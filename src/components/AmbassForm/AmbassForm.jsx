@@ -284,9 +284,7 @@ export default function AmbassadorForm() {
                           <input
                             type="text"
                             placeholder={`${t('form.linkPlaceholder')} ${soc}`}
-                            {...register(`socialLinks.${soc}`, {
-                              required: true,
-                            })}
+                            {...register(`socialLinks.${soc}`)}
                           />
                         )}
                       </div>
