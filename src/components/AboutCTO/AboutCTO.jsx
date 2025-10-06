@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import useFloatingDecors from '../../hooks/useFloatingDecors';
-import styles from './AboutCto.module.scss';
+import styles from './AboutCTO.module.scss';
 import { addToCalendar } from '@/utils/addToCalendar'; // утиліта для календаря
 
 const AboutCto = ({ data, isLoading, error }) => {
