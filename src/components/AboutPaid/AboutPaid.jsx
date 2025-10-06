@@ -62,7 +62,7 @@ const AboutPaid = ({ data, dataFree, isLoading, error }) => {
     <section id="about-paid" className={styles.section}>
       <div className={styles.bg}>
         <img
-          src="/public/aboutPage/paid_bg.jpg"
+          src="/aboutPage/paid_bg.jpg"
           className={styles.dec}
           alt=""
         />
@@ -98,7 +98,7 @@ const AboutPaid = ({ data, dataFree, isLoading, error }) => {
             {dataFree?.FreePlanList && (
               <li className={clsx(styles.card, styles.cardLast)}>
                 <img
-                  src="/public/aboutPage/free.png"
+                  src="/aboutPage/free.png"
                   className={styles.dec}
                   alt=""
                 />

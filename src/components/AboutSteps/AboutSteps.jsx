@@ -42,7 +42,7 @@ const AboutSteps = ({ data, isLoading, error }) => {
 
           <div className={styles.cardsCont}>
             <img
-              src="/public/aboutPage/wave2.png"
+              src="/aboutPage/wave2.png"
               className={styles.wave}
               alt=""
             />

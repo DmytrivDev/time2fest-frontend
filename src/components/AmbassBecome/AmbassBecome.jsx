@@ -48,7 +48,7 @@ const AmbassBecome = ({ data, isLoading, error }) => {
   return (
     <section id="ambass-become" className={styles.section}>
       <div className={clsx(styles.background, 'dec')}>
-        <img src="/public/aboutPage/stars.png" alt="" />
+        <img src="/aboutPage/stars.png" alt="" />
       </div>
       <div className="container">
         <div className={styles.content}>
@@ -60,7 +60,7 @@ const AmbassBecome = ({ data, isLoading, error }) => {
             <div className={clsx(styles.dec, 'dec')}></div>
             <div className={clsx(styles.dec2, 'dec')}></div>
             <img
-              src="/public/aboutPage/wave.png"
+              src="/aboutPage/wave.png"
               className={styles.wave}
               alt=""
             />

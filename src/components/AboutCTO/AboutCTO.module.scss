@@ -128,13 +128,13 @@
 	background-size: auto 100%;
 
 	&.dec1 {
-		background-image: url(/public/aboutPage/dec_g1.png);
+		background-image: url(/aboutPage/dec_g1.png);
 		background-position: 0 top;
 		z-index: -1;
 	}
 
 	&.dec2 {
-		background-image: url(/public/aboutPage/dec_g2.png);
+		background-image: url(/aboutPage/dec_g2.png);
 		z-index: 3;
 		background-position: right -0.1rem;
 	}
@@ -146,7 +146,7 @@
 	transform: rotate(72.308deg);
 	right: calc(50% - 48rem);
 	bottom: 2.85rem;
-	background-image: url("/public/aboutPage/dec2.png");
+	background-image: url("/aboutPage/dec2.png");
 	z-index: 3;
 }
 

@@ -20,7 +20,7 @@ const AboutTech = ({ data, isLoading, error }) => {
             </div>
             <div className={clsx(styles.imageWrapper, 'loading')}>
               <img
-                src="/public/aboutPage/devices_sk.png"
+                src="/aboutPage/devices_sk.png"
                 alt="devices preview"
                 className={styles.image}
               />
@@ -54,7 +54,7 @@ const AboutTech = ({ data, isLoading, error }) => {
 
           <div className={styles.imageWrapper}>
             <img
-              src="/public/aboutPage/devices.png"
+              src="/aboutPage/devices.png"
               alt="devices preview"
               className={styles.image}
             />
@@ -65,7 +65,7 @@ const AboutTech = ({ data, isLoading, error }) => {
             <Marquee gradient={false} speed={80} pauseOnHover>
               {data.TechnicList?.map(item => (
                 <div key={item.id} className={styles.marqueeItem}>
-                  <img src="/public/aboutPage/trace.svg" alt={item.Item} />
+                  <img src="/aboutPage/trace.svg" alt={item.Item} />
                   <span>{item.Item}</span>
                 </div>
               ))}

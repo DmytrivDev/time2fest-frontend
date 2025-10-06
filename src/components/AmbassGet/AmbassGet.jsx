@@ -45,7 +45,7 @@ const AmbassGet = ({ data, isLoading, error }) => {
   return (
     <section id="ambass-get" className={styles.section}>
       <div className={styles.background}>
-        <img src="/public/aboutPage/get_bg.jpg" alt="" />
+        <img src="/aboutPage/get_bg.jpg" alt="" />
       </div>
       <div className="container">
         <div className={styles.content}>

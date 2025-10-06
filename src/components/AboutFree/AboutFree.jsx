@@ -46,7 +46,7 @@ const AboutFree = ({ data, isLoading, error }) => {
     <section id="about-free" className={styles.section}>
       <div className="container">
         <div className={styles.content}>
-          <img src="/public/aboutPage/free.png" className={styles.dec} alt="" />
+          <img src="/aboutPage/free.png" className={styles.dec} alt="" />
           <div className={styles.header}>
             {data.Title && <h2 className={styles.title}>{data.Title}</h2>}
             {data.Undertitle && (
