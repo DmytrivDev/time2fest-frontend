@@ -34,6 +34,7 @@ export default [
         alert: 'readonly',
         sessionStorage: 'readonly',
         URLSearchParams: 'readonly',
+        if: 'readonly',
       },
     },
     settings: {
