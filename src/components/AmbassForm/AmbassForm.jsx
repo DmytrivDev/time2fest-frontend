@@ -29,6 +29,10 @@ export default function AmbassadorForm() {
     mutationFn: submitForm,
     onSuccess: () => {
       setSuccessOpen(true);
+      fbq('track', 'CompleteRegistration', {
+        value: 20,
+        currency: '$',
+      });
       isClearingRef.current = true; // блокуємо автозбереження
       sessionStorage.removeItem(STORAGE_KEY);
 
