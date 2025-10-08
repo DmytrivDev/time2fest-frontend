@@ -140,7 +140,12 @@
   },
   "ambassadors": {
     "ambassadors_title": "Embajadores de Time2Fest",
-    "ambassadors_subtitle": "Conoce a las personas que comparten sus celebraciones, tradiciones y espíritu festivo en la víspera de Año Nuevo."
+    "ambassadors_subtitle": "Conoce a las personas que comparten sus celebraciones, tradiciones y espíritu festivo en la víspera de Año Nuevo.",
+    "intro": "Video de presentación",
+    "follow": "Sigue al embajador",
+    "langs": "Idiomas",
+    "rand_title": "Otros embajadores",
+    "all_ambass": "Todos los embajadores"
   },
   "countries": {
     "kiribati": "Kiribati",

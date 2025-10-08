@@ -1,9 +1,16 @@
 import React from 'react';
 import clsx from 'clsx';
 import { CircleFlag } from 'react-circle-flags';
+import { useTranslation } from 'react-i18next';
+import { Link, useLocation } from 'react-router-dom';
+
 import styles from './AmbassadorItem.module.scss';
 
 const AmbassadorItem = ({ data, isLoading = false }) => {
+  const { t, i18n } = useTranslation();
+
+  const location = useLocation();
+
   if (isLoading) {
     return (
       <div className={clsx(styles.card, styles.loadingCard, 'loading')}></div>
@@ -19,7 +26,13 @@ const AmbassadorItem = ({ data, isLoading = false }) => {
 
   return (
     <div className={styles.card}>
-      <div className={styles.photo}>
+      <Link
+        to={
+          `/${i18n.language !== 'en' ? i18n.language + '/' : ''}ambassadors/list/` +
+          data.slug
+        }
+        className={styles.photo}
+      >
         <img
           src={photoUrl}
           alt={name}
@@ -27,17 +40,25 @@ const AmbassadorItem = ({ data, isLoading = false }) => {
           onError={e => (e.currentTarget.src = '/images/default-avatar.jpg')}
         />
         {countryCode && (
-          <div className={styles.countryBadge}>
+          <span className={styles.countryBadge}>
             <CircleFlag countryCode={countryCode} height="22" />
             <span>{countryName}</span>
-          </div>
+          </span>
         )}
-      </div>
+      </Link>
 
       <div className={styles.content}>
         <h4 className={styles.name}>{name}</h4>
         <p className={styles.desc}>{description}</p>
-        <button className={styles.button}>Детальніше</button>
+        <Link
+          to={
+            `/${i18n.language !== 'en' ? i18n.language + '/' : ''}ambassadors/list/` +
+            data.slug
+          }
+          className={styles.button}
+        >
+          {t('controls.details')}
+        </Link>
       </div>
     </div>
   );

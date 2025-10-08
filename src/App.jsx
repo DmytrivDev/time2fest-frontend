@@ -19,6 +19,9 @@ const TermsPage = lazy(() => import('./pages/TermsPage/TermsPage'));
 const AmbassadorsListPage = lazy(
   () => import('./pages/AmbassadorsListPage/AmbassadorsListPage')
 );
+const AmbassadorDetailPage = lazy(
+  () => import('./pages/AmbassadorDetailPage/AmbassadorDetailPage')
+);
 
 // 🧩 Мінімальний Layout для амбасадорів
 const AmbassLayout = lazy(() => import('./layouts/AmbassLayout/AmbassLayout'));
@@ -52,6 +55,7 @@ const App = () => {
             <Route path="ambassadors" element={<AmbassLayout />}>
               <Route index element={<AmbassPage />} />
               <Route path="list" element={<AmbassadorsListPage />} />
+              <Route path="list/:slug" element={<AmbassadorDetailPage />} />
             </Route>
 
             <Route path="become-ambassador" element={<FormPage />} />
@@ -81,6 +85,7 @@ const App = () => {
             <Route path="ambassadors" element={<AmbassLayout />}>
               <Route index element={<AmbassPage />} />
               <Route path="list" element={<AmbassadorsListPage />} />
+              <Route path="list/:slug" element={<AmbassadorDetailPage />} />
             </Route>
 
             <Route path="become-ambassador" element={<FormPage />} />

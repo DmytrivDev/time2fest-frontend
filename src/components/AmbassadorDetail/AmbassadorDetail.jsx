@@ -1,0 +1,194 @@
+import React, { useState } from 'react';
+import clsx from 'clsx';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import { useTranslation } from 'react-i18next';
+import { CircleFlag } from 'react-circle-flags';
+import * as FaIcons from 'react-icons/fa6';
+import styles from './AmbassadorDetail.module.scss';
+
+const AmbassadorDetail = ({ data, isLoading, error }) => {
+  const { t } = useTranslation();
+
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  if (isLoading) {
+    return (
+      <section className={styles.section}>
+        <div className="container">
+          <div className={styles.content}>
+            <div className={clsx(styles.photoWrap, 'loading')}>
+              <div className={styles.photoInner}></div>
+            </div>
+            <div className={styles.info}>
+              <div className={styles.info__part}>
+                <div className={styles.info__top}>
+                  <span
+                    className={clsx(styles.tz, styles.tzLoading, 'loading')}
+                  ></span>
+                  <div className={clsx(styles.flagLoading, styles.flag)}>
+                    <div className={clsx(styles.fl, 'loading')}></div>
+                    <span className="loading"></span>
+                  </div>
+                </div>
+                <h1
+                  className={clsx(styles.name, styles.nameLoading, 'loading')}
+                ></h1>
+
+                <p
+                  className={clsx(styles.langs, styles.langsLoading, 'loading')}
+                ></p>
+
+                <div className={clsx(styles.desc, styles.descLoading)}>
+                  <span className="loading"></span>
+                  <span className="loading"></span>
+                  <span className="loading"></span>
+                  <span className="loading"></span>
+                </div>
+              </div>
+
+              <div className={styles.socials}>
+                <p
+                  className={clsx(
+                    styles.follow,
+                    styles.followLoading,
+                    'loading'
+                  )}
+                ></p>
+                <div className={styles.icons}>
+                  {Array.from({ length: 4 }).map((_, i) => (
+                    <div
+                      className={clsx(
+                        styles.iconLink,
+                        styles.iconLinkLoading,
+                        'loading'
+                      )}
+                    ></div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error || !data) return null;
+
+  const {
+    name,
+    fullDescription,
+    country,
+    timeZone,
+    languages,
+    photo,
+    video,
+    socialLinks,
+  } = data;
+
+  const photoUrl = `${import.meta.env.VITE_STRIPE_URL}${photo}`;
+  const videoUrl = video ? `${import.meta.env.VITE_STRIPE_URL}${video}` : null;
+
+  console.log(videoUrl);
+
+  return (
+    <section className={styles.section}>
+      <div className="container">
+        <div className={styles.content}>
+          <div className={styles.photoWrap}>
+            <div className={styles.photoInner}>
+              {!isPlaying ? (
+                <button onClick={() => setIsPlaying(true)}>
+                  <img src={photoUrl} alt={name} />
+                  {videoUrl && (
+                    <span className={styles.playBtn}>
+                      <span>{t('ambassadors.intro')}</span>
+                      <span className={styles.playIcon}></span>
+                    </span>
+                  )}
+                </button>
+              ) : (
+                <div className={styles.videoWrap}>
+                  <video
+                    src={
+                      videoUrl.startsWith('http')
+                        ? videoUrl
+                        : `${import.meta.env.VITE_STRIPE_URL}${videoUrl}`
+                    }
+                    controls
+                    autoPlay
+                    playsInline
+                    onEnded={() => setIsPlaying(false)}
+                    onError={e => console.error('❌ Video error:', e)}
+                  ></video>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* ---- Права частина ---- */}
+          <div className={styles.info}>
+            <div className={styles.info__part}>
+              <div className={styles.info__top}>
+                <span className={styles.tz}>{timeZone}</span>
+                {country?.code && (
+                  <div className={styles.flag}>
+                    <CircleFlag
+                      countryCode={country.code.toLowerCase()}
+                      height="20"
+                    />
+                    <span>{country.name}</span>
+                  </div>
+                )}
+              </div>
+              <h1 className={styles.name}>{name}</h1>
+
+              {languages && (
+                <p className={styles.langs}>
+                  {t('ambassadors.langs')}: {languages}
+                </p>
+              )}
+
+              {fullDescription && (
+                <div className={styles.desc}>
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {fullDescription}
+                  </ReactMarkdown>
+                </div>
+              )}
+            </div>
+
+            {socialLinks?.length > 0 && (
+              <div className={styles.socials}>
+                <p className={styles.follow}>{t('ambassadors.follow')}:</p>
+                <div className={styles.icons}>
+                  {socialLinks.map(link => {
+                    const iconName = 'Fa' + link.name;
+                    const Icon = FaIcons[iconName];
+                    const FallbackIcon = FaIcons.FaGlobe;
+
+                    return (
+                      <a
+                        key={link.name}
+                        href={link.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={link.name}
+                        className={styles.iconLink}
+                      >
+                        {Icon ? <Icon size={20} /> : <FallbackIcon size={20} />}
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default AmbassadorDetail;

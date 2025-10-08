@@ -140,7 +140,12 @@
   },
   "ambassadors": {
     "ambassadors_title": "Time2Fest Ambassadors",
-    "ambassadors_subtitle": "Meet the people who share their celebrations, traditions, and festive spirit on New Year’s Eve."
+    "ambassadors_subtitle": "Meet the people who share their celebrations, traditions, and festive spirit on New Year’s Eve.",
+    "intro": "Video introduction",
+    "follow": "Follow the ambassador",
+    "langs": "Languages",
+    "rand_title": "Other ambassadors",
+    "all_ambass": "All ambassadors"
   },
   "countries": {
     "kiribati": "Kiribati",

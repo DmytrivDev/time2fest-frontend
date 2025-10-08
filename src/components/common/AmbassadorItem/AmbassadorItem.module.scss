@@ -16,6 +16,7 @@
     padding-top: 79.1%;
     position: relative;
     overflow: hidden;
+    display: block;
 
     & > img {
         @include img-cover;
@@ -43,7 +44,6 @@
 }
 
 .content {
-    position: relative;
     padding: 1.2rem 1.5rem;
     padding-bottom: 4.2rem;
 }
