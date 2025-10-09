@@ -94,7 +94,7 @@
 
 .text {
 	font-size: 1.125rem;
-	margin-top: 2.56em;
+	margin-top: 2.56rem;
 	line-height: 1.8;
 }
 
@@ -121,20 +121,20 @@
 .dec {
 	position: absolute;
 	width: 9.8rem;
-	height: 9.438em;
+	height: 9.438rem;
 	top: -4.44rem;
 	left: calc(50% + -2rem);
 	background-repeat: no-repeat;
 	background-size: auto 100%;
 
 	&.dec1 {
-		background-image: url(/aboutPage/dec_g1.png);
+		background-image: url("/aboutPage/dec_g1.png");
 		background-position: 0 top;
 		z-index: -1;
 	}
 
 	&.dec2 {
-		background-image: url(/aboutPage/dec_g2.png);
+		background-image: url("/aboutPage/dec_g2.png");
 		z-index: 3;
 		background-position: right -0.1rem;
 	}
@@ -151,10 +151,119 @@
 }
 
 @media screen and (max-width: 1140px) {
+	.section {
+		max-width: 100%;
+		margin-top: 3.75rem;
+
+		&::before {
+			border-radius: 1.25rem;
+		}
+	}
+
+	.content {
+		padding: 3.375rem 0 3.75rem 0;
+	}
+
+	.left {
+		width: 100%;
+		max-width: calc(50% - 1rem);
+	}
+
+	.title1,
+	.title2 {
+		font-size: 1.3125rem;
+	}
+
+	.loadingTitle {
+		height: 2.25rem;
+		width: 100%;
+
+		&.title2 {
+			height: 4rem;
+
+			span {
+				height: 1.8125rem;
+			}
+		}
+	}
+
+	.title1 {
+		margin-bottom: 0.625rem;
+		font-size: 1.625rem;
+	}
+
+	.text {
+		font-size: 0.875rem;
+		margin-top: 1rem;
+	}
+
+	.loadingText {
+		height: 5.125rem;
+
+		span {
+			height: 1.5rem;
+		}
+	}
+
+	.actions {
+		margin-top: 2rem;
+	}
+
+	.loadingBtn {
+		width: 11.25rem;
+		height: 2.875rem;
+	}
+
+	.right {
+		width: 100%;
+		max-width: calc(50% - 1rem);
+		margin-top: 0.625rem;
+	}
+
+	.loadingImage {
+		height: 17.5rem;
+	}
+
+	.dec {
+		width: 5.625rem;
+		height: 5.625rem;
+		top: -2.125rem;
+	}
+
+	.dec3 {
+		width: 5.2085rem;
+		height: 4.2207rem;
+		right: 1.875rem;
+		bottom: 0.625rem;
+	}
 }
 
 @media screen and (max-width: 868px) {
-}
+	.content {
+		flex-direction: column;
+		justify-content: stretch;
+		align-items: stretch;
+		align-content: stretch;
+		gap: 2.5rem 0;
+	}
 
-@media screen and (max-width: 475px) {
+	.left {
+		max-width: none;
+	}
+
+	.right {
+		max-width: none;
+		margin-top: 0;
+	}
+
+	.dec {
+		left: auto;
+		right: 3.125rem;
+	}
+
+	.dec3 {
+		right: auto;
+		left: 1.25rem;
+		bottom: 0.625rem;
+	}
 }

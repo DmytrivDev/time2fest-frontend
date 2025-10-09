@@ -2,10 +2,11 @@ import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { addToCalendar } from '@/utils/addToCalendar';
 import { Link } from 'react-router-dom';
-import styles from './AboutHero.module.scss';
 
 import useFloatingDecors from '../../hooks/useFloatingDecors';
 import RotatingGlobe from './RotatingGlobe';
+
+import styles from './AboutHero.module.scss';
 
 const AboutHero = ({ data, isLoading, error }) => {
   const { t, i18n } = useTranslation('common');
@@ -14,9 +15,7 @@ const AboutHero = ({ data, isLoading, error }) => {
 
   if (isLoading) {
     return (
-      <section
-        className={clsx(styles.section, styles.sectionLoading)}
-      >
+      <section className={clsx(styles.section, styles.sectionLoading)}>
         <div className="container">
           <div className={styles.content}>
             <div className={styles.leftpart}>

@@ -1,8 +1,9 @@
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import useFloatingDecors from '../../hooks/useFloatingDecors';
+import { addToCalendar } from '@/utils/addToCalendar';
+
 import styles from './AboutCTO.module.scss';
-import { addToCalendar } from '@/utils/addToCalendar'; // утиліта для календаря
 
 const AboutCto = ({ data, isLoading, error }) => {
   const { t } = useTranslation('common');
@@ -11,9 +12,7 @@ const AboutCto = ({ data, isLoading, error }) => {
 
   if (isLoading) {
     return (
-      <section
-        className={clsx(styles.section, styles.sectionLoading)}
-      >
+      <section className={clsx(styles.section, styles.sectionLoading)}>
         <div className="container">
           <div className={styles.content}>
             <div className={styles.left}>
