@@ -15,7 +15,7 @@ export default function ZoneCountryItem({
   zoneLabel,
   offsetFromApi,
   isOpen,
-  onToggle,
+  onToggle, 
 }) {
   const { t } = useTranslation('common');
 
@@ -183,12 +183,12 @@ END:VCALENDAR`.trim();
               <span>{t('controls.countdown')}</span>
             </li>
             {zoneData.Ambassador && (
-              <li>
+              <li style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
                 <IoCamera /> <span>{t('controls.ambass')}</span>
               </li>
             )}
             {zoneData.VebCamera && (
-              <li>
+              <li style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
                 <IoVideocam /> <span>{t('controls.veb')}</span>
               </li>
             )}

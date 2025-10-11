@@ -91,7 +91,11 @@
 
 .propsList {
 	@include flex-btv;
-	gap: 0.94rem;
+	gap: 0.94rem !important;
+	display: flex;
+	flex-direction: row !important;
+	flex-wrap: wrap;
+	white-space: nowrap;
 
 	li {
 		background-color: $color-yellow;
@@ -203,10 +207,10 @@
 
 	.propsList {
 		order: 2;
-		gap: 0.625rem;
+		gap: 0.5rem !important;
 
 		li {
-			padding: 0.4375rem 0.75rem 0.3125rem 0.75rem;
+			padding: 0.25rem .4rem;
 			font-size: 0.875rem;
 
 			svg {
