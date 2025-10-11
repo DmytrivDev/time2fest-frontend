@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import Marquee from 'react-fast-marquee';
 import useFloatingDecors from '../../hooks/useFloatingDecors';
+
 import styles from './AboutTech.module.scss';
 
 const AboutTech = ({ data, isLoading, error }) => {
@@ -18,14 +19,28 @@ const AboutTech = ({ data, isLoading, error }) => {
               <div className={clsx(styles.loadingTitle, 'loading')} />
               <div className={clsx(styles.loadingText, 'loading')} />
             </div>
+
             <div className={clsx(styles.imageWrapper, 'loading')}>
-              <img
-                src="/aboutPage/devices_sk.png"
-                alt="devices preview"
-                className={styles.image}
-              />
+              <picture>
+                <source
+                  media="(max-width: 1140px)"
+                  srcSet="/aboutPage/devices_mob.png"
+                />
+                <img
+                  src="/aboutPage/devices_sk.png"
+                  alt="devices preview"
+                  className={styles.image}
+                />
+              </picture>
             </div>
-            <div className={clsx(styles.marqueeLine, styles.marqueeLineLoad, 'loading')}></div>
+
+            <div
+              className={clsx(
+                styles.marqueeLine,
+                styles.marqueeLineLoad,
+                'loading'
+              )}
+            ></div>
           </div>
         </div>
       </section>
@@ -53,11 +68,17 @@ const AboutTech = ({ data, isLoading, error }) => {
           </div>
 
           <div className={styles.imageWrapper}>
-            <img
-              src="/aboutPage/devices.png"
-              alt="devices preview"
-              className={styles.image}
-            />
+            <picture>
+              <source
+                media="(max-width: 1140px)"
+                srcSet="/aboutPage/devices_mob.png"
+              />
+              <img
+                src="/aboutPage/devices.png"
+                alt="devices preview"
+                className={styles.image}
+              />
+            </picture>
           </div>
 
           {/* бігучий рядок */}
