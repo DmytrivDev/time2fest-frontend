@@ -1,0 +1,39 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+section {
+    padding-top: 6.75rem;
+}
+
+.titleLoading {
+    height: 3.5rem;
+    width: 35rem;
+}
+
+.buttonLoading {
+    height: 3.1875rem;
+    width: 11.5rem;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
+}
+
+.grid {
+    margin-top: 2.88rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.44rem;
+}
+
+@media screen and (max-width: 1140px) {
+}
+
+@media screen and (max-width: 868px) {
+}
+
+@media screen and (max-width: 475px) {
+}

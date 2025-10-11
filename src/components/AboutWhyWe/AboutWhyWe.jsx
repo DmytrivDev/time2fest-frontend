@@ -50,8 +50,6 @@ const AboutWhyWe = ({ data, isLoading, error }) => {
 
   if (error || !data) return null;
 
-  console.log(data);
-
   return (
     <section id="about-whywe" className={styles.section}>
       <div className="container">

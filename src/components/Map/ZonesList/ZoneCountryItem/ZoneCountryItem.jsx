@@ -1,6 +1,7 @@
-import { useRef, useLayoutEffect, useEffect, useState, useMemo } from 'react';
+import { useRef, useLayoutEffect, useEffect, useState } from 'react';
 import { CircleFlag } from 'react-circle-flags';
-import { IoTime } from 'react-icons/io5';
+import { IoTime, IoCamera, IoVideocam } from 'react-icons/io5';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getNextNYLocalForUtcOffset } from '@/utils/ny-time';
 import clsx from 'clsx';
@@ -11,29 +12,36 @@ export default function ZoneCountryItem({
   name,
   code,
   desc,
+  details,
+  slug,
   zoneLabel,
   offsetFromApi,
   isOpen,
   onToggle,
 }) {
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
 
-  const utcOffsetStr = useMemo(() => {
-    if (zoneLabel && zoneLabel.toUpperCase().startsWith('UTC'))
-      return zoneLabel;
-    if (offsetFromApi)
-      return offsetFromApi.trim().startsWith('UTC')
-        ? offsetFromApi.trim()
-        : `UTC${offsetFromApi.trim()}`;
-    return 'UTC+0';
-  }, [zoneLabel, offsetFromApi]);
+  // --- Формуємо нормалізований UTC ---
+  let utcOffsetStr = 'UTC+0';
+  if (zoneLabel && zoneLabel.toUpperCase().startsWith('UTC')) {
+    utcOffsetStr = zoneLabel;
+  } else if (offsetFromApi) {
+    utcOffsetStr = offsetFromApi.trim().startsWith('UTC')
+      ? offsetFromApi.trim()
+      : `UTC${offsetFromApi.trim()}`;
+  }
 
-  const ny = useMemo(
-    () => getNextNYLocalForUtcOffset(utcOffsetStr),
-    [utcOffsetStr]
-  );
+  const ny = getNextNYLocalForUtcOffset(utcOffsetStr);
 
-  // --- нова функція для додавання у календар ---
+  // --- Визначення правильного об’єкта з TimezoneDetail ---
+  let zoneData = {};
+  if (Array.isArray(details) && details.length > 0) {
+    const tzWithoutUTC = utcOffsetStr.replace('UTC', '').trim(); // "+1"
+    const found = details.find(z => String(z.Zone).trim() === tzWithoutUTC);
+    zoneData = found || details[0] || {};
+  }
+
+  // --- Додавання в календар ---
   const addToCalendar = () => {
     if (typeof window !== 'undefined' && window.umami) {
       window.umami.track('add_to_calendar');
@@ -42,16 +50,13 @@ export default function ZoneCountryItem({
     const title = `${t('calendar_titlecountry')} – ${name}`;
     const description = `${t('calendar_desc')}\n\nhttps://time2fest.com`;
 
-    // ✅ беремо правильну дату з ny.instant
     const baseDate = ny?.instant instanceof Date ? ny.instant : null;
     if (!baseDate) {
       console.error('No valid New Year date for zone', name, ny);
       return;
     }
 
-    // Старт = за 15 хв до НР
     const startDate = new Date(baseDate.getTime() - 15 * 60 * 1000);
-    // Кінець = +20 хв від старту
     const endDate = new Date(startDate.getTime() + 20 * 60 * 1000);
 
     const formatDate = d =>
@@ -179,6 +184,20 @@ END:VCALENDAR`.trim();
               <IoTime />
               <span>{t('controls.countdown')}</span>
             </li>
+            {zoneData.Ambassador && (
+              <li
+                style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}
+              >
+                <IoCamera /> <span>{t('controls.ambass')}</span>
+              </li>
+            )}
+            {zoneData.VebCamera && (
+              <li
+                style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}
+              >
+                <IoVideocam /> <span>{t('controls.veb')}</span>
+              </li>
+            )}
           </ul>
 
           <span className={styles.display}>{ny.display}</span>
@@ -213,13 +232,13 @@ END:VCALENDAR`.trim();
         )}
 
         <div className={styles.itemActions}>
-          {/*<button className="btn_primary" type="button">
+          <Link
+            to={`/${i18n.language !== 'en' ? i18n.language + '/' : ''}country/${slug}?tz=${encodeURIComponent(String(zoneLabel))}`}
+            className="btn_primary"
+          >
             {t('controls.details')}
-          </button>
-          <button className="btn_transp" type="button">
-            {t('controls.add_to_shel')}
-          </button> */}
-          <button className="btn_primary" type="button" onClick={addToCalendar}>
+          </Link>
+          <button className="btn_transp" type="button" onClick={addToCalendar}>
             {t('controls.add_to_shel')}
           </button>
         </div>

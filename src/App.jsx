@@ -22,9 +22,12 @@ const AmbassadorsListPage = lazy(
 const AmbassadorDetailPage = lazy(
   () => import('./pages/AmbassadorDetailPage/AmbassadorDetailPage')
 );
+const CountriesPage = lazy(() => import('./pages/CountriesPage/CountriesPage'));
+const CountryPage = lazy(() => import('./pages/CountryPage/CountryPage'));
 
 // 🧩 Мінімальний Layout для амбасадорів
 const AmbassLayout = lazy(() => import('./layouts/AmbassLayout/AmbassLayout'));
+const CountriesLayout = lazy(() => import('./layouts/CountriesLayout/CountriesLayout'));
 
 // 📜 Скрол до верху при зміні сторінки
 const ScrollToTop = () => {
@@ -51,6 +54,11 @@ const App = () => {
           <Route path="/" element={<LanguageLayout />}>
             <Route index element={<HomePage />} />
             <Route path="about" element={<AboutPage />} />
+
+            <Route path="country" element={<CountriesLayout />}>
+              <Route index element={<CountriesPage />} />
+              <Route path=":slug" element={<CountryPage />} />
+            </Route>
 
             <Route path="ambassadors" element={<AmbassLayout />}>
               <Route index element={<AmbassPage />} />
@@ -81,6 +89,11 @@ const App = () => {
           <Route path="/:lang/*" element={<LanguageLayout />}>
             <Route index element={<HomePage />} />
             <Route path="about" element={<AboutPage />} />
+
+            <Route path="country" element={<CountriesLayout />}>
+              <Route index element={<CountriesPage />} />
+              <Route path=":slug" element={<CountryPage />} />
+            </Route>
 
             <Route path="ambassadors" element={<AmbassLayout />}>
               <Route index element={<AmbassPage />} />

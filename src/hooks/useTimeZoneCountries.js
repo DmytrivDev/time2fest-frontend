@@ -13,13 +13,12 @@ export function useTimeZoneCountries(code) {
     staleTime: 5 * 60 * 1000,
     // ⚠️ Уніфікуємо два можливі формати відповіді
     select: (raw) => {
-      // ТВОЯ форма (як на скріні): [{ id, code, countries: [...] }]
       if (Array.isArray(raw)) {
-        return raw[0]?.countries ?? [];
+        return raw ?? [];
       }
       // Класичний Strapi REST: { data: [{ attributes: { countries: { data: [...] }}}]}
-      if (raw?.data && Array.isArray(raw.data)) {
-        return raw.data[0]?.attributes?.countries?.data ?? [];
+      if (raw && Array.isArray(raw)) {
+        return raw?.data ?? [];
       }
       return [];
     },

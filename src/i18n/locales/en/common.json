@@ -44,7 +44,11 @@
     "back_to_zones": "Back to time zones",
     "countrylist": "Country list",
     "show": "Show",
-    "hide": "Hide"
+    "hide": "Hide",
+    "ambass": "Ambassador stream",
+    "veb": "Live webcam stream",
+    "ny_at": "New Year will come ",
+    "types": "Type of celebration"
   },
   "tooltip": {
     "by_your_time": "(your local time)",
@@ -145,7 +149,10 @@
     "follow": "Follow the ambassador",
     "langs": "Languages",
     "rand_title": "Other ambassadors",
-    "all_ambass": "All ambassadors"
+    "all_ambass": "All ambassadors",
+    "nye_ambass": "Celebrate New Year’s Eve with our ambassadors",
+    "info_about": "Celebration Information",
+    "info_about_celebration": "Celebration Features:"
   },
   "countries": {
     "kiribati": "Kiribati",

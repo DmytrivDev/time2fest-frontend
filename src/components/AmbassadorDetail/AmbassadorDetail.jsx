@@ -90,8 +90,6 @@ const AmbassadorDetail = ({ data, isLoading, error }) => {
   const photoUrl = `${import.meta.env.VITE_STRIPE_URL}${photo}`;
   const videoUrl = video ? `${import.meta.env.VITE_STRIPE_URL}${video}` : null;
 
-  console.log(videoUrl);
-
   return (
     <section className={styles.section}>
       <div className="container">
