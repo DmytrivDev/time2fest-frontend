@@ -44,7 +44,11 @@
     "back_to_zones": "Retour aux fuseaux horaires",
     "countrylist": "Liste des pays",
     "show": "Afficher",
-    "hide": "Masquer"
+    "hide": "Masquer",
+    "ambass": "Diffusion par l'ambassadeur",
+    "veb": "Diffusion en direct depuis les webcams",
+    "ny_at": "Le Nouvel An arrivera ",
+    "types": "Type de célébration"
   },
   "tooltip": {
     "by_your_time": "(votre heure locale)",

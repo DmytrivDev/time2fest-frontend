@@ -44,7 +44,11 @@
     "back_to_zones": "Volver a las zonas horarias",
     "countrylist": "Lista de países",
     "show": "Mostrar",
-    "hide": "Ocultar"
+    "hide": "Ocultar",
+    "ambass": "Transmisión del embajador",
+    "veb": "Transmisión en vivo desde cámaras web",
+    "ny_at": "El Año Nuevo llegará ",
+    "types": "Tipo de celebración"
   },
   "tooltip": {
     "by_your_time": "(tu hora local)",
