@@ -18,7 +18,10 @@ const AboutSteps = ({ data, isLoading, error }) => {
             <div className={styles.cardsCont}>
               <ul className={styles.cards}>
                 {Array.from({ length: 4 }).map((_, i) => (
-                  <li key={i} className={clsx(styles.card, styles.cardLoading, 'loading')} >
+                  <li
+                    key={i}
+                    className={clsx(styles.card, styles.cardLoading, 'loading')}
+                  >
                     <div className={clsx(styles.cardInner, 'loading')}></div>
                   </li>
                 ))}
@@ -41,11 +44,7 @@ const AboutSteps = ({ data, isLoading, error }) => {
           </div>
 
           <div className={styles.cardsCont}>
-            <img
-              src="/aboutPage/wave2.png"
-              className={styles.wave}
-              alt=""
-            />
+            <img src="/aboutPage/wave2.png" className={styles.wave} alt="" />
             <ul className={styles.cards}>
               {data.StrpsList?.map(item => (
                 <li key={item.id} className={styles.card}>

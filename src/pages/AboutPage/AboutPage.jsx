@@ -60,7 +60,7 @@ const AboutPage = () => {
 
   return (
     <>
-      <AboutHero
+      {/* <AboutHero
         data={topData?.HeroAbout}
         isLoading={isLoadingTop}
         error={errorTop}
@@ -69,13 +69,13 @@ const AboutPage = () => {
         data={restData?.WhyWe}
         isLoading={isLoadingRest}
         error={errorRest}
-      />
+      /> */}
       <AboutSteps
         data={restData?.Steps}
         isLoading={isLoadingRest}
         error={errorRest}
       />
-      <AboutFree
+      {/* <AboutFree
         data={restData?.FreePlan}
         isLoading={isLoadingRest}
         error={errorRest}
@@ -106,7 +106,7 @@ const AboutPage = () => {
         data={restData?.CTO}
         isLoading={isLoadingRest}
         error={errorRest}
-      />
+      /> */}
     </>
   );
 };
