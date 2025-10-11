@@ -14,11 +14,11 @@ function normalizeCountry(item) {
   const id = item.id ?? attrs.id;
   const name = attrs.CountryName ?? attrs.name ?? '';
   const code = String(attrs.CountryCode ?? attrs.code ?? '').toLowerCase();
+  const slug = String(attrs.slug ?? attrs.slug ?? '').toLowerCase();
   const desc = attrs.CountryDesc ?? attrs.description ?? '';
   const details = attrs.TimezoneDetail ?? attrs.details ?? [];
   const off = attrs.offcet ?? attrs.offset ?? null; // "+02:00"
-  console.log(details)
-  return { id, name, code, desc, details, off };
+  return { id, name, code, slug, desc, details, off };
 }
 
 // ---- нормалізація zone (для режиму zones) ----
@@ -191,6 +191,7 @@ export default function ZonesList({
                 id={c.id}
                 name={c.name}
                 code={c.code}
+                slug={c.slug}
                 desc={c.desc}
                 details={c.details}
                 zoneLabel={zone}

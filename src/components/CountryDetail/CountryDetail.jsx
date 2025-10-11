@@ -175,7 +175,7 @@ END:VCALENDAR`.trim();
   const desc = country.ShortDesc || country.ShortDesc;
   const code = country.CountryCode?.toLowerCase();
   const offset = tzParam || 'UTC+0';
-  const backgroundUrl = `${import.meta.env.VITE_STRIPE_URL}${country.Background?.url}`;
+  const backgroundUrl = country.Background?.url ? `${import.meta.env.VITE_STRIPE_URL}${country.Background?.url}` : '/country/eve_def.jpg';
 
   // --- Визначення правильного TimezoneDetail за tzParam ---
   const tzWithoutUTC = offset.replace('UTC', '').trim(); // наприклад "+1" або "-5"

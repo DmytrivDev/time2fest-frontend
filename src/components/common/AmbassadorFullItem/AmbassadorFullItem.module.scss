@@ -1,0 +1,143 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.loadingCard {
+    min-height: 29rem;
+}
+
+.cardLoading {
+    min-height: 24rem;
+}
+
+.card {
+    border-radius: 1.25rem;
+    overflow: hidden;
+    position: relative;
+    background-color: $color-gray2;
+    display: flex;
+}
+
+.photoWrap {
+    width: 18.25rem;
+    min-width: 18.25rem;
+    min-height: 24rem;
+    position: relative;
+    overflow: hidden;
+    background-color: #000;
+
+    img,
+    .videoWrap,
+    video {
+        @include img-cover;
+    }
+
+    video:fullscreen {
+        @include img-contain;
+    }
+
+    video:-webkit-full-screen {
+        @include img-contain;
+        background: #000;
+    }
+}
+
+.playBtn {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    z-index: 2;
+    height: 3.4375rem;
+    padding: 0 1.5rem;
+    background: rgba(2, 1, 1, 0.4);
+    font-size: 1.125rem;
+    font-weight: 500;
+    align-items: center;
+    align-content: center;
+
+    .playIcon {
+        width: 2.1875rem;
+        height: 2.1875rem;
+        border-radius: 50%;
+        background-color: $color-primary;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-image: $play;
+        background-size: 0.75rem;
+    }
+}
+
+.right {
+    padding: 2.5rem;
+    width: 100%;
+    padding-top: 1.9rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2.5rem;
+}
+
+.country {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    gap: 0.62rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.2;
+
+    img {
+        width: 1.125rem;
+        height: 1.125rem;
+    }
+}
+
+.name {
+    margin-top: 1.3rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.desc {
+    margin-top: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    gap: 2.2rem;
+}
+
+.socials {
+    gap: 0.31rem;
+    display: flex;
+
+    a {
+        width: 3.25rem;
+        height: 3.25rem;
+        border-radius: 50%;
+        background-color: #323232;
+        border: 1px solid $color-text;
+        display: flex;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+
+        svg {
+            width: 1.36538rem;
+            height: 1.36538rem;
+        }
+    }
+}
+
+@media screen and (max-width: 1140px) {
+}
+
+@media screen and (max-width: 868px) {
+}
+
+@media screen and (max-width: 475px) {
+}

@@ -3,12 +3,14 @@ import { useQuery } from '@tanstack/react-query';
 import { api } from '@/utils/api';
 
 import CountryDetail from '../../components/CountryDetail/CountryDetail';
+import CountryAmbassadorList from '../../components/CountryAmbassadorList/CountryAmbassadorList';
+import CountryAdding from '../../components/CountryAdding/CountryAdding';
 
 const CountryPage = () => {
   const { slug, lang } = useParams();
   const [searchParams] = useSearchParams();
   const locale = lang || 'en';
-  const tzParam = searchParams.get('tz'); // Наприклад: UTC+1
+  const tzParam = searchParams.get('tz');
 
   const {
     data: countryData,
@@ -23,14 +25,12 @@ const CountryPage = () => {
     enabled: !!slug,
   });
 
-  // --- Допоміжна функція для парсингу UTC-коду ---
   const parseOffset = code => {
     if (!code || typeof code !== 'string') return 0;
     const match = code.match(/UTC([+-]?\d{1,2})/);
     return match ? parseInt(match[1], 10) : 0;
   };
 
-  // --- Визначення головної (основної) зони ---
   const getPrimaryTimeZone = zones => {
     if (!Array.isArray(zones) || zones.length === 0) return 'UTC+0';
     if (zones.length === 1) return zones[0].code || 'UTC+0';
@@ -40,15 +40,19 @@ const CountryPage = () => {
     return sorted[0].code || 'UTC+0';
   };
 
-  // --- Отримуємо список зон ---
-  const zones = countryData?.[0]?.time_zones || [];
+  const country = countryData?.[0] || null;
+  const zones = country?.time_zones || [];
+  const ambassadors = country?.ambassadors || [];
+  const gallery = country?.Gallery || [];
+  const countryDesc = country?.CountryDesc || '';
 
-  // --- Перевірка валідності tzParam ---
   const tzExists =
     tzParam && zones.some(z => z.code?.toUpperCase() === tzParam.toUpperCase());
-
-  // --- Визначаємо фінальний часовий пояс ---
   const effectiveTz = tzExists ? tzParam : getPrimaryTimeZone(zones);
+
+  const ambassadorsByTz = Array.isArray(ambassadors)
+    ? ambassadors.filter(a => a.time_zone === effectiveTz)
+    : [];
 
   return (
     <>
@@ -58,6 +62,25 @@ const CountryPage = () => {
         error={error}
         tzParam={effectiveTz}
       />
+
+      {ambassadorsByTz.length > 0 && (
+        <CountryAmbassadorList
+          data={ambassadorsByTz}
+          name={countryData[0].CountryName}
+          code={countryData[0].CountryCode}
+          isLoading={isLoading}
+          error={error}
+        />
+      )}
+
+      {Array.isArray(gallery) && gallery.length > 0 && (
+        <CountryAdding
+          gallery={gallery}
+          description={countryDesc}
+          isLoading={isLoading}
+          error={error}
+        />
+      )}
     </>
   );
 };

@@ -11,10 +11,17 @@ const Footer = () => {
   const { t } = useTranslation('common');
   const location = useLocation();
 
-  const isFormPage = location.pathname === '/become-ambassador' || location.pathname === '/privacy' || location.pathname === '/ambassadors/list';
+  const isFormPage =
+    location.pathname === '/become-ambassador' ||
+    location.pathname === '/privacy' ||
+    location.pathname.startsWith('/ambassadors/list') ||
+    location.pathname.includes('/country');
+
+  const isMarginTop =
+    location.pathname.includes('/country');
 
   return (
-    <footer className={clsx(styles.footer, isFormPage && styles.gray)}>
+    <footer className={clsx(styles.footer, isFormPage && styles.gray, isMarginTop && styles.marTop)}>
       <div className="container">
         <div className={styles.content}>
           <div className={styles.part}>

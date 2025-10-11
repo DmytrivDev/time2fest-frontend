@@ -6,6 +6,10 @@
 	&.gray {
 		background-color: $color-gray2;
 	}
+
+	&.marTop {
+		margin-top: 6.25rem;
+	}
 }
 
 .content {
@@ -37,6 +41,9 @@
 @media screen and (max-width: 1140px) {
 	.footer {
 		padding: 2.5rem 0 2rem 0;
+		&.marTop {
+			margin-top: 3.75rem;
+		}
 	}
 
 	.part {

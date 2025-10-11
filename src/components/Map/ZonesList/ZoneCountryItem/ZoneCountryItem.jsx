@@ -1,6 +1,7 @@
 import { useRef, useLayoutEffect, useEffect, useState } from 'react';
 import { CircleFlag } from 'react-circle-flags';
 import { IoTime, IoCamera, IoVideocam } from 'react-icons/io5';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getNextNYLocalForUtcOffset } from '@/utils/ny-time';
 import clsx from 'clsx';
@@ -12,12 +13,13 @@ export default function ZoneCountryItem({
   code,
   desc,
   details,
+  slug,
   zoneLabel,
   offsetFromApi,
   isOpen,
-  onToggle, 
+  onToggle,
 }) {
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
 
   // --- Формуємо нормалізований UTC ---
   let utcOffsetStr = 'UTC+0';
@@ -183,12 +185,16 @@ END:VCALENDAR`.trim();
               <span>{t('controls.countdown')}</span>
             </li>
             {zoneData.Ambassador && (
-              <li style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+              <li
+                style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}
+              >
                 <IoCamera /> <span>{t('controls.ambass')}</span>
               </li>
             )}
             {zoneData.VebCamera && (
-              <li style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+              <li
+                style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}
+              >
                 <IoVideocam /> <span>{t('controls.veb')}</span>
               </li>
             )}
@@ -226,7 +232,13 @@ END:VCALENDAR`.trim();
         )}
 
         <div className={styles.itemActions}>
-          <button className="btn_primary" type="button" onClick={addToCalendar}>
+          <Link
+            to={`/${i18n.language !== 'en' ? i18n.language + '/' : ''}country/${slug}?tz=${encodeURIComponent(String(zoneLabel))}`}
+            className="btn_primary"
+          >
+            {t('controls.details')}
+          </Link>
+          <button className="btn_transp" type="button" onClick={addToCalendar}>
             {t('controls.add_to_shel')}
           </button>
         </div>
