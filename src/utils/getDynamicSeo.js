@@ -2,12 +2,11 @@
 import { t } from 'i18next';
 
 export function getDynamicSeo(pathname, locale, dynamicData) {
-   console.log(pathname, dynamicData)
-
   if (!dynamicData || typeof dynamicData !== 'object') return null;
   // --- КРАЇНА ---
   if (pathname.includes('/country/') && dynamicData?.CountryName) {
     const countryName = dynamicData.CountryName;
+    const countrySec = dynamicData.CountrySec || countryName;
     const countrySlug = dynamicData.slug?.toLowerCase();
     const countryDesc =
       dynamicData.CountryDesc ||
@@ -15,15 +14,15 @@ export function getDynamicSeo(pathname, locale, dynamicData) {
 
     return {
       title: t('seo.countryTitle', {
-        country: countryName,
+        country: countrySec,
         lng: locale,
-        defaultValue: `New Year in ${countryName} — Time2Fest`,
+        defaultValue: `New Year in ${countrySec} — Time2Fest`,
       }),
       description: t('seo.countryDescription', {
-        country: countryName,
+        country: countrySec,
         desc: countryDesc.slice(0, 200),
         lng: locale,
-        defaultValue: `New Year in ${countryName} by local time. Celebrate with Time2Fest and discover the country’s traditions and festive spirit!`,
+        defaultValue: `New Year in ${countrySec} by local time. Celebrate with Time2Fest and discover the country’s traditions and festive spirit!`,
       }),
       canonicalURL: `https://time2fest.com/${locale}/country/${countrySlug}`,
       shareImage: dynamicData.Background
