@@ -6,6 +6,7 @@ import styles from './CountryAdding.module.scss';
 const CountryAdding = ({
   gallery = [],
   description = '',
+  nameSec = '',
   isLoading,
   error,
 }) => {
@@ -79,7 +80,7 @@ const CountryAdding = ({
   return (
     <section className={styles.section}>
       <div className="container">
-        <h2 className={styles.title}>{t('ambassadors.info_about')}</h2>
+        <h2 className={styles.title}>{t('ambassadors.info_about')} {nameSec}</h2>
         <div className={styles.content}>
           {/* ---- Ліва частина: галерея ---- */}
           <div className={styles.imageGrid}>

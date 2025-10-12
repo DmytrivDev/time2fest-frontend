@@ -10,7 +10,7 @@ export function getDynamicSeo(pathname, locale, dynamicData) {
     const countrySlug = dynamicData.slug?.toLowerCase();
     const countryDesc =
       dynamicData.CountryDesc ||
-      t('seo.countryDefaultDesc', { country: countryName, lng: locale });
+      t('seo.countryDefaultDesc', { country: countryName, countrySec, lng: locale });
 
     return {
       title: t('seo.countryTitle', {
@@ -40,9 +40,8 @@ export function getDynamicSeo(pathname, locale, dynamicData) {
       dynamicData.slug?.toLowerCase() ||
       dynamicData.id?.toString() ||
       'unknown';
-    const countryName =
-      dynamicData.country?.name ||
-      t('seo.unknownCountry', { lng: locale, defaultValue: 'Unknown Country' });
+    const countryName = dynamicData.country?.name;
+    const countrySec = dynamicData.country?.sec || countryName;
 
     return {
       title: t('seo.ambassadorTitle', {
@@ -53,9 +52,9 @@ export function getDynamicSeo(pathname, locale, dynamicData) {
       }),
       description: t('seo.ambassadorDescription', {
         name,
-        country: countryName,
+        country: countrySec,
         lng: locale,
-        defaultValue: `Our ambassador ${name} will show how New Year is celebrated in ${countryName}. Discover fascinating traditions together with Time2Fest.`,
+        defaultValue: `Our ambassador ${name} will show how New Year is celebrated in ${countrySec}. Discover fascinating traditions together with Time2Fest.`,
       }),
       canonicalURL: `https://time2fest.com/${locale}/ambassadors/list/${slug}`,
       shareImage: dynamicData.photo

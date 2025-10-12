@@ -89,6 +89,7 @@ const CountryPage = () => {
         <CountryAmbassadorList
           data={ambassadorsByTz}
           name={country.CountryName}
+          sec={country.CountrySec}
           code={country.CountryCode}
           isLoading={isLoading}
           error={error}
@@ -99,6 +100,7 @@ const CountryPage = () => {
         <CountryAdding
           gallery={gallery}
           description={countryDesc}
+          nameSec={country?.CountrySec || country?.CountryName}
           isLoading={isLoading}
           error={error}
         />

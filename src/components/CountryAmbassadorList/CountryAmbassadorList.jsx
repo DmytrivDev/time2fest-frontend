@@ -7,7 +7,7 @@ import AmbassadorFullItem from '../common/AmbassadorFullItem';
 import styles from './CountryAmbassadorList.module.scss';
 
 const CountryAmbassadorList = React.memo(
-  ({ data, name, code, isLoading, error, exclude, lang }) => {
+  ({ data, name, sec, code, isLoading, error, exclude, lang }) => {
     const { t, i18n } = useTranslation();
     const locale = lang || i18n.language || 'en';
 
@@ -68,7 +68,7 @@ const CountryAmbassadorList = React.memo(
       <section className={styles.section}>
         <div className="container">
           <div className={styles.header}>
-            <h2 className={styles.title}>{t('ambassadors.nye_ambass')}</h2>
+            <h2 className={styles.title}>{t('ambassadors.nye_ambass')} {sec || name}</h2>
           </div>
           <div className={styles.content}>
             <div className={styles.grid}>
