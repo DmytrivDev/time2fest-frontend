@@ -1,5 +1,6 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useOutletContext } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
 import { api } from '@/utils/api';
 
 import AmbassadorDetail from '../../components/AmbassadorDetail/AmbassadorDetail';
@@ -10,6 +11,9 @@ const AmbassadorDetailPage = () => {
   const { slug, lang } = useParams();
   const locale = lang || 'en';
 
+  // 🔹 Отримуємо функцію для передачі даних у Layout
+  const { setDynamicData } = useOutletContext();
+
   // ---- Запит до API для конкретного амбасадора ----
   const {
     data: ambassadorData,
@@ -19,16 +23,21 @@ const AmbassadorDetailPage = () => {
     queryKey: ['ambassador-detail', slug, locale],
     queryFn: async () => {
       const res = await api.get(`/ambassadors-list?locale=${locale}&full=true`);
-
-      // 🔍 Знаходимо потрібного амбасадора по slug
       const ambassador = Array.isArray(res.data)
         ? res.data.find(amb => amb.slug === slug)
         : res.data?.data?.find(amb => amb.slug === slug);
 
       return ambassador || null;
     },
-    enabled: !!slug, // Запит тільки якщо є slug
+    enabled: !!slug,
   });
+
+  // 🔹 Передаємо дані амбасадора у Layout для SeoMeta
+  useEffect(() => {
+    if (ambassadorData?.name) {
+      setDynamicData?.(ambassadorData);
+    }
+  }, [ambassadorData?.name, setDynamicData]);
 
   const excludeId = ambassadorData?.id || null;
 

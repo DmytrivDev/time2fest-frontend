@@ -57,7 +57,7 @@ const AmbassadorDetail = ({ data, isLoading, error }) => {
                 ></p>
                 <div className={styles.icons}>
                   {Array.from({ length: 4 }).map((_, i) => (
-                    <div
+                    <div key={i}
                       className={clsx(
                         styles.iconLink,
                         styles.iconLinkLoading,

@@ -16,6 +16,12 @@
     "countries": "230 países",
     "unique_streamers": "35 streamers únicos"
   },
+  "seo": {
+    "countryTitle": "Año Nuevo en {{country}} — Time2Fest",
+    "countryDescription": "Año Nuevo en {{country}} según la hora local. Celebra con Time2Fest y descubre las tradiciones y el espíritu festivo del país.",
+    "ambassadorTitle": "Embajador(a) {{name}} ({{country}}) — Time2Fest",
+    "ambassadorDescription": "Nuestro embajador {{name}} mostrará cómo se celebra el Año Nuevo en {{country}}. Descubre las tradiciones locales junto a Time2Fest."
+  },
   "hero_title": "¡Celebra el Año Nuevo en vivo en todo el mundo!",
   "hero_desc": "Únete a Time2Fest — la celebración global de la llegada del Año Nuevo en línea. Cuenta regresiva, fiestas y tradiciones de todas las zonas horarias.",
   "hero_btn1": "Elegir país",

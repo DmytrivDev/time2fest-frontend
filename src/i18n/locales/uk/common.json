@@ -10,6 +10,12 @@
     "agreement": "Погодження амбасадорів",
     "disclaimer": "Відмова від відповідальності"
   },
+  "seo": {
+    "countryTitle": "Новий рік у {{country}} — Time2Fest",
+    "countryDescription": "Новий рік у {{country}} за місцевим часом. Святкуй разом із Time2Fest і відкривай традиції та атмосферу країни!",
+    "ambassadorTitle": "Амбасадор {{name}} ({{country}}) — Time2Fest",
+    "ambassadorDescription": "Наш амбасадор {{name}} покаже, як зустрічають Новий рік у {{country}}. Дізнайся про захопливі традиції разом із Time2Fest."
+  },
   "log-in": "Увійти",
   "bages": {
     "zones": "36 часових зон",

@@ -1,7 +1,9 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useOutletContext } from 'react-router-dom';
 
 const CountriesLayout = () => {
-  return <Outlet />;
+  const parentContext = useOutletContext();
+
+  return <Outlet context={parentContext} />;
 };
 
 export default CountriesLayout;

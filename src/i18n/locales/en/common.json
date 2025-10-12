@@ -16,6 +16,12 @@
     "countries": "230 countries",
     "unique_streamers": "35 unique streamers"
   },
+  "seo": {
+    "countryTitle": "New Year in {{country}} — Time2Fest",
+    "countryDescription": "New Year in {{country}} by local time. Celebrate with Time2Fest and discover the country’s traditions and festive spirit!",
+    "ambassadorTitle": "Ambassador {{name}} ({{country}}) — Time2Fest",
+    "ambassadorDescription": "Our ambassador {{name}} will show how New Year is celebrated in {{country}}. Discover fascinating traditions together with Time2Fest."
+  },
   "hero_title": "Celebrate New Year’s Eve live around the world!",
   "hero_desc": "Join Time2Fest — the global online celebration of the New Year’s arrival. Countdowns, parties and traditions from every time zone.",
   "hero_btn1": "Choose country",

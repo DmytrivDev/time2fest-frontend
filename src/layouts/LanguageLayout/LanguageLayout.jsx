@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Outlet, useLocation, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -22,19 +22,20 @@ const LanguageHTMLUpdater = () => {
 const LanguageLayout = () => {
   const { lang } = useParams();
   const { pathname, search, hash } = useLocation();
+  const [dynamicData, setDynamicData] = useState(null);
 
-  // 1. Якщо код невалідний → редіректимо на /
+  // --- Валідність мови ---
   if (lang && !SUPPORTED_LANGS.includes(lang)) {
     return <Navigate to="/" replace />;
   }
 
-  // 2. Якщо default_lang з префіксом → зрізаємо його і зберігаємо підшлях
+  // --- Зайвий префікс мови ---
   if (lang === DEFAULT_LANG) {
     const rest = pathname.replace(new RegExp(`^/${DEFAULT_LANG}`), '') || '/';
     return <Navigate to={`${rest}${search}${hash}`} replace />;
   }
 
-  // 3. Синхронізація i18n
+  // --- Синхронізація мови ---
   useEffect(() => {
     const current = i18n.language.split('-')[0];
     if (lang && current !== lang) {
@@ -45,16 +46,20 @@ const LanguageLayout = () => {
     }
   }, [lang]);
 
+  // --- Передача контексту вниз (через Outlet) ---
+  const outletContext = { setDynamicData, dynamicData };
+
   return (
     <div className="wrapper">
       <LanguageHTMLUpdater />
-      <SeoMeta />
+
+      {/* ⬇️ ТУТ SEOMeta рендериться стабільно для всіх сторінок */}
+      <SeoMeta dynamicData={dynamicData} />
+
       <Header />
-
       <main className="main">
-        <Outlet />
+        <Outlet context={outletContext} />
       </main>
-
       <Footer />
     </div>
   );
