@@ -1,6 +1,7 @@
 @use "@/styles/variables" as *;
 
 .footer {
+	z-index: 20;
 	padding: 3.4375rem 0;
 	padding-bottom: 1.44rem;
 	background-color: $color-gray2;
@@ -40,7 +41,7 @@
 	padding-top: 2.5rem;
 	display: flex;
 	justify-content: center;
-	color: #B3B3B3;
+	color: #b3b3b3;
 }
 
 .menu {
@@ -50,6 +51,11 @@
 	a {
 		color: $color-text;
 		white-space: nowrap;
+		transition: all 0.3s;
+
+		&:hover {
+			color: $color-primary;
+		}
 	}
 }
 
@@ -85,6 +91,10 @@
 		gap: 0.63rem;
 		font-size: 0.875rem;
 		line-height: 1.625rem;
+
+		&:hover {
+			color: $color-text;
+		}
 	}
 	.bottom {
 		padding-top: 1.88rem;

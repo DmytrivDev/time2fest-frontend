@@ -7,7 +7,7 @@
 	overflow: hidden;
 
 	&.secAbout {
-		padding-top: 19.87rem;
+		padding-top: 14.375rem;
 		margin-bottom: 6.25rem;
 		overflow: visible;
 
@@ -165,8 +165,9 @@
 
 .actions {
 	display: flex;
+	flex-wrap: wrap;
 	align-items: center;
-	gap: 2rem;
+	gap: 1.25rem;
 	margin-top: 3.125rem;
 }
 
@@ -181,8 +182,8 @@
 		content: "";
 		position: absolute;
 		z-index: 2;
-		left: 0;
-		right: 0;
+		left: -1rem;
+		right: -1rem;
 		bottom: 0;
 		height: 9.3125rem;
 		background: linear-gradient(360deg, #000 5.65%, rgba(0, 0, 0, 0) 98.6%);
@@ -197,6 +198,31 @@
 @media screen and (max-width: 1140px) {
 	.section {
 		padding-top: 3.75rem;
+
+		&.secAbout {
+			padding-top: 3.75rem;
+			margin-bottom: 3.75rem;
+
+			.leftpart {
+				.dec {
+					left: auto;
+					right: -12.5rem;
+					top: -3rem;
+					bottom: auto;
+					width: 6.3125rem;
+					height: 5.9375rem;
+				}
+			}
+
+			.heroListCont {
+				.dec {
+					width: 7.1522rem;
+					height: 5.7957rem;
+					right: -1.25rem;
+					top: -3.75rem;
+				}
+			}
+		}
 	}
 
 	.leftpart {
@@ -249,6 +275,7 @@
 
 	.actions {
 		margin-top: 2rem;
+		gap: 1rem;
 	}
 	.loadingBtn {
 		width: 11.25rem;
@@ -291,6 +318,23 @@
 }
 
 @media screen and (max-width: 868px) {
+	.section {
+		&.secAbout {
+			.leftpart {
+				.dec {
+					right: -2.8125rem;
+				}
+			}
+
+			.heroListCont {
+				.dec {
+					right: -2.5rem;
+					top: -20.625rem;
+				}
+			}
+		}
+	}
+
 	.leftpart {
 		margin-bottom: 2.5rem;
 		max-width: none;
