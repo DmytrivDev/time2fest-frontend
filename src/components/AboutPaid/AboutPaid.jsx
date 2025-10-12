@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
+
 import styles from './AboutPaid.module.scss';
 
 const AboutPaid = ({ data, dataFree, isLoading, error }) => {
@@ -24,15 +25,18 @@ const AboutPaid = ({ data, dataFree, isLoading, error }) => {
                 />
               </div>
               <div className={clsx(styles.loadingText, styles.text)}>
-                <span className='loading'></span>
-                <span className='loading'></span>
+                <span className="loading"></span>
+                <span className="loading"></span>
               </div>
             </div>
 
             {/* cards */}
             <ul className={styles.cards}>
               {Array.from({ length: 3 }).map((_, i) => (
-                <li key={i} className={clsx(styles.card, styles.loadingCard, 'loading')}></li>
+                <li
+                  key={i}
+                  className={clsx(styles.card, styles.loadingCard, 'loading')}
+                ></li>
               ))}
 
               {/* last card with subcards */}
@@ -40,7 +44,14 @@ const AboutPaid = ({ data, dataFree, isLoading, error }) => {
                 <div className={clsx(styles.imageWrapper)} />
                 <ul className={styles.subCards}>
                   {Array.from({ length: 4 }).map((_, i) => (
-                    <li key={i} className={clsx(styles.subCard, styles.loadingSubcard, 'loading')} />
+                    <li
+                      key={i}
+                      className={clsx(
+                        styles.subCard,
+                        styles.loadingSubcard,
+                        'loading'
+                      )}
+                    />
                   ))}
                 </ul>
               </li>
@@ -61,11 +72,7 @@ const AboutPaid = ({ data, dataFree, isLoading, error }) => {
   return (
     <section id="about-paid" className={styles.section}>
       <div className={styles.bg}>
-        <img
-          src="/aboutPage/paid_bg.jpg"
-          className={styles.dec}
-          alt=""
-        />
+        <img src="/aboutPage/paid_bg.jpg" className={styles.dec} alt="" />
       </div>
       <div className="container">
         <div className={styles.content}>
@@ -97,11 +104,7 @@ const AboutPaid = ({ data, dataFree, isLoading, error }) => {
             })}
             {dataFree?.FreePlanList && (
               <li className={clsx(styles.card, styles.cardLast)}>
-                <img
-                  src="/aboutPage/free.png"
-                  className={styles.dec}
-                  alt=""
-                />
+                <img src="/aboutPage/free.png" className={styles.dec} alt="" />
                 <ul className={styles.subCards}>
                   {dataFree.FreePlanList.map(free => (
                     <li key={free.id} className={styles.subCard}>
