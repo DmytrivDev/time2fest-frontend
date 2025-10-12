@@ -1,0 +1,142 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.section {
+	padding: 6.25rem 0;
+}
+
+.content {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 2.25rem;
+}
+
+.infoBlock,
+.formBlock {
+	border-radius: 2.5rem;
+	padding: 3rem 3.75rem;
+	background-color: $color-gray2;
+}
+
+.title {
+	font-size: 2.5rem;
+	line-height: 1.4;
+}
+
+.subtitle {
+	margin-top: 2.44rem;
+	font-size: 1.125rem;
+	line-height: 1.8;
+}
+
+.email {
+	font-size: 1.875rem;
+	line-height: 1.8;
+	font-weight: 600;
+	color: $color-yellow;
+}
+
+.text {
+	color: rgba(255, 255, 255, 0.6);
+	line-height: 1.8;
+}
+
+.socialTitle {
+	margin-top: 2.75rem;
+	font-size: 1.125rem;
+	line-height: 1.8;
+	margin-bottom: 0.94rem;
+}
+
+.form {
+	display: flex;
+	margin-top: 1.64rem;
+	flex-direction: column;
+	gap: 1.37rem;
+
+	.fieldGroup {
+		label {
+			display: block;
+			line-height: 1.8;
+			margin-bottom: 0.37rem !important;
+		}
+
+		* {
+			font-size: 1rem;
+		}
+
+		input {
+			height: 3.25rem;
+			font-size: 1rem;
+		}
+
+		textarea {
+			height: 6.25rem;
+		}
+	}
+}
+
+.bottom {
+	margin-top: 1.13rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	align-content: center;
+	gap: 1.25rem;
+}
+
+.error {
+	margin-top: 0.25rem;
+	font-size: 0.875rem;
+	color: rgb(213, 65, 65);
+	display: inline-block;
+}
+
+.submitBtn {
+	position: relative;
+
+	span {
+		opacity: 0;
+		visibility: hidden;
+		position: absolute;
+		top: -0.0625rem;
+		left: -0.0625rem;
+		right: -0.0625rem;
+		bottom: -0.0625rem;
+		z-index: 2;
+		background-color: $red2;
+		transition: all 0.15s ease-in;
+
+		&::before {
+			content: "";
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			z-index: 3;
+			transform: translateX(-50%) translateY(-50%);
+			width: 1.5rem;
+			height: 1.5rem;
+			border: 0.25rem solid $color-light;
+			border-bottom-color: transparent;
+			border-radius: 50%;
+			display: inline-block;
+			box-sizing: border-box;
+			animation: rotation 1s linear infinite;
+		}
+	}
+}
+.load {
+	span {
+		opacity: 1;
+		visibility: visible;
+	}
+}
+
+@keyframes rotation {
+	0% {
+		transform: translateX(-50%) translateY(-50%) rotate(0deg);
+	}
+	100% {
+		transform: translateX(-50%) translateY(-50%) rotate(360deg);
+	}
+}

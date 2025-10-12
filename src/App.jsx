@@ -28,6 +28,7 @@ const CountryPage = lazy(() => import('./pages/CountryPage/CountryPage'));
 // 🧩 Мінімальний Layout для амбасадорів
 const AmbassLayout = lazy(() => import('./layouts/AmbassLayout/AmbassLayout'));
 const CountriesLayout = lazy(() => import('./layouts/CountriesLayout/CountriesLayout'));
+const ContactPage = lazy(() => import('./pages/ContactPage/ContactPage'));
 
 // 📜 Скрол до верху при зміні сторінки
 const ScrollToTop = () => {
@@ -67,6 +68,7 @@ const App = () => {
             </Route>
 
             <Route path="become-ambassador" element={<FormPage />} />
+            <Route path="contact" element={<ContactPage />} />
             <Route path="privacy" element={<PrivacyPage />} />
             <Route path="agreement" element={<AgreementPage />} />
             <Route path="disclaimer" element={<ResponsibilityPage />} />
@@ -102,6 +104,7 @@ const App = () => {
             </Route>
 
             <Route path="become-ambassador" element={<FormPage />} />
+            <Route path="contact" element={<ContactPage />} />
             <Route path="privacy" element={<PrivacyPage />} />
             <Route path="agreement" element={<AgreementPage />} />
             <Route path="disclaimer" element={<ResponsibilityPage />} />

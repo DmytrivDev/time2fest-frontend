@@ -78,7 +78,7 @@
 	}
 }
 
-input[type="text"],
+input[type="text"], input[type="email"],
 textarea {
 	border-radius: 1.25rem;
 	border: 1px solid rgba(255, 255, 255, 0.6);
@@ -303,7 +303,7 @@ textarea {
 		display: none !important;
 	}
 
-	input[type="text"],
+	input[type="text"], input[type="email"],
 	textarea {
 		border-radius: 0.625rem;
 		height: 3.125rem;
