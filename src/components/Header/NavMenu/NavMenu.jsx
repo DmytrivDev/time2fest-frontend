@@ -9,7 +9,7 @@ const links = [
   { to: '/#new-year', i18n: 'nav.newYear' },
   { to: '/about', i18n: 'nav.about' },
   { to: '/ambassadors', i18n: 'nav.aboutAmbass' },
-  { to: '/#faq', i18n: 'nav.faq' },
+  { to: '/contact', i18n: 'nav.contact' },
 ];
 
 const NavMenu = ({ setMobileMenuOpen }) => {

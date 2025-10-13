@@ -4,7 +4,7 @@ import Select from 'react-select';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from '@tanstack/react-query';
-import { api } from '@/utils/api';
+import { api } from '@/utils/api'; 
 
 import SocialLinks from '../common/SocialLinks/SocialLinks';
 import Modal from '../Modal/Modal';
