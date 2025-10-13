@@ -8,10 +8,14 @@
 }
 
 @media screen and (max-width: 1140px) {
-}
-
-@media screen and (max-width: 868px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+    }
 }
 
 @media screen and (max-width: 475px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
 }

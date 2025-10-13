@@ -6,7 +6,7 @@ import clsx from 'clsx';
 
 import { api } from '../../utils/api';
 import { useAfterLoad } from '../../hooks/useAfterLoad';
-import { getValidLocale } from '../../utils/getValidLocale';
+import { getValidLocale } from '../../utils/getValidLocale'; 
 
 import girlImage from '../../assets/become/video.mp4';
 

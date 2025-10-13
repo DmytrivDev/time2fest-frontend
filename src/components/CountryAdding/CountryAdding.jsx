@@ -9,7 +9,7 @@ const CountryAdding = ({
   nameSec = '',
   isLoading,
   error,
-}) => {
+}) => { 
   const { t } = useTranslation();
 
   if (isLoading) {

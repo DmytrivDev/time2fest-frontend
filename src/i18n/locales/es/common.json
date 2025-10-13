@@ -163,7 +163,8 @@
     "all_ambass": "Todos los embajadores",
     "nye_ambass": "Embajadores en",
     "info_about": "Cómo se celebra el Año Nuevo en",
-    "info_about_celebration": "Características de la celebración:"
+    "info_about_celebration": "Características de la celebración:",
+    "choose_timezone": "Elegir zona horaria"
   },
   "contact": {
     "title_left": "Nuestros contactos",

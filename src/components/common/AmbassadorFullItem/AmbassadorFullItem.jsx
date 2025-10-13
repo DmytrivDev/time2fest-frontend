@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import * as FaIcons from 'react-icons/fa6';
 import styles from './AmbassadorFullItem.module.scss';
 
-const CountryAmbassadorItem = ({
+const CountryAmbassadorItem = ({ 
   data,
   nameProp,
   codeProp,

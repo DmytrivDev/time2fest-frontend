@@ -163,7 +163,8 @@
     "all_ambass": "All ambassadors",
     "nye_ambass": "Ambassadors in",
     "info_about": "How New Year is celebrated in",
-    "info_about_celebration": "Celebration Features:"
+    "info_about_celebration": "Celebration Features:",
+    "choose_timezone": "Choose time zone"
   },
   "contact": {
     "title_left": "Our Contacts",

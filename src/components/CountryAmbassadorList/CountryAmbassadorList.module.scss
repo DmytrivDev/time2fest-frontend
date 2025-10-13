@@ -10,11 +10,6 @@ section {
     width: 35rem;
 }
 
-.buttonLoading {
-    height: 3.1875rem;
-    width: 11.5rem;
-}
-
 .header {
     display: flex;
     align-items: center;
@@ -30,6 +25,20 @@ section {
 }
 
 @media screen and (max-width: 1140px) {
+    section {
+        padding-top: 3.75rem;
+    }
+
+    .titleLoading {
+        font-size: 1.625rem;
+        max-width: 30rem;
+        width: 100%;
+    }
+
+    .grid {
+        margin-top: 2rem;
+        gap: 1.25rem;
+    }
 }
 
 @media screen and (max-width: 868px) {

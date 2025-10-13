@@ -2,32 +2,37 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { api } from '@/utils/api';
-
 import AmbassadorItem from '../common/AmbassadorItem';
-
 import styles from './AmbassadorsRand.module.scss';
 
 const AmbassadorsRand = React.memo(({ exclude, lang }) => {
   const { t, i18n } = useTranslation();
-
-  const locale = lang || 'en';
+  const locale = lang || i18n.language || 'en';
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['ambassadors-random', locale, exclude],
     queryFn: async () => {
-      const params = new URLSearchParams({
-        locale,
-        rand: 'true',
-        count: '4',
-        exclude,
-      });
+      const params = new URLSearchParams();
+      params.set('locale', locale);
+      params.set('rand', 'true');
+      params.set('count', '4');
 
-      if (exclude) params.append('exclude', exclude.toString());
+      // ---- правильне виключення ----
+      if (exclude) {
+        if (Array.isArray(exclude)) {
+          exclude.forEach(id => params.append('filters[id][$ne]', id));
+        } else {
+          params.set('filters[id][$ne]', exclude);
+        }
+      }
 
       const res = await api.get(`/ambassadors-list?${params.toString()}`);
-      return Array.isArray(res.data) ? res.data : res.data?.data || [];
+      // підтримка формату Strapi і прямого масиву
+      const data = Array.isArray(res.data) ? res.data : res.data?.data || [];
+
+      return data;
     },
   });
 
@@ -36,11 +41,20 @@ const AmbassadorsRand = React.memo(({ exclude, lang }) => {
       <section className={styles.section}>
         <div className="container">
           <div className={styles.header}>
-            <div className={clsx(styles.title, styles.titleLoading, 'loading')}></div>
-            <div className={clsx(styles.buttonLoading, 'btn_primary', 'btn_small', 'loading')}></div>
+            <div
+              className={clsx(styles.title, styles.titleLoading, 'loading')}
+            ></div>
+            <div
+              className={clsx(
+                styles.buttonLoading,
+                'btn_primary',
+                'btn_small',
+                'loading'
+              )}
+            ></div>
           </div>
           <div className={styles.content}>
-            <div className={clsx(styles.grid)}>
+            <div className={styles.grid}>
               {Array.from({ length: 4 }).map((_, i) => (
                 <AmbassadorItem key={i} isLoading />
               ))}
@@ -52,6 +66,17 @@ const AmbassadorsRand = React.memo(({ exclude, lang }) => {
   }
 
   if (error || !data?.length) return null;
+
+  // ---- фронтова перевірка, якщо бекенд не відфільтрував ----
+  const filteredData = exclude
+    ? data.filter(amb =>
+        Array.isArray(exclude)
+          ? !exclude.includes(amb.id)
+          : amb.id !== Number(exclude)
+      )
+    : data;
+
+  if (!filteredData.length) return null;
 
   return (
     <section className={styles.section}>
@@ -65,9 +90,10 @@ const AmbassadorsRand = React.memo(({ exclude, lang }) => {
             {t('ambassadors.all_ambass')}
           </Link>
         </div>
+
         <div className={styles.content}>
           <div className={styles.grid}>
-            {data.map(amb => (
+            {filteredData.map(amb => (
               <AmbassadorItem key={amb.id} data={amb} />
             ))}
           </div>

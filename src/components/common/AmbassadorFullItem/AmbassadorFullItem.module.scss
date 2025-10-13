@@ -102,6 +102,7 @@
 .desc {
     margin-top: 0.9rem;
     color: rgba(255, 255, 255, 0.6);
+    max-width: 40rem;
 }
 
 .actions {
@@ -134,10 +135,141 @@
 }
 
 @media screen and (max-width: 1140px) {
+    .loadingCard {
+        min-height: 21rem;
+    }
+
+    .cardLoading {
+        min-height: 21rem;
+    }
+
+    .photoWrap {
+        width: 16rem;
+        min-width: 16rem;
+        min-height: 21rem;
+    }
+
+    .playBtn {
+        bottom: 1rem;
+        left: 1rem;
+        right: 1rem;
+        padding: 0 1rem;
+        border-radius: 0.625rem;
+        font-size: 1rem;
+
+        .playIcon {
+            width: 2.1875rem;
+            height: 2.1875rem;
+        }
+    }
+
+    .right {
+        padding: 1rem;
+        gap: 1.25rem;
+    }
+
+    .country {
+        gap: 0.5rem;
+        font-size: 0.875rem;
+
+        img {
+            width: 1.125rem;
+            height: 1.125rem;
+        }
+    }
+
+    .name {
+        margin-top: 1rem;
+        font-size: 1rem;
+    }
+
+    .desc {
+        margin-top: 0.94rem;
+        font-size: 0.875rem;
+    }
+
+    .actions {
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        row-gap: .75rem;
+
+        .detailsBtn {
+            order: 2;
+        }
+    }
 }
 
-@media screen and (max-width: 868px) {
-}
+@media screen and (max-width: 550px) {
+    .loadingCard {
+        min-height: 43.5rem;
+    }
 
-@media screen and (max-width: 475px) {
+    .cardLoading {
+        min-height: 43.5rem;
+    }
+
+    .card {
+        flex-direction: column;
+        position: relative;
+        padding-bottom: 2.5rem;
+    }
+
+    .left {
+        width: 100%;
+    }
+
+    .photoWrap {
+        width: 100%;
+        min-width: inherit;
+        min-height: inherit;
+        padding-top: 127.1%;
+    }
+
+    .right {
+        padding: 1rem;
+        gap: 1.25rem;
+    }
+
+    .country {
+        position: absolute;
+        z-index: 5;
+        top: 1rem;
+        left: 1rem;
+        padding: 0.5rem 0.62rem;
+        border-radius: 2rem;
+        background: rgba(255, 255, 255, 0.8);
+        color: $color-dark;
+    }
+
+    .name {
+        margin-top: 0;
+    }
+
+    .actions {
+        gap: 1.5rem;
+
+        .detailsBtn {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            height: 2.5rem;
+            border-radius: 0;
+            justify-content: space-between;
+            text-align: left;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            font-size: 0.875rem;
+            display: flex;
+
+            &::after {
+                content: "";
+                background-image: $arrow-right;
+                width: 0.4375rem;
+                height: 0.6875rem;
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+        }
+    }
 }

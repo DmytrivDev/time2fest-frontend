@@ -1,8 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { getValidLocale } from '@/utils/getValidLocale';
 import { api } from '@/utils/api';
+import clsx from 'clsx';
 
 import AmbassadorsAside from './AmbassadorsAside';
 import AmbassadorsGrid from './AmbassadorsGrid';
@@ -13,8 +15,18 @@ const AmbassadorsList = () => {
   const { t } = useTranslation();
   const locale = getValidLocale();
   const location = useLocation();
+  const [isMobile, setIsMobile] = useState(false);
+  const [showAside, setShowAside] = useState(false);
 
-  // поточна активна зона з URL
+  // ---- Адаптив ----
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 868);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // ---- Поточна активна зона з URL ----
   const params = new URLSearchParams(location.search);
   const activeZone = params.get('tz');
 
@@ -30,22 +42,19 @@ const AmbassadorsList = () => {
 
   const ambassadors = Array.isArray(data) ? data : [];
 
-  // ---- Фільтрація за часовою зоною ----
+  // ---- Фільтрація ----
   const filteredAmbassadors = activeZone
     ? ambassadors.filter(amb => amb.timeZone === activeZone)
     : ambassadors;
 
-  // ---- Групування за часовими поясами ----
+  // ---- Групування ----
   const timeZoneMap = new Map();
-
   ambassadors.forEach(amb => {
     const tz = amb.timeZone || 'Unknown';
     const flag = amb.country?.code || null;
-
     if (!timeZoneMap.has(tz)) {
       timeZoneMap.set(tz, { code: tz, flags: new Set() });
     }
-
     const entry = timeZoneMap.get(tz);
     if (flag) entry.flags.add(flag);
   });
@@ -78,15 +87,26 @@ const AmbassadorsList = () => {
           <p className={styles.subtitle}>
             {t('ambassadors.ambassadors_subtitle')}
           </p>
+
+          {isMobile && (
+            <button
+              onClick={() => setShowAside(!showAside)}
+              className={clsx(styles.mobBtn, 'btn_primary')}
+            >
+              {t('ambassadors.choose_timezone')}
+            </button>
+          )}
         </div>
 
         <div className={styles.inner}>
-          <AmbassadorsAside
-            isLoading={isLoading}
-            error={error}
-            data={timeZonesData}
-            activeZone={activeZone}
-          />
+          {!isMobile || showAside ? (
+            <AmbassadorsAside
+              isLoading={isLoading}
+              error={error}
+              data={timeZonesData}
+              activeZone={activeZone}
+            />
+          ) : null}
 
           <AmbassadorsGrid
             isLoading={isLoading}

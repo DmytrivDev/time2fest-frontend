@@ -233,7 +233,145 @@
 }
 
 @media screen and (max-width: 1140px) {
+	.section {
+		padding-top: 3.75rem;
+	}
+
+	.countryNameLoading {
+		span {
+			width: 1.5625rem;
+			height: 1.5625rem;
+		}
+
+		div {
+			height: 2.8rem;
+			width: 8rem;
+		}
+	}
+
+	.utcLoading {
+		width: 4.9375rem;
+		height: 2.3125rem;
+	}
+
+	.descLoading {
+		height: 4.125rem;
+
+		span {
+			height: 1.25rem;
+		}
+	}
+
+	.typeTitleLoading {
+		width: 7.7rem;
+		height: 1.1875rem;
+	}
+
+	.typeBoxLoading {
+		ul {
+			li {
+				div {
+					height: 1rem;
+					width: 11.3rem;
+				}
+			}
+		}
+	}
+
+	.addBtnLoading {
+		height: 2.875rem;
+		width: 100%;
+	}
+
+	.content {
+		gap: 1.5rem;
+	}
+
+	.flagLine {
+		gap: 1.56rem;
+	}
+
+	.countryName {
+		gap: 0.75rem;
+
+		img {
+			width: 1.5625rem;
+			height: 1.5625rem;
+		}
+
+		h1 {
+			font-size: 1.625rem;
+			line-height: 1.8;
+		}
+	}
+
+	.utc {
+		font-size: 1rem;
+	}
+
+	.desc {
+		margin-top: 1.25rem;
+		font-size: 0.875rem;
+	}
+
+	.typeBox {
+		margin-top: 1.5rem;
+		padding: 1rem;
+
+		ul {
+			margin-top: 1rem;
+			gap: 1rem;
+
+			li {
+				gap: 0.75rem;
+				font-size: 0.875rem;
+				line-height: 1.6;
+			}
+		}
+	}
+
+	.typeTitle {
+		font-size: 1rem;
+	}
+
+	.addBtn {
+		margin-top: 1.88rem;
+		width: 100%;
+	}
+
+	.imageBlock {
+		min-height: 15rem;
+	}
+
+	.countdown {
+		gap: 0.7rem;
+		padding: 1rem;
+
+		.text {
+			font-size: 1rem;
+		}
+	}
+
+	.timer {
+		padding-bottom: 1.5625rem;
+		gap: 0.87rem;
+		color: $color-yellow;
+
+		& > span {
+			font-size: 1.875rem;
+
+			span {
+				transform: translateX(-50%) translateY(100%);
+				font-size: 0.875rem;
+				bottom: 0;
+			}
+		}
+	}
 }
 
 @media screen and (max-width: 868px) {
+	.content {
+		grid-template-columns: 1fr;
+		gap: 2.5rem;
+	}
 }

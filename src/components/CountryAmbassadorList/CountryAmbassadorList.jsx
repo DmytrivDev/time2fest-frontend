@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { api } from '@/utils/api';
 import AmbassadorFullItem from '../common/AmbassadorFullItem';
-import styles from './CountryAmbassadorList.module.scss';
+import styles from './CountryAmbassadorList.module.scss'; 
 
 const CountryAmbassadorList = React.memo(
   ({ data, name, sec, code, isLoading, error, exclude, lang }) => {

@@ -43,7 +43,8 @@
 		transition: 0.3s;
 	}
 
-	&:hover, &.active {
+	&:hover,
+	&.active {
 		padding-right: 3.69rem;
 		background: rgba(249, 74, 81, 0.6);
 
@@ -80,12 +81,45 @@
 	}
 
 	.count {
-		color: rgba(255, 255, 255, 0.40);
+		color: rgba(255, 255, 255, 0.4);
 		margin-left: 0.75rem;
 	}
 }
 
 @media screen and (max-width: 1140px) {
+	.loadingItem {
+		height: 2.65rem;
+	}
+	.item {
+		padding: 0.5rem 1.25rem;
+		&::after {
+			right: 1.25rem;
+			width: 0.4rem;
+			height: 0.6rem;
+		}
+
+		&:hover {
+			padding-right: 1.25rem;
+			background: inherit;
+
+			&::after {
+				opacity: 0;
+			}
+		}
+
+		&.active {
+			padding-right: 2.5rem !important;
+			background: rgba(249, 74, 81, 0.6) !important;
+
+			&::after {
+				opacity: 1 !important;
+			}
+		}
+
+		.code {
+			font-size: 1rem;
+		}
+	}
 }
 
 @media screen and (max-width: 868px) {

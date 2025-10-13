@@ -27,12 +27,36 @@
 	align-content: flex-start;
 }
 
-
-
 @media screen and (max-width: 1140px) {
+	.section {
+		padding-top: 3.75rem 0;
+	}
+
+	.title {
+		font-size: 1.625rem;
+	}
+
+	.subtitle {
+		font-size: 0.875rem;
+	}
+
+	.inner {
+		margin-top: 2.5rem;
+		grid-template-columns: calc(33% - .5rem) calc(67% - .5rem);
+		gap: 1rem;
+		display: grid;
+		justify-content: inherit;
+	}
 }
 
 @media screen and (max-width: 868px) {
+	.inner {
+		grid-template-columns: 1fr;
+	}
+	.mobBtn {
+		margin-top: 2rem;
+		width: 100%;
+	}
 }
 
 @media screen and (max-width: 475px) {

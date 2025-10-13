@@ -48,7 +48,15 @@ const AmbassadorItem = ({ data, isLoading = false }) => {
       </Link>
 
       <div className={styles.content}>
-        <h4 className={styles.name}>{name}</h4>
+        <Link
+          to={
+            `/${i18n.language !== 'en' ? i18n.language + '/' : ''}ambassadors/list/` +
+            data.slug
+          }
+          className={styles.name}
+        >
+          {name}
+        </Link>
         <p className={styles.desc}>{description}</p>
         <Link
           to={

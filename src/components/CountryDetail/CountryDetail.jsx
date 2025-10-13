@@ -4,7 +4,7 @@ import { CircleFlag } from 'react-circle-flags';
 import { useTranslation } from 'react-i18next';
 import { useCountdownToTimezone } from '../../hooks/useKiritimatiNYCountdown';
 import { getNextNYLocalForUtcOffset } from '@/utils/ny-time';
-import { IoTime, IoCamera, IoVideocam } from 'react-icons/io5';
+import { IoTime, IoCamera, IoVideocam } from 'react-icons/io5'; 
 
 import styles from './CountryDetail.module.scss';
 
@@ -173,6 +173,7 @@ END:VCALENDAR`.trim();
   const country = data[0];
   const name = country.CountryName;
   const desc = country.ShortDesc || country.ShortDesc;
+  const descL = country.CountryDesc || country.CountryDesc;
   const code = country.CountryCode?.toLowerCase();
   const offset = tzParam || 'UTC+0';
   const backgroundUrl = country.Background?.url ? `${import.meta.env.VITE_STRIPE_URL}${country.Background?.url}` : '/country/eve_def.jpg';
@@ -198,7 +199,7 @@ END:VCALENDAR`.trim();
               <span className={styles.utc}>{offset}</span>
             </div>
 
-            <p className={styles.desc}>{desc}</p>
+            <p className={styles.desc}>{desc || descL}</p>
 
             <div className={styles.typeBox}>
               <p className={styles.typeTitle}>{t('controls.types')}:</p>

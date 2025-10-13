@@ -163,7 +163,8 @@
     "all_ambass": "Всі амбасадори",
     "nye_ambass": "Амбасадори в",
     "info_about": "Як зустрічають Новий Рік в",
-    "info_about_celebration": "Особливості святкування:"
+    "info_about_celebration": "Особливості святкування:",
+    "choose_timezone": "Обрати часову зону"
   },
   "contact": {
     "title_left": "Наші контакти",

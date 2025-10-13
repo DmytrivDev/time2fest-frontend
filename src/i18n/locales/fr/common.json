@@ -163,7 +163,8 @@
     "all_ambass": "Tous les ambassadeurs",
     "nye_ambass": "Ambassadeurs en",
     "info_about": "Comment le Nouvel An est célébré en Pologne",
-    "info_about_celebration": "Particularités de la célébration :"
+    "info_about_celebration": "Particularités de la célébration :",
+    "choose_timezone": "Choisir le fuseau horaire"
   },
   "contact": {
     "title_left": "Nos contacts",
