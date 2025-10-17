@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { getValidLocale } from '@/utils/getValidLocale';
+import { lockScroll, unlockScroll } from '../../utils/lockScroll';
 import { api } from '@/utils/api';
 import clsx from 'clsx';
 
@@ -18,6 +19,15 @@ const AmbassadorsList = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [showAside, setShowAside] = useState(false);
 
+  const handleKeyDown = useCallback(
+    e => {
+      if (e.key === 'Escape') {
+        setShowAside();
+      }
+    },
+    [setShowAside]
+  );
+
   // ---- Адаптив ----
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 868);
@@ -25,6 +35,18 @@ const AmbassadorsList = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  useEffect(() => {
+    if (showAside) {
+      document.addEventListener('keydown', handleKeyDown);
+      lockScroll(document.body);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      unlockScroll();
+    };
+  }, [showAside, handleKeyDown]);
 
   // ---- Поточна активна зона з URL ----
   const params = new URLSearchParams(location.search);
@@ -81,7 +103,7 @@ const AmbassadorsList = () => {
   // ---- Рендер ----
   return (
     <section className={styles.section}>
-      <div className="container">
+      <div className={clsx('container', styles.container)}>
         <div className={styles.header}>
           <h1 className={styles.title}>{t('ambassadors.ambassadors_title')}</h1>
           <p className={styles.subtitle}>
@@ -98,16 +120,36 @@ const AmbassadorsList = () => {
           )}
         </div>
 
+        {isMobile && (
+          <>
+            <div
+              className={clsx(
+                styles.asideBackdrop,
+                showAside && styles.visible
+              )}
+              onClick={() => setShowAside(false)}
+            />
+            <div className={clsx(styles.asidePanel, showAside && styles.open)}>
+              <AmbassadorsAside
+                isLoading={isLoading}
+                error={error}
+                data={timeZonesData}
+                activeZone={activeZone}
+                isMobile={isMobile}
+                setShowAside={setShowAside}
+              />
+            </div>
+          </>
+        )}
         <div className={styles.inner}>
-          {!isMobile || showAside ? (
+          {!isMobile && (
             <AmbassadorsAside
               isLoading={isLoading}
               error={error}
               data={timeZonesData}
               activeZone={activeZone}
             />
-          ) : null}
-
+          )}
           <AmbassadorsGrid
             isLoading={isLoading}
             error={error}

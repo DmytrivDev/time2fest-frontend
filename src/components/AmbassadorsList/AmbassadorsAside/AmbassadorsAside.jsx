@@ -1,9 +1,18 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { CircleFlag } from 'react-circle-flags';
 import clsx from 'clsx';
 import styles from './AmbassadorsAside.module.scss';
 
-const AmbassadorsAside = ({ isLoading, error, data, activeZone }) => {
+const AmbassadorsAside = ({
+  isLoading,
+  error,
+  data,
+  activeZone,
+  isMobile = false,
+  setShowAside = false,
+}) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -36,6 +45,15 @@ const AmbassadorsAside = ({ isLoading, error, data, activeZone }) => {
 
   return (
     <aside className={styles.aside}>
+      {isMobile && (
+        <div className={styles.filter__header}>
+          <h3>{t('modal.choose_zone')}</h3>
+          <button
+            className={styles.close}
+            onClick={() => setShowAside(false)}
+          ></button>
+        </div>
+      )}
       <div className={styles.inner}>
         {data.map(({ code, flags, count }) => (
           <button
@@ -46,6 +64,9 @@ const AmbassadorsAside = ({ isLoading, error, data, activeZone }) => {
             })}
           >
             <div className={styles.left}>
+              {isMobile && (
+                <div className={styles.filter__check}></div>
+              )}
               <span className={styles.code}>{code}</span>
             </div>
 
@@ -73,6 +94,16 @@ const AmbassadorsAside = ({ isLoading, error, data, activeZone }) => {
           </button>
         ))}
       </div>
+      {isMobile && (
+        <div className={styles.filter__bottom}>
+          <button
+            className={clsx('btn_primary', styles.filterBtn)}
+            onClick={() => setShowAside(false)}
+          >
+            {t('modal.set_changes')}
+          </button>
+        </div>
+      )}
     </aside>
   );
 };

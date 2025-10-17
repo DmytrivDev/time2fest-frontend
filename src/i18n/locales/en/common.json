@@ -1,15 +1,16 @@
 {
   "nav": {
     "newYear": "Choose a country",
-    "about": "About the project",
+    "about": "About project",
     "becomeStreamer": "Become an ambassador",
-    "aboutAmbass": "About ambassadorship",
+    "aboutAmbass": "Ambassadorship",
     "faq": "FAQ",
     "policy": "Privacy Policy",
     "terms": "Terms of Use",
     "agreement": "Ambassador Agreement",
     "disclaimer": "Disclaimer",
-    "contact": "Contacts"
+    "contact": "Contacts",
+    "our_ambass": "Our ambassadors"
   },
   "log-in": "Sign in",
   "bages": {
@@ -151,7 +152,9 @@
       "title": "An error occurred!",
       "text": "Please try reloading the page or try again later."
     },
-    "close": "Close"
+    "close": "Close",
+    "choose_zone": "Choose time zone",
+    "set_changes": "Apply changes"
   },
   "ambassadors": {
     "ambassadors_title": "Time2Fest Ambassadors",

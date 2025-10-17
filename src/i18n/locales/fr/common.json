@@ -9,7 +9,8 @@
     "terms": "Conditions d’utilisation",
     "agreement": "Accord des ambassadeurs",
     "disclaimer": "Avertissement légal",
-    "contact": "Contacts"
+    "contact": "Contacts",
+    "our_ambass": "Nos ambassadeurs"
   },
   "log-in": "Se connecter",
   "bages": {
@@ -151,7 +152,9 @@
       "title": "Une erreur est survenue !",
       "text": "Veuillez essayer de recharger la page ou réessayer plus tard."
     },
-    "close": "Fermer"
+    "close": "Fermer",
+    "choose_zone": "Choisir zone",
+    "set_changes": "Appliquer"
   },
   "ambassadors": {
     "ambassadors_title": "Ambassadeurs de Time2Fest",
