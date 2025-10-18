@@ -4,17 +4,16 @@ import { CircleFlag } from 'react-circle-flags';
 import clsx from 'clsx';
 import styles from './ZonesAside.module.scss';
 
-const AmbassadorsAside = ({
+const ZonesAside = ({
   isLoading,
   error,
   data,
   activeZone,
+  onSelectZone,
   isMobile = false,
-  setShowAside = false,
+  setShowAside = () => {},
 }) => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
-  const location = useLocation();
 
   if (isLoading) {
     return (
@@ -34,14 +33,31 @@ const AmbassadorsAside = ({
   if (error || !data) return null;
 
   const handleClick = code => {
-    const params = new URLSearchParams(location.search);
-    if (activeZone === code) {
-      params.delete('tz');
-    } else {
-      params.set('tz', code);
-    }
-    navigate(`${location.pathname}?${params.toString()}`);
+    if (typeof onSelectZone === 'function') onSelectZone(code);
+    if (isMobile) setShowAside(false);
   };
+
+  // 🔧 Універсалізація даних + правильний підрахунок
+  const normalizedData = data.map(item => {
+    let flags = [];
+    let totalCountries = 0;
+
+    if (item.flags && item.count !== undefined) {
+      flags = item.flags;
+      totalCountries = item.count;
+    } else {
+      flags = item.countryCodes || [];
+      totalCountries = flags.length;
+    }
+
+    const extraCount = totalCountries > 3 ? totalCountries - 3 : 0;
+
+    return {
+      code: item.code,
+      flags,
+      extraCount,
+    };
+  });
 
   return (
     <aside className={styles.aside}>
@@ -54,8 +70,9 @@ const AmbassadorsAside = ({
           ></button>
         </div>
       )}
+
       <div className={styles.inner}>
-        {data.map(({ code, flags, count }) => (
+        {normalizedData.map(({ code, flags, extraCount }) => (
           <button
             key={code}
             onClick={() => handleClick(code)}
@@ -64,9 +81,7 @@ const AmbassadorsAside = ({
             })}
           >
             <div className={styles.left}>
-              {isMobile && (
-                <div className={styles.filter__check}></div>
-              )}
+              {isMobile && <div className={styles.filter__check}></div>}
               <span className={styles.code}>{code}</span>
             </div>
 
@@ -81,31 +96,20 @@ const AmbassadorsAside = ({
                         height="18"
                       />
                     ))}
-                    {flags.length > 3 && (
-                      <span className={styles.more}>+{flags.length - 3}</span>
+                    {extraCount > 0 && (
+                      <span className={styles.count}>+{extraCount}</span>
                     )}
                   </>
                 ) : (
                   <span className={styles.noFlags}>🌍</span>
                 )}
               </div>
-              {count > 0 && <span className={styles.count}>+{count}</span>}
             </div>
           </button>
         ))}
       </div>
-      {isMobile && (
-        <div className={styles.filter__bottom}>
-          <button
-            className={clsx('btn_primary', styles.filterBtn)}
-            onClick={() => setShowAside(false)}
-          >
-            {t('modal.set_changes')}
-          </button>
-        </div>
-      )}
     </aside>
   );
 };
 
-export default AmbassadorsAside;
+export default ZonesAside;

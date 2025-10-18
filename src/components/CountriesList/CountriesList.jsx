@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useCallback } from 'react';
 import { getValidLocale } from '@/utils/getValidLocale';
 import { lockScroll, unlockScroll } from '../../utils/lockScroll';
@@ -9,24 +9,24 @@ import clsx from 'clsx';
 
 import ZonesAside from '../common/ZonesAside';
 import CountriesGrid from './CountriesGrid';
-
 import styles from './CountriesList.module.scss';
 
 const CountriesList = () => {
   const { t } = useTranslation();
   const locale = getValidLocale();
   const location = useLocation();
+  const navigate = useNavigate();
+
   const [isMobile, setIsMobile] = useState(false);
   const [showAside, setShowAside] = useState(false);
+  const [activeZone, setActiveZone] = useState(null);
 
-  const handleKeyDown = useCallback(
-    e => {
-      if (e.key === 'Escape') {
-        setShowAside(false);
-      }
-    },
-    [setShowAside]
-  );
+  // ---- Витяг з квері ----
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const tz = params.get('tz');
+    setActiveZone(tz || null);
+  }, [location.search]);
 
   // ---- Адаптив ----
   useEffect(() => {
@@ -37,10 +37,16 @@ const CountriesList = () => {
   }, []);
 
   // ---- Блокування скролу ----
+  const handleKeyDown = useCallback(e => {
+    if (e.key === 'Escape') setShowAside(false);
+  }, []);
+
   useEffect(() => {
     if (showAside) {
       document.addEventListener('keydown', handleKeyDown);
       lockScroll(document.body);
+    } else {
+      unlockScroll();
     }
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
@@ -48,82 +54,88 @@ const CountriesList = () => {
     };
   }, [showAside, handleKeyDown]);
 
-  // ---- Поточна активна зона з URL ----
-  const params = new URLSearchParams(location.search);
-  const activeZone = params.get('tz');
-
-  // ---- Отримання даних країн (перших 24) ----
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['countries', locale],
+  // ---- Завантаження часових зон ----
+  const { data: zonesData, isLoading: zonesLoading } = useQuery({
+    queryKey: ['time-zones', locale],
     queryFn: async () => {
-      // Перші 24 країни
-      const res = await api.get(`/countries?locale=${locale}&page=1&limit=24`);
+      const res = await api.get(`/time-zones?locale=${locale}`);
       return res.data;
     },
   });
 
-  if (error || !data) return null;
+  // ---- Завантаження країн ----
+  const {
+    data: countriesData,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ['countries', locale, activeZone],
+    queryFn: async () => {
+      const baseUrl = `/countries?locale=${locale}&page=1&limit=18`;
+      const url = activeZone
+        ? `${baseUrl}&tz=${encodeURIComponent(activeZone)}`
+        : baseUrl;
+      const res = await api.get(url);
+      return res.data;
+    },
+  });
 
-  const countries = Array.isArray(data) ? data : [];
+  // ---- Перемикання фільтра ----
+  const toggleZone = code => {
+    const params = new URLSearchParams(location.search);
+    if (activeZone === code) {
+      params.delete('tz');
+      setActiveZone(null);
+    } else {
+      params.set('tz', code);
+      setActiveZone(code);
+    }
+    navigate({ search: params.toString() });
+  };
 
-  // ---- Фільтрація ----
+  // ---- Підготовка списку країн ----
+  const countries = Array.isArray(countriesData) ? countriesData : [];
+
+  // 🔁 Розгортаємо країни по всіх часових зонах
+  const expandedCountries = countries.flatMap(country => {
+    const zones = country.time_zones || [];
+    if (!zones.length) return [country];
+
+    // Створюємо копію країни для кожного таймзону
+    return zones.map(tz => ({
+      ...country,
+      time_zones: [tz], // лише поточна зона
+    }));
+  });
+
+  // 🧭 Якщо вибрано фільтр — залишаємо лише вибрану зону
   const filteredCountries = activeZone
-    ? countries.filter(c => c.time_zones?.some?.(z => z.code === activeZone))
-    : countries;
-
-  // ---- Групування ----
-  const timeZoneMap = new Map();
-  countries.forEach(c => {
-    const zones = c.time_zones || [];
-    const flag = c.CountryCode || null;
-
-    zones.forEach(z => {
-      const tz = z.code || 'Unknown';
-      if (!timeZoneMap.has(tz)) {
-        timeZoneMap.set(tz, { code: tz, flags: new Set() });
-      }
-      const entry = timeZoneMap.get(tz);
-      if (flag) entry.flags.add(flag);
-    });
-  });
-
-  const timeZonesData = Array.from(timeZoneMap.values()).map(item => ({
-    code: item.code,
-    flags: Array.from(item.flags),
-    count: item.flags.size,
-  }));
-
-  // ---- Сортування ----
-  timeZonesData.sort((a, b) => {
-    const parseUTC = str => {
-      if (!str || !str.startsWith('UTC')) return 0;
-      const cleaned = str.replace('UTC', '').trim();
-      const parts = cleaned.split(':');
-      const hours = parseFloat(parts[0]) || 0;
-      const minutes = parts[1] ? parseFloat(parts[1]) / 60 : 0;
-      return hours + Math.sign(hours) * minutes;
-    };
-    return parseUTC(a.code) - parseUTC(b.code);
-  });
+    ? expandedCountries.filter(
+        item =>
+          item.time_zones?.[0]?.code?.toLowerCase() === activeZone.toLowerCase()
+      )
+    : expandedCountries;
 
   // ---- Рендер ----
   return (
     <section className={styles.section}>
       <div className={clsx('container', styles.container)}>
+        {/* --- Заголовок --- */}
         <div className={styles.header}>
-          <h1 className={styles.title}>{t('countries.countries_title')}</h1>
-          <p className={styles.subtitle}>{t('countries.countries_subtitle')}</p>
+          <h1 className={styles.title}>{t('controls.countries_title')}</h1>
+          <p className={styles.subtitle}>{t('controls.countries_subtitle')}</p>
 
           {isMobile && (
             <button
               onClick={() => setShowAside(!showAside)}
               className={clsx(styles.mobBtn, 'btn_primary')}
             >
-              {t('countries.choose_timezone')}
+              {t('ambassadors.choose_timezone')}
             </button>
           )}
         </div>
 
+        {/* --- Мобільна бічна панель --- */}
         {isMobile && (
           <>
             <div
@@ -135,10 +147,10 @@ const CountriesList = () => {
             />
             <div className={clsx(styles.asidePanel, showAside && styles.open)}>
               <ZonesAside
-                isLoading={isLoading}
-                error={error}
-                data={timeZonesData}
+                isLoading={zonesLoading}
+                data={zonesData}
                 activeZone={activeZone}
+                onSelectZone={toggleZone}
                 isMobile={isMobile}
                 setShowAside={setShowAside}
               />
@@ -146,15 +158,17 @@ const CountriesList = () => {
           </>
         )}
 
+        {/* --- Основний контент --- */}
         <div className={styles.inner}>
           {!isMobile && (
             <ZonesAside
-              isLoading={isLoading}
-              error={error}
-              data={timeZonesData}
+              isLoading={zonesLoading}
+              data={zonesData}
               activeZone={activeZone}
+              onSelectZone={toggleZone}
             />
           )}
+
           <CountriesGrid
             isLoading={isLoading}
             error={error}

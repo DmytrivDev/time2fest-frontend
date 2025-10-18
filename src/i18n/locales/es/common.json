@@ -60,7 +60,9 @@
     "ambass": "Transmisión del embajador",
     "veb": "Transmisión en vivo desde cámaras web",
     "ny_at": "El Año Nuevo llegará ",
-    "types": "Tipo de celebración"
+    "types": "Tipo de celebración",
+    "countries_title": "Países del mundo",
+    "countries_subtitle": "Celebra el Año Nuevo según la hora de diferentes países del mundo"
   },
   "tooltip": {
     "by_your_time": "(tu hora local)",

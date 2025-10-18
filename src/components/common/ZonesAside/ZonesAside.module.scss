@@ -75,7 +75,7 @@
 			margin-top: -0.15rem;
 			border-radius: 0.4375rem;
 			border: 1px solid #fff;
-			transition: .3s;
+			transition: 0.3s;
 			background-repeat: no-repeat;
 			background-position: center center;
 			background-size: 0.5rem;
@@ -131,25 +131,6 @@
 	}
 }
 
-.inner {
-	height: calc(100svh - 11.53rem);
-	height: calc(100dvh - 11.53rem);
-	overflow: auto;
-}
-
-.filter__bottom {
-	height: 6.63rem;
-	padding: 1.25rem;
-	display: flex;
-	align-items: center;
-	align-content: center;
-	justify-content: center;
-
-	button {
-		width: 100%;
-	}
-}
-
 @media screen and (max-width: 1140px) {
 	.aside {
 		border-radius: 0;
@@ -186,6 +167,12 @@
 		.code {
 			font-size: 1rem;
 		}
+	}
+	.inner {
+		height: calc(100svh - 4.9rem);
+		height: calc(100dvh - 4.9rem);
+		padding-bottom: 2.5rem;
+		overflow: auto;
 	}
 }
 

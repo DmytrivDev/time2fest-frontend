@@ -60,7 +60,9 @@
     "ambass": "Diffusion par l'ambassadeur",
     "veb": "Diffusion en direct depuis les webcams",
     "ny_at": "Le Nouvel An arrivera ",
-    "types": "Type de célébration"
+    "types": "Type de célébration",
+    "countries_title": "Pays du monde",
+    "countries_subtitle": "Célébrez le Nouvel An selon l’heure de différents pays du monde"
   },
   "tooltip": {
     "by_your_time": "(votre heure locale)",

@@ -11,7 +11,7 @@ const AmbassadorsGrid = React.memo(({ isLoading, error, data }) => {
   if (isLoading) {
     return (
       <div className={clsx(styles.grid, styles.loadingGrid)}>
-        {Array.from({ length: 6 }).map((_, i) => (
+        {Array.from({ length: 9 }).map((_, i) => (
           <CountryItem key={i} isLoading />
         ))}
       </div>

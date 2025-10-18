@@ -60,7 +60,9 @@
     "ambass": "Ambassador stream",
     "veb": "Live webcam stream",
     "ny_at": "New Year will come ",
-    "types": "Type of celebration"
+    "types": "Type of celebration",
+    "countries_title": "Countries of the world",
+    "countries_subtitle": "Celebrate the New Year in the time of different countries around the world"
   },
   "tooltip": {
     "by_your_time": "(your local time)",

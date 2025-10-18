@@ -2,7 +2,7 @@
 @use "@/styles/mixins" as *;
 
 .loadingCard {
-    min-height: 32rem;
+    min-height: 34.802rem;
 }
 
 .card {
@@ -13,7 +13,7 @@
 }
 
 .photo {
-    padding-top: 100%;
+    padding-top: 79.1%;
     position: relative;
     overflow: hidden;
     display: block;
@@ -23,19 +23,28 @@
     }
 }
 
-.countryBadge {
+.utc {
     position: absolute;
-    z-index: 4;
     top: 1.25rem;
     left: 1.25rem;
+    padding: 0.3125rem 0.9375rem;
+    border-radius: 2.5rem;
+    background: rgba(255, 255, 255, 0.8);
+    color: $color-dark;
+}
+
+.content {
+    padding: 1.5rem 1.25rem;
+    padding-bottom: 4.2rem;
+}
+
+.header {
     display: flex;
     align-items: center;
     align-content: center;
-    padding: 0.44rem 0.63rem;
-    gap: 0.62rem;
-    border-radius: 1.25rem;
-    background: rgba(255, 255, 255, 0.8);
-    color: $color-dark;
+    gap: 0.88rem;
+    font-size: 1.3125rem;
+    font-weight: 500;
 
     img {
         width: 1.625rem;
@@ -43,21 +52,41 @@
     }
 }
 
-.content {
-    padding: 1.2rem 1.5rem;
-    padding-bottom: 4.2rem;
-}
+.types {
+    margin-top: 1.2rem;
+    display: flex;
+    gap: 0.62rem;
+    flex-wrap: wrap;
 
-.name {
-    font-size: 1.3125rem;
-    font-weight: 500;
+    .type {
+        display: flex;
+        align-items: center;
+        align-content: center;
+        gap: 0.25rem;
+        font-size: 0.875rem;
+        color: $color-dark;
+        padding: 0.25rem 0.5rem;
+        background-color: $color-yellow;
+        border-radius: 2.5rem;
+        white-space: nowrap;
+
+        svg {
+            width: 1rem;
+            height: 1rem;
+        }
+    }
 }
 
 .desc {
     font-size: 0.875rem;
-    margin-top: 0.8rem;
+    margin-top: 1.12rem;
     color: rgba(255, 255, 255, 0.6);
     line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .button {
