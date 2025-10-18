@@ -25,7 +25,7 @@ const CountryPage = () => {
     queryKey: ['country', slug, locale],
     queryFn: async () => {
       const res = await api.get(`/countries?slug=${slug}&locale=${locale}`);
-      return res?.data || [];
+      return res?.data?.items || [];
     },
     enabled: !!slug,
   });

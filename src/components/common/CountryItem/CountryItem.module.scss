@@ -23,14 +23,22 @@
     }
 }
 
-.utc {
+.tzCodeList {
     position: absolute;
     top: 1.25rem;
     left: 1.25rem;
-    padding: 0.3125rem 0.9375rem;
+    right: 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .25rem;
+}
+
+.utc {
+    padding: 0.25rem 0.75rem;
     border-radius: 2.5rem;
     background: rgba(255, 255, 255, 0.8);
     color: $color-dark;
+    font-size: 0.875rem;
 }
 
 .content {

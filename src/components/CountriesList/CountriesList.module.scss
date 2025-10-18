@@ -19,7 +19,7 @@
 }
 
 .inner {
-	margin-top: 3.12rem;
+	padding-top: 3.12rem;
 	display: grid;
 	grid-template-columns: 23.5rem 64.0625rem;
 	justify-content: space-between;
@@ -77,7 +77,7 @@
 	}
 
 	.inner {
-		margin-top: 2.5rem;
+		padding-top: 2.5rem;
 		grid-template-columns: calc(33% - 0.5rem) calc(67% - 0.5rem);
 		gap: 1rem;
 		display: grid;

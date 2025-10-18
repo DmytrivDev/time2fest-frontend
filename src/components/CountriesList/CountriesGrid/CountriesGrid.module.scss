@@ -7,6 +7,16 @@
     gap: 1.44rem;
 }
 
+.loadingGridF {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: 1fr;
+    width: 100%;
+    padding-top: 4rem;
+}
+
 @media screen and (max-width: 1140px) {
     .grid {
         grid-template-columns: repeat(2, 1fr);

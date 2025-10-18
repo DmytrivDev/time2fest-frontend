@@ -7,13 +7,14 @@ import { getDynamicSeo } from '@/utils/getDynamicSeo';
 import { SUPPORTED_LANGS } from '@/i18n/languages';
 
 //
-// --- Допоміжна функція: визначає базову сторінку з URL ---
+// --- Визначає базову сторінку з URL ---
 //
 function getPageFromPath(pathname) {
   const parts = pathname.split('/').filter(Boolean);
   if (parts[0] && SUPPORTED_LANGS.includes(parts[0])) parts.shift();
 
-  if (parts[0] === 'ambassadors' && parts[1] === 'list') return 'AmbassadorsList';
+  if (parts[0] === 'ambassadors' && parts[1] === 'list')
+    return 'AmbassadorsList';
   if (parts[0] === 'country' && parts[1]) return 'country';
 
   return parts.length === 0 ? 'home' : parts[0];
@@ -27,12 +28,11 @@ const SeoMeta = ({ dynamicData = null }) => {
   const { pathname } = useLocation();
   const page = getPageFromPath(pathname);
 
-  // --- Визначення типу сторінки ---
   const isCountryPage = pathname.includes('/country/');
-  const isAmbassadorPage = pathname.includes('/ambassadors/list/');
+  const isAmbassadorPage = pathname.includes('/ambassadors/list');
   const isDynamicPage = isCountryPage || isAmbassadorPage;
 
-  // --- Маппінг назв сторінок до Strapi-компонентів ---
+  // --- Мапінг назв сторінок до Strapi-компонентів ---
   let pageS = page;
   if (page === 'ambassadors') pageS = 'ambass';
   if (page === 'become-ambassador') pageS = 'Form';
@@ -48,14 +48,14 @@ const SeoMeta = ({ dynamicData = null }) => {
       const res = await api.get(`/seo?page=${pageS}&locale=${locale}`);
       return res.data;
     },
-    enabled: !isDynamicPage && !!pageS, // ❗ Не виконуємо запит для динамічних сторінок
+    enabled: !isDynamicPage && !!pageS,
     staleTime: 5 * 60 * 1000,
   });
 
   if (error) console.error('❌ SEO fetch error:', error);
 
   //
-  // --- 🔹 Динамічні сторінки (країни та амбасадори) ---
+  // --- 🔹 Динамічні сторінки (країни / амбасадори) ---
   //
   if (isDynamicPage) {
     const hasCountryData = isCountryPage && !!dynamicData?.CountryName;
@@ -65,10 +65,7 @@ const SeoMeta = ({ dynamicData = null }) => {
     if (!hasCountryData && !hasAmbassadorData) return null;
 
     const dynamicSeo = getDynamicSeo(pathname, locale, dynamicData);
-    if (!dynamicSeo) {
-      console.warn('⚠️ No dynamic SEO data generated for:', pathname);
-      return null;
-    }
+    if (!dynamicSeo) return null;
 
     return <SeoHelmet seoData={dynamicSeo} />;
   }
@@ -80,11 +77,7 @@ const SeoMeta = ({ dynamicData = null }) => {
 
   const componentKey = `${pageS.charAt(0).toUpperCase()}${pageS.slice(1)}SeoMeta`;
   const seoData = data?.[componentKey];
-
-  if (!seoData) {
-    console.warn(`⚠️ No static SEO data for "${componentKey}"`);
-    return null;
-  }
+  if (!seoData) return null;
 
   return <SeoHelmet seoData={seoData} localizations={data?.localizations} />;
 };
@@ -92,32 +85,65 @@ const SeoMeta = ({ dynamicData = null }) => {
 export default SeoMeta;
 
 //
-// --- Підкомпонент Helmet ---
+// --- Helmet-компонент із підтримкою пагінації ---
 //
 const SeoHelmet = ({ seoData, localizations = [] }) => {
   const locale = getValidLocale();
+  const { pathname, search } = useLocation();
+
+  const params = new URLSearchParams(search);
+  const pageParam = params.get('page');
+  const pageNumber = pageParam ? parseInt(pageParam, 10) : null;
+
+  const isPaginatedPage =
+    (pathname.match(/^\/(uk|en|es|fr)?\/?country\/?$/) ||
+      pathname.match(/^\/(uk|en|es|fr)?\/?ambassadors\/list\/?$/)) !== null;
+
+  // --- Title ---
+  const fullTitle = isPaginatedPage
+    ? `${seoData.title} ${pageNumber && pageNumber > 1 ? pageNumber : 1}`
+    : seoData.title;
+
+  // --- Canonical ---
+  const canonicalUrl =
+    isPaginatedPage && pageNumber && pageNumber > 1
+      ? `${seoData.canonicalURL}?page=${pageNumber}`
+      : seoData.canonicalURL;
+
+  // --- Prev/Next ---
+  const prevUrl =
+    isPaginatedPage && pageNumber && pageNumber > 1
+      ? `${seoData.canonicalURL}?page=${pageNumber - 1}`
+      : null;
+
+  const nextUrl =
+    isPaginatedPage && pageNumber
+      ? `${seoData.canonicalURL}?page=${pageNumber + 1}`
+      : null;
 
   // --- hreflang ---
   const hreflangs = [
-    { locale, url: seoData.canonicalURL },
+    { locale, url: canonicalUrl },
     ...(Array.isArray(localizations)
       ? localizations.map(loc => ({
           locale: loc.locale,
-          url: `${seoData.canonicalURL.replace(/\/$/, '')}/${loc.locale}/`,
+          url: `${seoData.canonicalURL.replace(/\/$/, '')}/${loc.locale}/${
+            pageNumber && pageNumber > 1 ? `?page=${pageNumber}` : ''
+          }`,
         }))
       : []),
   ];
 
   return (
     <Helmet>
-      {/* --- Основні теги --- */}
-      <title>{seoData.title}</title>
+      {/* --- Основні мета-теги --- */}
+      <title>{fullTitle}</title>
       <meta name="description" content={seoData.description} />
       <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
       />
-      <link rel="canonical" href={seoData.canonicalURL} />
+      <link rel="canonical" href={canonicalUrl} />
 
       {/* --- hreflang --- */}
       {hreflangs.map(item => (
@@ -128,6 +154,10 @@ const SeoHelmet = ({ seoData, localizations = [] }) => {
           href={item.url}
         />
       ))}
+
+      {/* --- Prev/Next --- */}
+      {prevUrl && <link rel="prev" href={prevUrl} />}
+      {nextUrl && <link rel="next" href={nextUrl} />}
 
       {/* --- Favicons --- */}
       <link rel="icon" type="image/png" href="/favicon-96x96.png" />
@@ -142,7 +172,7 @@ const SeoHelmet = ({ seoData, localizations = [] }) => {
 
       {/* --- Open Graph --- */}
       <meta property="og:type" content={seoData.ogType || 'website'} />
-      <meta property="og:title" content={seoData.title} />
+      <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={seoData.description} />
       {seoData.shareImage?.url && (
         <meta property="og:image" content={seoData.shareImage.url} />

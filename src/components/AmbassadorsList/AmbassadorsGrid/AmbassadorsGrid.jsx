@@ -1,12 +1,14 @@
 import React from 'react';
 import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
+import { IoWarningOutline } from 'react-icons/io5';
 import AmbassadorItem from '../../common/AmbassadorItem';
 
 import styles from './AmbassadorsGrid.module.scss';
 
 const AmbassadorsGrid = React.memo(({ isLoading, error, data }) => {
-  if (error || !data) return null;
-
+  const { t } = useTranslation('common');
+  
   // Якщо завантажується — показати 6 “скелетонів”
   if (isLoading) {
     return (
@@ -19,6 +21,28 @@ const AmbassadorsGrid = React.memo(({ isLoading, error, data }) => {
   }
 
   const ambassadors = Array.isArray(data) ? data : [];
+
+  const Warning = ({ text, warnType }) => (
+    <div
+      role="alert"
+      aria-live="polite"
+      className={clsx('warning', {
+        ['error']: warnType === 'error',
+        ['noData']: warnType === 'nodata',
+      })}
+    >
+      <IoWarningOutline size={18} />
+      <span>{text}</span>
+    </div>
+  );
+
+  if (!ambassadors.length || error) {
+    return (
+      <div className={clsx(styles.grid, styles.loadingGridF)}>
+        <Warning warnType="nodata" text={t('controls.no_data')} />
+      </div>
+    );
+  }
 
   return (
     <div className={styles.grid}>

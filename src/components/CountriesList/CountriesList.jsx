@@ -9,6 +9,7 @@ import clsx from 'clsx';
 
 import ZonesAside from '../common/ZonesAside';
 import CountriesGrid from './CountriesGrid';
+import Pagination from '../common/Pagination';
 import styles from './CountriesList.module.scss';
 
 const CountriesList = () => {
@@ -20,12 +21,15 @@ const CountriesList = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [showAside, setShowAside] = useState(false);
   const [activeZone, setActiveZone] = useState(null);
+  const [page, setPage] = useState(1);
 
   // ---- Витяг з квері ----
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const tz = params.get('tz');
+    const p = parseInt(params.get('page') || '1', 10);
     setActiveZone(tz || null);
+    setPage(p > 0 ? p : 1);
   }, [location.search]);
 
   // ---- Адаптив ----
@@ -64,20 +68,24 @@ const CountriesList = () => {
   });
 
   // ---- Завантаження країн ----
+  const limit = 18;
+
   const {
     data: countriesData,
     isLoading,
     error,
   } = useQuery({
-    queryKey: ['countries', locale, activeZone],
+    queryKey: ['countries', locale, activeZone, page],
     queryFn: async () => {
-      const baseUrl = `/countries?locale=${locale}&page=1&limit=18`;
+      const baseUrl = `/countries?locale=${locale}&page=${page}&limit=${limit}`;
       const url = activeZone
         ? `${baseUrl}&tz=${encodeURIComponent(activeZone)}`
         : baseUrl;
+
       const res = await api.get(url);
-      return res.data;
+      return res.data; // ✅ { items, meta }
     },
+    keepPreviousData: true,
   });
 
   // ---- Перемикання фільтра ----
@@ -90,31 +98,38 @@ const CountriesList = () => {
       params.set('tz', code);
       setActiveZone(code);
     }
+    params.set('page', '1');
     navigate({ search: params.toString() });
   };
 
-  // ---- Підготовка списку країн ----
-  const countries = Array.isArray(countriesData) ? countriesData : [];
+  // ---- Зміна сторінки ----
+  const handlePageChange = newPage => {
+    const params = new URLSearchParams(location.search);
+    if (activeZone) params.set('tz', activeZone);
+    params.set('page', newPage.toString());
+    navigate({ search: params.toString() });
+  };
 
-  // 🔁 Розгортаємо країни по всіх часових зонах
-  const expandedCountries = countries.flatMap(country => {
-    const zones = country.time_zones || [];
-    if (!zones.length) return [country];
+  useEffect(() => {
+    const topEl = document.getElementById('topPage');
+    if (!topEl) return;
 
-    // Створюємо копію країни для кожного таймзону
-    return zones.map(tz => ({
-      ...country,
-      time_zones: [tz], // лише поточна зона
-    }));
-  });
+    const rect = topEl.getBoundingClientRect();
+    const offsetTop = rect.top + window.scrollY;
 
-  // 🧭 Якщо вибрано фільтр — залишаємо лише вибрану зону
-  const filteredCountries = activeZone
-    ? expandedCountries.filter(
-        item =>
-          item.time_zones?.[0]?.code?.toLowerCase() === activeZone.toLowerCase()
-      )
-    : expandedCountries;
+    const y = isMobile ? offsetTop - 40 : offsetTop;
+
+    window.scrollTo({
+      top: y,
+      behavior: 'smooth',
+    });
+  }, [page, isMobile]);
+
+  // ---- Підготовка даних ----
+  const countries = Array.isArray(countriesData?.items)
+    ? countriesData.items
+    : [];
+  const totalPages = countriesData?.meta?.pagination?.pageCount || 1;
 
   // ---- Рендер ----
   return (
@@ -159,7 +174,7 @@ const CountriesList = () => {
         )}
 
         {/* --- Основний контент --- */}
-        <div className={styles.inner}>
+        <div className={styles.inner} id="topPage">
           {!isMobile && (
             <ZonesAside
               isLoading={zonesLoading}
@@ -169,11 +184,22 @@ const CountriesList = () => {
             />
           )}
 
-          <CountriesGrid
-            isLoading={isLoading}
-            error={error}
-            data={filteredCountries}
-          />
+          <div className={styles.gridWrapper}>
+            <CountriesGrid
+              isLoading={isLoading}
+              error={error}
+              data={countries}
+            />
+
+            {/* --- Пагінація --- */}
+            {totalPages > 1 && (
+              <Pagination
+                currentPage={page}
+                totalPages={totalPages}
+                onChange={handlePageChange}
+              />
+            )}
+          </div>
         </div>
       </div>
     </section>

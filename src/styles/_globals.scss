@@ -78,7 +78,8 @@
 	}
 }
 
-input[type="text"], input[type="email"],
+input[type="text"],
+input[type="email"],
 textarea {
 	border-radius: 1.25rem;
 	border: 1px solid rgba(255, 255, 255, 0.6);
@@ -303,7 +304,8 @@ textarea {
 		display: none !important;
 	}
 
-	input[type="text"], input[type="email"],
+	input[type="text"],
+	input[type="email"],
 	textarea {
 		border-radius: 0.625rem;
 		height: 3.125rem;
@@ -565,6 +567,38 @@ textarea {
 	.greenH,
 	.blueH {
 		transition: 0.2s 0.2s;
+	}
+}
+
+.warning {
+	width: 100%;
+	text-align: center;
+	svg {
+		width: 8rem;
+		margin-bottom: 1rem;
+		height: auto;
+	}
+	span {
+		display: block;
+		font-size: 1.25rem;
+	}
+
+	&.error {
+		svg {
+			fill: $color-primary;
+			path {
+				stroke: $color-primary;
+			}
+		}
+	}
+
+	&.noData {
+		svg {
+			fill: $color-yellow;
+			path {
+				stroke: $color-yellow;
+			}
+		}
 	}
 }
 
