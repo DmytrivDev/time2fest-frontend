@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { CircleFlag } from 'react-circle-flags';
 import clsx from 'clsx';
-import styles from './AmbassadorsAside.module.scss';
+import styles from './ZonesAside.module.scss';
 
 const AmbassadorsAside = ({
   isLoading,

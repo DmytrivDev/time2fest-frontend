@@ -1,0 +1,99 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.section {
+	padding-top: 5.44rem;
+	padding-bottom: 6.25rem;
+	position: relative;
+}
+
+.title {
+	font-size: 2.5rem;
+	line-height: 1.4;
+}
+
+.subtitle {
+	font-size: 1.125rem;
+	line-height: 1.8;
+	margin-top: 1rem;
+}
+
+.inner {
+	margin-top: 3.12rem;
+	display: grid;
+	grid-template-columns: 23.5rem 64.0625rem;
+	justify-content: space-between;
+	align-items: flex-start;
+	align-content: flex-start;
+}
+
+.container {
+	position: static;
+}
+
+.asidePanel {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 21rem;
+	height: 100vh;
+	transform: translateX(-100%);
+	transition: transform 0.35s ease;
+	z-index: 2000;
+	overflow-y: auto;
+
+	&.open {
+		transform: translateX(0);
+	}
+}
+
+.asideBackdrop {
+	position: fixed;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.4);
+	backdrop-filter: blur(2px);
+	opacity: 0;
+	visibility: hidden;
+	transition: all 0.3s ease;
+	z-index: 2000;
+
+	&.visible {
+		opacity: 1;
+		visibility: visible;
+	}
+}
+
+@media screen and (max-width: 1140px) {
+	.section {
+		padding-top: 3.75rem 0;
+	}
+
+	.title {
+		font-size: 1.625rem;
+	}
+
+	.subtitle {
+		font-size: 0.875rem;
+	}
+
+	.inner {
+		margin-top: 2.5rem;
+		grid-template-columns: calc(33% - 0.5rem) calc(67% - 0.5rem);
+		gap: 1rem;
+		display: grid;
+		justify-content: inherit;
+	}
+}
+
+@media screen and (max-width: 868px) {
+	.inner {
+		grid-template-columns: 1fr;
+	}
+	.mobBtn {
+		margin-top: 2rem;
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 475px) {
+}

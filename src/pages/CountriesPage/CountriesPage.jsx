@@ -1,9 +1,9 @@
-import AmbassadorsList from '../../components/AmbassadorsList/AmbassadorsList';
+import CountriesList from '../../components/CountriesList/CountriesList';
 
 const CountriesPage = () => {
   return (
     <>
-      <AmbassadorsList />
+      <CountriesList />
     </>
   );
 };

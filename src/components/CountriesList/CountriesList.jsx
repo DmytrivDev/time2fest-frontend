@@ -8,11 +8,11 @@ import { api } from '@/utils/api';
 import clsx from 'clsx';
 
 import ZonesAside from '../common/ZonesAside';
-import AmbassadorsGrid from './AmbassadorsGrid';
+import CountriesGrid from './CountriesGrid';
 
-import styles from './AmbassadorsList.module.scss';
+import styles from './CountriesList.module.scss';
 
-const AmbassadorsList = () => {
+const CountriesList = () => {
   const { t } = useTranslation();
   const locale = getValidLocale();
   const location = useLocation();
@@ -22,7 +22,7 @@ const AmbassadorsList = () => {
   const handleKeyDown = useCallback(
     e => {
       if (e.key === 'Escape') {
-        setShowAside();
+        setShowAside(false);
       }
     },
     [setShowAside]
@@ -36,12 +36,12 @@ const AmbassadorsList = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // ---- Блокування скролу ----
   useEffect(() => {
     if (showAside) {
       document.addEventListener('keydown', handleKeyDown);
       lockScroll(document.body);
     }
-
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
       unlockScroll();
@@ -52,33 +52,39 @@ const AmbassadorsList = () => {
   const params = new URLSearchParams(location.search);
   const activeZone = params.get('tz');
 
+  // ---- Отримання даних країн (перших 24) ----
   const { data, isLoading, error } = useQuery({
-    queryKey: ['ambassadors-list', locale],
+    queryKey: ['countries', locale],
     queryFn: async () => {
-      const res = await api.get(`/ambassadors-list?locale=${locale}`);
+      // Перші 24 країни
+      const res = await api.get(`/countries?locale=${locale}&page=1&limit=24`);
       return res.data;
     },
   });
 
   if (error || !data) return null;
 
-  const ambassadors = Array.isArray(data) ? data : [];
+  const countries = Array.isArray(data) ? data : [];
 
   // ---- Фільтрація ----
-  const filteredAmbassadors = activeZone
-    ? ambassadors.filter(amb => amb.timeZone === activeZone)
-    : ambassadors;
+  const filteredCountries = activeZone
+    ? countries.filter(c => c.time_zones?.some?.(z => z.code === activeZone))
+    : countries;
 
   // ---- Групування ----
   const timeZoneMap = new Map();
-  ambassadors.forEach(amb => {
-    const tz = amb.timeZone || 'Unknown';
-    const flag = amb.country?.code || null;
-    if (!timeZoneMap.has(tz)) {
-      timeZoneMap.set(tz, { code: tz, flags: new Set() });
-    }
-    const entry = timeZoneMap.get(tz);
-    if (flag) entry.flags.add(flag);
+  countries.forEach(c => {
+    const zones = c.time_zones || [];
+    const flag = c.CountryCode || null;
+
+    zones.forEach(z => {
+      const tz = z.code || 'Unknown';
+      if (!timeZoneMap.has(tz)) {
+        timeZoneMap.set(tz, { code: tz, flags: new Set() });
+      }
+      const entry = timeZoneMap.get(tz);
+      if (flag) entry.flags.add(flag);
+    });
   });
 
   const timeZonesData = Array.from(timeZoneMap.values()).map(item => ({
@@ -105,17 +111,15 @@ const AmbassadorsList = () => {
     <section className={styles.section}>
       <div className={clsx('container', styles.container)}>
         <div className={styles.header}>
-          <h1 className={styles.title}>{t('ambassadors.ambassadors_title')}</h1>
-          <p className={styles.subtitle}>
-            {t('ambassadors.ambassadors_subtitle')}
-          </p>
+          <h1 className={styles.title}>{t('countries.countries_title')}</h1>
+          <p className={styles.subtitle}>{t('countries.countries_subtitle')}</p>
 
           {isMobile && (
             <button
               onClick={() => setShowAside(!showAside)}
               className={clsx(styles.mobBtn, 'btn_primary')}
             >
-              {t('ambassadors.choose_timezone')}
+              {t('countries.choose_timezone')}
             </button>
           )}
         </div>
@@ -141,6 +145,7 @@ const AmbassadorsList = () => {
             </div>
           </>
         )}
+
         <div className={styles.inner}>
           {!isMobile && (
             <ZonesAside
@@ -150,10 +155,10 @@ const AmbassadorsList = () => {
               activeZone={activeZone}
             />
           )}
-          <AmbassadorsGrid
+          <CountriesGrid
             isLoading={isLoading}
             error={error}
-            data={filteredAmbassadors}
+            data={filteredCountries}
           />
         </div>
       </div>
@@ -161,4 +166,4 @@ const AmbassadorsList = () => {
   );
 };
 
-export default AmbassadorsList;
+export default CountriesList;
