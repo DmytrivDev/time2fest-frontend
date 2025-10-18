@@ -30,7 +30,7 @@ const AmbassadorsRand = React.memo(({ exclude, lang }) => {
 
       const res = await api.get(`/ambassadors-list?${params.toString()}`);
       // підтримка формату Strapi і прямого масиву
-      const data = Array.isArray(res.data) ? res.data : res.data?.data || [];
+      const data = Array.isArray(res.data.items) ? res.data.items : res.data?.data.items || [];
 
       return data;
     },

@@ -23,9 +23,9 @@ const AmbassadorDetailPage = () => {
     queryKey: ['ambassador-detail', slug, locale],
     queryFn: async () => {
       const res = await api.get(`/ambassadors-list?locale=${locale}&full=true`);
-      const ambassador = Array.isArray(res.data)
-        ? res.data.find(amb => amb.slug === slug)
-        : res.data?.data?.find(amb => amb.slug === slug);
+      const ambassador = Array.isArray(res.data.items)
+        ? res.data.items.find(amb => amb.slug === slug)
+        : res.data?.data?.items.find(amb => amb.slug === slug);
 
       return ambassador || null;
     },

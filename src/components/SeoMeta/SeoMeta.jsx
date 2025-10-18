@@ -14,7 +14,7 @@ function getPageFromPath(pathname) {
   if (parts[0] && SUPPORTED_LANGS.includes(parts[0])) parts.shift();
 
   if (parts[0] === 'ambassadors' && parts[1] === 'list')
-    return 'AmbassadorsList';
+    return 'AmbassadorsList'; // ✅ саме так — ця сторінка окрема у Strapi
   if (parts[0] === 'country' && parts[1]) return 'country';
 
   return parts.length === 0 ? 'home' : parts[0];
@@ -28,13 +28,15 @@ const SeoMeta = ({ dynamicData = null }) => {
   const { pathname } = useLocation();
   const page = getPageFromPath(pathname);
 
-  const isCountryPage = pathname.includes('/country/');
-  const isAmbassadorPage = pathname.includes('/ambassadors/list');
-  const isDynamicPage = isCountryPage || isAmbassadorPage;
+  // --- Визначення типу сторінки ---
+  const isCountryDetail = pathname.match(/\/country\/[^/]+$/); // /country/poland
+  const isAmbassadorDetail = pathname.match(/\/ambassadors\/list\/[^/]+$/); // /ambassadors/list/tami
+  const isDynamicPage = isCountryDetail || isAmbassadorDetail;
 
-  // --- Мапінг назв сторінок до Strapi-компонентів ---
+  // --- Маппінг назв сторінок до Strapi-компонентів ---
   let pageS = page;
   if (page === 'ambassadors') pageS = 'ambass';
+  if (page === 'AmbassadorsList') pageS = 'AmbassadorsList';
   if (page === 'become-ambassador') pageS = 'Form';
   if (page === 'privacy') pageS = 'polict';
   if (page === 'disclaimer') pageS = 'responsibility';
@@ -48,24 +50,28 @@ const SeoMeta = ({ dynamicData = null }) => {
       const res = await api.get(`/seo?page=${pageS}&locale=${locale}`);
       return res.data;
     },
-    enabled: !isDynamicPage && !!pageS,
+    enabled: !!pageS && !isDynamicPage, // ✅ тепер запит для ambassadors-list буде
     staleTime: 5 * 60 * 1000,
   });
 
   if (error) console.error('❌ SEO fetch error:', error);
 
   //
-  // --- 🔹 Динамічні сторінки (країни / амбасадори) ---
+  // --- 🔹 Динамічні сторінки (деталі країн або амбасадорів) ---
   //
   if (isDynamicPage) {
-    const hasCountryData = isCountryPage && !!dynamicData?.CountryName;
+    const hasCountryData = isCountryDetail && !!dynamicData?.CountryName;
     const hasAmbassadorData =
-      isAmbassadorPage && (!!dynamicData?.name || !!dynamicData?.country?.name);
+      isAmbassadorDetail &&
+      (!!dynamicData?.name || !!dynamicData?.country?.name);
 
     if (!hasCountryData && !hasAmbassadorData) return null;
 
     const dynamicSeo = getDynamicSeo(pathname, locale, dynamicData);
-    if (!dynamicSeo) return null;
+    if (!dynamicSeo) {
+      console.warn('⚠️ No dynamic SEO data generated for:', pathname);
+      return null;
+    }
 
     return <SeoHelmet seoData={dynamicSeo} />;
   }
@@ -77,7 +83,11 @@ const SeoMeta = ({ dynamicData = null }) => {
 
   const componentKey = `${pageS.charAt(0).toUpperCase()}${pageS.slice(1)}SeoMeta`;
   const seoData = data?.[componentKey];
-  if (!seoData) return null;
+
+  if (!seoData) {
+    console.warn(`⚠️ No static SEO data for "${componentKey}"`);
+    return null;
+  }
 
   return <SeoHelmet seoData={seoData} localizations={data?.localizations} />;
 };
@@ -93,33 +103,36 @@ const SeoHelmet = ({ seoData, localizations = [] }) => {
 
   const params = new URLSearchParams(search);
   const pageParam = params.get('page');
-  const pageNumber = pageParam ? parseInt(pageParam, 10) : null;
+  const pageNumber = pageParam ? parseInt(pageParam, 10) : 1;
 
-  const isPaginatedPage =
-    (pathname.match(/^\/(uk|en|es|fr)?\/?country\/?$/) ||
-      pathname.match(/^\/(uk|en|es|fr)?\/?ambassadors\/list\/?$/)) !== null;
+  // --- Перевірка пагінації для двох спискових сторінок ---
+  const isCountryList = /\/(uk|en|es|fr)?\/?country\/?$/.test(pathname);
+  const isAmbassadorsList = /\/(uk|en|es|fr)?\/?ambassadors\/list\/?$/.test(
+    pathname
+  );
+  const isPaginatedPage = isCountryList || isAmbassadorsList;
 
   // --- Title ---
-  const fullTitle = isPaginatedPage
-    ? `${seoData.title} ${pageNumber && pageNumber > 1 ? pageNumber : 1}`
-    : seoData.title;
+  const fullTitle =
+    isPaginatedPage
+      ? `${seoData.title} ${pageNumber && pageNumber > 1 ? pageNumber : ' 1'}`
+      : seoData.title;
 
   // --- Canonical ---
   const canonicalUrl =
-    isPaginatedPage && pageNumber && pageNumber > 1
-      ? `${seoData.canonicalURL}?page=${pageNumber}`
+    isPaginatedPage && pageNumber > 1
+      ? `${seoData.canonicalURL.replace(/\/$/, '')}?page=${pageNumber}`
       : seoData.canonicalURL;
 
   // --- Prev/Next ---
   const prevUrl =
-    isPaginatedPage && pageNumber && pageNumber > 1
-      ? `${seoData.canonicalURL}?page=${pageNumber - 1}`
+    isPaginatedPage && pageNumber > 1
+      ? `${seoData.canonicalURL.replace(/\/$/, '')}?page=${pageNumber - 1}`
       : null;
 
-  const nextUrl =
-    isPaginatedPage && pageNumber
-      ? `${seoData.canonicalURL}?page=${pageNumber + 1}`
-      : null;
+  const nextUrl = isPaginatedPage
+    ? `${seoData.canonicalURL.replace(/\/$/, '')}?page=${pageNumber + 1}`
+    : null;
 
   // --- hreflang ---
   const hreflangs = [
@@ -127,16 +140,14 @@ const SeoHelmet = ({ seoData, localizations = [] }) => {
     ...(Array.isArray(localizations)
       ? localizations.map(loc => ({
           locale: loc.locale,
-          url: `${seoData.canonicalURL.replace(/\/$/, '')}/${loc.locale}/${
-            pageNumber && pageNumber > 1 ? `?page=${pageNumber}` : ''
-          }`,
+          url: `${seoData.canonicalURL.replace(/\/$/, '')}/${loc.locale}/`,
         }))
       : []),
   ];
 
   return (
     <Helmet>
-      {/* --- Основні мета-теги --- */}
+      {/* --- Основні теги --- */}
       <title>{fullTitle}</title>
       <meta name="description" content={seoData.description} />
       <meta
@@ -224,8 +235,7 @@ const SeoHelmet = ({ seoData, localizations = [] }) => {
           {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
           n.callMethod.apply(n,arguments):n.queue.push(arguments)};
           if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-          n.queue=[];
-          t=b.createElement(e);t.async=!0;t.src=v;
+          n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;
           s=b.getElementsByTagName(e)[0];
           s.parentNode.insertBefore(t,s)}
           (window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
