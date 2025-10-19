@@ -32,7 +32,9 @@ export default function LoginPage() {
         localStorage.setItem('refreshToken', res.data.refreshToken);
         localStorage.setItem('user', JSON.stringify(res.data));
 
-        navigate(`/${i18n.language !== 'en' ? i18n.language + '/profile' : 'profile'}`);
+        navigate(
+          `/${i18n.language !== 'en' ? i18n.language + '/profile' : 'profile'}`
+        );
       } catch (err) {
         console.error('Google login error:', err);
         toast.error(t('auth.errorGoogle'));
@@ -65,7 +67,9 @@ export default function LoginPage() {
       localStorage.setItem('accessToken', res.accessToken);
       localStorage.setItem('refreshToken', res.refreshToken);
       localStorage.setItem('user', JSON.stringify(res));
-      navigate(`/${i18n.language !== 'en' ? i18n.language + '/profile' : 'profile'}`);
+      navigate(
+        `/${i18n.language !== 'en' ? i18n.language + '/profile' : 'profile'}`
+      );
     },
     onError: err => {
       console.error('Login error:', err);
@@ -124,16 +128,20 @@ export default function LoginPage() {
                   type="button"
                   className={clsx(styles.social, styles.google)}
                   onClick={() => {
+                    // 🔹 Зберігаємо поточну мову в куку на 5 хв
+                    document.cookie = `login_lang=${i18n.language}; path=/; max-age=300; SameSite=Lax`;
                     window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`;
                   }}
                 >
                   <img src="/auth/google.svg" alt="" />{' '}
                   {t('auth.continueGoogle')}
                 </button>
+
                 <button
                   type="button"
                   className={clsx(styles.social, styles.facebook)}
                   onClick={() => {
+                    document.cookie = `login_lang=${i18n.language}; path=/; max-age=300; SameSite=Lax`;
                     window.location.href = `${import.meta.env.VITE_API_URL}/auth/facebook`;
                   }}
                 >
