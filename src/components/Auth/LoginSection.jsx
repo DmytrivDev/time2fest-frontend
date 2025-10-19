@@ -128,7 +128,6 @@ export default function LoginPage() {
                   type="button"
                   className={clsx(styles.social, styles.google)}
                   onClick={() => {
-                    // 🔹 Зберігаємо поточну мову в куку на 5 хв
                     document.cookie = `login_lang=${i18n.language}; path=/; max-age=300; SameSite=Lax`;
                     window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`;
                   }}
