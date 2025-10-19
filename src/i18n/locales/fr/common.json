@@ -143,6 +143,7 @@
     "privacy": "Politique de Confidentialité",
     "and": "<br/>et l’ ",
     "agreement": "Accord d’Ambassadeur",
+    "terms": "Conditions d’utilisation",
     "errorPolicy": "Vous devez accepter pour continuer."
   },
   "modal": {
@@ -227,7 +228,11 @@
     "errorEmailExists": "Cet e-mail est déjà enregistré",
     "errorPasswordWeak": "Le mot de passe est trop court ou invalide",
     "errorServer": "Une erreur du serveur s'est produite. Veuillez réessayer plus tard",
-    "errorGoogle": "Erreur de connexion avec Google"
+    "errorGoogle": "Erreur de connexion avec Google",
+    "loginTitle": "Connexion",
+    "errorInvalidCredentials": "Adresse e-mail ou mot de passe incorrect",
+    "registration": "S'inscrire",
+    "noAccount": "Vous n'avez pas de compte ?"
   },
   "countries": {
     "kiribati": "Kiribati",

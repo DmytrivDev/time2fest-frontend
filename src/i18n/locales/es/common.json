@@ -143,6 +143,7 @@
     "privacy": "Política de Privacidad",
     "and": "y el ",
     "agreement": "Acuerdo de Embajadores",
+    "terms": "Términos de uso",
     "errorPolicy": "Debe aceptar para continuar."
   },
   "modal": {
@@ -227,7 +228,11 @@
     "errorEmailExists": "Este correo electrónico ya está registrado",
     "errorPasswordWeak": "La contraseña es demasiado corta o no válida",
     "errorServer": "Se produjo un error en el servidor. Inténtalo de nuevo más tarde",
-    "errorGoogle": "Error de inicio de sesión con Google"
+    "errorGoogle": "Error de inicio de sesión con Google",
+    "loginTitle": "Iniciar sesión",
+    "errorInvalidCredentials": "Correo o contraseña incorrectos",
+    "registration": "Registrarse",
+    "noAccount": "¿No tienes una cuenta?"
   },
   "countries": {
     "kiribati": "Kiribati",

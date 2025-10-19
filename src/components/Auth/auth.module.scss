@@ -41,7 +41,7 @@
 		justify-content: center;
 		align-items: center;
 		align-content: center;
-		gap: .75rem;
+		gap: 0.75rem;
 		font-size: 1.125rem;
 
 		img {
@@ -57,12 +57,13 @@
 	position: relative;
 	margin-top: 1.88rem;
 
-	&::before, &::after {
+	&::before,
+	&::after {
 		content: "";
 		position: absolute;
 		top: 50%;
 		height: 1px;
-		background: rgba(255, 255, 255, 0.60);
+		background: rgba(255, 255, 255, 0.6);
 		width: calc(50% - 2.5rem);
 	}
 
@@ -105,7 +106,7 @@
 
 .error {
 	margin-top: 0.5rem;
-	color: #F94A51;
+	color: #f94a51;
 }
 
 .imageSide {
@@ -120,10 +121,58 @@
 	}
 }
 
+.submitBtn {
+	position: relative;
 
+	span {
+		opacity: 0;
+		visibility: hidden;
+		position: absolute;
+		top: -0.0625rem;
+		left: -0.0625rem;
+		right: -0.0625rem;
+		bottom: -0.0625rem;
+		z-index: 2;
+		background-color: $red2;
+		transition: all 0.15s ease-in;
 
+		&::before {
+			content: "";
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			z-index: 3;
+			transform: translateX(-50%) translateY(-50%);
+			width: 1.5rem;
+			height: 1.5rem;
+			border: 0.25rem solid $color-light;
+			border-bottom-color: transparent;
+			border-radius: 50%;
+			display: inline-block;
+			box-sizing: border-box;
+			animation: rotation 1s linear infinite;
+		}
+	}
+}
+.load {
+	span {
+		opacity: 1;
+		visibility: visible;
+	}
+}
 
+@keyframes rotation {
+	0% {
+		transform: translateX(-50%) translateY(-50%) rotate(0deg);
+	}
+	100% {
+		transform: translateX(-50%) translateY(-50%) rotate(360deg);
+	}
+}
 
+.logintBtn {
+	margin-top: 1rem;
+}
 
 @media screen and (max-width: 1140px) {
 }

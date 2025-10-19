@@ -80,7 +80,8 @@
 
 input[type="text"],
 input[type="email"],
-input[type="password"], textarea {
+input[type="password"],
+textarea {
 	border-radius: 1.25rem;
 	border: 1px solid rgba(255, 255, 255, 0.6);
 	background: rgba(255, 255, 255, 0.1);
@@ -306,7 +307,8 @@ textarea {
 
 	input[type="text"],
 	input[type="email"],
-	input[type="password"], textarea {
+	input[type="password"],
+	textarea {
 		border-radius: 0.625rem;
 		height: 3.125rem;
 		padding: 0 1.125rem;
@@ -618,4 +620,63 @@ textarea {
 			}
 		}
 	}
+}
+
+.time2fest-toast {
+	border-radius: 10px;
+	font-size: 15px;
+	padding: 10px 16px;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	box-shadow: 0 0 12px rgba(255, 230, 90, 0.2);
+	background: #121212;
+	color: #fff;
+}
+
+/* 🔸 Успіх */
+.time2fest-toast--success {
+	border-color: rgba(252, 226, 134, 0.6);
+	box-shadow: 0 0 15px rgba(252, 226, 134, 0.3);
+}
+
+/* 🔺 Помилка */
+.time2fest-toast--error {
+	border-color: rgba(249, 74, 81, 0.6);
+	box-shadow: 0 0 15px rgba(249, 74, 81, 0.3);
+}
+
+/* 🔹 Завантаження */
+.time2fest-toast--loading {
+	border-color: rgba(255, 255, 255, 0.2);
+	color: #fce286;
+}
+
+/* ✨ Анімації */
+@keyframes toastEnter {
+	from {
+		opacity: 0;
+		transform: translateY(-10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes toastExit {
+	from {
+		opacity: 1;
+		transform: translateY(0);
+	}
+	to {
+		opacity: 0;
+		transform: translateY(-10px);
+	}
+}
+
+.time2fest-toast {
+	animation: toastEnter 0.3s ease-out;
+}
+
+[data-visible="false"] .time2fest-toast {
+	animation: toastExit 0.25s ease-in;
 }

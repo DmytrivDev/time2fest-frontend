@@ -1,4 +1,4 @@
-import RegisterSection from '../../components/Auth/RegisterSection/RegisterSection';
+import RegisterSection from '../../components/Auth/RegisterSection';
 
 const RegisterPage = () => {
   return (

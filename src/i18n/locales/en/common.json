@@ -143,6 +143,7 @@
     "privacy": "Privacy Policy",
     "and": "and the ",
     "agreement": "Ambassador Agreement",
+    "terms": "Terms of Use",
     "errorPolicy": "You must accept to continue."
   },
   "modal": {
@@ -227,7 +228,11 @@
     "errorEmailExists": "This email is already registered",
     "errorPasswordWeak": "The password is too short or invalid",
     "errorServer": "A server error occurred. Please try again later",
-    "errorGoogle": "Google login error"
+    "errorGoogle": "Google login error",
+    "loginTitle": "Login",
+    "errorInvalidCredentials": "Invalid email or password",
+    "registration": "Sign up",
+    "noAccount": "Don't have an account?"
   },
   "countries": {
     "kiribati": "Kiribati",

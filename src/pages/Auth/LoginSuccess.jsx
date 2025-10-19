@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '@/utils/api';
+import { useTranslation } from 'react-i18next';
 
 export default function LoginSuccess() {
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,13 +26,13 @@ export default function LoginSuccess() {
         })
         .then((res) => {
           localStorage.setItem('user', JSON.stringify(res.data));
-          navigate('/profile');
+          navigate(`/${i18n.language !== 'en' ? i18n.language + '/profile' : 'profile'}`);
         })
         .catch(() => {
-          navigate('/register');
+          navigate(`/${i18n.language !== 'en' ? i18n.language + '/register' : 'register'}`);
         });
     } else {
-      navigate('/register');
+      navigate(`/${i18n.language !== 'en' ? i18n.language + '/register' : 'register'}`);
     }
   }, [navigate]);
 

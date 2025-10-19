@@ -2,6 +2,7 @@ import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { lazy, Suspense, useEffect } from 'react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { Toaster } from 'react-hot-toast';
 
 import { DEFAULT_LANG, SUPPORTED_LANGS } from './i18n/languages';
 import LanguageLayout from './layouts/LanguageLayout/LanguageLayout';
@@ -32,6 +33,7 @@ const ContactPage = lazy(() => import('./pages/ContactPage/ContactPage'));
 const RegisterPage = lazy(() => import('./pages/Auth/RegisterPage'));
 const ProfilePage = lazy(() => import('./pages/ProfilePage/ProfilePage'));
 const LoginSuccess = lazy(() => import('./pages/Auth/LoginSuccess'));
+const LoginPage = lazy(() => import('./pages/Auth/LoginPage'));
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
@@ -59,18 +61,15 @@ const App = () => {
           <Route path="/" element={<LanguageLayout />}>
             <Route index element={<HomePage />} />
             <Route path="about" element={<AboutPage />} />
-
             <Route path="country" element={<CountriesLayout />}>
               <Route index element={<CountriesPage />} />
               <Route path=":slug" element={<CountryPage />} />
             </Route>
-
             <Route path="ambassadors" element={<AmbassLayout />}>
               <Route index element={<AmbassPage />} />
               <Route path="list" element={<AmbassadorsListPage />} />
               <Route path="list/:slug" element={<AmbassadorDetailPage />} />
             </Route>
-
             <Route path="become-ambassador" element={<FormPage />} />
             <Route path="contact" element={<ContactPage />} />
             <Route path="privacy" element={<PrivacyPage />} />
@@ -79,7 +78,8 @@ const App = () => {
             <Route path="terms" element={<TermsPage />} />
             <Route path="register" element={<RegisterPage />} />
             <Route path="profile" element={<ProfilePage />} />
-            <Route path="login-success" element={<LoginSuccess />} />м
+            <Route path="login-success" element={<LoginSuccess />} />
+            <Route path="login" element={<LoginPage />} />
           </Route>
 
           {/* redirect default lang */}
@@ -120,11 +120,28 @@ const App = () => {
             <Route path="register" element={<RegisterPage />} />
             <Route path="profile" element={<ProfilePage />} />
             <Route path="login-success" element={<LoginSuccess />} />
+            <Route path="login" element={<LoginPage />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>
+      <Toaster
+        position="bottom-right"
+        toastOptions={{
+          duration: 3500,
+          className: 'time2fest-toast',
+          success: {
+            className: 'time2fest-toast time2fest-toast--success',
+          },
+          error: {
+            className: 'time2fest-toast time2fest-toast--error',
+          },
+          loading: {
+            className: 'time2fest-toast time2fest-toast--loading',
+          },
+        }}
+      />
     </GoogleOAuthProvider>
   );
 };

@@ -6,24 +6,24 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { api } from '@/utils/api';
 import { useGoogleLogin } from '@react-oauth/google';
-import styles from './RegisterSection.module.scss';
+import toast from 'react-hot-toast';
+import styles from './auth.module.scss';
 
-const registerUser = async data => {
-  const res = await api.post('/auth/register', data);
+const loginUser = async data => {
+  const res = await api.post('/auth/login', data);
   return res.data;
 };
 
-export default function RegisterPage() {
+export default function LoginPage() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [serverError, setServerError] = useState('');
 
+  // --- Google Login ---
   const googleLogin = useGoogleLogin({
     flow: 'auth-code',
     onSuccess: async tokenResponse => {
       try {
-        console.log('Google auth code:', tokenResponse.code);
-
         const res = await api.post('/auth/google', {
           code: tokenResponse.code,
         });
@@ -32,18 +32,19 @@ export default function RegisterPage() {
         localStorage.setItem('refreshToken', res.data.refreshToken);
         localStorage.setItem('user', JSON.stringify(res.data));
 
-        navigate('/profile');
+        navigate(`/${i18n.language !== 'en' ? i18n.language + '/profile' : 'profile'}`);
       } catch (err) {
         console.error('Google login error:', err);
-        alert(t('auth.errorGoogle'));
+        toast.error(t('auth.errorGoogle'));
       }
     },
     onError: error => {
       console.error('Google login failed:', error);
-      alert(t('auth.errorGoogle'));
+      toast.error(t('auth.errorGoogle'));
     },
   });
 
+  // --- React Hook Form ---
   const {
     register,
     handleSubmit,
@@ -52,46 +53,47 @@ export default function RegisterPage() {
     clearErrors,
   } = useForm({
     defaultValues: {
-      name: '',
       email: '',
       password: '',
-      policy: false,
     },
   });
 
+  // --- Login Mutation ---
   const mutation = useMutation({
-    mutationFn: registerUser,
+    mutationFn: loginUser,
     onSuccess: res => {
       localStorage.setItem('accessToken', res.accessToken);
       localStorage.setItem('refreshToken', res.refreshToken);
       localStorage.setItem('user', JSON.stringify(res));
-      navigate('/profile');
+      navigate(`/${i18n.language !== 'en' ? i18n.language + '/profile' : 'profile'}`);
     },
     onError: err => {
-      console.error('Registration error:', err);
+      console.error('Login error:', err);
       const msg = err?.response?.data?.message;
 
-      // Спочатку очищуємо попередні помилки
       clearErrors();
       setServerError('');
 
-      if (msg === 'Email already in use') {
-        setError('email', {
-          type: 'manual',
-          message: t('auth.errorEmailExists'),
-        });
-      } else if (
-        Array.isArray(msg) &&
-        msg.some(m => m.toLowerCase().includes('password'))
-      ) {
+      if (msg === 'Invalid credentials') {
         setError('password', {
           type: 'manual',
-          message: t('auth.errorPasswordWeak'),
+          message: t('auth.errorInvalidCredentials'),
         });
+        toast.error(t('auth.errorInvalidCredentials'));
+      } else if (msg === 'User not found') {
+        setError('email', {
+          type: 'manual',
+          message: t('auth.errorEmailNotFound'),
+        });
+        toast.error(t('auth.errorEmailNotFound'));
       } else if (Array.isArray(msg)) {
-        setServerError(msg.join(', '));
+        const joinedMsg = msg.join(', ');
+        setServerError(joinedMsg);
+        toast.error(joinedMsg);
       } else {
-        setServerError(t('auth.errorServer'));
+        const serverMsg = t('auth.errorServer');
+        setServerError(serverMsg);
+        toast.error(serverMsg);
       }
     },
   });
@@ -99,7 +101,6 @@ export default function RegisterPage() {
   const onSubmit = data => {
     setServerError('');
     mutation.mutate({
-      name: data.name,
       email: data.email,
       password: data.password,
     });
@@ -115,15 +116,15 @@ export default function RegisterPage() {
 
           <div className={styles.formSide}>
             <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-              <h1 className={styles.title}>{t('auth.registerTitle')}</h1>
+              <h1 className={styles.title}>{t('auth.loginTitle')}</h1>
 
-              {/* 🔹 Соціальні кнопки (ще без логіки) */}
+              {/* 🔹 Соціальні кнопки */}
               <div className={styles.socialLoginList}>
                 <button
                   type="button"
                   className={clsx(styles.social, styles.google)}
                   onClick={() => {
-                    window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`;
+                    window.location.href = `${import.meta.env.VITE_API_URL}/auth/google?state=${i18n.language}`;
                   }}
                 >
                   <img src="/auth/google.svg" alt="" />{' '}
@@ -132,7 +133,9 @@ export default function RegisterPage() {
                 <button
                   type="button"
                   className={clsx(styles.social, styles.facebook)}
-                  onClick={() => alert('Facebook login coming soon')}
+                  onClick={() => {
+                    window.location.href = `${import.meta.env.VITE_API_URL}/auth/facebook?state=${i18n.language}`;
+                  }}
                 >
                   <img src="/auth/facebook.svg" alt="" />{' '}
                   {t('auth.continueFacebook')}
@@ -148,31 +151,15 @@ export default function RegisterPage() {
 
               <div className={styles.divider}>{t('auth.or')}</div>
 
-              {/* 🔹 Серверна помилка (над усіма полями) */}
+              {/* 🔹 Серверна помилка */}
               {serverError && (
                 <p className={clsx(styles.error, styles.serverError)}>
                   {serverError}
                 </p>
               )}
 
-              {/* 🔹 Поля звичайної реєстрації */}
+              {/* 🔹 Поля логіну */}
               <div className={styles.simpleLogin}>
-                <div className={styles.form__part}>
-                  <label className={styles.label}>{t('auth.username')}</label>
-                  <input
-                    type="text"
-                    {...register('name', { required: true, minLength: 2 })}
-                    className={clsx(
-                      styles.input,
-                      errors.name && styles.errorInput
-                    )}
-                    placeholder={t('auth.usernamePlaceholder')}
-                  />
-                  {errors.name && (
-                    <p className={styles.error}>{t('auth.errorUsername')}</p>
-                  )}
-                </div>
-
                 <div className={styles.form__part}>
                   <label className={styles.label}>{t('auth.email')}</label>
                   <input
@@ -209,49 +196,32 @@ export default function RegisterPage() {
                   )}
                 </div>
 
-                <div className={clsx('checkAgree', styles.checkAgree)}>
-                  <label>
-                    <input
-                      type="checkbox"
-                      {...register('policy', { required: true })}
-                    />{' '}
-                    <span></span>
-                    <p>
-                      {t('form.iAgree')}{' '}
-                      <a
-                        href={`/${
-                          i18n.language !== 'en' ? i18n.language + '/' : ''
-                        }privacy`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {t('form.privacy')}
-                      </a>
-                    </p>
-                  </label>
-                  {errors.policy && (
-                    <p className={styles.error}>{t('contact.error_policy')}</p>
-                  )}
-                </div>
-
                 <button
                   type="submit"
                   disabled={mutation.isPending}
                   className={clsx(
                     'btn_primary',
                     styles.submitBtn,
-                    mutation.isPending && styles.loading
+                    styles.loginBtn,
+                    mutation.isPending && styles.load
                   )}
                 >
-                  {mutation.isPending
-                    ? t('auth.registering')
-                    : t('auth.register')}
+                  <span></span>
+                  {t('auth.login')}
                 </button>
               </div>
 
               <p className={styles.bottomText}>
-                {t('auth.haveAccount')}{' '}
-                <Link to="/login">{t('auth.login')}</Link>
+                {t('auth.noAccount')}{' '}
+                <Link
+                  to={`/${
+                    i18n.language !== 'en'
+                      ? i18n.language + '/register'
+                      : 'register'
+                  }`}
+                >
+                  {t('auth.registration')}
+                </Link>
               </p>
             </form>
           </div>
