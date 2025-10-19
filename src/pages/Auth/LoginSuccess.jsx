@@ -8,7 +8,7 @@ export default function LoginSuccess() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const params = new URLSearchParams(window.location.search);
+   const params = new URLSearchParams(window.location.hash.split('?')[1]);
     const accessToken = params.get('accessToken');
     const refreshToken = params.get('refreshToken');
     const lang = params.get('lang') || 'en';
