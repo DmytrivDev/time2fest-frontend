@@ -1,17 +1,23 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '@/utils/api';
+import { useTranslation } from 'react-i18next';
 
 export default function LoginSuccess() {
   const navigate = useNavigate();
+  const { i18n } = useTranslation();
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-
     const params = new URLSearchParams(window.location.search);
     const accessToken = params.get('accessToken');
     const refreshToken = params.get('refreshToken');
-    const lang = params.get('lang') || 'en';
+
+    // 🔹 Спочатку беремо мову з localStorage (якщо була)
+    const savedLang = localStorage.getItem('preferredLang');
+    const lang = savedLang || i18n.language || 'en';
+
+    // 🔹 Встановлюємо її у i18n (щоб синхронізувалась з інтерфейсом)
+    if (savedLang) i18n.changeLanguage(savedLang);
 
     if (accessToken && refreshToken) {
       localStorage.setItem('accessToken', accessToken);
@@ -20,21 +26,22 @@ export default function LoginSuccess() {
 
       api
         .get('/auth/profile', {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
+          headers: { Authorization: `Bearer ${accessToken}` },
         })
         .then(res => {
           localStorage.setItem('user', JSON.stringify(res.data));
           navigate(`/${lang !== 'en' ? lang + '/profile' : 'profile'}`);
+          localStorage.removeItem('preferredLang');
         })
         .catch(() => {
           navigate(`/${lang !== 'en' ? lang + '/register' : 'register'}`);
+          localStorage.removeItem('preferredLang');
         });
     } else {
       navigate(`/${lang !== 'en' ? lang + '/register' : 'register'}`);
+      localStorage.removeItem('preferredLang');
     }
-  }, [navigate]);
+  }, [navigate, i18n]);
 
   return <div>Logging in...</div>;
 }
