@@ -80,7 +80,7 @@
 
 input[type="text"],
 input[type="email"],
-textarea {
+input[type="password"], textarea {
 	border-radius: 1.25rem;
 	border: 1px solid rgba(255, 255, 255, 0.6);
 	background: rgba(255, 255, 255, 0.1);
@@ -306,7 +306,7 @@ textarea {
 
 	input[type="text"],
 	input[type="email"],
-	textarea {
+	input[type="password"], textarea {
 		border-radius: 0.625rem;
 		height: 3.125rem;
 		padding: 0 1.125rem;

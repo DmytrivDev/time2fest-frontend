@@ -1,12 +1,12 @@
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { lazy, Suspense, useEffect } from 'react';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 import { DEFAULT_LANG, SUPPORTED_LANGS } from './i18n/languages';
 import LanguageLayout from './layouts/LanguageLayout/LanguageLayout';
 import HomePage from './pages/HomePage/HomePage';
 
-// 💤 Lazy сторінки
 const AboutPage = lazy(() => import('./pages/AboutPage/AboutPage'));
 const AmbassPage = lazy(() => import('./pages/AmbassPage/AmbassPage'));
 const FormPage = lazy(() => import('./pages/FormPage/FormPage'));
@@ -24,13 +24,17 @@ const AmbassadorDetailPage = lazy(
 );
 const CountriesPage = lazy(() => import('./pages/CountriesPage/CountriesPage'));
 const CountryPage = lazy(() => import('./pages/CountryPage/CountryPage'));
-
-// 🧩 Мінімальний Layout для амбасадорів
 const AmbassLayout = lazy(() => import('./layouts/AmbassLayout/AmbassLayout'));
-const CountriesLayout = lazy(() => import('./layouts/CountriesLayout/CountriesLayout'));
+const CountriesLayout = lazy(
+  () => import('./layouts/CountriesLayout/CountriesLayout')
+);
 const ContactPage = lazy(() => import('./pages/ContactPage/ContactPage'));
+const RegisterPage = lazy(() => import('./pages/Auth/RegisterPage'));
+const ProfilePage = lazy(() => import('./pages/ProfilePage/ProfilePage'));
+const LoginSuccess = lazy(() => import('./pages/Auth/LoginSuccess'));
 
-// 📜 Скрол до верху при зміні сторінки
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+
 const ScrollToTop = () => {
   const { pathname } = useLocation();
   useEffect(() => {
@@ -48,7 +52,7 @@ const App = () => {
   const isSupported = SUPPORTED_LANGS.includes(detectedLang);
 
   return (
-    <>
+    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <ScrollToTop />
       <Suspense fallback={<div></div>}>
         <Routes>
@@ -73,8 +77,12 @@ const App = () => {
             <Route path="agreement" element={<AgreementPage />} />
             <Route path="disclaimer" element={<ResponsibilityPage />} />
             <Route path="terms" element={<TermsPage />} />
+            <Route path="register" element={<RegisterPage />} />
+            <Route path="profile" element={<ProfilePage />} />
+            <Route path="login-success" element={<LoginSuccess />} />м
           </Route>
 
+          {/* redirect default lang */}
           <Route
             path={`/${DEFAULT_LANG}/*`}
             element={
@@ -109,11 +117,15 @@ const App = () => {
             <Route path="agreement" element={<AgreementPage />} />
             <Route path="disclaimer" element={<ResponsibilityPage />} />
             <Route path="terms" element={<TermsPage />} />
+            <Route path="register" element={<RegisterPage />} />
+            <Route path="profile" element={<ProfilePage />} />
+            <Route path="login-success" element={<LoginSuccess />} />
           </Route>
+
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>
-    </>
+    </GoogleOAuthProvider>
   );
 };
 

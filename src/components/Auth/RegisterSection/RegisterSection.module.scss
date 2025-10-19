@@ -1,0 +1,132 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.section {
+	padding: 6.25rem 0;
+	position: relative;
+}
+
+.content {
+	position: relative;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.formSide {
+	width: 43.875rem;
+	border-radius: 2.5rem;
+	padding: 3rem 3.75rem;
+	background-color: $color-gray2;
+}
+
+.title {
+	width: 100%;
+	text-align: center;
+	font-size: 1.875rem;
+	line-height: 1.4;
+}
+
+.socialLoginList {
+	display: flex;
+	flex-direction: column;
+	margin-top: 2.3rem;
+	gap: 0.94rem;
+
+	.social {
+		height: 3.125rem;
+		border-radius: 0.9375rem;
+		border: 1px solid rgba(255, 255, 255, 0.6);
+		background: rgba(255, 255, 255, 0.1);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		align-content: center;
+		gap: .75rem;
+		font-size: 1.125rem;
+
+		img {
+			height: 1.875rem;
+			width: auto;
+		}
+	}
+}
+
+.divider {
+	display: flex;
+	justify-content: center;
+	position: relative;
+	margin-top: 1.88rem;
+
+	&::before, &::after {
+		content: "";
+		position: absolute;
+		top: 50%;
+		height: 1px;
+		background: rgba(255, 255, 255, 0.60);
+		width: calc(50% - 2.5rem);
+	}
+
+	&::before {
+		left: 0;
+	}
+
+	&::after {
+		right: 0;
+	}
+}
+
+.simpleLogin {
+	margin-top: 1.64rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+
+	label {
+		margin-bottom: 0.5rem;
+		display: flex;
+	}
+}
+
+.checkAgree {
+	label {
+		margin: 0;
+	}
+}
+
+.bottomText {
+	margin-top: 2rem;
+	text-align: center;
+	font-size: 1.3125rem;
+
+	a {
+		color: $color-primary;
+	}
+}
+
+.error {
+	margin-top: 0.5rem;
+	color: #F94A51;
+}
+
+.imageSide {
+	position: absolute;
+	top: 0;
+	right: 43.875rem;
+
+	img {
+		width: 52.9375rem;
+		height: auto;
+		display: block;
+	}
+}
+
+
+
+
+
+
+@media screen and (max-width: 1140px) {
+}
+
+@media screen and (max-width: 868px) {
+}
