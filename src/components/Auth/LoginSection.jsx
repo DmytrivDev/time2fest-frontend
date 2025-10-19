@@ -133,7 +133,7 @@ export default function LoginPage() {
                 >
                   <img src="/auth/google.svg" alt="" />{' '}
                   {t('auth.continueGoogle')}
-                </button>
+                </button> 
 
                 <button
                   type="button"
