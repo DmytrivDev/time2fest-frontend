@@ -128,8 +128,7 @@ export default function LoginPage() {
                   type="button"
                   className={clsx(styles.social, styles.google)}
                   onClick={() => {
-                    document.cookie = `login_lang=${i18n.language}; path=/; max-age=300; SameSite=Lax`;
-                    window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`;
+                    window.location.href = `${import.meta.env.VITE_API_URL}/auth/google?state=${i18n.language}`;
                   }}
                 >
                   <img src="/auth/google.svg" alt="" />{' '}
@@ -140,8 +139,7 @@ export default function LoginPage() {
                   type="button"
                   className={clsx(styles.social, styles.facebook)}
                   onClick={() => {
-                    document.cookie = `login_lang=${i18n.language}; path=/; max-age=300; SameSite=Lax`;
-                    window.location.href = `${import.meta.env.VITE_API_URL}/auth/facebook`;
+                    window.location.href = `${import.meta.env.VITE_API_URL}/auth/facebook?state=${i18n.language}`;
                   }}
                 >
                   <img src="/auth/facebook.svg" alt="" />{' '}
