@@ -124,7 +124,7 @@ export default function LoginPage() {
                   type="button"
                   className={clsx(styles.social, styles.google)}
                   onClick={() => {
-                    window.location.href = `${import.meta.env.VITE_API_URL}/auth/google?state=${i18n.language}`;
+                    window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`;
                   }}
                 >
                   <img src="/auth/google.svg" alt="" />{' '}
@@ -134,7 +134,7 @@ export default function LoginPage() {
                   type="button"
                   className={clsx(styles.social, styles.facebook)}
                   onClick={() => {
-                    window.location.href = `${import.meta.env.VITE_API_URL}/auth/facebook?state=${i18n.language}`;
+                    window.location.href = `${import.meta.env.VITE_API_URL}/auth/facebook`;
                   }}
                 >
                   <img src="/auth/facebook.svg" alt="" />{' '}
