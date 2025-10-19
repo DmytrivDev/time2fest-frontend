@@ -226,7 +226,8 @@
     "login": "Iniciar sesión",
     "errorEmailExists": "Este correo electrónico ya está registrado",
     "errorPasswordWeak": "La contraseña es demasiado corta o no válida",
-    "errorServer": "Se produjo un error en el servidor. Inténtalo de nuevo más tarde"
+    "errorServer": "Se produjo un error en el servidor. Inténtalo de nuevo más tarde",
+    "errorGoogle": "Error de inicio de sesión con Google"
   },
   "countries": {
     "kiribati": "Kiribati",

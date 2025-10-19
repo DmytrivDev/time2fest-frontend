@@ -227,7 +227,7 @@
     "errorEmailExists": "This email is already registered",
     "errorPasswordWeak": "The password is too short or invalid",
     "errorServer": "A server error occurred. Please try again later",
-    "errorGoogle": "Помилка авторизації через Google"
+    "errorGoogle": "Google login error"
   },
   "countries": {
     "kiribati": "Kiribati",

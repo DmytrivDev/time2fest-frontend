@@ -226,7 +226,8 @@
     "login": "Se connecter",
     "errorEmailExists": "Cet e-mail est déjà enregistré",
     "errorPasswordWeak": "Le mot de passe est trop court ou invalide",
-    "errorServer": "Une erreur du serveur s'est produite. Veuillez réessayer plus tard"
+    "errorServer": "Une erreur du serveur s'est produite. Veuillez réessayer plus tard",
+    "errorGoogle": "Erreur de connexion avec Google"
   },
   "countries": {
     "kiribati": "Kiribati",
