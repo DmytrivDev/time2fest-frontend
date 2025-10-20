@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { getValidLocale } from '@/utils/getValidLocale';
 import { lockScroll, unlockScroll } from '@/utils/lockScroll';
 import { api } from '@/utils/api';
@@ -23,6 +23,9 @@ const AmbassadorsList = () => {
   const [showAside, setShowAside] = useState(false);
   const [activeZone, setActiveZone] = useState(null);
   const [page, setPage] = useState(1);
+
+  // 🟡 прапорець для контролю, чи треба скролити
+  const shouldScroll = useRef(false);
 
   // ---- Витяг з квері ----
   useEffect(() => {
@@ -109,10 +112,15 @@ const AmbassadorsList = () => {
     if (activeZone) params.set('tz', activeZone);
     params.set('page', newPage.toString());
     navigate({ search: params.toString() });
+
+    // 🟢 вмикаємо прапорець, щоб після цього скролитись
+    shouldScroll.current = true;
   };
 
-  // ---- Скрол до верху при зміні сторінки ----
+  // ---- Скрол тільки після кліку пагінації ----
   useEffect(() => {
+    if (!shouldScroll.current) return; // 🛑 ігноруємо при ресайзі / завантаженні
+
     const topEl = document.getElementById('topPage');
     if (!topEl) return;
 
@@ -120,11 +128,11 @@ const AmbassadorsList = () => {
     const offsetTop = rect.top + window.scrollY;
     const y = isMobile ? offsetTop - 40 : offsetTop;
 
-    window.scrollTo({
-      top: y,
-      behavior: 'smooth',
-    });
-  }, [page, isMobile]);
+    window.scrollTo({ top: y, behavior: 'smooth' });
+
+    // скидаємо прапорець
+    shouldScroll.current = false;
+  }, [page]);
 
   // ---- Підготовка даних ----
   const ambassadors = Array.isArray(ambassadorsData?.items)

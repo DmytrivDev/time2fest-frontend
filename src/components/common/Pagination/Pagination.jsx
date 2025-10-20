@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import styles from './Pagination.module.scss';
 
 const Pagination = ({ currentPage, totalPages, onChange }) => {
   if (totalPages <= 1) return null;
 
-  const delta = 3; // 🔧 кількість сторінок у кожен бік від поточної
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 868);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 868);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // 🔹 Визначаємо діапазон сторінок
+  const delta = isMobile ? 1 : 3;
   const visiblePages = [];
 
   for (let i = 1; i <= totalPages; i++) {
@@ -26,7 +35,7 @@ const Pagination = ({ currentPage, totalPages, onChange }) => {
 
   const handleClick = (e, p) => {
     e.preventDefault();
-    if (p !== currentPage && typeof p === 'number') {
+    if (typeof p === 'number' && p !== currentPage) {
       onChange(p);
     }
   };
@@ -43,11 +52,18 @@ const Pagination = ({ currentPage, totalPages, onChange }) => {
       <a
         href={currentPage > 1 ? buildHref(currentPage - 1) : '#'}
         rel="prev"
-        className={clsx(styles.pageBtn, currentPage === 1 && styles.disabled)}
-        onClick={e => handleClick(e, currentPage - 1)}
+        className={clsx(
+          styles.pageBtn,
+          styles.arrow,
+          styles.prev,
+          currentPage === 1 && styles.disabled
+        )}
+        onClick={e => {
+          if (currentPage === 1) e.preventDefault();
+          else handleClick(e, currentPage - 1);
+        }}
         aria-disabled={currentPage === 1}
       >
-        &lt;
       </a>
 
       {/* --- Сторінки --- */}
@@ -81,12 +97,16 @@ const Pagination = ({ currentPage, totalPages, onChange }) => {
         rel="next"
         className={clsx(
           styles.pageBtn,
+          styles.arrow,
+          styles.next,
           currentPage === totalPages && styles.disabled
         )}
-        onClick={e => handleClick(e, currentPage + 1)}
+        onClick={e => {
+          if (currentPage === totalPages) e.preventDefault();
+          else handleClick(e, currentPage + 1);
+        }}
         aria-disabled={currentPage === totalPages}
       >
-        &gt;
       </a>
     </nav>
   );

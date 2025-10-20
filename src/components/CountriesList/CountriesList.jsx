@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { getValidLocale } from '@/utils/getValidLocale';
-import { lockScroll, unlockScroll } from '../../utils/lockScroll';
+import { lockScroll, unlockScroll } from '../../utils/lockScroll'; 
 import { api } from '@/utils/api';
 import clsx from 'clsx';
 
@@ -22,6 +22,9 @@ const CountriesList = () => {
   const [showAside, setShowAside] = useState(false);
   const [activeZone, setActiveZone] = useState(null);
   const [page, setPage] = useState(1);
+
+  // 🟡 прапорець, чи треба скролити після пагінації
+  const shouldScroll = useRef(false);
 
   // ---- Витяг з квері ----
   useEffect(() => {
@@ -108,22 +111,27 @@ const CountriesList = () => {
     if (activeZone) params.set('tz', activeZone);
     params.set('page', newPage.toString());
     navigate({ search: params.toString() });
+
+    // 🟢 тепер позначаємо, що скролити треба
+    shouldScroll.current = true;
   };
 
+  // ---- Скрол тільки після кліку пагінації ----
   useEffect(() => {
+    if (!shouldScroll.current) return; // 🛑 не скролимо при ресайзі або 1-му завантаженні
+
     const topEl = document.getElementById('topPage');
     if (!topEl) return;
 
     const rect = topEl.getBoundingClientRect();
     const offsetTop = rect.top + window.scrollY;
-
     const y = isMobile ? offsetTop - 40 : offsetTop;
 
-    window.scrollTo({
-      top: y,
-      behavior: 'smooth',
-    });
-  }, [page, isMobile]);
+    window.scrollTo({ top: y, behavior: 'smooth' });
+
+    // після скролу — скидаємо прапорець
+    shouldScroll.current = false;
+  }, [page]);
 
   // ---- Підготовка даних ----
   const countries = Array.isArray(countriesData?.items)

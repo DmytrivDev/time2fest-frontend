@@ -6,7 +6,7 @@ import { SUPPORTED_LANGS, DEFAULT_LANG } from '@/i18n/languages';
 import styles from './NavMenu.module.scss';
 
 const links = [
-  { to: '/#new-year', i18n: 'nav.newYear' },
+  { to: '/country', i18n: 'nav.newYear' },
   { to: '/about', i18n: 'nav.about' },
   { to: '/ambassadors', i18n: 'nav.aboutAmbass' },
   { to: '/ambassadors/list', i18n: 'nav.our_ambass' },

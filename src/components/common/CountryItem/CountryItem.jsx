@@ -70,7 +70,7 @@ const CountryItem = ({ data, isLoading = false }) => {
 
   return (
     <div className={styles.card}>
-      {/* --- Фото --- */}
+      {/* --- Фото --- */} 
       <Link to={localizedPath} className={styles.photo}>
         <img src={backgroundUrl} alt={CountryName} loading="lazy" />
         <span className={styles.tzCodeList}>

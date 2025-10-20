@@ -30,7 +30,7 @@
     right: 1.25rem;
     display: flex;
     flex-wrap: wrap;
-    gap: .25rem;
+    gap: 0.25rem;
 }
 
 .utc {
@@ -128,48 +128,57 @@
 
 @media screen and (max-width: 1140px) {
     .loadingCard {
-        min-height: 34rem;
+        min-height: 35rem;
     }
 
     .photo {
-        padding-top: 100%;
+        padding-top: 62.9%;
     }
 
-    .countryBadge {
+    .tzCodeList {
         top: 1rem;
         left: 1rem;
-        padding: 0.53rem 0.75rem;
-        gap: 0.5rem;
-        font-size: 0.875rem;
-        line-height: 1.2;
-        img {
-            width: 1.125rem;
-            height: 1.125rem;
-        }
+        right: 1rem;
+    }
+
+    .utc {
+        padding: 0.2rem 0.6rem;
+        font-size: 0.75rem;
     }
 
     .content {
-        padding: 1.25rem 1rem;
-        padding-bottom: 3.63rem;
+        padding: 1.5rem 1rem;
+        padding-bottom: 4.2rem;
     }
 
-    .name {
-        font-size: 1rem;
+    .header {
+        img {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+
+        a {
+            font-size: 1.25rem;
+        }
     }
 
-    .desc {
-        margin-top: 0.94rem;
+    .types {
+        margin-top: 1.12rem;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        .type {
+            font-size: 0.875rem;
+            padding: 0.25rem 0.75rem;
+
+            svg {
+                width: .9rem;
+                height: .9rem;
+            }
+        }
     }
 
     .button {
-        height: 2.5rem;
+        height: 2.875rem;
         padding: 0 1rem;
-        font-size: 0.875rem;
     }
-}
-
-@media screen and (max-width: 868px) {
-}
-
-@media screen and (max-width: 475px) {
 }
