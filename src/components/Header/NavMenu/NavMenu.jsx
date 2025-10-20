@@ -11,7 +11,7 @@ const links = [
   { to: '/ambassadors', i18n: 'nav.aboutAmbass' },
   { to: '/ambassadors/list', i18n: 'nav.our_ambass' },
   { to: '/contact', i18n: 'nav.contact' },
-];
+]; 
 
 const NavMenu = ({ setMobileMenuOpen }) => {
   const { t, i18n } = useTranslation('common');
