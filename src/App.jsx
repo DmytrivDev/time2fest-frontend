@@ -34,6 +34,8 @@ const RegisterPage = lazy(() => import('./pages/Auth/RegisterPage'));
 const ProfilePage = lazy(() => import('./pages/ProfilePage/ProfilePage'));
 const LoginSuccess = lazy(() => import('./pages/Auth/LoginSuccess'));
 const LoginPage = lazy(() => import('./pages/Auth/LoginPage'));
+const ForgetPass = lazy(() => import('./pages/Auth/ForgetPass'));
+const ResetPass = lazy(() => import('./pages/Auth/ResetPass'));
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
@@ -80,6 +82,8 @@ const App = () => {
             <Route path="profile" element={<ProfilePage />} />
             <Route path="login-success" element={<LoginSuccess />} />
             <Route path="login" element={<LoginPage />} />
+            <Route path="forget-password" element={<ForgetPass />} />
+            <Route path="reset-password" element={<ResetPass />} />
           </Route>
 
           {/* redirect default lang */}
@@ -121,6 +125,8 @@ const App = () => {
             <Route path="profile" element={<ProfilePage />} />
             <Route path="login-success" element={<LoginSuccess />} />
             <Route path="login" element={<LoginPage />} />
+            <Route path="forget-password" element={<ForgetPass />} />
+            <Route path="reset-password" element={<ResetPass />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />

@@ -4,9 +4,17 @@
 .section {
 	padding: 6.25rem 0;
 	position: relative;
+
+	&.full {
+		min-height: calc(100dvh - 20.066rem);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		align-content: center;
+	}
 }
 
-.content {
+.content { 
 	position: relative;
 	display: flex;
 	justify-content: flex-end;
@@ -158,6 +166,45 @@
 	span {
 		opacity: 1;
 		visibility: visible;
+	}
+}
+
+.forgetPass {
+	color: $color-primary;
+	font-size: 1.125rem;
+	font-weight: 500;
+	margin-top: -0.5rem;
+	margin-bottom: 0.5rem;
+}
+
+.simpleFormWrapper {
+	margin: 0 auto;
+	max-width: 43.875rem;
+	width: 100%;
+	border-radius: 2.5rem;
+	background-color: $color-gray2;
+	padding: 3rem 3.75rem;
+	padding-bottom: 3.44rem;
+}
+
+.ResetBtn {
+	margin-top: .5rem;
+}
+
+.bottomTextReset {
+	margin-top: 0.5rem;
+	color: $color-primary;
+}
+
+.infoBox {
+	border-radius: 1.25rem;
+	background-color: $color-yellow;
+	padding: 1rem 1.5rem;
+	color: $color-dark;
+
+	&.error {
+		background-color: $red;
+		border: 1px solid $color-primary;
 	}
 }
 

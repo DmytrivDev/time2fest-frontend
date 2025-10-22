@@ -203,6 +203,17 @@ export default function LoginPage() {
                   )}
                 </div>
 
+                <Link
+                className={styles.forgetPass}
+                  to={`/${
+                    i18n.language !== 'en'
+                      ? i18n.language + '/forget-password'
+                      : 'forget-password'
+                  }`}
+                >
+                  {t('auth.forget_pass')}
+                </Link>
+
                 <button
                   type="submit"
                   disabled={mutation.isPending}
