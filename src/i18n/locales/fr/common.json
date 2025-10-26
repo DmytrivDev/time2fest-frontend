@@ -10,7 +10,14 @@
     "agreement": "Accord des ambassadeurs",
     "disclaimer": "Avertissement légal",
     "contact": "Contacts",
-    "our_ambass": "Nos ambassadeurs"
+    "our_ambass": "Nos ambassadeurs",
+    "home": "Accueil",
+    "timezones": "Carte des fuseaux horaires",
+    "schedule": "Calendrier des célébrations",
+    "countries": "Liste des pays",
+    "ambassadors": "Ambassadeurs",
+    "subscription": "Abonnement",
+    "payments": "Historique des paiements"
   },
   "log-in": "Se connecter",
   "bages": {

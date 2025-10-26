@@ -1,5 +1,5 @@
 import Hero from '../../components/Hero/Hero';
-import Map from '../../components/Map/Map';
+import MapBlock from '../../components/MapBlock/MapBlock';
 import AboutSection from '../../components/AboutSection/AboutSection';
 import BecomeSection from '../../components/BecomeSection/BecomeSection';
 import FaqSection from '../../components/FaqSection/FaqSection';
@@ -8,7 +8,7 @@ const HomePage = () => {
   return (
     <>
       <Hero />
-      <Map />
+      <MapBlock />
       <AboutSection />
       <BecomeSection />
       <FaqSection />

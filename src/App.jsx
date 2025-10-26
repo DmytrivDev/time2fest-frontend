@@ -31,7 +31,11 @@ const CountriesLayout = lazy(
 );
 const ContactPage = lazy(() => import('./pages/ContactPage/ContactPage'));
 const RegisterPage = lazy(() => import('./pages/Auth/RegisterPage'));
-const ProfilePage = lazy(() => import('./pages/ProfilePage/ProfilePage'));
+const ProfileLayout = lazy(
+  () => import('./layouts/ProfileLayout/ProfileLayout')
+);
+const ProfileInfo = lazy(() => import('./pages/ProfilePage/ProfileInfo'));
+const ProfileMap = lazy(() => import('./pages/ProfilePage/ProfileMap'));
 const LoginSuccess = lazy(() => import('./pages/Auth/LoginSuccess'));
 const LoginPage = lazy(() => import('./pages/Auth/LoginPage'));
 const ForgetPass = lazy(() => import('./pages/Auth/ForgetPass'));
@@ -79,7 +83,11 @@ const App = () => {
             <Route path="disclaimer" element={<ResponsibilityPage />} />
             <Route path="terms" element={<TermsPage />} />
             <Route path="register" element={<RegisterPage />} />
-            <Route path="profile" element={<ProfilePage />} />
+            <Route path="profile" element={<ProfileLayout />}>
+              <Route index element={<Navigate to="info" replace />} />
+              <Route path="info" element={<ProfileInfo />} />
+              <Route path="timezones" element={<ProfileMap />} />
+            </Route>
             <Route path="login-success" element={<LoginSuccess />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="forget-password" element={<ForgetPass />} />
@@ -122,7 +130,11 @@ const App = () => {
             <Route path="disclaimer" element={<ResponsibilityPage />} />
             <Route path="terms" element={<TermsPage />} />
             <Route path="register" element={<RegisterPage />} />
-            <Route path="profile" element={<ProfilePage />} />
+            <Route path="profile" element={<ProfileLayout />}>
+              <Route index element={<Navigate to="info" replace />} />
+              <Route path="info" element={<ProfileInfo />} />
+              <Route path="timezones" element={<ProfileMap />} />
+            </Route>
             <Route path="login-success" element={<LoginSuccess />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="forget-password" element={<ForgetPass />} />

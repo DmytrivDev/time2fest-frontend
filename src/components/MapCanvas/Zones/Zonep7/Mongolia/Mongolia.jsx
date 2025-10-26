@@ -1,0 +1,36 @@
+import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
+
+export default function Country({ ny, utc, onClick }) {
+  const { t } = useTranslation();
+
+  const handlePointerUp = e => {
+    e.stopPropagation();
+    const zoneId = e.currentTarget.getAttribute('data-id');
+    const code = (
+      e.currentTarget.getAttribute('data-country') || ''
+    ).toUpperCase();
+    onClick?.(zoneId, code, e);
+  };
+
+  return (
+    <path
+      id="Mongolia"
+      className="country"
+      data-tt="2"
+      data-id={utc}
+      data-country="MN"
+      data-label={`${t('countries.mongolia')} ${utc}`}
+      onClick={handlePointerUp}
+      data-time={ny.display}
+      d="M1315.96 351.415L1316.09 349.514L1315.97 347.284L1316.72 346.227L1317.41 345.258L1317.36 343.456L1318.25 341.654L1318.48 339.217L1317.69 337.284L1316.38 336.264L1314.62 334.508L1314.45 332.654L1315.56 329.456L1316.73 329.17L1318.01 327.201L1317.17 326.279L1317.32 325.31L1317.25 323.836L1319.25 323.404L1320.15 322.732L1321.69 322.128L1321.31 320.566L1321.97 318.92L1321.48 316.92L1319.93 317.055L1318.73 317.993L1317.86 317.602L1316.91 317.534L1315.73 317.675L1313.44 316.607L1311.84 316.326L1310.68 315.357L1310.65 314.664L1312.36 312.961L1306.8 311.461L1305.72 311.336L1303.84 312.086L1299.52 311.232L1297.88 307.841L1293.59 307.466L1291.31 306.331L1288.59 305.831L1287.71 306.868L1285.09 307.185L1276.65 311.633L1274.89 312.107L1275.34 313.149L1274.89 313.456L1272.89 314.42L1267.95 314.94L1267.6 316.123L1265.97 316.81L1265.6 318.732L1267.19 319.888L1266.68 320.654L1267.43 320.93L1267.45 320.941L1269.6 321.972L1270.27 323.123L1272.04 324.206L1274.19 324.076L1275.36 325.133L1277.08 325.258L1278.48 326.633L1281.8 332.477L1281.76 336.581L1280 339.873L1281.03 341.654L1294.14 343.144L1301.45 347.409L1303.44 347.206L1303.08 348.795L1304 349.04L1305.75 353.295L1308.26 356.638L1312.22 356.253L1315.65 356.592L1315.26 353.539L1315.96 351.414"
+      fill="#FA7850"
+    />
+  );
+}
+
+Country.propTypes = {
+  ny: PropTypes.shape({
+    display: PropTypes.string.isRequired,
+  }).isRequired,
+};

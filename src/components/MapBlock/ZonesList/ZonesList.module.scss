@@ -1,0 +1,148 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.loadingList {
+	&.loadingZones {
+		ul {
+			gap: 0.625rem;
+
+			li {
+				height: 4.5rem;
+			}
+		}
+	}
+
+	ul {
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
+
+		li {
+			border-radius: 2.5rem;
+			height: 6.1875rem;
+		}
+	}
+}
+
+.zonesList {
+	margin-top: 2.5rem;
+
+	ul {
+		gap: 1.25rem 0;
+		display: flex;
+		flex-direction: column;
+	}
+}
+
+.warning {
+	width: 100%;
+	text-align: center;
+	svg {
+		width: 8rem;
+		margin-bottom: 1rem;
+		height: auto;
+	}
+	span {
+		display: block;
+		font-size: 1.25rem;
+	}
+
+	&.error {
+		svg {
+			fill: $color-primary;
+			path {
+				stroke: $color-primary;
+			}
+		}
+	}
+
+	&.noData {
+		svg {
+			fill: $color-yellow;
+			path {
+				stroke: $color-yellow;
+			}
+		}
+	}
+}
+
+.backBtn {
+	margin-bottom: 1.25rem;
+	gap: 0 0.875rem;
+	padding: 0.75rem 1.25rem 0.75rem 0.875rem;
+	@include flex-btv;
+
+	&::before {
+		content: "";
+		width: 2.5rem;
+		height: 2.5rem;
+		background-color: $color-primary;
+		border-radius: 50%;
+		background-image: $lng-arrow2;
+		background-size: 0.5625rem;
+		background-repeat: no-repeat;
+		background-position: center center;
+		transform: rotate(90deg);
+		transition: all 0.3s;
+	}
+
+	&:hover {
+		&::before {
+			background-color: $red2;
+		}
+	}
+}
+
+@media screen and (max-width: 1140px) {
+	.loadingList {
+		&.loadingZones {
+			ul {
+				gap: 0.9375rem;
+
+				li {
+					height: 7.25rem;
+				}
+			}
+		}
+
+		ul {
+			gap: 0.9375rem;
+
+			li {
+				border-radius: 1.25rem;
+				height: 8.125rem;
+			}
+		}
+	}
+
+	.zonesList {
+		margin-top: 1.875rem;
+
+		ul {
+			gap: 0.9375rem 0;
+		}
+	}
+
+	.backBtn {
+		gap: 0 0.75rem;
+		padding: 0.625rem 1.25rem 0.625rem 0.75rem;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.loadingList {
+		&.loadingZones {
+			ul {
+				li {
+					height: 9.75rem;
+				}
+			}
+		}
+
+		ul {
+			li {
+				height: 13.5rem;
+			}
+		}
+	}
+}

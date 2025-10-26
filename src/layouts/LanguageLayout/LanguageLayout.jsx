@@ -23,6 +23,9 @@ const LanguageLayout = () => {
   const { lang } = useParams();
   const { pathname, search, hash } = useLocation();
   const [dynamicData, setDynamicData] = useState(null);
+  const location = useLocation();
+
+  const isProfile = location.pathname.includes('/profile');
 
   // --- Валідність мови ---
   if (lang && !SUPPORTED_LANGS.includes(lang)) {
@@ -56,11 +59,11 @@ const LanguageLayout = () => {
       {/* ⬇️ ТУТ SEOMeta рендериться стабільно для всіх сторінок */}
       <SeoMeta dynamicData={dynamicData} />
 
-      <Header />
+      {!isProfile && <Header />}
       <main className="main">
         <Outlet context={outletContext} />
       </main>
-      <Footer />
+      {!isProfile && <Footer />}
     </div>
   );
 };

@@ -1,0 +1,80 @@
+@use "@/styles/mixins" as *;
+@use "@/styles/variables" as *;
+
+.layout {
+    display: flex;
+    min-height: 100dvh;
+}
+
+.sidebar {
+    width: 16.1875rem;
+    background: #1c1c1c;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.logo {
+    height: 4.75rem;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    padding: 0 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+    img {
+        width: 9rem;
+        height: auto;
+    }
+}
+
+.navSidebar {
+    height: calc(100dvh - 9.5rem);
+    padding: 1rem 0;
+    overflow: auto;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.87rem;
+}
+
+.link {
+    display: flex;
+    align-items: center;
+    padding: 0.63rem 1.5rem;
+    gap: 0.94rem;
+    transition: 0.3s;
+
+    svg {
+        width: 1.125rem;
+        height: 1.125rem;
+        stroke: $color-yellow;
+    }
+
+    &:hover {
+        background: #323232;
+    }
+
+    &.active {
+        background: $color-primary;
+    }
+}
+
+.userBlock {
+    height: 4.75rem;
+    padding: 0 1.5rem;
+    align-items: center;
+    align-content: center;
+    display: flex;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    gap: 0.94rem;
+    transition: 0.3s;
+
+    svg {
+        width: 1.125rem;
+        height: 1.125rem;
+        stroke: $color-yellow;
+    }
+}

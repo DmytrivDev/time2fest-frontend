@@ -1,0 +1,196 @@
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+
+  &.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.animCont {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(2);
+  width: 14.9375rem;
+  height: 14.9375rem;
+
+  div {
+    width: 3.125rem;
+    height: 3.125rem;
+    border: 1px solid #fff;
+    background: rgba(255, 255, 255, 0.2);
+    position: absolute;
+    opacity: 0;
+    border-radius: 50%;
+  }
+}
+
+.play1 {
+  top: 4.5rem;
+  left: 7.56rem;
+  animation: div1 3000ms .5s ease-out forwards;
+}
+
+.play2 {
+  bottom: 4.5rem;
+  right: 7.56rem;
+  animation: div2 3000ms .5s ease-out forwards;
+}
+
+@keyframes div1 {
+  0% {
+    top: 4.5rem;
+    left: 7.56rem;
+    width: 3.125rem;
+    height: 3.125rem;
+    border: 1px solid #fff;
+    background: rgba(255, 255, 255, 0.2);
+    opacity: 0;
+  }
+  11% {
+    top: 4.5rem;
+    left: 7.56rem;
+    width: 3.125rem;
+    height: 3.125rem;
+    border: 1px solid #fff;
+    background: rgba(255, 255, 255, 0.2);
+    opacity: 1;
+  }
+  30% {
+    top: 5.06rem;
+    left: 8.12rem;
+    width: 2rem;
+    height: 2rem;
+    border: 2px solid #fff;
+    background: rgba(255, 255, 255, 0.05);
+    opacity: 1;
+  }
+  48% {
+    top: 5.06rem;
+    left: 6.32rem;
+    width: 2rem;
+    height: 2rem;
+    border: 2px solid #fff;
+    background: rgba(255, 255, 255, 0.05);
+    opacity: 1;
+  }
+  59% {
+    top: 5.06rem;
+    left: 8.12rem;
+    width: 2rem;
+    height: 2rem;
+    border: 2px solid #fff;
+    background: rgba(255, 255, 255, 0.05);
+    opacity: 1;
+  }
+  78% {
+    top: 4.12rem;
+    left: 9.19rem;
+    width: 2rem;
+    height: 2rem;
+    border: 2px solid #fff;
+    background: rgba(255, 255, 255, 0.05);
+    opacity: 1;
+  }
+  89% {
+    top: 4.12rem;
+    left: 9.19rem;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid #fff;
+    background: rgba(255, 255, 255, 0.2);
+    opacity: 1;
+  }
+  100% {
+    top: 3.56rem;
+    left: 8.62rem;
+    width: 3.125rem;
+    height: 3.125rem;
+    border: 1px solid #fff;
+    background: rgba(255, 255, 255, 0.2);
+    opacity: 0;
+  }
+}
+
+@keyframes div2 {
+  0% {
+    bottom: 4.5rem;
+    right: 7.56rem;
+    width: 3.125rem;
+    height: 3.125rem;
+    border: 1px solid #fff;
+    background: rgba(255, 255, 255, 0.2);
+    opacity: 0;
+  }
+  11% {
+    bottom: 4.5rem;
+    right: 7.56rem;
+    width: 3.125rem;
+    height: 3.125rem;
+    border: 1px solid #fff;
+    background: rgba(255, 255, 255, 0.2);
+    opacity: 1;
+  }
+  30% {
+    bottom: 5.06rem;
+    right: 8.12rem;
+    width: 2rem;
+    height: 2rem;
+    border: 2px solid #fff;
+    background: rgba(255, 255, 255, 0.05);
+    opacity: 1;
+  }
+  48% {
+    bottom: 5.06rem;
+    right: 9.88rem;
+    width: 2rem;
+    height: 2rem;
+    border: 2px solid #fff;
+    background: rgba(255, 255, 255, 0.05);
+    opacity: 1;
+  }
+  59% {
+    bottom: 5.06rem;
+    right: 8.12rem;
+    width: 2rem;
+    height: 2rem;
+    border: 2px solid #fff;
+    background: rgba(255, 255, 255, 0.05);
+    opacity: 1;
+  }
+  78% {
+    bottom: 4.12rem;
+    right: 9.19rem;
+    width: 2rem;
+    height: 2rem;
+    border: 2px solid #fff;
+    background: rgba(255, 255, 255, 0.05);
+    opacity: 1;
+  }
+  89% {
+    bottom: 4.12rem;
+    right: 9.19rem;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid #fff;
+    background: rgba(255, 255, 255, 0.2);
+    opacity: 1;
+  }
+  100% {
+    bottom: 3.56rem;
+    right: 8.62rem;
+    width: 3.125rem;
+    height: 3.125rem;
+    border: 1px solid #fff;
+    background: rgba(255, 255, 255, 0.2);
+    opacity: 0;
+  }
+}

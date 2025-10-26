@@ -10,7 +10,14 @@
     "agreement": "Погодження амбасадорів",
     "disclaimer": "Відмова від відповідальності",
     "contact": "Контакти",
-    "our_ambass": "Наші амбасадори"
+    "our_ambass": "Наші амбасадори",
+    "home": "Додому",
+    "timezones": "Мапа часових зон",
+    "schedule": "Графік святкувань",
+    "countries": "Список країн",
+    "ambassadors": "Амбасадори",
+    "subscription": "Підписка",
+    "payments": "Історія оплати"
   },
   "seo": {
     "countryTitle": "Новий рік у {{country}} — Time2Fest",
