@@ -14,7 +14,7 @@
 	}
 }
 
-.content { 
+.content {
 	position: relative;
 	display: flex;
 	justify-content: flex-end;
@@ -188,7 +188,7 @@
 }
 
 .ResetBtn {
-	margin-top: .5rem;
+	margin-top: 0.5rem;
 }
 
 .bottomTextReset {
@@ -222,7 +222,106 @@
 }
 
 @media screen and (max-width: 1140px) {
+	.section {
+		padding: 3.25rem 0;
+
+		&.full {
+			min-height: calc(100dvh - 30.293rem);
+		}
+	}
+	.formSide {
+		max-width: 26rem;
+		border-radius: 1.5rem;
+		padding: 1.5rem 1rem;
+		margin: 0 auto;
+	}
+	.title {
+		font-size: 1.625rem;
+	}
+	.socialLoginList {
+		margin-top: 1.5rem;
+		gap: 0.62rem;
+
+		.social {
+			height: 2.5rem;
+			border-radius: 0.625rem;
+			font-size: 0.875rem;
+
+			img {
+				height: 1.4375rem;
+			}
+		}
+	}
+
+	.divider {
+		margin-top: 1rem;
+
+		&::before,
+		&::after {
+			width: calc(50% - 2rem);
+		}
+	}
+
+	.simpleLogin {
+		margin-top: 0.88rem;
+		gap: 1.25rem;
+
+		label {
+			margin-bottom: 0.25rem;
+			font-size: 0.875rem;
+		}
+	}
+
+	.bottomText {
+		margin-top: 1.25rem;
+		font-size: 0.9375rem;
+	}
+
+	.error {
+		margin-top: 0.25rem;
+		font-size: 0.875rem;
+	}
+
+	.imageSide {
+		display: none;
+	}
+	.forgetPass {
+		font-size: 0.9375rem;
+		margin-top: -0.25rem;
+		margin-bottom: 0;
+	}
+
+	.simpleFormWrapper {
+		margin: 0 auto;
+		max-width: 26rem;
+		border-radius: 1.5rem;
+		padding: 1.5rem 1rem;
+	}
+
+	.ResetBtn {
+		margin-top: 0.25rem;
+	}
+
+	.bottomTextReset {
+		margin-top: 0.25rem;
+	}
+
+	.infoBox {
+		border-radius: 1rem;
+		padding: 1rem;
+		font-size: 0.875rem;
+	}
+
+	.logintBtn {
+		margin-top: 0.25rem;
+	}
 }
 
 @media screen and (max-width: 868px) {
+	.formSide, .simpleFormWrapper {
+		max-width: 100%;
+		border-radius: 0;
+		padding: 0;
+		background-color: transparent;
+	}
 }
