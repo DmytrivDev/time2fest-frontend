@@ -17,7 +17,8 @@
     "countries": "Список країн",
     "ambassadors": "Амбасадори",
     "subscription": "Підписка",
-    "payments": "Історія оплати"
+    "payments": "Історія оплати",
+    "addshelb": "Додати в графік"
   },
   "seo": {
     "countryTitle": "Новий рік у {{country}} — Time2Fest",

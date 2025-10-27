@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import MapCanvas from '../../MapCanvas';
 import MapInfo from '../MapInfo/CountryInfoCard';
+import ZonesInfoCard from '../MapInfo/ZonesInfoCard';
 
 import { api } from '../../../utils/api';
 import { getValidLocale } from '../../../utils/getValidLocale';
@@ -94,12 +95,27 @@ export default function MapBlock() {
       />
 
       {hasSelection && (
-        <MapInfo
-          data={countryData}
-          zone={selectedZone}
-          onClose={() => setHasSelection(false)}
-          loading={tzLoading || countryLoading}
-        />
+        <>
+          {selectedCountry ? (
+            <MapInfo
+              data={countryData || {}}
+              zone={selectedZone}
+              onClose={() => setHasSelection(false)}
+              loading={tzLoading || countryLoading || !countryData}
+            />
+          ) : (
+            <ZonesInfoCard
+              zone={selectedZone}
+              countries={mapItems}
+              loading={tzLoading}
+              onClose={() => setHasSelection(false)}
+              onCountrySelect={countryCode => {
+                setMapSelection(selectedZone, countryCode);
+                setHasSelection(true);
+              }}
+            />
+          )}
+        </>
       )}
     </div>
   );

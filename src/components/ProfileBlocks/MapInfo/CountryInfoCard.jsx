@@ -178,7 +178,7 @@ const MapInfo = ({ data, zone, loading, onClose }) => {
 
           {/* ---- Кнопка додавання ---- */}
           <button type="button" className={clsx(styles.add, 'btn_primary')}>
-            {t('controls.add_to_shel')}
+            {t('nav.addshelb')}
           </button>
         </div>
         <TimerWidget zone={currentTz} />
