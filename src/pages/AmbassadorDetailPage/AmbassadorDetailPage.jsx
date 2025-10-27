@@ -41,8 +41,6 @@ const AmbassadorDetailPage = () => {
 
   const excludeId = ambassadorData?.id || null;
 
-  console.log(excludeId)
-
   return (
     <>
       <AmbassadorDetail

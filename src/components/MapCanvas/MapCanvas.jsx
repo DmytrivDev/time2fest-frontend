@@ -25,25 +25,23 @@ const WHEEL_SENS = 0.0015;
 const EPS = 0.05;
 const BASE_S = 1;
 
-export default function MapCanvas({onZoneClick }) {
-  const { t } = useTranslation('common')
+export default function MapCanvas({ windowWidth, onZoneClick }) {
+  const { t } = useTranslation('common');
   const viewportRef = useRef(null);
   const svgRef = useRef(null);
   const worldRef = useRef(null);
   const zoomRef = useRef(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    // одразу показуємо loading
-    setIsLoading(true);
 
-    // знімаємо після першого кадру + невеликої затримки
+  useEffect(() => {
+    setIsLoading(true);
     requestAnimationFrame(() => {
       setTimeout(() => {
         setIsLoading(false);
-      }, 500); // можна підрегулювати час
+      }, 500);
     });
-  }, []);
+  }, [windowWidth]);
 
   rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
   WORLD_W = window.innerWidth;
@@ -87,7 +85,7 @@ export default function MapCanvas({onZoneClick }) {
   useEffect(() => {
     const check = () => {
       const portrait = window.matchMedia('(orientation: portrait)').matches;
-      setIsMobile(portrait);
+      setIsMobile(true);
     };
 
     check();

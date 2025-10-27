@@ -178,8 +178,6 @@ END:VCALENDAR`.trim();
   const offset = tzParam || 'UTC+0';
   const backgroundUrl = country.Background ? `${import.meta.env.VITE_STRIPE_URL}${country.Background}` : '/country/eve_def.jpg';
 
-  console.log(backgroundUrl)
-
   // --- Визначення правильного TimezoneDetail за tzParam ---
   const tzWithoutUTC = offset.replace('UTC', '').trim(); // наприклад "+1" або "-5"
   const zoneMatch = Array.isArray(country.TimezoneDetail)

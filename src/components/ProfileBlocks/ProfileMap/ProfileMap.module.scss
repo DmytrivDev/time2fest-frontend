@@ -1,5 +1,13 @@
+@use "@/styles/mixins" as *;
+@use "@/styles/variables" as *;
+
 .map {
-    & > div {
+    height: 100%;
+    width: 100%;
+    background-color: $color-load;
+    & > div:first-child {
         margin: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
     }
 }
