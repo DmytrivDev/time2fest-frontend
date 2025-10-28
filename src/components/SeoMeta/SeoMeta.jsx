@@ -113,10 +113,9 @@ const SeoHelmet = ({ seoData, localizations = [] }) => {
   const isPaginatedPage = isCountryList || isAmbassadorsList;
 
   // --- Title ---
-  const fullTitle =
-    isPaginatedPage
-      ? `${seoData.title} ${pageNumber && pageNumber > 1 ? pageNumber : ' 1'}`
-      : seoData.title;
+  const fullTitle = isPaginatedPage
+    ? `${seoData.title} ${pageNumber && pageNumber > 1 ? pageNumber : ' 1'}`
+    : seoData.title;
 
   // --- Canonical ---
   const canonicalUrl =
@@ -248,6 +247,12 @@ const SeoHelmet = ({ seoData, localizations = [] }) => {
         {`<img height="1" width="1" style="display:none"
           src="https://www.facebook.com/tr?id=1794148484534982&ev=PageView&noscript=1" />`}
       </noscript>
+
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6359357552883959"
+        crossorigin="anonymous"
+      ></script>
     </Helmet>
   );
 };
