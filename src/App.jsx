@@ -37,6 +37,8 @@ const ProfileLayout = lazy(
 const ProfileInfo = lazy(() => import('./pages/ProfilePage/ProfileInfo'));
 const ProfileMap = lazy(() => import('./pages/ProfilePage/ProfileMap'));
 const ProfileCountries = lazy(() => import('./pages/ProfilePage/ProfileCountries'));
+const ProfileAmbassadors = lazy(() => import('./pages/ProfilePage/ProfileAmbassadors'));
+const ProfileSubscribe = lazy(() => import('./pages/ProfilePage/ProfileSubscribe'));
 
 const RegisterPage = lazy(() => import('./pages/Auth/RegisterPage'));
 const LoginSuccess = lazy(() => import('./pages/Auth/LoginSuccess'));
@@ -91,6 +93,8 @@ const App = () => {
               <Route path="info" element={<ProfileInfo />} />
               <Route path="timezones" element={<ProfileMap />} />
               <Route path="countries" element={<ProfileCountries />} />
+              <Route path="ambassadors" element={<ProfileAmbassadors />} />
+              <Route path="subscription" element={<ProfileSubscribe />} />
             </Route>
             <Route path="login-success" element={<LoginSuccess />} />
             <Route path="login" element={<LoginPage />} />
@@ -139,6 +143,8 @@ const App = () => {
               <Route path="info" element={<ProfileInfo />} />
               <Route path="timezones" element={<ProfileMap />} />
               <Route path="countries" element={<ProfileCountries />} />
+              <Route path="ambassadors" element={<ProfileAmbassadors />} />
+              <Route path="subscription" element={<ProfileSubscribe />} />
             </Route>
             <Route path="login-success" element={<LoginSuccess />} />
             <Route path="login" element={<LoginPage />} />

@@ -1,0 +1,60 @@
+@use "@/styles/mixins" as *;
+@use "@/styles/variables" as *;
+
+.profileContent {
+    padding: 4rem;
+    max-height: 100vh;
+    max-height: 100dvh;
+    overflow: auto;
+}
+
+.heading {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
+
+    h1 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        line-height: 140%;
+    }
+
+    p {
+        font-size: 0.875rem;
+        line-height: 1.8;
+        margin-top: 0.8rem;
+    }
+}
+
+.countryGridCont {
+    margin-top: 2rem;
+}
+
+.asidePanel {
+    transform: translateX(100%);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 20;
+    width: 23.5rem;
+    max-width: 100vh;
+    height: 100vh;
+    height: 100dvh;
+    max-height: 100dvh;
+    overflow: auto;
+
+    & > aside {
+        border-radius: 0;
+    }
+}
+
+
+@media screen and (min-width: 1880px) {
+    .countryGridCont {
+        & > ul {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+}

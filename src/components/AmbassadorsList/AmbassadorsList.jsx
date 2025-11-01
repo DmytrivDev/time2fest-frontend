@@ -72,7 +72,7 @@ const AmbassadorsList = () => {
   });
 
   // ---- Завантаження амбасадорів ----
-  const limit = 18;
+  const limit = 24;
 
   const {
     data: ambassadorsData,
