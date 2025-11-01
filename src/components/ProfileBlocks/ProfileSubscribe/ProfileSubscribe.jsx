@@ -1,22 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useEffect, useState, useCallback, useRef } from 'react';
 import { getValidLocale } from '@/utils/getValidLocale';
-import { lockScroll, unlockScroll } from '../../../utils/lockScroll';
 import { api } from '@/utils/api';
 import clsx from 'clsx';
 
-import ZonesAside from '../../common/ZonesAside';
-import AmbassadorsGrid from '../../AmbassadorsList/AmbassadorsGrid';
-import Pagination from '../../common/Pagination';
-
-import styles from './ProfileSubscribe.module.scss';
+import styles from './ProfileSubscribe.module.scss'; 
 
 export default function ProfileSubscribe() {
   const { t } = useTranslation();
   const locale = getValidLocale();
-  const location = useLocation();
 
   const {
     data: restData,
@@ -69,11 +61,9 @@ export default function ProfileSubscribe() {
     <div className={styles.profileContent}>
       <div className={styles.heading}>
         <div>
-          <h1>Підписка для тих, хто хоче більше</h1>
+          <h1>{t('profile.subTtl')}</h1>
           <p>
-            Зі святковою підпискою ви відкриєте доступ до унікальних трансляцій
-            від амбасадорів Time2Fest. Це люди з різних країн, які покажуть вам
-            атмосферу святкування в реальному часі.
+            {t('profile.subTxt')}
           </p>
         </div>
         <div className={styles.price}>{data.Price}</div>

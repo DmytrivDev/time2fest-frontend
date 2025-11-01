@@ -16,6 +16,7 @@
     "schedule": "Calendario de celebraciones",
     "countries": "Lista de países",
     "ambassadors": "Embajadores",
+    "ambassador": "Embajadore",
     "subscription": "Suscripción",
     "payments": "Historial de pagos",
     "addshelb": "Agregar al horario"
@@ -259,6 +260,24 @@
     "errorPasswordMismatch": "Las contraseñas no coinciden",
     "errorInvalidToken": "Token de restablecimiento no válido o caducado",
     "passwordChanged": "¡Contraseña actualizada con éxito!"
+  },
+  "profile": {
+    "profile": "Mi perfil",
+    "zoneMap": "Mapa de zonas horarias",
+    "ambassTtl": "Lista de embajadores",
+    "ambassText": "Conoce a las personas que comparten sus celebraciones, tradiciones y el espíritu festivo en la víspera de Año Nuevo.",
+    "ctrTtl": "Lista de países",
+    "ctrTxt": "Descubre los países, sus tradiciones y el ambiente de la víspera de Año Nuevo.",
+    "subTtl": "Suscripción para quienes quieren más",
+    "subTxt": "Con una suscripción festiva tendrás acceso a transmisiones únicas de los embajadores de Time2Fest — personas de diferentes países que mostrarán el ambiente de celebración en tiempo real.",
+    "payTtl": "Historial de pedidos",
+    "payC1": "ID de pago",
+    "payC2": "ID de factura",
+    "payC3": "Servicio",
+    "payC4": "Nombre",
+    "payC5": "Fecha de pago",
+    "payC6": "Importe",
+    "payC7": "Recibo"
   },
   "countries": {
     "kiribati": "Kiribati",

@@ -16,6 +16,7 @@
     "schedule": "Celebration Schedule",
     "countries": "List of Countries",
     "ambassadors": "Ambassadors",
+    "ambassador": "Ambassador",
     "subscription": "Subscription",
     "payments": "Payment History",
     "addshelb": "Add to schedule"
@@ -259,6 +260,24 @@
     "errorPasswordMismatch": "Passwords do not match",
     "errorInvalidToken": "Invalid or expired reset token",
     "passwordChanged": "Password successfully updated!"
+  },
+  "profile": {
+    "profile": "My Profile",
+    "zoneMap": "Time Zone Map",
+    "ambassTtl": "Ambassadors List",
+    "ambassText": "Meet the people who share their celebrations, traditions, and festive spirit on New Year's Eve.",
+    "ctrTtl": "Countries List",
+    "ctrTxt": "Discover countries, their traditions, and the New Year’s Eve mood.",
+    "subTtl": "Subscription for those who want more",
+    "subTxt": "With a festive subscription, you'll get access to unique live streams from Time2Fest ambassadors — people from different countries showing you the celebration atmosphere in real time.",
+    "payTtl": "Order History",
+    "payC1": "Payment ID",
+    "payC2": "Invoice ID",
+    "payC3": "Service",
+    "payC4": "Name",
+    "payC5": "Payment Date",
+    "payC6": "Amount",
+    "payC7": "Receipt"
   },
   "countries": {
     "kiribati": "Kiribati",

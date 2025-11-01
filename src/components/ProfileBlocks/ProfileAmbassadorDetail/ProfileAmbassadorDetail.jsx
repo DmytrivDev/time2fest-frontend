@@ -1,13 +1,15 @@
-import { useParams, useOutletContext } from 'react-router-dom';
+import { useParams, useSearchParams, useOutletContext } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { api } from '@/utils/api';
+import clsx from 'clsx';
 
-import AmbassadorDetail from '../../components/AmbassadorDetail/AmbassadorDetail';
-import AmbassadorsRand from '../../components/AmbassadorsRand/AmbassadorsRand';
-import BecomeSection from '../../components/BecomeSection/BecomeSection';
+import AmbassadorDetail from '../../AmbassadorDetail/AmbassadorDetail';
+import AmbassadorsRand from '../../AmbassadorsRand/AmbassadorsRand';
 
-const AmbassadorDetailPage = () => {
+import styles from './ProfileAmbassadorDetail.module.scss';
+
+const CountryPage = () => {
   const { slug, lang } = useParams();
   const locale = lang || 'en';
 
@@ -42,7 +44,7 @@ const AmbassadorDetailPage = () => {
   const excludeId = ambassadorData?.id || null;
 
   return (
-    <>
+    <div className={clsx(styles.profileContent, 'profileNoCont')}>
       <AmbassadorDetail
         key={slug}
         data={ambassadorData}
@@ -51,10 +53,8 @@ const AmbassadorDetailPage = () => {
       />
 
       <AmbassadorsRand exclude={excludeId} lang={locale} />
-
-      <BecomeSection />
-    </>
+    </div>
   );
 };
 
-export default AmbassadorDetailPage;
+export default CountryPage;

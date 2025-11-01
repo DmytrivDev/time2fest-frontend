@@ -222,13 +222,13 @@ const AmbassadorDetail = ({ data, isLoading, error }) => {
       <div className={styles.socials}>
         <p className={styles.follow}>{t('ambassadors.follow')}:</p>
         <div className={styles.icons}>
-          {socialLinks.map(link => {
+          {socialLinks.map((link, index) => {
             const iconName = 'Fa' + link.name;
             const Icon = FaIcons[iconName];
             const FallbackIcon = FaIcons.FaGlobe;
             return (
               <a
-                key={link.name}
+                key={`${link.name}-${index}`}
                 href={link.link}
                 target="_blank"
                 rel="noopener noreferrer"

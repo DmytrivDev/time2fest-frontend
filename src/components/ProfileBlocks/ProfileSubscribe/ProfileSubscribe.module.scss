@@ -162,14 +162,11 @@
 
         &::after {
             content: "";
-            width: 1.3125rem;
-            height: 1.3125rem;
-            border-radius: 50%;
-            border: 1px solid $color-text;
-            background-size: 0.5625rem;
-            background-position: center center;
+            width: .75rem;
+            height: .75rem;
+            background-size: contain;
             background-repeat: no-repeat;
-            background-image: $plus;
+            background-image: $arrow-right;
         }
     }
 }

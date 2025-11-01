@@ -2,12 +2,15 @@ import React from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { IoWarningOutline } from 'react-icons/io5';
+import { useLocation } from 'react-router-dom';
 import CountryItem from '../../common/CountryItem';
 
 import styles from './CountriesGrid.module.scss';
 
 const CountriesGrid = React.memo(({ isLoading, error, data }) => {
   const { t } = useTranslation('common');
+  const { pathname } = useLocation();
+  const isProfilePage = pathname.includes('/profile/');
 
   // Якщо завантажується — показати 6 “скелетонів”
   if (isLoading) {
@@ -47,7 +50,7 @@ const CountriesGrid = React.memo(({ isLoading, error, data }) => {
   return (
     <ul className={styles.grid}>
       {countries.map(amb => (
-        <CountryItem key={amb.id} data={amb} />
+        <CountryItem key={amb.id} data={amb} isProfile={isProfilePage} />
       ))}
     </ul>
   );

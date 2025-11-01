@@ -19,7 +19,6 @@ export default function ProfileAmbassadors() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [isMobile, setIsMobile] = useState(false);
   const [showAside, setShowAside] = useState(false);
   const [activeZone, setActiveZone] = useState(null);
   const [page, setPage] = useState(1);
@@ -34,14 +33,6 @@ export default function ProfileAmbassadors() {
     setActiveZone(tz || null);
     setPage(p > 0 ? p : 1);
   }, [location.search]);
-
-  // ---- Адаптив ----
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 868);
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   // ---- Блокування скролу ----
   const handleKeyDown = useCallback(e => {
@@ -70,7 +61,7 @@ export default function ProfileAmbassadors() {
     },
   });
 
-  // ---- Завантаження країн ----
+  // ---- Завантаження амбасадорів ----
   const limit = 24;
   const {
     data: ambassadorsData,
@@ -135,12 +126,19 @@ export default function ProfileAmbassadors() {
     : [];
   const totalPages = ambassadorsData?.meta?.pagination?.pageCount || 1;
 
+  // ✅ Фільтруємо часові зони — залишаємо лише ті, де є амбасадори
+  const filteredZones = Array.isArray(zonesData)
+    ? zonesData.filter(zone => zone.ambassadors === true)
+    : [];
+
   return (
     <div ref={contentRef} className={styles.profileContent}>
       <div className={styles.heading}>
         <div>
-          <h1>Список амбасадорів</h1>
-          <p>Познайомся з людьми, які діляться своїми святами, традиціями й настроєм у новорічну ніч.</p>
+          <h1>{t('profile.ambassTtl')}</h1>
+          <p>
+            {t('profile.ambassText')}
+          </p>
         </div>
         <button
           onClick={() => setShowAside(!showAside)}
@@ -152,15 +150,23 @@ export default function ProfileAmbassadors() {
 
       <div className={styles.countryGridCont}>
         <div className={clsx(styles.asidePanel, showAside && styles.open)}>
+          <button
+            onClick={() => setShowAside(!showAside)}
+            className={styles.close}
+          ></button>
           <ZonesAside
             isLoading={zonesLoading}
-            data={zonesData}
+            data={filteredZones}
             activeZone={activeZone}
             onSelectZone={toggleZone}
           />
         </div>
 
-        <AmbassadorsGrid isLoading={isLoading} error={error} data={ambassadors} />
+        <AmbassadorsGrid
+          isLoading={isLoading}
+          error={error}
+          data={ambassadors}
+        />
 
         {totalPages > 1 && (
           <Pagination

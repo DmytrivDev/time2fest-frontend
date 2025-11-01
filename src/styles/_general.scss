@@ -32,6 +32,19 @@ main,
 	margin: 0 auto;
 }
 
+.profileNoCont {
+	.container {
+		padding: 0;
+		max-width: inherit;
+	}
+
+	section {
+		&:first-child {
+			padding-top: 0 !important;
+		}
+	}
+}
+
 
 
 @media screen and (max-width: 1500px) {

@@ -6,7 +6,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import styles from './AmbassadorItem.module.scss';
 
-const AmbassadorItem = ({ data, isLoading = false }) => {
+const AmbassadorItem = ({ data, isLoading = false, isProfile }) => {
   const { t, i18n } = useTranslation();
 
   const location = useLocation();
@@ -24,13 +24,18 @@ const AmbassadorItem = ({ data, isLoading = false }) => {
   const countryCode = country?.code?.toLowerCase() || '';
   const photoUrl = `${import.meta.env.VITE_STRIPE_URL}${photo}`;
 
+  const profilePath = isProfile ? 'profile/' : '';
+
+  let localizedPath = `/${i18n.language !== 'en' ? i18n.language + '/' : ''}ambassadors/list/` + data.slug;
+
+  if (profilePath) {
+    localizedPath = `/${i18n.language !== 'en' ? i18n.language + '/' : ''}${profilePath}ambassadors/` + data.slug;
+  }
+
   return (
-    <div className={styles.card}>
+    <li className={styles.card}>
       <Link
-        to={
-          `/${i18n.language !== 'en' ? i18n.language + '/' : ''}ambassadors/list/` +
-          data.slug
-        }
+        to={localizedPath}
         className={styles.photo}
       >
         <img
@@ -49,26 +54,20 @@ const AmbassadorItem = ({ data, isLoading = false }) => {
 
       <div className={styles.content}>
         <Link
-          to={
-            `/${i18n.language !== 'en' ? i18n.language + '/' : ''}ambassadors/list/` +
-            data.slug
-          }
+          to={localizedPath}
           className={styles.name}
         >
           {name}
         </Link>
         <p className={styles.desc}>{description}</p>
         <Link
-          to={
-            `/${i18n.language !== 'en' ? i18n.language + '/' : ''}ambassadors/list/` +
-            data.slug
-          }
+          to={localizedPath}
           className={styles.button}
         >
           {t('controls.details')}
         </Link>
       </div>
-    </div>
+    </li>
   );
 };
 

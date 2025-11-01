@@ -1,3 +1,4 @@
+// src/components/SeoMeta/SeoMeta.jsx
 import { Helmet } from 'react-helmet-async';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation } from 'react-router-dom';
@@ -5,6 +6,7 @@ import { getValidLocale } from '@/utils/getValidLocale';
 import { api } from '@/utils/api';
 import { getDynamicSeo } from '@/utils/getDynamicSeo';
 import { SUPPORTED_LANGS } from '@/i18n/languages';
+import { useTranslation } from 'react-i18next';
 
 //
 // --- Визначає базову сторінку з URL ---
@@ -14,7 +16,7 @@ function getPageFromPath(pathname) {
   if (parts[0] && SUPPORTED_LANGS.includes(parts[0])) parts.shift();
 
   if (parts[0] === 'ambassadors' && parts[1] === 'list')
-    return 'AmbassadorsList'; // ✅ саме так — ця сторінка окрема у Strapi
+    return 'AmbassadorsList';
   if (parts[0] === 'country' && parts[1]) return 'country';
 
   return parts.length === 0 ? 'home' : parts[0];
@@ -27,11 +29,19 @@ const SeoMeta = ({ dynamicData = null }) => {
   const locale = getValidLocale();
   const { pathname } = useLocation();
   const page = getPageFromPath(pathname);
+  const { t } = useTranslation('common');
 
-  // --- Визначення типу сторінки ---
-  const isCountryDetail = pathname.match(/\/country\/[^/]+$/); // /country/poland
-  const isAmbassadorDetail = pathname.match(/\/ambassadors\/list\/[^/]+$/); // /ambassadors/list/tami
+  // --- Типи сторінок ---
+  const isCountryDetail = pathname.match(/\/country\/[^/]+$/);
+  const isAmbassadorDetail = pathname.match(/\/ambassadors\/list\/[^/]+$/);
   const isDynamicPage = isCountryDetail || isAmbassadorDetail;
+
+  const isProfilePage = pathname.startsWith('/profile/');
+  const isProfileCountry = pathname.match(/\/profile\/countries\/[^/]+$/);
+  const isProfileAmbassador = pathname.match(/\/profile\/ambassadors\/[^/]+$/);
+
+  const authPages = ['register', 'login', 'forget-password', 'reset-password'];
+  const isAuthPage = authPages.includes(page);
 
   // --- Маппінг назв сторінок до Strapi-компонентів ---
   let pageS = page;
@@ -50,14 +60,14 @@ const SeoMeta = ({ dynamicData = null }) => {
       const res = await api.get(`/seo?page=${pageS}&locale=${locale}`);
       return res.data;
     },
-    enabled: !!pageS && !isDynamicPage, // ✅ тепер запит для ambassadors-list буде
+    enabled: !!pageS && !isDynamicPage && !isProfilePage && !isAuthPage,
     staleTime: 5 * 60 * 1000,
   });
 
   if (error) console.error('❌ SEO fetch error:', error);
 
   //
-  // --- 🔹 Динамічні сторінки (деталі країн або амбасадорів) ---
+  // --- 🔹 Публічні динамічні сторінки (країни / амбасадори) ---
   //
   if (isDynamicPage) {
     const hasCountryData = isCountryDetail && !!dynamicData?.CountryName;
@@ -68,12 +78,97 @@ const SeoMeta = ({ dynamicData = null }) => {
     if (!hasCountryData && !hasAmbassadorData) return null;
 
     const dynamicSeo = getDynamicSeo(pathname, locale, dynamicData);
-    if (!dynamicSeo) {
-      console.warn('⚠️ No dynamic SEO data generated for:', pathname);
-      return null;
-    }
+    if (!dynamicSeo) return null;
 
     return <SeoHelmet seoData={dynamicSeo} />;
+  }
+
+  //
+  // --- 🔹 Профільні сторінки ---
+  //
+  if (isProfilePage) {
+    const localePrefix = locale === 'en' ? '' : `/${locale}`;
+    const canonicalUrl = `https://time2fest.com${localePrefix}/profile/`;
+
+    // --- Динамічні профільні сторінки ---
+    if (isProfileCountry || isProfileAmbassador) {
+      let title = t('profile.profile'); // "Мій профіль"
+
+      if (isProfileAmbassador && dynamicData?.name) {
+        title += ` — ${t('nav.ambassador')} ${dynamicData.name}`;
+      } else if (
+        isProfileCountry &&
+        (dynamicData?.CountryName || dynamicData?.country?.name)
+      ) {
+        const countryName =
+          dynamicData?.CountryName || dynamicData?.country?.name;
+        title += ` — ${countryName}`;
+      }
+
+      const profileDynamicSeo = {
+        title,
+        description: '',
+        canonicalURL: canonicalUrl,
+        ogType: 'profile',
+        noIndex: true,
+      };
+
+      return <SeoHelmet seoData={profileDynamicSeo} />;
+    }
+
+    // --- Звичайні підсторінки профілю ---
+    const parts = pathname.split('/').filter(Boolean);
+    const subPage = parts[parts.length - 1];
+
+    const titleKeys = {
+      profile: 'profile',
+      timezones: 'zoneMap',
+      countries: 'ctrTtl',
+      ambassadors: 'ambassTtl',
+      subscription: 'subTtl',
+      payments: 'payTtl',
+    };
+
+    const titleKey = titleKeys[subPage] || 'profile';
+    const title = `${t('profile.profile')} — ${t(`profile.${titleKey}`)}`;
+
+    const profileSeo = {
+      title,
+      description: '',
+      canonicalURL: canonicalUrl,
+      ogType: 'profile',
+      noIndex: true,
+    };
+
+    return <SeoHelmet seoData={profileSeo} />;
+  }
+
+  //
+  // --- 🔹 Auth сторінки ---
+  //
+  if (isAuthPage) {
+    const localePrefix = locale === 'en' ? '' : `/${locale}`;
+    const canonicalUrl = `https://time2fest.com${localePrefix}/`;
+
+    const titleKeys = {
+      register: 'registerTitle',
+      login: 'loginTitle',
+      'forget-password': 'resetTitle',
+      'reset-password': 'newPasswordTitle',
+    };
+
+    const titleKey = titleKeys[page] || 'loginTitle';
+    const title = `Time2Fest — ${t(`auth.${titleKey}`)}`;
+
+    const authSeo = {
+      title,
+      description: '',
+      canonicalURL: canonicalUrl,
+      ogType: 'website',
+      noIndex: true,
+    };
+
+    return <SeoHelmet seoData={authSeo} />;
   }
 
   //
@@ -105,25 +200,22 @@ const SeoHelmet = ({ seoData, localizations = [] }) => {
   const pageParam = params.get('page');
   const pageNumber = pageParam ? parseInt(pageParam, 10) : 1;
 
-  // --- Перевірка пагінації для двох спискових сторінок ---
+  // --- Перевірка пагінації ---
   const isCountryList = /\/(uk|en|es|fr)?\/?country\/?$/.test(pathname);
   const isAmbassadorsList = /\/(uk|en|es|fr)?\/?ambassadors\/list\/?$/.test(
     pathname
   );
   const isPaginatedPage = isCountryList || isAmbassadorsList;
 
-  // --- Title ---
   const fullTitle = isPaginatedPage
     ? `${seoData.title} ${pageNumber && pageNumber > 1 ? pageNumber : ' 1'}`
     : seoData.title;
 
-  // --- Canonical ---
   const canonicalUrl =
     isPaginatedPage && pageNumber > 1
       ? `${seoData.canonicalURL.replace(/\/$/, '')}?page=${pageNumber}`
       : seoData.canonicalURL;
 
-  // --- Prev/Next ---
   const prevUrl =
     isPaginatedPage && pageNumber > 1
       ? `${seoData.canonicalURL.replace(/\/$/, '')}?page=${pageNumber - 1}`
@@ -133,7 +225,6 @@ const SeoHelmet = ({ seoData, localizations = [] }) => {
     ? `${seoData.canonicalURL.replace(/\/$/, '')}?page=${pageNumber + 1}`
     : null;
 
-  // --- hreflang ---
   const hreflangs = [
     { locale, url: canonicalUrl },
     ...(Array.isArray(localizations)
@@ -149,6 +240,7 @@ const SeoHelmet = ({ seoData, localizations = [] }) => {
       {/* --- Основні теги --- */}
       <title>{fullTitle}</title>
       <meta name="description" content={seoData.description} />
+      {seoData.noIndex && <meta name="robots" content="noindex, nofollow" />}
       <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
@@ -168,17 +260,6 @@ const SeoHelmet = ({ seoData, localizations = [] }) => {
       {/* --- Prev/Next --- */}
       {prevUrl && <link rel="prev" href={prevUrl} />}
       {nextUrl && <link rel="next" href={nextUrl} />}
-
-      {/* --- Favicons --- */}
-      <link rel="icon" type="image/png" href="/favicon-96x96.png" />
-      <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-      <link rel="shortcut icon" href="/favicon.ico" />
-      <link
-        rel="apple-touch-icon"
-        sizes="180x180"
-        href="/apple-touch-icon.png"
-      />
-      <link rel="manifest" href="/site.webmanifest" />
 
       {/* --- Open Graph --- */}
       <meta property="og:type" content={seoData.ogType || 'website'} />

@@ -19,7 +19,6 @@ export default function MapBlock() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [isMobile, setIsMobile] = useState(false);
   const [showAside, setShowAside] = useState(false);
   const [activeZone, setActiveZone] = useState(null);
   const [page, setPage] = useState(1);
@@ -34,14 +33,6 @@ export default function MapBlock() {
     setActiveZone(tz || null);
     setPage(p > 0 ? p : 1);
   }, [location.search]);
-
-  // ---- Адаптив ----
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 868);
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   // ---- Блокування скролу ----
   const handleKeyDown = useCallback(e => {
@@ -138,8 +129,8 @@ export default function MapBlock() {
     <div ref={contentRef} className={styles.profileContent}>
       <div className={styles.heading}>
         <div>
-          <h1>Список країн</h1>
-          <p>Познайомся з країнами їх традиціями й настроєм у новорічну ніч.</p>
+          <h1>{t('profile.ctrTtl')}</h1>
+          <p>{t('profile.ctrTxt')}</p>
         </div>
         <button
           onClick={() => setShowAside(!showAside)}
@@ -151,6 +142,10 @@ export default function MapBlock() {
 
       <div className={styles.countryGridCont}>
         <div className={clsx(styles.asidePanel, showAside && styles.open)}>
+          <button
+            onClick={() => setShowAside(!showAside)}
+            className={styles.close}
+          ></button>
           <ZonesAside
             isLoading={zonesLoading}
             data={zonesData}

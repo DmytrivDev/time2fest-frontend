@@ -1,6 +1,6 @@
-// src/layouts/ProfileLayout/ProfileSidebar.jsx
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { getValidLocale } from '@/utils/getValidLocale'; // ✅ додаємо, якщо ще не було
 import Logo from '../../components/common/Logo/Logo';
 
 import styles from './ProfileLayout.module.scss';
@@ -17,40 +17,44 @@ import {
 
 export default function ProfileSidebar() {
   const { t } = useTranslation();
+  const locale = getValidLocale(); // ✅ поточна мова
+
+  // Динамічний префікс для URL
+  const localePrefix = locale === 'en' ? '' : `/${locale}`;
 
   const links = [
     {
-      to: '/profile/dashboard',
+      to: `${localePrefix}/profile/dashboard`,
       label: t('nav.home'),
       icon: <Home size={18} />,
     },
     {
-      to: '/profile/timezones',
+      to: `${localePrefix}/profile/timezones`,
       label: t('nav.timezones'),
       icon: <Globe2 size={18} />,
     },
     {
-      to: '/profile/schedule',
+      to: `${localePrefix}/profile/schedule`,
       label: t('nav.schedule'),
       icon: <Clock size={18} />,
     },
     {
-      to: '/profile/countries',
+      to: `${localePrefix}/profile/countries`,
       label: t('nav.countries'),
       icon: <Grid size={18} />,
     },
     {
-      to: '/profile/ambassadors',
+      to: `${localePrefix}/profile/ambassadors`,
       label: t('nav.ambassadors'),
       icon: <Users size={18} />,
     },
     {
-      to: '/profile/subscription',
+      to: `${localePrefix}/profile/subscription`,
       label: t('nav.subscription'),
       icon: <Wallet size={18} />,
     },
     {
-      to: '/profile/payments',
+      to: `${localePrefix}/profile/payments`,
       label: t('nav.payments'),
       icon: <CreditCard size={18} />,
     },

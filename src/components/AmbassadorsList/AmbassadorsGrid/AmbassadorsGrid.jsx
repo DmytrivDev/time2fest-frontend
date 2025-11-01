@@ -2,13 +2,16 @@ import React from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { IoWarningOutline } from 'react-icons/io5';
+import { useLocation } from 'react-router-dom';
 import AmbassadorItem from '../../common/AmbassadorItem';
 
 import styles from './AmbassadorsGrid.module.scss';
 
 const AmbassadorsGrid = React.memo(({ isLoading, error, data }) => {
   const { t } = useTranslation('common');
-  
+  const { pathname } = useLocation();
+  const isProfilePage = pathname.includes('/profile/');
+
   // Якщо завантажується — показати 6 “скелетонів”
   if (isLoading) {
     return (
@@ -45,11 +48,11 @@ const AmbassadorsGrid = React.memo(({ isLoading, error, data }) => {
   }
 
   return (
-    <div className={styles.grid}>
+    <ul className={styles.grid}>
       {ambassadors.map(amb => (
-        <AmbassadorItem key={amb.id} data={amb} />
+        <AmbassadorItem key={amb.id} data={amb} isProfile={isProfilePage} />
       ))}
-    </div>
+    </ul>
   );
 });
 

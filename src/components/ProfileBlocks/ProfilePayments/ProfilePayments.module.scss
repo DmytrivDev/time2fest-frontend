@@ -1,0 +1,96 @@
+@use "@/styles/mixins" as *;
+@use "@/styles/variables" as *;
+
+.profileContent {
+    padding: 4rem;
+    max-height: 100vh;
+    max-height: 100dvh;
+    overflow: auto;
+}
+
+.titleLoading {
+    width: 28.5rem;
+    height: 2.3475rem;
+}
+
+.heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    align-content: flex-start;
+
+    h1 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        line-height: 140%;
+    }
+}
+
+.payments {
+    margin-top: 1.56rem;
+}
+
+.payment__heading {
+    display: flex;
+
+    .coll {
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1.4;
+        font-size: 0.875rem;
+    }
+}
+
+.coll {
+    width: 15.4%;
+
+    &:nth-child(6) {
+        width: 13.6%;
+    }
+
+    &:last-child {
+        width: 9.4rem;
+    }
+}
+
+.payments__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.62rem;
+    margin-top: 0.44rem;
+}
+
+.payments__item {
+    border-radius: 1.25rem;
+    background: #1c1c1c;
+    padding: 1rem 0;
+    display: flex;
+
+    .coll {
+        padding: 0.5rem 0;
+        padding-left: 1.5rem;
+        border-right: 1px solid rgba(217, 217, 217, 0.1);
+        line-height: 1.4;
+        display: flex;
+        align-items: center;
+        align-content: center;
+
+        &:last-child {
+            padding-right: 1.5rem;
+            border-right: none;
+
+            button {
+                width: 2.875rem;
+                height: 2.875rem;
+                border-radius: 50%;
+                background-color: $color-primary;
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-size: 1rem;
+                background-image: $download;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1880px) {
+}

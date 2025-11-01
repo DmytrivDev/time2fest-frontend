@@ -25,6 +25,24 @@
         line-height: 1.8;
         margin-top: 0.8rem;
     }
+
+    button {
+        padding: 0.94rem 1.25rem;
+        font-size: 0.875rem;
+        display: flex;
+        align-items: center;
+        align-content: center;
+        gap: 0.62rem;
+
+        &::before {
+            content: "";
+            width: 0.9375rem;
+            height: 0.75rem;
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-image: $filter;
+        }
+    }
 }
 
 .countryGridCont {
@@ -32,24 +50,52 @@
 }
 
 .asidePanel {
-    transform: translateX(100%);
     position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
+    top: 1.25rem;
+    bottom: 1.25rem;
+    left: 1.25rem;
     z-index: 20;
-    width: 23.5rem;
+    width: 20.375rem;
     max-width: 100vh;
-    height: 100vh;
-    height: 100dvh;
-    max-height: 100dvh;
-    overflow: auto;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.3s;
+
+    .close {
+        position: absolute;
+        width: 1.875rem;
+        height: 1.875rem;
+        background-repeat: no-repeat !important;
+        background-position: center center !important;
+        background-size: 0.625rem;
+        background-image: $close !important;
+        width: 1.875rem;
+        height: 1.875rem;
+        border-radius: 0.625rem;
+        background: rgba(28, 28, 28, 0.6);
+        top: 0;
+        right: -0.62rem;
+        transform: translateX(100%);
+    }
+
+    &.open {
+        opacity: 1;
+        visibility: visible;
+    }
 
     & > aside {
-        border-radius: 0;
+        overflow: auto;
+        height: calc(100vh - 2.5rem);
+        height: calc(100dvh - 2.5rem);
+        min-height: inherit;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
     }
 }
-
 
 @media screen and (min-width: 1880px) {
     .countryGridCont {

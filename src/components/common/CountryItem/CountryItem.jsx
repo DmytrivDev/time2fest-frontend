@@ -6,7 +6,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { IoTime, IoCamera, IoVideocam } from 'react-icons/io5';
 import styles from './CountryItem.module.scss';
 
-const CountryItem = ({ data, isLoading = false }) => {
+const CountryItem = ({ data, isLoading = false, isProfile }) => {
   const { t, i18n } = useTranslation();
   const location = useLocation();
 
@@ -64,13 +64,12 @@ const CountryItem = ({ data, isLoading = false }) => {
   const hasCountdown = true;
 
   // ---- Локалізований шлях ----
-  const localizedPath = `/${
-    i18n.language !== 'en' ? i18n.language + '/' : ''
-  }country/${slug}?tz=${encodeURIComponent(currentTz)}`;
+  const profilePath = isProfile ? 'profile/countries/' : 'country/';
+  const localizedPath = `/${i18n.language !== 'en' ? i18n.language + '/' : ''}${profilePath}${slug}?tz=${encodeURIComponent(currentTz)}`;
 
   return (
     <li className={styles.card}>
-      {/* --- Фото --- */} 
+      {/* --- Фото --- */}
       <Link to={localizedPath} className={styles.photo}>
         <img src={backgroundUrl} alt={CountryName} loading="lazy" />
         <span className={styles.tzCodeList}>
