@@ -69,7 +69,7 @@ const CountryItem = ({ data, isLoading = false }) => {
   }country/${slug}?tz=${encodeURIComponent(currentTz)}`;
 
   return (
-    <div className={styles.card}>
+    <li className={styles.card}>
       {/* --- Фото --- */} 
       <Link to={localizedPath} className={styles.photo}>
         <img src={backgroundUrl} alt={CountryName} loading="lazy" />
@@ -124,7 +124,7 @@ const CountryItem = ({ data, isLoading = false }) => {
           {t('controls.details')}
         </Link>
       </div>
-    </div>
+    </li>
   );
 };
 

@@ -30,12 +30,15 @@ const CountriesLayout = lazy(
   () => import('./layouts/CountriesLayout/CountriesLayout')
 );
 const ContactPage = lazy(() => import('./pages/ContactPage/ContactPage'));
-const RegisterPage = lazy(() => import('./pages/Auth/RegisterPage'));
+
 const ProfileLayout = lazy(
   () => import('./layouts/ProfileLayout/ProfileLayout')
 );
 const ProfileInfo = lazy(() => import('./pages/ProfilePage/ProfileInfo'));
 const ProfileMap = lazy(() => import('./pages/ProfilePage/ProfileMap'));
+const ProfileCountries = lazy(() => import('./pages/ProfilePage/ProfileCountries'));
+
+const RegisterPage = lazy(() => import('./pages/Auth/RegisterPage'));
 const LoginSuccess = lazy(() => import('./pages/Auth/LoginSuccess'));
 const LoginPage = lazy(() => import('./pages/Auth/LoginPage'));
 const ForgetPass = lazy(() => import('./pages/Auth/ForgetPass'));
@@ -87,6 +90,7 @@ const App = () => {
               <Route index element={<Navigate to="info" replace />} />
               <Route path="info" element={<ProfileInfo />} />
               <Route path="timezones" element={<ProfileMap />} />
+              <Route path="countries" element={<ProfileCountries />} />
             </Route>
             <Route path="login-success" element={<LoginSuccess />} />
             <Route path="login" element={<LoginPage />} />
@@ -134,6 +138,7 @@ const App = () => {
               <Route index element={<Navigate to="info" replace />} />
               <Route path="info" element={<ProfileInfo />} />
               <Route path="timezones" element={<ProfileMap />} />
+              <Route path="countries" element={<ProfileCountries />} />
             </Route>
             <Route path="login-success" element={<LoginSuccess />} />
             <Route path="login" element={<LoginPage />} />

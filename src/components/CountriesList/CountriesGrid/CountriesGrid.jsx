@@ -45,11 +45,11 @@ const CountriesGrid = React.memo(({ isLoading, error, data }) => {
   }
 
   return (
-    <div className={styles.grid}>
+    <ul className={styles.grid}>
       {countries.map(amb => (
         <CountryItem key={amb.id} data={amb} />
       ))}
-    </div>
+    </ul>
   );
 });
 

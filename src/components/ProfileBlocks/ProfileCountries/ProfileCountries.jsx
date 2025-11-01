@@ -3,16 +3,17 @@ import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { getValidLocale } from '@/utils/getValidLocale';
-import { lockScroll, unlockScroll } from '../../utils/lockScroll'; 
+import { lockScroll, unlockScroll } from '../../../utils/lockScroll';
 import { api } from '@/utils/api';
 import clsx from 'clsx';
 
-import ZonesAside from '../common/ZonesAside';
-import CountriesGrid from './CountriesGrid';
-import Pagination from '../common/Pagination';
-import styles from './CountriesList.module.scss';
+import ZonesAside from '../../common/ZonesAside';
+import CountriesGrid from '../../CountriesList/CountriesGrid';
+import Pagination from '../../common/Pagination';
 
-const CountriesList = () => {
+import styles from './ProfileCountries.module.scss';
+
+export default function MapBlock() {
   const { t } = useTranslation();
   const locale = getValidLocale();
   const location = useLocation();
@@ -23,8 +24,7 @@ const CountriesList = () => {
   const [activeZone, setActiveZone] = useState(null);
   const [page, setPage] = useState(1);
 
-  // 🟡 прапорець, чи треба скролити після пагінації
-  const shouldScroll = useRef(false);
+  const contentRef = useRef(null);
 
   // ---- Витяг з квері ----
   useEffect(() => {
@@ -72,7 +72,6 @@ const CountriesList = () => {
 
   // ---- Завантаження країн ----
   const limit = 24;
-
   const {
     data: countriesData,
     isLoading,
@@ -84,12 +83,22 @@ const CountriesList = () => {
       const url = activeZone
         ? `${baseUrl}&tz=${encodeURIComponent(activeZone)}`
         : baseUrl;
-
       const res = await api.get(url);
-      return res.data; // ✅ { items, meta }
+      return res.data;
     },
     keepPreviousData: true,
   });
+
+  // ---- Прокрутка контейнера ----
+  const scrollToTop = useCallback(() => {
+    const block = contentRef.current;
+    if (block) {
+      block.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }
+  }, []);
 
   // ---- Перемикання фільтра ----
   const toggleZone = code => {
@@ -103,6 +112,9 @@ const CountriesList = () => {
     }
     params.set('page', '1');
     navigate({ search: params.toString() });
+
+    // ⬆️ одразу прокручуємо контейнер
+    setTimeout(scrollToTop, 100);
   };
 
   // ---- Зміна сторінки ----
@@ -112,26 +124,9 @@ const CountriesList = () => {
     params.set('page', newPage.toString());
     navigate({ search: params.toString() });
 
-    // 🟢 тепер позначаємо, що скролити треба
-    shouldScroll.current = true;
+    // ⬆️ теж одразу прокручуємо контейнер
+    setTimeout(scrollToTop, 100);
   };
-
-  // ---- Скрол тільки після кліку пагінації ----
-  useEffect(() => {
-    if (!shouldScroll.current) return; // 🛑 не скролимо при ресайзі або 1-му завантаженні
-
-    const topEl = document.getElementById('topPage');
-    if (!topEl) return;
-
-    const rect = topEl.getBoundingClientRect();
-    const offsetTop = rect.top + window.scrollY;
-    const y = isMobile ? offsetTop - 40 : offsetTop;
-
-    window.scrollTo({ top: y, behavior: 'smooth' });
-
-    // після скролу — скидаємо прапорець
-    shouldScroll.current = false;
-  }, [page]);
 
   // ---- Підготовка даних ----
   const countries = Array.isArray(countriesData?.items)
@@ -139,79 +134,41 @@ const CountriesList = () => {
     : [];
   const totalPages = countriesData?.meta?.pagination?.pageCount || 1;
 
-  // ---- Рендер ----
   return (
-    <section className={styles.section}>
-      <div className={clsx('container', styles.container)}>
-        {/* --- Заголовок --- */}
-        <div className={styles.header}>
-          <h1 className={styles.title}>{t('controls.countries_title')}</h1>
-          <p className={styles.subtitle}>{t('controls.countries_subtitle')}</p>
-
-          {isMobile && (
-            <button
-              onClick={() => setShowAside(!showAside)}
-              className={clsx(styles.mobBtn, 'btn_primary')}
-            >
-              {t('ambassadors.choose_timezone')}
-            </button>
-          )}
+    <div ref={contentRef} className={styles.profileContent}>
+      <div className={styles.heading}>
+        <div>
+          <h1>Список країн</h1>
+          <p>Познайомся з країнами їх традиціями й настроєм у новорічну ніч.</p>
         </div>
-
-        {/* --- Мобільна бічна панель --- */}
-        {isMobile && (
-          <>
-            <div
-              className={clsx(
-                styles.asideBackdrop,
-                showAside && styles.visible
-              )}
-              onClick={() => setShowAside(false)}
-            />
-            <div className={clsx(styles.asidePanel, showAside && styles.open)}>
-              <ZonesAside
-                isLoading={zonesLoading}
-                data={zonesData}
-                activeZone={activeZone}
-                onSelectZone={toggleZone}
-                isMobile={isMobile}
-                setShowAside={setShowAside}
-              />
-            </div>
-          </>
-        )}
-
-        {/* --- Основний контент --- */}
-        <div className={styles.inner} id="topPage">
-          {!isMobile && (
-            <ZonesAside
-              isLoading={zonesLoading}
-              data={zonesData}
-              activeZone={activeZone}
-              onSelectZone={toggleZone}
-            />
-          )}
-
-          <div className={styles.gridWrapper}>
-            <CountriesGrid
-              isLoading={isLoading}
-              error={error}
-              data={countries}
-            />
-
-            {/* --- Пагінація --- */}
-            {totalPages > 1 && (
-              <Pagination
-                currentPage={page}
-                totalPages={totalPages}
-                onChange={handlePageChange}
-              />
-            )}
-          </div>
-        </div>
+        <button
+          onClick={() => setShowAside(!showAside)}
+          className="btn_primary"
+        >
+          {t('ambassadors.choose_timezone')}
+        </button>
       </div>
-    </section>
-  );
-};
 
-export default CountriesList;
+      <div className={styles.countryGridCont}>
+        <div className={clsx(styles.asidePanel, showAside && styles.open)}>
+          <ZonesAside
+            isLoading={zonesLoading}
+            data={zonesData}
+            activeZone={activeZone}
+            onSelectZone={toggleZone}
+          />
+        </div>
+
+        <CountriesGrid isLoading={isLoading} error={error} data={countries} />
+
+        {totalPages > 1 && (
+          <Pagination
+            currentPage={page}
+            totalPages={totalPages}
+            onChange={handlePageChange}
+          />
+        )}
+      </div>
+    </div>
+  );
+}
