@@ -7,7 +7,7 @@ import { CircleFlag } from 'react-circle-flags';
 import * as FaIcons from 'react-icons/fa6';
 import styles from './AmbassadorDetail.module.scss';
 
-const AmbassadorDetail = ({ data, isLoading, error }) => {
+const AmbassadorDetail = ({ data, isLoading, error, isProfilePage }) => {
   const { t } = useTranslation();
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -23,7 +23,7 @@ const AmbassadorDetail = ({ data, isLoading, error }) => {
   // ---- LOADING стан ----
   if (isLoading) {
     return (
-      <section className={styles.section}>
+      <section className={clsx(styles.section, isProfilePage && styles.profilePage)}>
         <div className="container">
           <div className={clsx(styles.content, { [styles.mobile]: isMobile })}>
             {/* --- Десктопний лоадінг --- */}
@@ -254,7 +254,7 @@ const AmbassadorDetail = ({ data, isLoading, error }) => {
 
   // ---- Основний рендер ----
   return (
-    <section className={styles.section}>
+    <section className={clsx(styles.section, isProfilePage && styles.profilePage)}>
       <div className="container">
         <div className={clsx(styles.content, { [styles.mobile]: isMobile })}>
           {/* ---- Десктопна структура ---- */}

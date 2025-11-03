@@ -24,6 +24,28 @@ section {
     gap: 1.44rem;
 }
 
+@media screen and (max-width: 1880px) {
+    .profilePage {
+        padding-top: 4.56rem;
+
+        .titleLoading {
+            height: 2.4375rem;
+            width: 28rem;
+        }
+
+        .header {
+            h2 {
+                font-size: 1.75rem;
+            }
+        }
+
+        .grid {
+            margin-top: 1.88rem;
+            gap: 1.25rem;
+        }
+    }
+}
+
 @media screen and (max-width: 1140px) {
     section {
         padding-top: 3.75rem;

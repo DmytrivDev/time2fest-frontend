@@ -1,6 +1,7 @@
 import { useParams, useSearchParams, useOutletContext } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 import { api } from '@/utils/api';
 import clsx from 'clsx';
 
@@ -15,6 +16,8 @@ const CountryPage = () => {
   const [searchParams] = useSearchParams();
   const locale = lang || 'en';
   const tzParam = searchParams.get('tz');
+  const { pathname } = useLocation();
+  const isProfilePage = pathname.includes('/profile/');
 
   // 🔹 Отримуємо функцію з Layout для SEO
   const { setDynamicData } = useOutletContext();
@@ -86,6 +89,7 @@ const CountryPage = () => {
         isLoading={isLoading}
         error={error}
         tzParam={effectiveTz}
+        isProfilePage={isProfilePage}
       />
 
       {ambassadorsByTz.length > 0 && (
@@ -96,6 +100,7 @@ const CountryPage = () => {
           code={country.CountryCode}
           isLoading={isLoading}
           error={error}
+          isProfilePage={isProfilePage}
         />
       )}
 
@@ -106,6 +111,7 @@ const CountryPage = () => {
           nameSec={country?.CountrySec || country?.CountryName}
           isLoading={isLoading}
           error={error}
+          isProfilePage={isProfilePage}
         />
       )}
     </div>

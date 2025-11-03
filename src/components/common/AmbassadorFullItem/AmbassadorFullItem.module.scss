@@ -134,6 +134,51 @@
     }
 }
 
+@media screen and (max-width: 1880px) {
+    .profileItem {
+        .loadingCard {
+            min-height: 19.8125rem;
+        }
+
+        .cardLoading {
+            min-height: 19.8125rem;
+        }
+
+        .photoWrap {
+            width: 14.5625rem;
+            min-width: 14.5625rem;
+            min-height: 19.8125rem;
+        }
+
+        .playBtn {
+            height: 2.625rem;
+            padding: 0 1.25rem;
+            font-size: 1rem;
+
+            .playIcon {
+                width: 1.875rem;
+                height: 1.875rem;
+            }
+        }
+
+        .right {
+            gap: 2rem;
+        }
+
+        .name {
+            font-size: 1.3125rem;
+        }
+
+        .desc {
+            max-width: 42rem;
+        }
+
+        .actions {
+            gap: 1.75rem;
+        }
+    }
+}
+
 @media screen and (max-width: 1140px) {
     .loadingCard {
         min-height: 21rem;
@@ -191,7 +236,7 @@
     .actions {
         gap: 1.5rem;
         flex-wrap: wrap;
-        row-gap: .75rem;
+        row-gap: 0.75rem;
 
         .detailsBtn {
             order: 2;

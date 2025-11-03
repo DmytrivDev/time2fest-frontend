@@ -7,7 +7,7 @@ import { api } from '@/utils/api';
 import AmbassadorItem from '../common/AmbassadorItem';
 import styles from './AmbassadorsRand.module.scss';
 
-const AmbassadorsRand = React.memo(({ exclude, lang }) => {
+const AmbassadorsRand = React.memo(({ exclude, lang, isProfilePage }) => {
   const { t, i18n } = useTranslation();
   const locale = lang || i18n.language || 'en';
 
@@ -30,7 +30,9 @@ const AmbassadorsRand = React.memo(({ exclude, lang }) => {
 
       const res = await api.get(`/ambassadors-list?${params.toString()}`);
       // підтримка формату Strapi і прямого масиву
-      const data = Array.isArray(res.data.items) ? res.data.items : res.data?.data.items || [];
+      const data = Array.isArray(res.data.items)
+        ? res.data.items
+        : res.data?.data.items || [];
 
       return data;
     },
@@ -38,7 +40,9 @@ const AmbassadorsRand = React.memo(({ exclude, lang }) => {
 
   if (isLoading) {
     return (
-      <section className={styles.section}>
+      <section
+        className={clsx(styles.section, isProfilePage && styles.profilePage)}
+      >
         <div className="container">
           <div className={styles.header}>
             <div
@@ -54,11 +58,11 @@ const AmbassadorsRand = React.memo(({ exclude, lang }) => {
             ></div>
           </div>
           <div className={styles.content}>
-            <div className={styles.grid}>
+            <ul className={styles.grid}>
               {Array.from({ length: 4 }).map((_, i) => (
                 <AmbassadorItem key={i} isLoading />
               ))}
-            </div>
+            </ul>
           </div>
         </div>
       </section>
@@ -79,16 +83,20 @@ const AmbassadorsRand = React.memo(({ exclude, lang }) => {
   if (!filteredData.length) return null;
 
   return (
-    <section className={styles.section}>
+    <section
+      className={clsx(styles.section, isProfilePage && styles.profilePage)}
+    >
       <div className="container">
         <div className={styles.header}>
           <h2 className={styles.title}>{t('ambassadors.rand_title')}</h2>
-          <Link
-            to={`/${i18n.language !== 'en' ? i18n.language + '/' : ''}ambassadors/list`}
-            className="btn_primary btn_small"
-          >
-            {t('ambassadors.all_ambass')}
-          </Link>
+          {!isProfilePage && (
+            <Link
+              to={`/${i18n.language !== 'en' ? i18n.language + '/' : ''}ambassadors/list`}
+              className="btn_primary btn_small"
+            >
+              {t('ambassadors.all_ambass')}
+            </Link>
+          )}
         </div>
 
         <div className={styles.content}>

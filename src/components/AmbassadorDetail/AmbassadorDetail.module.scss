@@ -211,6 +211,111 @@
 	}
 }
 
+.profilePage {
+	.photoWrap {
+		width: calc(100% / 4 - 0.72rem);
+		min-width: calc(100% / 4 - 0.72rem);
+		max-width: 22.75rem;
+	}
+}
+
+@media screen and (max-width: 1880px) {
+	.profilePage {
+		.nameLoading {
+			height: 3.5rem;
+			width: 25rem;
+		}
+
+		.langsLoading {
+			height: 1.875rem;
+			width: 17rem;
+		}
+
+		.descLoading {
+			height: 6.5rem;
+
+			span {
+				height: 1.25rem;
+			}
+		}
+
+		.followLoading {
+			height: 1.5rem;
+			width: 10rem;
+		}
+
+		.iconLinkLoading {
+			width: 3.25rem;
+			height: 3.25rem;
+		}
+
+		.content {
+			gap: 3.12rem;
+		}
+
+		.photoWrap {
+			width: calc(100% / 3 - 0.72rem);
+			min-width: calc(100% / 3 - 0.72rem);
+			max-width: 22.75rem;
+		}
+
+		.photoInner {
+			height: 32.625em;
+		}
+
+		.playBtn {
+			height: 3.1875rem;
+			padding: 0 1.25rem;
+			font-size: 1rem;
+
+			.playIcon {
+				width: 2.1875rem;
+				height: 2.1875rem;
+			}
+		}
+
+		.info__top {
+			gap: 1.5rem;
+		}
+
+		.name {
+			margin-top: 0.94rem;
+			font-size: 1.75rem;
+		}
+
+		.langs {
+			margin-top: 0.7rem;
+			font-size: 1rem;
+		}
+
+		.desc {
+			margin-top: 0.62rem;
+			font-size: 1rem;
+			max-width: inherit;
+		}
+
+		.socials {
+			padding-top: 1.12rem;
+
+			.follow {
+				font-size: 1rem;
+				margin-bottom: 0.75rem;
+			}
+
+			.icons {
+				a {
+					width: 3.25rem;
+					height: 3.25rem;
+					svg {
+						width: 1rem;
+						height: 1rem;
+					}
+				}
+			}
+		}
+	}
+}
+
 @media screen and (max-width: 1140px) {
 	.section {
 		padding-top: 3.75rem;

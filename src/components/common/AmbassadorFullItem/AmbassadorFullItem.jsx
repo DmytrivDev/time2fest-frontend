@@ -11,12 +11,13 @@ const CountryAmbassadorItem = ({
   nameProp,
   codeProp,
   isLoading = false,
+  isProfilePage
 }) => {
   const { t, i18n } = useTranslation();
   const [isPlaying, setIsPlaying] = useState(false);
 
   if (isLoading) {
-    return <div className={clsx(styles.card, styles.cardLoading, 'loading')}></div>;
+    return <div className={clsx(styles.card, styles.cardLoading, isProfilePage && styles.profileItem, 'loading')}></div>;
   }
 
   if (!data) return null;
@@ -27,7 +28,7 @@ const CountryAmbassadorItem = ({
   const videoUrl = video ? `${import.meta.env.VITE_STRIPE_URL}${video}` : null;
 
   return (
-    <div className={styles.card}>
+    <div className={clsx(styles.card, isProfilePage && styles.profileItem)}>
       <div className={styles.left}>
         <div className={styles.photoWrap}>
           {!isPlaying ? (

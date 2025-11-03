@@ -213,6 +213,7 @@
 	align-content: center;
 	gap: 1.88rem;
 	color: $color-yellow;
+	font-size: 3.75rem;
 
 	& > span {
 		font-size: 3.75rem;
@@ -228,6 +229,102 @@
 			bottom: -1.5rem;
 			color: $color-text;
 			opacity: 0.8;
+		}
+	}
+}
+
+@media screen and (max-width: 1880px) {
+	.profilePage {
+		.countryNameLoading {
+			span {
+				width: 2.1875rem;
+				height: 2.1875rem;
+			}
+
+			div {
+				height: 2.4375rem;
+				width: 10rem;
+			}
+		}
+
+		.utcLoading {
+			width: 5.3125rem;
+			height: 2.4375rem;
+		}
+
+		.descLoading {
+			height: 4.875rem;
+
+			span {
+				height: 1.25rem;
+			}
+		}
+
+		.typeTitleLoading {
+			width: 7rem;
+			height: 1.8125rem;
+		}
+
+		.content {
+			gap: 3.12rem;
+		}
+
+		.countryName {
+			gap: 1rem;
+
+			img {
+				width: 2.1875rem;
+				height: 2.1875rem;
+			}
+
+			h1 {
+				font-size: 1.75rem;
+			}
+		}
+
+		.utc {
+			font-size: 1.125rem;
+		}
+
+		.desc {
+			margin-top: 1.84rem;
+			font-size: 1rem;
+		}
+
+		.typeTitle {
+			font-size: 1rem;
+		}
+
+		.addBtn {
+			margin-top: 2.5rem;
+		}
+
+		.imageBlock {
+			min-height: 26rem;
+		}
+
+		.countdown {
+			gap: 0.6rem;
+
+			.text {
+				font-size: 1rem;
+				font-weight: 500;
+			}
+		}
+
+		.timer {
+			padding-bottom: 1.34rem;
+			gap: 0.87rem;
+			font-size: 2.5rem;
+
+			& > span {
+				font-size: 2.5rem;
+
+				span {
+					font-size: 0.875rem;
+					bottom: -1.34rem;
+				}
+			}
 		}
 	}
 }
@@ -356,6 +453,7 @@
 		padding-bottom: 1.5625rem;
 		gap: 0.87rem;
 		color: $color-yellow;
+		font-size: 1.875rem;
 
 		& > span {
 			font-size: 1.875rem;

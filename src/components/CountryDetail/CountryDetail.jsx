@@ -5,10 +5,10 @@ import { useTranslation } from 'react-i18next';
 import { useCountdownToTimezone } from '../../hooks/useKiritimatiNYCountdown';
 import { getNextNYLocalForUtcOffset } from '@/utils/ny-time';
 import { IoTime, IoCamera, IoVideocam } from 'react-icons/io5'; 
-
+ 
 import styles from './CountryDetail.module.scss';
 
-const CountryDetail = ({ data, isLoading, error, tzParam }) => {
+const CountryDetail = ({ data, isLoading, error, tzParam, isProfilePage }) => {
   const { t } = useTranslation();
 
   const utcOffsetStr = useMemo(() => {
@@ -102,7 +102,7 @@ END:VCALENDAR`.trim();
   // ---- LOADING ----
   if (isLoading) {
     return (
-      <section className={styles.section}>
+      <section className={clsx(styles.section, isProfilePage && styles.profilePage)}>
         <div className="container">
           <div className={styles.content}>
             <div className={styles.info}>
@@ -186,7 +186,7 @@ END:VCALENDAR`.trim();
   const zoneData = zoneMatch || country.TimezoneDetail?.[0] || {};
 
   return (
-    <section className={styles.section}>
+    <section className={clsx(styles.section, isProfilePage && styles.profilePage)}>
       <div className="container">
         <div className={styles.content}>
           {/* ---- Ліва частина ---- */}

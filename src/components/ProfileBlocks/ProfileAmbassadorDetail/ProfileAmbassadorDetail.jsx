@@ -1,6 +1,7 @@
 import { useParams, useSearchParams, useOutletContext } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 import { api } from '@/utils/api';
 import clsx from 'clsx';
 
@@ -12,6 +13,8 @@ import styles from './ProfileAmbassadorDetail.module.scss';
 const CountryPage = () => {
   const { slug, lang } = useParams();
   const locale = lang || 'en';
+  const { pathname } = useLocation();
+  const isProfilePage = pathname.includes('/profile/');
 
   // 🔹 Отримуємо функцію для передачі даних у Layout
   const { setDynamicData } = useOutletContext();
@@ -50,9 +53,10 @@ const CountryPage = () => {
         data={ambassadorData}
         isLoading={isLoading}
         error={error}
+        isProfilePage={isProfilePage}
       />
 
-      <AmbassadorsRand exclude={excludeId} lang={locale} />
+      <AmbassadorsRand exclude={excludeId} lang={locale} isProfilePage={isProfilePage} />
     </div>
   );
 };

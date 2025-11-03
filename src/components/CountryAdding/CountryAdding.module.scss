@@ -109,6 +109,66 @@
 	margin-top: 2.62rem;
 }
 
+@media screen and (max-width: 1880px) {
+	.profilePage {
+		padding-top: 4.56rem;
+
+		.titleLoading {
+			height: 2.4375rem;
+			width: 30rem;
+		}
+
+		.title {
+			font-size: 1.75rem;
+		}
+
+		.subtitleLoading {
+			height: 2.125rem;
+			width: 16rem;
+		}
+
+		.descLoading {
+			span {
+				height: 1.25rem;
+				display: block;
+				margin-bottom: 0.375rem;
+			}
+		}
+
+		.content {
+			margin-top: 1.88rem;
+			gap: 3.12rem;
+		}
+
+		.imageGrid {
+			width: 30.4375em;
+			min-width: 30.4375em;
+			gap: .94rem;
+		}
+
+		.imageItem {
+			height: 13.8125rem;
+		}
+
+		.subtitle {
+			font-size: 1.3125rem;
+		}
+
+		.desc {
+			font-size: 1rem;
+			margin-top: .94rem;
+
+			& > * {
+				margin-top: .94rem;
+			}
+		}
+
+		.addBtn {
+			margin-top: 2rem;
+		}
+	}
+}
+
 @media screen and (max-width: 1140px) {
 	.section {
 		padding-top: 3.75rem;

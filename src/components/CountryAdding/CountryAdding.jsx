@@ -9,12 +9,13 @@ const CountryAdding = ({
   nameSec = '',
   isLoading,
   error,
+  isProfilePage
 }) => { 
   const { t } = useTranslation();
 
   if (isLoading) {
     return (
-      <section className={styles.section}>
+      <section className={clsx(styles.section, isProfilePage && styles.profilePage)}>
         <div className="container">
           <div
             className={clsx(styles.title, styles.titleLoading, 'loading')}
@@ -78,7 +79,7 @@ const CountryAdding = ({
   };
 
   return (
-    <section className={styles.section}>
+    <section className={clsx(styles.section, isProfilePage && styles.profilePage)}>
       <div className="container">
         <h2 className={styles.title}>{t('ambassadors.info_about')} {nameSec}</h2>
         <div className={styles.content}>
