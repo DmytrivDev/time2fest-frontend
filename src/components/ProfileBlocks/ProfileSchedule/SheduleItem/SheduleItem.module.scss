@@ -1,0 +1,56 @@
+@use "@/styles/mixins" as *;
+@use "@/styles/variables" as *;
+
+.item {
+    border-radius: 1.25rem;
+    border: 1px dashed #1b1b1b;
+    background: rgba(27, 27, 27, 0.3);
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.62rem 1.5rem;
+    padding-left: 1.75rem;
+    cursor: pointer;
+}
+
+.left {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    gap: 1.7rem;
+
+    span {
+        font-size: 1.125rem;
+        font-weight: 500;
+        line-height: 1.6;
+
+        &:nth-child(2) {
+            color: rgba(255, 255, 255, 0.6);
+        }
+    }
+}
+
+.right {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    font-weight: 500;
+    gap: 1.94rem;
+
+    &::after {
+        content: "";
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        background-color: $color-primary;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-image: $plus;
+        background-size: 0.75rem;
+    }
+}

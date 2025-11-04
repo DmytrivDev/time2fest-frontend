@@ -16,7 +16,7 @@ export default function ProfilePayments() {
         </div>
       </div>
 
-      <ul className={styles.payments}>
+      <div className={styles.payments}>
         <div>
           <div className={styles.payment__heading}>
             <div className={styles.coll}>{t('profile.payC1')}</div>
@@ -63,7 +63,7 @@ export default function ProfilePayments() {
             </li>
           </ul>
         </div>
-      </ul>
+      </div>
     </div>
   );
 }

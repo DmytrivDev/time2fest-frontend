@@ -42,6 +42,7 @@ const ProfileAmbassadors = lazy(() => import('./pages/ProfilePage/ProfileAmbassa
 const ProfileAmbassadorDetail = lazy(() => import('./pages/ProfilePage/ProfileAmbassadorDetail'));
 const ProfileSubscribe = lazy(() => import('./pages/ProfilePage/ProfileSubscribe'));
 const ProfilePayments = lazy(() => import('./pages/ProfilePage/ProfilePayments'));
+const ProfileSchedule = lazy(() => import('./pages/ProfilePage/ProfileSchedule'));
 
 const RegisterPage = lazy(() => import('./pages/Auth/RegisterPage'));
 const LoginSuccess = lazy(() => import('./pages/Auth/LoginSuccess'));
@@ -101,6 +102,7 @@ const App = () => {
               <Route path="ambassadors/:slug" element={<ProfileAmbassadorDetail />} />
               <Route path="subscription" element={<ProfileSubscribe />} />
               <Route path="payments" element={<ProfilePayments />} />
+              <Route path="schedule" element={<ProfileSchedule />} />
             </Route>
             <Route path="login-success" element={<LoginSuccess />} />
             <Route path="login" element={<LoginPage />} />
@@ -154,6 +156,7 @@ const App = () => {
               <Route path="ambassadors/:slug" element={<ProfileAmbassadorDetail />} />
               <Route path="subscription" element={<ProfileSubscribe />} />
               <Route path="payments" element={<ProfilePayments />} />
+              <Route path="schedule" element={<ProfileSchedule />} />
             </Route>
             <Route path="login-success" element={<LoginSuccess />} />
             <Route path="login" element={<LoginPage />} />
