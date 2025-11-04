@@ -6,11 +6,27 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { getNextNYLocalForUtcOffset } from '@/utils/ny-time';
 import TimerWidget from './TimerWidget';
+import { useGraphStore } from '@/stores/useGraphStore';
 
 import styles from './MapInfo.module.scss';
 
 const MapInfo = ({ data, zone, loading, onClose }) => {
   const { t, i18n } = useTranslation('common');
+  const { countries, addCountry, removeCountry } = useGraphStore();
+
+  const {
+    CountryName,
+    CountryCode,
+    ShortDesc,
+    CountryDesc,
+    Background,
+    TimezoneDetail = [],
+    time_zones = [],
+    slug,
+    ambassadors = [],
+  } = data || {};
+
+  const code = CountryCode?.toUpperCase?.() ?? null;
 
   const utcOffsetStr = useMemo(() => {
     if (zone && zone.toUpperCase().startsWith('UTC')) return zone;
@@ -22,7 +38,19 @@ const MapInfo = ({ data, zone, loading, onClose }) => {
     [utcOffsetStr]
   );
 
-  // --- LOADING SKELETON ---
+  const isAdded = useMemo(
+    () => (code ? countries.some(c => c.code === code) : false),
+    [countries, code]
+  );
+
+  const handleToggle = () => {
+    if (!code || !CountryName) return;
+    const obj = { zone: zone || utcOffsetStr, country: CountryName, code };
+    if (isAdded) removeCountry(code);
+    else addCountry(obj);
+  };
+
+  // --- LOADING ---
   if (loading || !data) {
     return (
       <aside className={styles.aside}>
@@ -30,17 +58,14 @@ const MapInfo = ({ data, zone, loading, onClose }) => {
         <div className={styles.wrap}>
           <div className={clsx(styles.card, styles.cardLoading)}>
             <div className={clsx(styles.photo, 'loading')}></div>
-
             <div className={styles.header}>
               <div className={clsx(styles.flagLoading, 'loading')}></div>
               <h3 className={clsx(styles.titleLoading, 'loading')}></h3>
             </div>
-
             <div className={clsx(styles.types, styles.typesLoading)}>
               <span className="loading"></span>
               <span className="loading"></span>
             </div>
-
             <p className={clsx(styles.desc, styles.descLoading)}>
               <span className="loading"></span>
               <span className="loading"></span>
@@ -48,10 +73,17 @@ const MapInfo = ({ data, zone, loading, onClose }) => {
               <span className="loading"></span>
               <span className="loading"></span>
             </p>
-
-            <div className={clsx(styles.details, styles.detailsLoading, 'loading')}></div>
-
-            <div className={clsx(styles.add, styles.addLoading, 'btn_primary', 'loading')}></div>
+            <div
+              className={clsx(styles.details, styles.detailsLoading, 'loading')}
+            ></div>
+            <div
+              className={clsx(
+                styles.add,
+                styles.addLoading,
+                'btn_primary',
+                'loading'
+              )}
+            ></div>
           </div>
           <div className={clsx(styles.timerLoading, 'loading')}></div>
         </div>
@@ -60,18 +92,6 @@ const MapInfo = ({ data, zone, loading, onClose }) => {
   }
 
   // --- NORMAL CONTENT ---
-  const {
-    CountryName,
-    CountryCode,
-    ShortDesc,
-    CountryDesc,
-    Background,
-    TimezoneDetail = [],
-    time_zones = [],
-    slug,
-    ambassadors = [],
-  } = data;
-
   const backgroundUrl = Background
     ? `${import.meta.env.VITE_STRIPE_URL}${Background}`
     : '/country/eve_def.jpg';
@@ -111,21 +131,21 @@ const MapInfo = ({ data, zone, loading, onClose }) => {
       <button className={styles.close} onClick={onClose}></button>
       <div className={styles.wrap}>
         <div className={styles.card}>
-          {/* ---- Фото ---- */}
+          {/* Фото */}
           <div className={styles.photo}>
             <img src={backgroundUrl} alt={CountryName} loading="lazy" />
             <span className={styles.utc}>{currentTz}</span>
           </div>
 
-          {/* ---- Заголовок ---- */}
+          {/* Заголовок */}
           <div className={styles.header}>
-            {CountryCode && (
-              <CircleFlag countryCode={CountryCode.toLowerCase()} height="20" />
+            {code && (
+              <CircleFlag countryCode={code.toLowerCase()} height="20" />
             )}
             <h3>{CountryName}</h3>
           </div>
 
-          {/* ---- Теги ---- */}
+          {/* Теги */}
           <div className={styles.types}>
             <span className={styles.type}>
               <IoTime /> {t('controls.countdown')}
@@ -142,15 +162,15 @@ const MapInfo = ({ data, zone, loading, onClose }) => {
             )}
           </div>
 
-          {/* ---- Опис ---- */}
+          {/* Опис */}
           <p className={styles.desc}>{ShortDesc || CountryDesc || ''}</p>
 
-          {/* ---- Посилання ---- */}
+          {/* Посилання */}
           <Link to={localizedPath} className={styles.details}>
             {t('controls.details')}
           </Link>
 
-          {/* ---- Амбасадори ---- */}
+          {/* Амбасадори */}
           {hasAmbassador && (
             <div className={styles.ambassadors}>
               <h4 className={styles.ambTitle}>{t('nav.ambassadors')}</h4>
@@ -176,9 +196,13 @@ const MapInfo = ({ data, zone, loading, onClose }) => {
             </div>
           )}
 
-          {/* ---- Кнопка додавання ---- */}
-          <button type="button" className={clsx(styles.add, 'btn_primary')}>
-            {t('nav.addshelb')}
+          {/* Кнопка додавання / видалення */}
+          <button
+            type="button"
+            onClick={handleToggle}
+            className={clsx(styles.add, 'btn_primary', isAdded && styles.added)}
+          >
+            {isAdded ? t('controls.added') : t('nav.addshelb')}
           </button>
         </div>
         <TimerWidget zone={currentTz} />
