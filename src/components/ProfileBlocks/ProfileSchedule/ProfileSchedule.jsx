@@ -4,9 +4,9 @@ import { getValidLocale } from '@/utils/getValidLocale';
 import { api } from '@/utils/api';
 import ZonesInfoCard from '../MapInfo/ZonesInfoCard';
 import MapInfo from '../MapInfo/CountryInfoCard';
-import { useGraphStore } from '@/stores/useGraphStore';
 import clsx from 'clsx';
 
+import { useGraphStore } from '@/stores/useGraphStore';
 import { useScheduleStore } from '../../../stores/useScheduleStore';
 import { useTimeZoneCountries } from '../../../hooks/useTimeZoneCountries';
 import SheduleItem from './SheduleItem';
@@ -25,18 +25,52 @@ export default function ProfileSchedule() {
   const setHasSelection = useScheduleStore(s => s.setHasSelection);
 
   const { countries } = useGraphStore();
-  console.log('📦 Додані країни користувача:', countries);
 
-  // ---- Запити ----
-  const { data, isLoading, error } = useQuery({
+  // ---- 1. Отримуємо часові зони ----
+  const {
+    data: zonesData = [],
+    isLoading: zonesLoading,
+    error,
+  } = useQuery({
     queryKey: ['time-zones', locale],
     queryFn: async () => {
       const res = await api.get(`/time-zones?locale=${locale}`);
-      return res.data;
+      return res.data || [];
     },
   });
 
-  // ❗Викликаємо всі хуки перед будь-яким return
+  // ---- 2. Готуємо параметр для /countries-light ----
+  const zonesParam = countries
+    .map(c => `${c.country.toLowerCase()}:${c.zone}`)
+    .join(',');
+
+  // ---- 3. Отримуємо легкі країни ----
+  const {
+    data: lightCountries = [],
+    isLoading: lightLoading,
+  } = useQuery({
+    queryKey: ['countries-light', zonesParam, locale],
+    queryFn: async () => {
+      if (!zonesParam) return [];
+      const res = await api.get(
+        `/countries-light?zones=${zonesParam}&locale=${locale}`
+      );
+
+      // 👉 додаємо "UTC" до кожної зони відразу тут
+      return (res.data || []).map(item => ({
+        ...item,
+        zone: `UTC${item.zone}`,
+      }));
+    },
+    enabled: countries.length > 0,
+  });
+
+  // ---- 4. Формуємо мапу для швидкого доступу ----
+  const lightMap = Object.fromEntries(
+    (lightCountries || []).map(item => [item.zone, item])
+  );
+
+  // ---- 5. Дані по країні ----
   const { data: tzCountriesMap, isLoading: tzLoading } =
     useTimeZoneCountries(selectedZone);
 
@@ -51,28 +85,7 @@ export default function ProfileSchedule() {
     },
   });
 
-  // ---- Далі умовна логіка ----
-  if (error || !data) return null;
-
-  const getCode = c =>
-    (
-      c?.CountryCode ??
-      c?.attributes?.CountryCode ??
-      c?.attributes?.code ??
-      c?.code ??
-      ''
-    )
-      .toString()
-      .toUpperCase();
-
-  const mapItems = selectedCountry
-    ? Array.isArray(tzCountriesMap)
-      ? tzCountriesMap.filter(c => getCode(c) === selectedCountry)
-      : []
-    : Array.isArray(tzCountriesMap)
-      ? tzCountriesMap
-      : [];
-
+  // ---- 6. Обробка подій ----
   const handleZoneClick = (zoneCode, countryCode) => {
     if (countryCode) {
       setMapSelection(zoneCode || null, countryCode);
@@ -84,28 +97,41 @@ export default function ProfileSchedule() {
 
   const countryData =
     countryApiData ||
-    (mapItems && mapItems.length > 0
-      ? mapItems[0].attributes || mapItems[0]
+    (Array.isArray(tzCountriesMap) && tzCountriesMap.length > 0
+      ? tzCountriesMap[0].attributes || tzCountriesMap[0]
       : null);
 
+  // ---- 7. Перевірка ----
+  if (error || zonesData.length === 0) {
+    return (
+      <div className={clsx(styles.profileContent, 'loading')}>
+        <h1>{t('loading') || 'Завантаження...'}</h1>
+      </div>
+    );
+  }
+
+  // ---- 8. Рендер ----
   return (
     <>
       <div className={styles.profileContent}>
         <div className={styles.heading}>
-          <div>
-            <h1>Графік святкувань</h1>
-          </div>
+          <h1>{t('profile.schadule')}</h1>
         </div>
 
         <ul className={styles.scheduleList}>
-          {data.map(({ code }) => (
-            <SheduleItem
-              key={code}
-              code={code}
-              isLoading={isLoading}
-              onZoneClick={handleZoneClick}
-            />
-          ))}
+          {zonesData.map(({ code }) => {
+            const country = lightMap[code] || null;
+
+            return (
+              <SheduleItem
+                key={code}
+                code={code}
+                isLoading={zonesLoading || lightLoading}
+                onZoneClick={handleZoneClick}
+                country={country}
+              />
+            );
+          })}
         </ul>
       </div>
 
@@ -121,7 +147,7 @@ export default function ProfileSchedule() {
           ) : (
             <ZonesInfoCard
               zone={selectedZone}
-              countries={mapItems}
+              countries={tzCountriesMap || []}
               loading={tzLoading}
               onClose={() => setHasSelection(false)}
               onCountrySelect={countryCode => {

@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { getNextNYLocalForUtcOffset } from '@/utils/ny-time';
 import TimerWidget from './TimerWidget';
 import { useGraphStore } from '@/stores/useGraphStore';
+import { api } from '@/utils/api';
 
 import styles from './MapInfo.module.scss';
 
@@ -124,7 +125,7 @@ const MapInfo = ({ data, zone, loading, onClose }) => {
 
   const localizedPath = `/${
     i18n.language !== 'en' ? i18n.language + '/' : ''
-  }country/${slug}?tz=${encodeURIComponent(currentTz)}`;
+  }profile/countries/${slug}?tz=${encodeURIComponent(currentTz)}`;
 
   return (
     <aside className={styles.aside}>
@@ -202,7 +203,7 @@ const MapInfo = ({ data, zone, loading, onClose }) => {
             onClick={handleToggle}
             className={clsx(styles.add, 'btn_primary', isAdded && styles.added)}
           >
-            {isAdded ? t('controls.added') : t('nav.addshelb')}
+            {isAdded ? t('profile.added') : t('nav.addshelb')}
           </button>
         </div>
         <TimerWidget zone={currentTz} />

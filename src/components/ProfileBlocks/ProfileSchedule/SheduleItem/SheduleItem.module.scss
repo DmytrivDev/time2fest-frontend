@@ -5,6 +5,13 @@
     border-radius: 1.25rem;
     border: 1px dashed #1b1b1b;
     background: rgba(27, 27, 27, 0.3);
+
+    &.choosedCountry {
+        background-color: #1B1B1B;
+        border-color: transparent;
+        padding-top: 0.94rem;
+        padding-bottom: 0.94rem;
+    }
 }
 
 .button {
@@ -19,6 +26,13 @@
 }
 
 .left {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    gap: 1.69rem;
+}
+
+.time {
     display: flex;
     align-items: center;
     align-content: center;
@@ -52,5 +66,73 @@
         background-position: center center;
         background-image: $plus;
         background-size: 0.75rem;
+    }
+}
+
+.country {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    gap: 0.87rem;
+
+    .flag {
+        width: 1.875rem;
+        height: 1.875rem;
+    }
+
+    .countryName {
+        font-size: 1.125rem;
+        font-weight: 600;
+    }
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    gap: 0.75rem;
+
+    span {
+        width: 2.625rem;
+        height: 1.8125rem;
+        border-radius: 2rem;
+        background-color: $color-yellow;
+        display: flex;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+
+        svg {
+            width: 1.125rem;
+            height: auto;
+            fill: #000;
+        }
+    }
+}
+
+.watch {
+    padding: 0.69rem 1.63rem;
+    font-size: 1rem;
+}
+
+.noAfter {
+    &::after {
+        display: none;
+    }
+}
+
+.removeCtr {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: #484848;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+
+    svg {
+        width: 1rem;
+        height: auto;
     }
 }

@@ -226,6 +226,12 @@
     display: flex;
     border-radius: 0 0 1.25rem 1.25rem;
 
+    &.added {
+        &::after {
+           background-image: $minus; 
+        }
+    }
+
     &::after {
         content: "";
         width: 1.3125rem;

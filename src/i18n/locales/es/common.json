@@ -277,7 +277,11 @@
     "payC4": "Nombre",
     "payC5": "Fecha de pago",
     "payC6": "Importe",
-    "payC7": "Recibo"
+    "payC7": "Recibo",
+    "added": "Eliminar del calendario",
+    "schadule": "Calendario de celebraciones",
+    "watch": "Ver",
+    "choose": "Elegir país"
   },
   "countries": {
     "kiribati": "Kiribati",

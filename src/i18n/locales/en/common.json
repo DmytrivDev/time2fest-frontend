@@ -277,7 +277,11 @@
     "payC4": "Name",
     "payC5": "Payment Date",
     "payC6": "Amount",
-    "payC7": "Receipt"
+    "payC7": "Receipt",
+    "added": "Remove from schedule",
+    "schadule": "Celebration schedule",
+    "watch": "View",
+    "choose": "Choose a country"
   },
   "countries": {
     "kiribati": "Kiribati",
