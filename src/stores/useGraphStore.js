@@ -20,7 +20,9 @@ export const useGraphStore = create(
           // Якщо на сервері порожньо, а локально є — синхронізуємо
           if (localCountries.length > 0 && serverCountries.length === 0) {
             try {
-              await userApi.patch('/user-schedule', { countries: localCountries });
+              await userApi.patch('/user-schedule', {
+                countries: localCountries,
+              });
             } catch (syncErr) {
               console.warn(
                 '⚠️ Не вдалося синхронізувати локальні дані:',
@@ -29,7 +31,7 @@ export const useGraphStore = create(
             }
           }
 
-          // Оновлюємо стан (бере серверні, або залишає локальні, якщо сервер пустий)
+          // Обираємо актуальні дані
           const finalCountries =
             serverCountries.length > 0 ? serverCountries : localCountries;
 
@@ -40,13 +42,22 @@ export const useGraphStore = create(
         }
       },
 
-      // 🔹 Додавання країни
+      // 🔹 Додавання країни (slug + zone)
       addCountry: async country => {
         const current = get().countries;
+
+        // уникаємо дублікатів по slug + zone
+        const exists = current.some(
+          c =>
+            c.country?.toLowerCase?.() === country.country?.toLowerCase?.() &&
+            String(c.zone).trim() === String(country.zone).trim()
+        );
+
+        if (exists) return;
+
         const updated = [...current, country];
         set({ countries: updated });
 
-        // асинхронне збереження на сервері
         try {
           await userApi.patch('/user-schedule', { countries: updated });
         } catch (err) {
@@ -54,9 +65,16 @@ export const useGraphStore = create(
         }
       },
 
-      // 🔹 Видалення країни
-      removeCountry: async code => {
-        const updated = get().countries.filter(c => c.code !== code);
+      // 🔹 Видалення по slug + zone
+      removeCountry: async (slug, zone) => {
+        const updated = get().countries.filter(
+          c =>
+            !(
+              c.country?.toLowerCase?.() === slug?.toLowerCase?.() &&
+              String(c.zone).trim() === String(zone).trim()
+            )
+        );
+
         set({ countries: updated });
 
         try {
@@ -65,9 +83,19 @@ export const useGraphStore = create(
           console.warn('⚠️ Не вдалося оновити бекенд:', err);
         }
       },
+
+      // 🔹 Повне очищення графіка
+      clearCountries: async () => {
+        set({ countries: [] });
+        try {
+          await userApi.patch('/user-schedule', { countries: [] });
+        } catch (err) {
+          console.warn('⚠️ Не вдалося очистити на сервері:', err);
+        }
+      },
     }),
     {
-      name: 'user-schedule', // ключ у localStorage
+      name: 'user-schedule',
       storage: createJSONStorage(() => localStorage),
     }
   )

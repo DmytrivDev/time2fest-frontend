@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import { getNextNYLocalForUtcOffset } from '@/utils/ny-time';
 import TimerWidget from './TimerWidget';
 import { useGraphStore } from '@/stores/useGraphStore';
-import { api } from '@/utils/api';
 
 import styles from './MapInfo.module.scss';
 
@@ -29,6 +28,7 @@ const MapInfo = ({ data, zone, loading, onClose }) => {
 
   const code = CountryCode?.toUpperCase?.() ?? null;
 
+  // --- Формуємо UTC-зону ---
   const utcOffsetStr = useMemo(() => {
     if (zone && zone.toUpperCase().startsWith('UTC')) return zone;
     return 'UTC+0';
@@ -39,16 +39,37 @@ const MapInfo = ({ data, zone, loading, onClose }) => {
     [utcOffsetStr]
   );
 
-  const isAdded = useMemo(
-    () => (code ? countries.some(c => c.code === code) : false),
-    [countries, code]
-  );
+  // --- Нормалізуємо зону (прибираємо тільки "UTC") ---
+  const normalizedZone = useMemo(() => {
+    if (!utcOffsetStr) return '';
+    return utcOffsetStr.replace(/^UTC\s*/i, '').trim();
+  }, [utcOffsetStr]);
 
+  // --- Перевіряємо, чи країна + зона вже у графіку ---
+  const isAdded = useMemo(() => {
+    if (!slug || !normalizedZone) return false;
+    return countries.some(
+      c =>
+        c.country?.toLowerCase?.() === slug.toLowerCase() &&
+        String(c.zone).trim() === String(normalizedZone)
+    );
+  }, [countries, slug, normalizedZone]);
+
+  // --- Тогл додавання / видалення ---
   const handleToggle = () => {
-    if (!code || !slug) return;
-    const obj = { zone: zone || utcOffsetStr, country: slug, code };
-    if (isAdded) removeCountry(code);
-    else addCountry(obj);
+    if (!slug || !code) return;
+    const obj = {
+      slug,
+      country: slug,
+      code,
+      zone: normalizedZone,
+    };
+
+    if (isAdded) {
+      removeCountry(slug, normalizedZone);
+    } else {
+      addCountry(obj);
+    }
   };
 
   // --- LOADING ---
@@ -206,6 +227,7 @@ const MapInfo = ({ data, zone, loading, onClose }) => {
             {isAdded ? t('profile.added') : t('nav.addshelb')}
           </button>
         </div>
+
         <TimerWidget zone={currentTz} />
       </div>
     </aside>
