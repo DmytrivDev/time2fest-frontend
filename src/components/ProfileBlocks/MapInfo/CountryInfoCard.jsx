@@ -44,8 +44,8 @@ const MapInfo = ({ data, zone, loading, onClose }) => {
   );
 
   const handleToggle = () => {
-    if (!code || !CountryName) return;
-    const obj = { zone: zone || utcOffsetStr, country: CountryName, code };
+    if (!code || !slug) return;
+    const obj = { zone: zone || utcOffsetStr, country: slug, code };
     if (isAdded) removeCountry(code);
     else addCountry(obj);
   };

@@ -20,7 +20,7 @@ export default function Country({ ny, utc, onClick }) {
       data-tt="2"
       data-id={utc}
       data-country="HK"
-      data-label={`${t('countries.honk_kong')} ${utc}`}
+      data-label={`${t('countries.honk-kong')} ${utc}`}
       onClick={handlePointerUp}
       data-time={ny.display}
       d="M1396.57 470.734C1397.22 470.734 1397.74 470.208 1397.74 469.557C1397.74 468.906 1397.22 468.38 1396.57 468.38C1395.92 468.38 1395.4 468.906 1395.4 469.557C1395.4 470.208 1395.92 470.734 1396.57 470.734Z"

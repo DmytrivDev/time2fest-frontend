@@ -21,8 +21,8 @@ export default function Country({ ny, utc, onClick }) {
       className={clsx('countryGr')}
       data-tt="2"
       data-id={utc}
-      data-country="AF"
-      data-label={`${t('countries.afganistan')} ${utc}`}
+      data-country="AF" 
+      data-label={`${t('countries.afghanistan')} ${utc}`}
       onClick={handlePointerUp}
       data-time={ny.display}
     >

@@ -4,9 +4,10 @@ import { getValidLocale } from '@/utils/getValidLocale';
 import { api } from '@/utils/api';
 import ZonesInfoCard from '../MapInfo/ZonesInfoCard';
 import MapInfo from '../MapInfo/CountryInfoCard';
+import { useGraphStore } from '@/stores/useGraphStore';
 import clsx from 'clsx';
 
-import { useScheduleStore  } from '../../../stores/useScheduleStore';
+import { useScheduleStore } from '../../../stores/useScheduleStore';
 import { useTimeZoneCountries } from '../../../hooks/useTimeZoneCountries';
 import SheduleItem from './SheduleItem';
 
@@ -17,11 +18,14 @@ export default function ProfileSchedule() {
   const locale = getValidLocale();
 
   // ---- Zustand ----
-  const selectedZone = useScheduleStore (s => s.selectedZone);
-  const selectedCountry = useScheduleStore (s => s.selectedCountry);
-  const hasSelection = useScheduleStore (s => s.hasSelection);
-  const setMapSelection = useScheduleStore (s => s.setMapSelection);
-  const setHasSelection = useScheduleStore (s => s.setHasSelection);
+  const selectedZone = useScheduleStore(s => s.selectedZone);
+  const selectedCountry = useScheduleStore(s => s.selectedCountry);
+  const hasSelection = useScheduleStore(s => s.hasSelection);
+  const setMapSelection = useScheduleStore(s => s.setMapSelection);
+  const setHasSelection = useScheduleStore(s => s.setHasSelection);
+
+  const { countries } = useGraphStore();
+  console.log('📦 Додані країни користувача:', countries);
 
   // ---- Запити ----
   const { data, isLoading, error } = useQuery({

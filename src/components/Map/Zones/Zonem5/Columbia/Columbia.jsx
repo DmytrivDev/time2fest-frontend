@@ -20,7 +20,7 @@ export default function Country({ ny, utc, onClick }) {
       data-tt="2"
       data-id={utc}
       data-country="CO"
-      data-label={`${t('countries.Columbia')} ${utc}`}
+      data-label={`${t('countries.colombia')} ${utc}`}
       onClick={handlePointerUp}
       data-time={ny.display}
     >
