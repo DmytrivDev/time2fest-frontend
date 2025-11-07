@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
 import clsx from 'clsx';
-import { api } from '@/utils/api';
+import { userApi } from '@/utils/userApi';
 import styles from '../ProfileInfo.module.scss';
 
 export default function ProfileNewsletterCard() {
@@ -13,11 +13,15 @@ export default function ProfileNewsletterCard() {
 
   const mutation = useMutation({
     mutationFn: async data => {
-      const res = await api.post('/api/update-profile', data);
+      const res = await userApi.post('/update-profile', data);
       return res.data;
     },
-    onSuccess: () =>
-      toast.success(t('profile.saved', 'Налаштування збережено')),
+    onSuccess: data => {
+      toast.success(t('profile.saved', 'Налаштування збережено'));
+      // 🔹 Оновлюємо користувача в localStorage
+      const updatedUser = { ...user, newsletter: checked };
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+    },
     onError: () => toast.error(t('profile.errorSave', 'Помилка збереження')),
   });
 
@@ -31,9 +35,14 @@ export default function ProfileNewsletterCard() {
     <div className={clsx(styles.grayPlate, styles.fullH)}>
       <div className={clsx('checkAgree')}>
         <label className={styles.checkboxLabel}>
-          <input type="checkbox" checked={checked} onChange={handleChange} />
+          <input
+            type="checkbox"
+            checked={checked}
+            onChange={handleChange}
+            disabled={mutation.isPending}
+          />
           <span></span>
-          <p>{t('profile.newsletterText')} </p>
+          <p>{t('profile.newsletterText')}</p>
         </label>
       </div>
     </div>
