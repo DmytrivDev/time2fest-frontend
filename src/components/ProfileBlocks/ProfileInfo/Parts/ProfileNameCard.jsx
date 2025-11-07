@@ -66,10 +66,11 @@ export default function ProfileNameCard({ user }) {
         className={clsx(
           'btn_primary',
           styles.saveBtn,
-          mutation.isPending && styles.loading
+          mutation.isPending && styles.load
         )}
       >
         {t('profile.save', 'Зберегти')}
+        <span></span>
       </button>
     </form>
   );

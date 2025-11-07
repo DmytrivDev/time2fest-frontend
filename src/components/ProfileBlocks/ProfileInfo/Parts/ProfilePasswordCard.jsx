@@ -15,6 +15,7 @@ export default function ProfilePasswordCard() {
     register,
     handleSubmit,
     watch,
+    reset, // 👈 додаємо reset
     formState: { errors },
     setError,
     clearErrors,
@@ -31,6 +32,7 @@ export default function ProfilePasswordCard() {
     onSuccess: () => {
       toast.success(t('profile.passwordChanged'));
       setServerError('');
+      reset(); // 👈 очищаємо всі поля
     },
     onError: err => {
       const msg = err?.response?.data?.message || '';
@@ -102,6 +104,7 @@ export default function ProfilePasswordCard() {
       <h2 className={styles.cardTitle}>{t('profile.changePassword')}</h2>
 
       <div className={styles.fields}>
+        {/* ---- Поточний пароль ---- */}
         <div className={styles.inputField}>
           <label className={styles.label}>{t('profile.currentPassword')}</label>
           <input
@@ -117,6 +120,7 @@ export default function ProfilePasswordCard() {
           )}
         </div>
 
+        {/* ---- Новий пароль ---- */}
         <div className={styles.inputField}>
           <label className={styles.label}>{t('profile.newPassword')}</label>
           <input
@@ -132,6 +136,7 @@ export default function ProfilePasswordCard() {
           )}
         </div>
 
+        {/* ---- Підтвердження ---- */}
         <div className={styles.inputField}>
           <label className={styles.label}>{t('profile.confirmPassword')}</label>
           <input
@@ -158,6 +163,7 @@ export default function ProfilePasswordCard() {
         )}
       >
         {t('profile.save')}
+        <span></span>
       </button>
     </form>
   );
