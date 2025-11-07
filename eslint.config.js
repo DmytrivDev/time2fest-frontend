@@ -35,6 +35,7 @@ export default [
         sessionStorage: 'readonly',
         URLSearchParams: 'readonly',
         fbq: 'readonly',
+        watch: 'readonly',
       },
     },
     settings: {

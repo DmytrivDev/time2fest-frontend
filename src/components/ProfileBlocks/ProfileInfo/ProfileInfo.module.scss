@@ -1,0 +1,121 @@
+@use "@/styles/mixins" as *;
+@use "@/styles/variables" as *;
+
+.profileContent {
+    padding: 4rem;
+    max-height: 100vh;
+    max-height: 100dvh;
+    overflow: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.87rem;
+}
+
+.headding {
+    .title {
+        font-size: 1.75rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 140%;
+    }
+
+    .subtitle {
+        margin-top: 0.88rem;
+    }
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.87rem;
+}
+
+.grayPlate {
+    border-radius: 1.25rem;
+    background: #1c1c1c;
+    padding: 1.5rem;
+}
+
+.emailPlate {
+    display: flex;
+    justify-content: space-between;
+}
+
+.email__part {
+    span {
+        display: block;
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 140%;
+    }
+
+    p {
+        margin-top: 0.44rem;
+        font-size: 1.125rem;
+        font-weight: 500;
+        line-height: 140%;
+    }
+}
+
+.logoutBtn {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    gap: 0.62rem;
+    padding-top: 0.94rem;
+    padding-bottom: 0.94rem;
+
+    &::after {
+        content: "";
+        width: 1.125rem;
+        height: 1rem;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-image: $exit;
+    }
+}
+
+.cardTitle {
+    font-size: 1.3125rem;
+    font-weight: 500;
+    line-height: 140%;
+}
+
+.inputField {
+    margin-top: 0.87rem;
+
+    .label {
+        margin-bottom: 0.87rem;
+        display: block;
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .input {
+        background-color: transparent;
+    }
+}
+
+.errorText {
+	margin-top: 0.5rem;
+	color: #f94a51;
+}
+
+.saveBtn {
+    margin-top: 1.87rem;
+    padding-top: 0.94rem;
+    padding-bottom: 0.94rem;
+}
+
+.fields {
+    margin-top: 0.88rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.31rem;
+
+    .inputField {
+        margin: 0;
+    }
+}
+
+.fullH {
+    height: 100%;
+}
