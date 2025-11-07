@@ -23,14 +23,21 @@ export default function ProfileNameCard({ user }) {
       const res = await userApi.post('/update-profile', data);
       return res.data;
     },
-    onSuccess: () => {
-      toast.success(t('profile.updated', 'Дані оновлено'));
+    onSuccess: (_, variables) => {
+      toast.success(t('profile.updated'));
+      const savedUser = JSON.parse(localStorage.getItem('user') || '{}');
       localStorage.setItem(
         'user',
-        JSON.stringify({ ...user, name: watch('name') })
+        JSON.stringify({ ...savedUser, name: variables.name })
       );
     },
-    onError: () => toast.error(t('profile.errorUpdate', 'Помилка оновлення')),
+    onError: error => {
+      // 🔹 Якщо refresh ще триває — не показуємо помилку
+      if (error?.config?._retry) return;
+
+      console.error('❌ Update profile error:', error);
+      toast.error(t('profile.errorUpdate'));
+    },
   });
 
   const onSubmit = data => {
@@ -45,9 +52,7 @@ export default function ProfileNameCard({ user }) {
     <form onSubmit={handleSubmit(onSubmit)} className={styles.grayPlate}>
       <h2 className={styles.cardTitle}>{t('profile.infoTitle')}</h2>
       <div className={styles.inputField}>
-        <label className={styles.label}>
-          {t('profile.name')}
-        </label>
+        <label className={styles.label}>{t('profile.name')}</label>
         <input
           type="text"
           {...register('name', { required: true })}
