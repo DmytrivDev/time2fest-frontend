@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
-import { api } from '@/utils/api';
+import { userApi } from '@/utils/userApi';
 import styles from '../ProfileInfo.module.scss';
 
 export default function ProfilePasswordCard() {
@@ -25,7 +25,7 @@ export default function ProfilePasswordCard() {
 
   const mutation = useMutation({
     mutationFn: async data => {
-      const res = await api.post('/api/change-password', data);
+      const res = await userApi.post('/change-password', data);
       return res.data;
     },
     onSuccess: () => {
@@ -36,14 +36,10 @@ export default function ProfilePasswordCard() {
       const msg = err?.response?.data?.message || '';
       clearErrors();
 
-      // 👇 Сервер повертає, наприклад: "Invalid current password"
       if (msg.toLowerCase().includes('invalid current password')) {
         setError('currentPassword', {
           type: 'server',
-          message: t(
-            'profile.errorWrongPassword',
-            'Неправильний поточний пароль'
-          ),
+          message: t('profile.errorWrongPassword'),
         });
       } else {
         toast.error(t('profile.errorPassword'));
@@ -55,7 +51,6 @@ export default function ProfilePasswordCard() {
     clearErrors();
     setServerError('');
 
-    // --- Перевірка порожніх полів ---
     let hasError = false;
     if (!data.currentPassword) {
       setError('currentPassword', {
@@ -80,7 +75,6 @@ export default function ProfilePasswordCard() {
     }
     if (hasError) return;
 
-    // --- Перевірка довжини пароля ---
     if (data.newPassword.length < 4) {
       setError('newPassword', {
         type: 'manual',
@@ -89,7 +83,6 @@ export default function ProfilePasswordCard() {
       return;
     }
 
-    // --- Перевірка співпадіння паролів ---
     if (data.newPassword !== data.confirmPassword) {
       setError('confirmPassword', {
         type: 'manual',
@@ -98,8 +91,10 @@ export default function ProfilePasswordCard() {
       return;
     }
 
-    // --- Запит ---
-    mutation.mutate(data);
+    mutation.mutate({
+      currentPassword: data.currentPassword,
+      newPassword: data.newPassword,
+    });
   };
 
   return (
@@ -107,7 +102,6 @@ export default function ProfilePasswordCard() {
       <h2 className={styles.cardTitle}>{t('profile.changePassword')}</h2>
 
       <div className={styles.fields}>
-        {/* ---- Поточний пароль ---- */}
         <div className={styles.inputField}>
           <label className={styles.label}>{t('profile.currentPassword')}</label>
           <input
@@ -123,7 +117,6 @@ export default function ProfilePasswordCard() {
           )}
         </div>
 
-        {/* ---- Новий пароль ---- */}
         <div className={styles.inputField}>
           <label className={styles.label}>{t('profile.newPassword')}</label>
           <input
@@ -139,7 +132,6 @@ export default function ProfilePasswordCard() {
           )}
         </div>
 
-        {/* ---- Підтвердження ---- */}
         <div className={styles.inputField}>
           <label className={styles.label}>{t('profile.confirmPassword')}</label>
           <input
