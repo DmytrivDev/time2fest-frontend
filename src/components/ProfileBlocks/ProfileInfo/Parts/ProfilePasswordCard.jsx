@@ -159,7 +159,7 @@ export default function ProfilePasswordCard() {
         className={clsx(
           'btn_primary',
           styles.saveBtn,
-          mutation.isPending && styles.loading
+          mutation.isPending && styles.load
         )}
       >
         {t('profile.save')}
