@@ -4,7 +4,7 @@ const USER_API_URL = import.meta.env.VITE_API_URL;
 
 export const userApi = axios.create({
   baseURL: USER_API_URL,
-  withCredentials: false,
+  withCredentials: true,
 });
 
 // 🔹 Додаємо accessToken перед кожним запитом
