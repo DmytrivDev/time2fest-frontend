@@ -86,3 +86,33 @@
         stroke: $color-yellow;
     }
 }
+
+.languafesSidebar {
+    padding: 0 1.5rem;
+    padding-bottom: 1.75rem;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    gap: 0.9rem;
+
+    svg {
+        stroke: $color-yellow;
+        width: 1.1975rem;
+        height: auto;
+    }
+
+    ul {
+        display: flex;
+        gap: 0.88rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.4);
+
+        li {
+            cursor: pointer;
+        }
+
+        .current {
+            color: #fff;
+        }
+    }
+}
