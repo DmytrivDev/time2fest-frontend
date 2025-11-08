@@ -1,10 +1,14 @@
 import { Link, NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { getValidLocale } from '@/utils/getValidLocale'; // ✅ додаємо, якщо ще не було
+import clsx from 'clsx';
+
+import { getValidLocale } from '@/utils/getValidLocale';
+
 import Logo from '../../components/common/Logo/Logo';
 import LanguageProfile from './LanguageProfile';
 
 import styles from './ProfileLayout.module.scss';
+
 import {
   Home,
   Globe2,
@@ -17,7 +21,10 @@ import {
   Languages,
 } from 'lucide-react';
 
-export default function ProfileSidebar() {
+export default function ProfileSidebar({
+  isMobileMenuOpen,
+  setMobileMenuOpen,
+}) {
   const { t } = useTranslation();
   const locale = getValidLocale(); // ✅ поточна мова
 
@@ -65,9 +72,24 @@ export default function ProfileSidebar() {
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
   return (
-    <aside className={styles.sidebar}>
+    <aside
+      className={clsx(styles.sidebar, {
+        [styles['is-open']]: isMobileMenuOpen,
+      })}
+    >
+      <div
+        className={styles.overlay}
+        onClick={() => setMobileMenuOpen(false)}
+      ></div>
+
       <div className={styles.logo}>
         <Logo />
+
+        <button
+          type="button"
+          onClick={() => setMobileMenuOpen(false)}
+          className={styles.sidebar__close}
+        ></button>
       </div>
 
       <nav className={styles.navSidebar}>
@@ -75,6 +97,7 @@ export default function ProfileSidebar() {
           <NavLink
             key={link.to}
             to={link.to}
+            onClick={() => setMobileMenuOpen(false)}
             className={({ isActive }) =>
               `${styles.link} ${isActive ? styles.active : ''}`
             }
@@ -87,7 +110,7 @@ export default function ProfileSidebar() {
 
       <div className={styles.sidebar__bottom}>
         <LanguageProfile languages={Languages} />
-        <Link to='info' className={styles.userBlock}>
+        <Link to="info" className={styles.userBlock}>
           <User size={18} />
           <span>{user.name || 'Anonim'}</span>
         </Link>

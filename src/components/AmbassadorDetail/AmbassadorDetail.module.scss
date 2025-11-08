@@ -190,9 +190,11 @@
 
 	.icons {
 		display: flex;
-		gap: 0.31rem;
+		flex-wrap: wrap;
+		gap: 0.3125rem;
 
 		a {
+			flex-shrink: 0;
 			width: 4.4375rem;
 			height: 4.4375rem;
 			border-radius: 50%;

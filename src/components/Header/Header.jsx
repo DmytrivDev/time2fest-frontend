@@ -42,6 +42,7 @@ const Header = () => {
               {!isMobile && <LanguageSelector />}
 
               <button
+                type="button"
                 onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
                 className={clsx(styles.burger, {
                   [styles['is-open']]: isMobileMenuOpen,
