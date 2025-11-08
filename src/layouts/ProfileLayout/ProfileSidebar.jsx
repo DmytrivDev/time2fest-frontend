@@ -1,7 +1,8 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getValidLocale } from '@/utils/getValidLocale'; // ✅ додаємо, якщо ще не було
 import Logo from '../../components/common/Logo/Logo';
+import LanguageProfile from './LanguageProfile';
 
 import styles from './ProfileLayout.module.scss';
 import {
@@ -13,6 +14,7 @@ import {
   CreditCard,
   Wallet,
   User,
+  Languages,
 } from 'lucide-react';
 
 export default function ProfileSidebar() {
@@ -83,9 +85,12 @@ export default function ProfileSidebar() {
         ))}
       </nav>
 
-      <div className={styles.userBlock}>
-        <User size={18} />
-        <span>{user.name || 'Анонімний користувач'}</span>
+      <div className={styles.sidebar__bottom}>
+        <LanguageProfile languages={Languages} />
+        <Link to='info' className={styles.userBlock}>
+          <User size={18} />
+          <span>{user.name || 'Anonim'}</span>
+        </Link>
       </div>
     </aside>
   );

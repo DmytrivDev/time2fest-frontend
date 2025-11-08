@@ -29,16 +29,16 @@ const SeoMeta = ({ dynamicData = null }) => {
   const locale = getValidLocale();
   const { pathname } = useLocation();
   const page = getPageFromPath(pathname);
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
 
   // --- Типи сторінок ---
   const isCountryDetail = pathname.match(/\/country\/[^/]+$/);
   const isAmbassadorDetail = pathname.match(/\/ambassadors\/list\/[^/]+$/);
   const isDynamicPage = isCountryDetail || isAmbassadorDetail;
 
-  const isProfilePage = pathname.startsWith('/profile/');
-  const isProfileCountry = pathname.match(/\/profile\/countries\/[^/]+$/);
-  const isProfileAmbassador = pathname.match(/\/profile\/ambassadors\/[^/]+$/);
+  const isProfilePage = pathname.match(/^\/(?:[a-z]{2}\/)?profile\//);
+  const isProfileCountry = pathname.match(/^\/(?:[a-z]{2}\/)?profile\/countries\/[^/]+$/);
+  const isProfileAmbassador = pathname.match(/^\/(?:[a-z]{2}\/)?profile\/ambassadors\/[^/]+$/);
 
   const authPages = ['register', 'login', 'forget-password', 'reset-password'];
   const isAuthPage = authPages.includes(page);
@@ -87,10 +87,12 @@ const SeoMeta = ({ dynamicData = null }) => {
   // --- 🔹 Профільні сторінки ---
   //
   if (isProfilePage) {
-    const localePrefix = locale === 'en' ? '' : `/${locale}`;
-    const canonicalUrl = `https://time2fest.com${localePrefix}/profile/`;
+    // ---- Мова та canonical ----
+    const currentLang = i18n.language || locale || 'en';
+    const localePrefix = currentLang === 'en' ? '' : `/${currentLang}`;
+    const canonicalUrl = `https://time2fest.com${localePrefix}${pathname.replace(/^\/[a-z]{2}/, '')}`;
 
-    // --- Динамічні профільні сторінки ---
+    // --- Динамічні профільні сторінки (країни / амбасадори) ---
     if (isProfileCountry || isProfileAmbassador) {
       let title = t('profile.profile'); // "Мій профіль"
 
@@ -113,12 +115,18 @@ const SeoMeta = ({ dynamicData = null }) => {
         noIndex: true,
       };
 
-      return <SeoHelmet seoData={profileDynamicSeo} />;
+      return (
+        <SeoHelmet key={currentLang + pathname} seoData={profileDynamicSeo} />
+      );
     }
 
     // --- Звичайні підсторінки профілю ---
     const parts = pathname.split('/').filter(Boolean);
-    const subPage = parts[parts.length - 1];
+    // якщо є мовний префікс, прибираємо його
+    const pureParts = SUPPORTED_LANGS.includes(parts[0])
+      ? parts.slice(1)
+      : parts;
+    const subPage = pureParts[pureParts.length - 1];
 
     const titleKeys = {
       profile: 'profile',
@@ -127,6 +135,8 @@ const SeoMeta = ({ dynamicData = null }) => {
       ambassadors: 'ambassTtl',
       subscription: 'subTtl',
       payments: 'payTtl',
+      schedule: 'schadule',
+      info: 'settingsTitle',
     };
 
     const titleKey = titleKeys[subPage] || 'profile';
@@ -140,7 +150,7 @@ const SeoMeta = ({ dynamicData = null }) => {
       noIndex: true,
     };
 
-    return <SeoHelmet seoData={profileSeo} />;
+    return <SeoHelmet key={currentLang + pathname} seoData={profileSeo} />;
   }
 
   //
