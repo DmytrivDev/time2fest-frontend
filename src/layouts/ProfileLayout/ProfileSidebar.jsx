@@ -33,7 +33,7 @@ export default function ProfileSidebar({
 
   const links = [
     {
-      to: `${localePrefix}/profile/dashboard`,
+      to: `${localePrefix}/profile`,
       label: t('nav.home'),
       icon: <Home size={18} />,
     },

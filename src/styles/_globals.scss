@@ -39,6 +39,16 @@
 	}
 }
 
+.profileSlider {
+	.swiper-pagination {
+		margin-top: 1.94rem;
+	}
+}
+
+
+
+
+
 .swiper-button-prev,
 .swiper-button-next {
 	position: absolute !important;
@@ -269,6 +279,7 @@ textarea {
 		height: 0.5rem;
 		background-color: #ccc;
 		opacity: 1;
+		border-radius: 50%;
 
 		&.swiper-pagination-bullet-active {
 			background-color: $color-primary;

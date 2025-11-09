@@ -1,0 +1,49 @@
+@use "@/styles/mixins" as *;
+@use "@/styles/variables" as *;
+
+.profileSchd {
+    padding-top: 4.5rem;
+}
+
+.headding {
+    .ttl {
+        font-size: 1.75rem;
+        font-weight: 700;
+        line-height: 140%;
+    }
+}
+
+.content {
+    margin-top: 2.5rem;
+}
+
+.scheduleList {
+    display: flex;
+    flex-direction: column;
+    gap: .62rem;
+
+    li {
+        & > div {
+            span {
+                &:last-child {
+                    button {
+                        &:last-child {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.bottom {
+    margin-top: 2.5rem;
+    display: flex;
+    justify-content: center;
+
+    .btn {
+        padding-top: 0.94rem;
+        padding-bottom: 0.94rem;
+    }
+}

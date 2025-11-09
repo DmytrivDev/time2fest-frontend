@@ -1,0 +1,18 @@
+@use "@/styles/mixins" as *;
+@use "@/styles/variables" as *;
+
+.profileSchd {
+    padding-top: 4.5rem;
+}
+
+.headding {
+    .ttl {
+        font-size: 1.75rem;
+        font-weight: 700;
+        line-height: 140%;
+    }
+}
+
+.content {
+    margin-top: 2.5rem;
+}

@@ -1,0 +1,9 @@
+@use "@/styles/mixins" as *;
+@use "@/styles/variables" as *;
+
+.profileContent {
+    padding: 4rem;
+    max-height: 100vh;
+    max-height: 100dvh;
+    overflow: auto;
+}

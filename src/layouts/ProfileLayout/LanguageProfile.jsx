@@ -79,7 +79,7 @@ const LanguageSelector = () => {
             role="option"
             aria-selected={l.code === currentCode}
             tabIndex={0}
-            className={l.code === currentCode && styles.current}
+            className={clsx({ [styles.current]: l.code === currentCode })}
             onClick={() => handleSelect(l)}
             onKeyDown={e => {
               if (e.key === 'Enter' || e.key === ' ') handleSelect(l);

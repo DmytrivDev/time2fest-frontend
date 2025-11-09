@@ -43,6 +43,7 @@ const ProfileAmbassadorDetail = lazy(() => import('./pages/ProfilePage/ProfileAm
 const ProfileSubscribe = lazy(() => import('./pages/ProfilePage/ProfileSubscribe'));
 const ProfilePayments = lazy(() => import('./pages/ProfilePage/ProfilePayments'));
 const ProfileSchedule = lazy(() => import('./pages/ProfilePage/ProfileSchedule'));
+const ProfileHome = lazy(() => import('./pages/ProfilePage/ProfileHome'));
 
 const RegisterPage = lazy(() => import('./pages/Auth/RegisterPage'));
 const LoginSuccess = lazy(() => import('./pages/Auth/LoginSuccess'));
@@ -93,7 +94,7 @@ const App = () => {
             <Route path="terms" element={<TermsPage />} />
             <Route path="register" element={<RegisterPage />} />
             <Route path="profile" element={<ProfileLayout />}>
-              <Route index element={<Navigate to="info" replace />} />
+              <Route index element={<ProfileHome />} />
               <Route path="info" element={<ProfileInfo />} />
               <Route path="timezones" element={<ProfileMap />} />
               <Route path="countries" element={<ProfileCountries />} />
@@ -147,7 +148,7 @@ const App = () => {
             <Route path="terms" element={<TermsPage />} />
             <Route path="register" element={<RegisterPage />} />
             <Route path="profile" element={<ProfileLayout />}>
-              <Route index element={<Navigate to="info" replace />} />
+              <Route index element={<ProfileHome />} />
               <Route path="info" element={<ProfileInfo />} />
               <Route path="timezones" element={<ProfileMap />} />
               <Route path="countries" element={<ProfileCountries />} />

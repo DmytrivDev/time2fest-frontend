@@ -6,7 +6,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { IoTime, IoCamera, IoVideocam } from 'react-icons/io5';
 import styles from './CountryItem.module.scss';
 
-const CountryItem = ({ data, isLoading = false, isProfile }) => {
+const CountryItem = ({ data, isLoading = false, isProfile, zoneFromUp = '' }) => {
   const { t, i18n } = useTranslation();
   const location = useLocation();
 
@@ -40,7 +40,7 @@ const CountryItem = ({ data, isLoading = false, isProfile }) => {
     : [];
 
   // ---- Якщо вибрано конкретний пояс ----
-  const currentTz = filterTz || tzCodeList[0] || 'UTC+0';
+  const currentTz = filterTz || zoneFromUp.code || tzCodeList[0] || 'UTC+0';
   const currentOffset = currentTz.replace('UTC', '').replace(':00', '').trim();
 
   // ---- Знаходимо відповідний об'єкт у TimezoneDetail ----
@@ -73,7 +73,7 @@ const CountryItem = ({ data, isLoading = false, isProfile }) => {
       <Link to={localizedPath} className={styles.photo}>
         <img src={backgroundUrl} alt={CountryName} loading="lazy" />
         <span className={styles.tzCodeList}>
-          {filterTz ? (
+          {filterTz || zoneFromUp ? (
             <span className={styles.utc}>{currentTz}</span>
           ) : (
             tzCodeList.map(code => (
@@ -84,7 +84,7 @@ const CountryItem = ({ data, isLoading = false, isProfile }) => {
           )}
         </span>
       </Link>
-
+      
       <div className={styles.content}>
         {/* --- Заголовок --- */}
         <div className={styles.header}>
