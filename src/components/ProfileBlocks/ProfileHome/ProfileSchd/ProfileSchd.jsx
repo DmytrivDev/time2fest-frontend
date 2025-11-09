@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { getValidLocale } from '@/utils/getValidLocale';
+import { getNextNYLocalForUtcOffset } from '@/utils/ny-time';
 import { api } from '@/utils/api';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
@@ -18,10 +19,9 @@ export default function ProfilePayments() {
   const { countries } = useGraphStore();
   const selected = countries || [];
 
-  // ---- 2. Функція для коректного парсингу UTC (враховує хвилини) ----
+  // ---- 2. Функція для парсингу UTC ----
   const parseZone = zone => {
     if (!zone) return 0;
-    // нормалізуємо рядок
     const z = zone.toString().replace('UTC', '').trim();
     const sign = z.startsWith('-') ? -1 : 1;
     const [h, m] = z.replace('+', '').replace('-', '').split(':').map(Number);
@@ -35,19 +35,28 @@ export default function ProfilePayments() {
     (a, b) => parseZone(b.zone) - parseZone(a.zone)
   );
 
-  // ---- 4. Беремо перші 4 ----
-  const firstFour = sorted.slice(0, 4);
+  // ---- 4. Відбираємо лише ті, де НР ще не настав ----
+  const now = new Date();
+  const upcoming = sorted.filter(c => {
+    const zoneStr = c.zone.startsWith('UTC') ? c.zone : `UTC${c.zone}`;
+    try {
+      const ny = getNextNYLocalForUtcOffset(zoneStr, { reference: now });
+      return now < ny.instant; // ще не настав
+    } catch {
+      return true; // якщо помилка парсингу — залишаємо
+    }
+  });
 
-  // ---- 5. Формуємо параметр для API ----
+  // ---- 5. Беремо перші 4 ----
+  const firstFour = upcoming.slice(0, 4);
+
+  // ---- 6. Формуємо параметр для API ----
   const zonesParam = firstFour
     .map(c => `${c.country.toLowerCase()}:${c.zone}`)
     .join(',');
 
-  // ---- 6. Підтягуємо дані про країни ----
-  const {
-    data: lightCountries = [],
-    isLoading,
-  } = useQuery({
+  // ---- 7. Підтягуємо дані ----
+  const { data: lightCountries = [], isLoading } = useQuery({
     queryKey: ['countries-light', zonesParam, locale],
     queryFn: async () => {
       if (!zonesParam) return [];
@@ -62,26 +71,24 @@ export default function ProfilePayments() {
     enabled: firstFour.length > 0,
   });
 
-  // ---- 7. Формуємо мапу ----
+  // ---- 8. Формуємо мапу ----
   const lightMap = Object.fromEntries(
     (lightCountries || []).map(item => [item.zone.trim(), item])
   );
 
-  // ---- 8. Якщо нічого не вибрано ----
+  // ---- 9. Якщо нічого не вибрано ----
   if (!firstFour.length) {
     return (
       <section className={styles.profileSchd}>
         <div className={styles.headding}>
           <h3 className={styles.ttl}>{t('profile.schadule')}</h3>
         </div>
-
         <div className={styles.content}>
           <p className={styles.emptyText}>
-            {t('profile.no_selected_countries') ||
-              'Ви ще не обрали країни для святкування.'}
+            {t('profile.no_upcoming_countries') ||
+              'Наразі всі обрані країни вже відсвяткували Новий рік 🎉'}
           </p>
         </div>
-
         <div className={styles.bottom}>
           <Link
             to={`/${
@@ -96,7 +103,7 @@ export default function ProfilePayments() {
     );
   }
 
-  // ---- 9. Якщо вантажиться ----
+  // ---- 10. Якщо вантажиться ----
   if (isLoading) {
     const placeholders = Array.from({ length: 4 }, (_, i) => i);
     return (
@@ -115,7 +122,7 @@ export default function ProfilePayments() {
     );
   }
 
-  // ---- 10. Рендер ----
+  // ---- 11. Рендер ----
   return (
     <section className={styles.profileSchd}>
       <div className={styles.headding}>
@@ -134,7 +141,7 @@ export default function ProfilePayments() {
                 code={fullZone}
                 country={country}
                 isLoading={isLoading}
-                onZoneClick={() => {}} // неактивно
+                onZoneClick={() => {}}
               />
             );
           })}

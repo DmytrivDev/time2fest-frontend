@@ -1,0 +1,50 @@
+@use "@/styles/mixins" as *;
+@use "@/styles/variables" as *;
+
+.profileSchd {
+    padding-top: 4.5rem;
+}
+
+.headding {
+    .ttl {
+        font-size: 1.75rem;
+        font-weight: 700;
+        line-height: 140%;
+    }
+}
+
+.content {
+    margin-top: 2.5rem;
+}
+
+.videoContainer {
+    width: 100%;
+    padding-top: calc(100% / 16 * 9);
+    position: relative;
+    border-radius: 1.25rem;
+    overflow: hidden;
+
+    iframe {
+        @include img-cover;
+    }
+}
+
+.videoPlace {
+    position: absolute;
+    z-index: 15;
+    top: 1.25rem;
+    left: 1.25rem;
+    padding: 0.65rem;
+    border-radius: 2rem;
+    background: rgba(2, 1, 1, 0.8);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    gap: 0.75rem;
+
+    img {
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+}
