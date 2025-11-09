@@ -1,8 +1,11 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { useCountdownToTimezone } from '@/hooks/useKiritimatiNYCountdown';
 import { getNextNYLocalForUtcOffset } from '@/utils/ny-time';
+
 import clsx from 'clsx';
+
 import styles from './MapInfo.module.scss';
 
 export default function TimerWidget({ zone }) {
@@ -30,6 +33,9 @@ export default function TimerWidget({ zone }) {
   // --- хук зворотного відліку ---
   const countdown = useCountdownToTimezone(safeTzHours);
 
+  // --- форматування з провідним нулем ---
+  const formatTime = value => value.toString().padStart(2, '0');
+
   // --- рендер ---
   return (
     <div className={styles.countdown}>
@@ -39,22 +45,22 @@ export default function TimerWidget({ zone }) {
 
       <div className={styles.timer}>
         <div>
-          {countdown.days}
+          {formatTime(countdown.days)}
           <span>{t('days')}</span>
         </div>
         :
         <div>
-          {countdown.hours}
+          {formatTime(countdown.hours)}
           <span>{t('hours')}</span>
         </div>
         :
         <div>
-          {countdown.minutes}
+          {formatTime(countdown.minutes)}
           <span>{t('minutesS')}</span>
         </div>
         :
         <div>
-          {countdown.seconds}
+          {formatTime(countdown.seconds)}
           <span>{t('secondsS')}</span>
         </div>
       </div>

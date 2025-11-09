@@ -76,10 +76,20 @@ const MapInfo = ({ data, zone, loading, onClose }) => {
   if (loading || !data) {
     return (
       <aside className={styles.aside}>
-        <button className={styles.close} onClick={onClose}></button>
+        <button
+          className={clsx(styles.close, styles.desk)}
+          onClick={onClose}
+        ></button>
+
         <div className={styles.wrap}>
+          <button
+            className={clsx(styles.close, styles.mob)}
+            onClick={onClose}
+          ></button>
+
           <div className={clsx(styles.card, styles.cardLoading)}>
             <div className={clsx(styles.photo, 'loading')}></div>
+
             <div className={styles.header}>
               <div className={clsx(styles.flagLoading, 'loading')}></div>
               <h3 className={clsx(styles.titleLoading, 'loading')}></h3>
@@ -150,8 +160,17 @@ const MapInfo = ({ data, zone, loading, onClose }) => {
 
   return (
     <aside className={styles.aside}>
-      <button className={styles.close} onClick={onClose}></button>
+      <button
+        className={clsx(styles.close, styles.desk)}
+        onClick={onClose}
+      ></button>
+
       <div className={styles.wrap}>
+        <button
+          className={clsx(styles.close, styles.mob)}
+          onClick={onClose}
+        ></button>
+
         <div className={styles.card}>
           {/* Фото */}
           <div className={styles.photo}>

@@ -18,119 +18,130 @@ const ZonesInfoCard = ({
 
   if (loading) {
     return (
-      <aside className={styles.aside}>
+      <aside className={clsx(styles.aside, styles.zonesInf)}>
         <button className={styles.close} onClick={onClose}></button>
+
         <div className={styles.wrap}>
           <div className={clsx(styles.timerLoading, 'loading')}></div>
-          {Array.from({ length: 5 }).map((_, i) => (
-            <div
-              key={i}
-              className={clsx(styles.zoneCard, styles.zoneCardLoading)}
-            >
-              <div className={clsx(styles.header)}>
-                <div className={clsx(styles.flagLoading, 'loading')}></div>
-                <h3 className={clsx(styles.titleLoading, 'loading')}></h3>
-              </div>
-              <div className={clsx(styles.types, styles.typesLoading)}>
-                <span className="loading"></span>
-                <span className="loading"></span>
-              </div>
-              <div
-                className={clsx(
-                  styles.detailsBtn,
-                  styles.detailsBtnLoading,
-                  'loading'
-                )}
-              ></div>
+
+          <div className={styles.list}>
+            <div>
+              {Array.from({ length: 5 }).map((_, i) => (
+                <div
+                  key={i}
+                  className={clsx(styles.zoneCard, styles.zoneCardLoading)}
+                >
+                  <div className={clsx(styles.header)}>
+                    <div className={clsx(styles.flagLoading, 'loading')}></div>
+                    <h3 className={clsx(styles.titleLoading, 'loading')}></h3>
+                  </div>
+                  <div className={clsx(styles.types, styles.typesLoading)}>
+                    <span className="loading"></span>
+                    <span className="loading"></span>
+                  </div>
+                  <div
+                    className={clsx(
+                      styles.detailsBtn,
+                      styles.detailsBtnLoading,
+                      'loading'
+                    )}
+                  ></div>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </aside>
     );
   }
 
   return (
-    <aside className={styles.aside}>
+    <aside className={clsx(styles.aside, styles.zonesInf)}>
       <button className={styles.close} onClick={onClose}></button>
+
       <div className={styles.wrap}>
         <TimerWidget zone={zone} />
 
-        {countries && countries.length > 0 ? (
-          countries.map((c, i) => {
-            const country = c.attributes || c;
-            const code = country.CountryCode?.toLowerCase();
-            const name = country.CountryName;
-            const TimezoneDetail = Array.isArray(country.TimezoneDetail)
-              ? country.TimezoneDetail
-              : [];
+        <div className={styles.list}>
+          <div>
+            {countries && countries.length > 0 ? (
+              countries.map((c, i) => {
+                const country = c.attributes || c;
+                const code = country.CountryCode?.toLowerCase();
+                const name = country.CountryName;
+                const TimezoneDetail = Array.isArray(country.TimezoneDetail)
+                  ? country.TimezoneDetail
+                  : [];
 
-            const rawZone =
-              zone && zone.trim() !== ''
-                ? zone
-                : Array.isArray(country.time_zones) &&
-                    country.time_zones.length > 0
-                  ? country.time_zones[0].code
-                  : 'UTC+0';
+                const rawZone =
+                  zone && zone.trim() !== ''
+                    ? zone
+                    : Array.isArray(country.time_zones) &&
+                        country.time_zones.length > 0
+                      ? country.time_zones[0].code
+                      : 'UTC+0';
 
-            const currentTz = rawZone.startsWith('UTC')
-              ? rawZone
-              : `UTC${rawZone.replace('UTC', '')}`;
+                const currentTz = rawZone.startsWith('UTC')
+                  ? rawZone
+                  : `UTC${rawZone.replace('UTC', '')}`;
 
-            const currentOffset = currentTz
-              .replace('UTC', '')
-              .replace(':00', '')
-              .trim();
+                const currentOffset = currentTz
+                  .replace('UTC', '')
+                  .replace(':00', '')
+                  .trim();
 
-            const currentZone = TimezoneDetail.find(z => {
-              if (!z.Zone) return false;
-              const zoneNormalized = z.Zone.replace(':00', '').trim();
-              return (
-                zoneNormalized === currentOffset ||
-                zoneNormalized === currentOffset.replace('+', '') ||
-                zoneNormalized === currentOffset.replace('UTC', '')
-              );
-            });
+                const currentZone = TimezoneDetail.find(z => {
+                  if (!z.Zone) return false;
+                  const zoneNormalized = z.Zone.replace(':00', '').trim();
+                  return (
+                    zoneNormalized === currentOffset ||
+                    zoneNormalized === currentOffset.replace('+', '') ||
+                    zoneNormalized === currentOffset.replace('UTC', '')
+                  );
+                });
 
-            const hasAmbassador = !!currentZone?.Ambassador;
-            const hasCamera = !!currentZone?.VebCamera;
+                const hasAmbassador = !!currentZone?.Ambassador;
+                const hasCamera = !!currentZone?.VebCamera;
 
-            return (
-              <div key={i} className={clsx(styles.zoneCard)}>
-                <div className={styles.header}>
-                  {code && <CircleFlag countryCode={code} height="20" />}
-                  <h3>{name}</h3>
-                </div>
+                return (
+                  <div key={i} className={clsx(styles.zoneCard)}>
+                    <div className={styles.header}>
+                      {code && <CircleFlag countryCode={code} height="20" />}
+                      <h3>{name}</h3>
+                    </div>
 
-                <div className={styles.types}>
-                  <span className={styles.type}>
-                    <IoTime /> {t('controls.countdown')}
-                  </span>
-                  {hasAmbassador && (
-                    <span className={styles.type}>
-                      <IoCamera /> {t('controls.ambass')}
-                    </span>
-                  )}
-                  {hasCamera && (
-                    <span className={styles.type}>
-                      <IoVideocam /> {t('controls.veb')}
-                    </span>
-                  )}
-                </div>
+                    <div className={styles.types}>
+                      <span className={styles.type}>
+                        <IoTime /> {t('controls.countdown')}
+                      </span>
+                      {hasAmbassador && (
+                        <span className={styles.type}>
+                          <IoCamera /> {t('controls.ambass')}
+                        </span>
+                      )}
+                      {hasCamera && (
+                        <span className={styles.type}>
+                          <IoVideocam /> {t('controls.veb')}
+                        </span>
+                      )}
+                    </div>
 
-                {/* ---- Кнопка ---- */}
-                <button
-                  type="button"
-                  onClick={() => onCountrySelect?.(country.slug)}
-                  className={clsx(styles.detailsBtn, 'btn_primary')}
-                >
-                  {t('controls.details')}
-                </button>
-              </div>
-            );
-          })
-        ) : (
-          <p className={styles.desc}>{t('no_data')}</p>
-        )}
+                    {/* ---- Кнопка ---- */}
+                    <button
+                      type="button"
+                      onClick={() => onCountrySelect?.(country.slug)}
+                      className={clsx(styles.detailsBtn, 'btn_primary')}
+                    >
+                      {t('controls.details')}
+                    </button>
+                  </div>
+                );
+              })
+            ) : (
+              <p className={styles.desc}>{t('no_data')}</p>
+            )}
+          </div>
+        </div>
       </div>
     </aside>
   );
