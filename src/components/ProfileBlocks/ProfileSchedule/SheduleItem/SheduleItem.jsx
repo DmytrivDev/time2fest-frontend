@@ -9,7 +9,7 @@ import styles from './SheduleItem.module.scss';
 
 const SheduleItem = ({ code, country, isLoading = false, onZoneClick }) => {
   const { t } = useTranslation();
-  const { countries, removeCountry } = useGraphStore();
+  const { removeCountry } = useGraphStore();
 
   const nyDisplay = useMemo(() => {
     try {
@@ -36,17 +36,19 @@ const SheduleItem = ({ code, country, isLoading = false, onZoneClick }) => {
     const clickable =
       e.target.closest(`.${styles.countryName}`) ||
       e.target.closest(`.${styles.flag}`) ||
-      e.target.closest(`.${styles.badge}`);
+      e.target.closest(`.${styles.badge}`) ||
+      e.target.closest(`.${styles.watch}`);
 
     if (clickable) {
-      onZoneClick?.(code, country?.code || null);
+      onZoneClick?.(code, country?.slug || null);
     }
   };
 
   const handleRemove = e => {
     e.stopPropagation();
-    if (!country?.code) return;
-    removeCountry(country.code);
+
+    if (!country?.slug || !country?.zone) return;
+    removeCountry(country.slug, country.zone.replace(/^UTC\s*/i, '').trim());
   };
 
   return (
@@ -64,6 +66,7 @@ const SheduleItem = ({ code, country, isLoading = false, onZoneClick }) => {
             <span className={styles.time}>{nyDisplay || '—:—'}</span>
             <span className={styles.zone}>{code}</span>
           </div>
+
           {hasCountry && (
             <div className={styles.country}>
               <CircleFlag
@@ -71,8 +74,7 @@ const SheduleItem = ({ code, country, isLoading = false, onZoneClick }) => {
                 height="16"
                 className={styles.flag}
               />
-
-              <span className={styles.countryName}>{country.country}</span>
+              <span className={styles.countryName}>{t('countries.'+country.slug)}</span>
             </div>
           )}
         </span>
@@ -107,14 +109,16 @@ const SheduleItem = ({ code, country, isLoading = false, onZoneClick }) => {
                 {t('profile.watch')}
               </button>
 
-              <button className={styles.removeCtr} onClick={handleRemove}>
+              <button
+                type="button"
+                className={styles.removeCtr}
+                onClick={handleRemove}
+              >
                 <IoClose className={styles.close} />
               </button>
             </>
           ) : (
-            <span className={styles.empty}>
-              {t('profile.choose')}
-            </span>
+            <span className={styles.empty}>{t('profile.choose')}</span>
           )}
         </span>
       </div>

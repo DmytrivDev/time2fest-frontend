@@ -45,10 +45,7 @@ export default function ProfileSchedule() {
     .join(',');
 
   // ---- 3. Отримуємо легкі країни ----
-  const {
-    data: lightCountries = [],
-    isLoading: lightLoading,
-  } = useQuery({
+  const { data: lightCountries = [], isLoading: lightLoading } = useQuery({
     queryKey: ['countries-light', zonesParam, locale],
     queryFn: async () => {
       if (!zonesParam) return [];
@@ -67,7 +64,7 @@ export default function ProfileSchedule() {
 
   // ---- 4. Формуємо мапу для швидкого доступу ----
   const lightMap = Object.fromEntries(
-    (lightCountries || []).map(item => [item.zone, item])
+    (lightCountries || []).map(item => [item.zone.trim(), item])
   );
 
   // ---- 5. Дані по країні ----
@@ -79,7 +76,7 @@ export default function ProfileSchedule() {
     queryKey: ['country', locale, selectedCountry],
     queryFn: async () => {
       const res = await api.get(
-        `/countries?locale=${locale}&code=${selectedCountry}`
+        `/countries?locale=${locale}&slug=${selectedCountry}`
       );
       return res.data?.items?.[0] || res.data?.data?.[0] || null;
     },
@@ -103,10 +100,23 @@ export default function ProfileSchedule() {
 
   // ---- 7. Перевірка ----
   if (error || zonesData.length === 0) {
+    // створюємо 37 "заглушок"
+    const placeholders = Array.from({ length: 37 }, (_, i) => i);
+
     return (
-      <div className={clsx(styles.profileContent, 'loading')}>
-        <h1>{t('loading') || 'Завантаження...'}</h1>
-      </div>
+      <>
+        <div className={styles.profileContent}>
+          <div className={styles.heading}>
+            <h1>{t('profile.schadule')}</h1>
+          </div>
+
+          <ul className={styles.scheduleList}>
+            {placeholders.map(i => (
+              <li key={i} className={clsx(styles.item, 'loading')}></li>
+            ))}
+          </ul>
+        </div>
+      </>
     );
   }
 

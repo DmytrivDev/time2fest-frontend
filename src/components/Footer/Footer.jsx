@@ -13,7 +13,7 @@ const Footer = () => {
 
   const isMarginTop =
     location.pathname.includes('/country') ||
-    /^\/([a-z]{2})?$/.test(location.pathname);
+    /^\/([a-z]{2})?$/.test(location.pathname) || location.pathname.includes('/about');
 
   return (
     <footer className={clsx(styles.footer, isMarginTop && styles.marTop)}>

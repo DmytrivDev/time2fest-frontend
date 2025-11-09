@@ -120,7 +120,7 @@ const ZonesInfoCard = ({
                 {/* ---- Кнопка ---- */}
                 <button
                   type="button"
-                  onClick={() => onCountrySelect?.(country.CountryCode)}
+                  onClick={() => onCountrySelect?.(country.slug)}
                   className={clsx(styles.detailsBtn, 'btn_primary')}
                 >
                   {t('controls.details')}
