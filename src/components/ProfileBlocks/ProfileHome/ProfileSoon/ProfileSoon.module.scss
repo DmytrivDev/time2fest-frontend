@@ -5,6 +5,22 @@
     padding-top: 4.5rem;
 }
 
+.ttlLoading {
+    height: 2.45rem;
+    width: 22rem;
+}
+
+.itemLoading {
+    border-radius: 1.25rem;
+    height: 45.085rem;
+}
+
+.ctrsListLoading {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
 .headding {
     .ttl {
         font-size: 1.75rem;

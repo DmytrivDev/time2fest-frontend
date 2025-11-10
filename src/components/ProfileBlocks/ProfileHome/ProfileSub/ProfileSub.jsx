@@ -7,7 +7,7 @@ import clsx from 'clsx';
 
 import styles from './ProfileSub.module.scss';
 
-export default function ProfilePayments() {
+export default function ProfileSub() {
   const { t, i18n } = useTranslation();
   const locale = getValidLocale();
 
@@ -24,6 +24,16 @@ export default function ProfilePayments() {
     staleTime: 5 * 60 * 1000,
   });
 
+  if (isLoadingRest) {
+    return (
+      <section className={styles.profileSub}>
+        <div
+          className={clsx(styles.subscribe, styles.subscribeLoading, 'loading')}
+        ></div>
+      </section>
+    );
+  }
+
   if (errorRest || !restData) return null;
 
   const data = restData?.PaidPlan;
@@ -32,16 +42,15 @@ export default function ProfilePayments() {
     <section className={styles.profileSub}>
       <div className={styles.subscribe}>
         <div className={styles.subscribeLeft}>
-          <h3 className={styles.sebTitle}>Хочете отримати весь контент?</h3>
+          <h3 className={styles.sebTitle}>{t('profile.subTitle')}</h3>
           <div className={styles.subText}>
-            <p>
-              Підпишіться і святкуйте разом із нами — усі Нові роки світу в
-              одному місці!
-            </p>
+            <p>{t('profile.subText')}</p>
           </div>
         </div>
         <Link
-          to={`/${i18n.language !== 'en' ? i18n.language + '/' : ''}profile/subscription`}
+          to={`/${
+            i18n.language !== 'en' ? i18n.language + '/' : ''
+          }profile/subscription`}
           className={clsx(styles.srbscribeBtn, 'btn_primary')}
         >
           {data.Price}

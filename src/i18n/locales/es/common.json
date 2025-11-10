@@ -304,7 +304,12 @@
     "emailAddress": "Tu correo electrónico",
     "errorSave": "Error al guardar la configuración",
     "errorWrongPassword": "Contraseña actual incorrecta",
-    "errorEmptyField": "El campo no puede estar vacío"
+    "errorEmptyField": "El campo no puede estar vacío",
+    "subTitle": "¿Quieres acceder a todo el contenido?",
+    "subText": "¡Suscríbete y celebra con nosotros: todas las celebraciones de Año Nuevo del mundo en un solo lugar!",
+    "goto_schedule": "Ir al horario",
+    "soon_title": "Próximos eventos",
+    "live_title": "En directo ahora"
   },
   "countries": {
     "kiribati": "Kiribati",

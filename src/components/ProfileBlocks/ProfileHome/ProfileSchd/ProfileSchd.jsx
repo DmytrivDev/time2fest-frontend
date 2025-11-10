@@ -109,14 +109,20 @@ export default function ProfilePayments() {
     return (
       <section className={styles.profileSchd}>
         <div className={styles.headding}>
-          <h3 className={styles.ttl}>{t('profile.schadule')}</h3>
+          <h3 className={clsx(styles.ttl, styles.ttlLoading, 'loading')}></h3>
         </div>
         <div className={styles.content}>
           <ul className={styles.scheduleList}>
             {placeholders.map(i => (
-              <li key={i} className={clsx(styles.item, 'loading')}></li>
+              <li
+                key={i}
+                className={clsx(styles.item, styles.itemLoading, 'loading')}
+              ></li>
             ))}
           </ul>
+          <div className={styles.bottom}>
+            <span className={clsx(styles.btn, styles.btnLoading, 'btn_primary', 'loading')}></span>
+          </div>
         </div>
       </section>
     );

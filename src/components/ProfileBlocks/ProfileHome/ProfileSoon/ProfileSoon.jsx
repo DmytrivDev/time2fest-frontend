@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { getValidLocale } from '@/utils/getValidLocale';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { api } from '@/utils/api';
 import clsx from 'clsx';
 
@@ -12,11 +12,11 @@ import CountryItem from '../../../common/CountryItem';
 import styles from './ProfileSoon.module.scss';
 
 export default function ProfileSoon() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const location = useLocation();
   const locale = getValidLocale();
 
-  // ---- 1. Завантажуємо усі часові зони ----
+  // ---- 1. Завантажуємо часові зони ----
   const {
     data: zonesData = [],
     isLoading: zonesLoading,
@@ -31,33 +31,30 @@ export default function ProfileSoon() {
 
   const now = new Date();
 
-  // ---- 2. Обчислюємо для кожної зони момент НР ----
+  // ---- 2. Обчислюємо момент НР ----
   const withNY = (zonesData || []).map(zone => {
-  const utcStr = zone.code || zone.zone;
-  const ny = getNextNYLocalForUtcOffset(utcStr, { reference: now });
+    const utcStr = zone.code || zone.zone;
+    const ny = getNextNYLocalForUtcOffset(utcStr, { reference: now });
+    return {
+      ...zone,
+      utcStr,
+      nyInstant: ny.instant,
+      nyLocal: ny.display,
+      hasPassed: now >= ny.instant,
+      diffMs: ny.instant - now,
+    };
+  });
 
-  // 🎭 Імітація: у +14 і +13 НР вже відбувся
+  // ---- 3. Фільтр лише майбутніх ----
+  const upcoming = withNY.filter(z => !z.hasPassed);
 
-  return {
-    ...zone,
-    utcStr,
-    nyInstant: ny.instant,
-    nyLocal: ny.display,
-    hasPassed: now >= ny.instant,
-    diffMs: ny.instant - now,
-  };
-});
+  // ---- 4. Найближча ----
+  const nextZone =
+    upcoming.length > 0
+      ? upcoming.reduce((a, b) => (a.diffMs < b.diffMs ? a : b))
+      : null;
 
-// ---- 3. Відбираємо лише ті, де НР ще не настав ----
-const upcoming = withNY.filter(z => !z.hasPassed);
-
-// ---- 4. Знаходимо найближчу ----
-const nextZone =
-  upcoming.length > 0
-    ? upcoming.reduce((a, b) => (a.diffMs < b.diffMs ? a : b))
-    : null;
-
-  // ---- 5. Завантаження країн через /countries ----
+  // ---- 5. Завантажуємо країни ----
   const {
     data: countriesData,
     isLoading: countriesLoading,
@@ -66,7 +63,7 @@ const nextZone =
     enabled: !!nextZone,
     queryKey: ['countries', locale, nextZone?.utcStr],
     queryFn: async () => {
-      const limit = 24; // як у твоєму прикладі
+      const limit = 24;
       const url = `/countries?locale=${locale}&tz=${encodeURIComponent(
         nextZone.utcStr
       )}&page=1&limit=${limit}`;
@@ -80,34 +77,56 @@ const nextZone =
     ? countriesData.items
     : [];
 
-  // ---- 7. Вивід ----
+  // ---- 6. Блок завантаження ----
+  if (zonesLoading || countriesLoading) {
+    const placeholders = Array.from({ length: 3 }, (_, i) => i);
+
+    return (
+      <section className={styles.profileSchd}>
+        <div className={styles.headding}>
+          <h3 className={clsx(styles.ttl, styles.ttlLoading, 'loading')}></h3>
+        </div>
+        <div className={styles.content}>
+          <ul className={styles.ctrsListLoading}>
+            {placeholders.map(i => (
+              <li
+                key={i}
+                className={clsx(styles.item, styles.itemLoading, 'loading')}
+              ></li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    );
+  }
+
+  // ---- 8. Рендер ----
   return (
     <section className={styles.profileSchd}>
       <div className={styles.headding}>
-        <h3 className={styles.ttl}>Найближче святкування</h3>
+        <h3 className={styles.ttl}>
+          {t('profile.soon_title')}
+        </h3>
       </div>
 
       <div className={styles.content}>
-        {!zonesLoading && !countriesLoading && nextZone && (
-          <>
-            {countries.length > 0 ? (
-              <Swiper
-                key={location.pathname}
-                spaceBetween={24}
-                slidesPerView={3}
-                className={clsx(styles.slider, 'countriesSlider')}
-              >
-                {countries.map(country => (
-                  <SwiperSlide key={country.id}>
-                    <CountryItem data={country} isProfile={true} zoneFromUp={nextZone} />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            ) : (
-              <span></span>
-            )}
-          </>
-        )}
+        <Swiper
+          key={location.pathname}
+          spaceBetween={24}
+          slidesPerView={3}
+          className={clsx(styles.slider, 'countriesSlider')}
+        >
+          {countries.map(country => (
+            <SwiperSlide key={country.id}>
+              <CountryItem
+                data={country}
+                isLoading={countriesLoading}
+                isProfile={true}
+                zoneFromUp={nextZone}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
     </section>
   );

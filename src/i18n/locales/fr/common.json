@@ -304,7 +304,12 @@
     "emailAddress": "Votre adresse e-mail",
     "errorSave": "Erreur lors de l’enregistrement",
     "errorWrongPassword": "Mot de passe actuel incorrect",
-    "errorEmptyField": "Le champ ne peut pas être vide"
+    "errorEmptyField": "Le champ ne peut pas être vide",
+    "subTitle": "Vous voulez accéder à tout le contenu ?",
+    "subText": "Abonnez-vous et célébrez avec nous — toutes les célébrations du Nouvel An du monde réunies en un seul endroit !",
+    "goto_schedule": "Aller au programme",
+    "soon_title": "Événements à venir",
+    "live_title": "En direct maintenant"
   },
   "countries": {
     "kiribati": "Kiribati",

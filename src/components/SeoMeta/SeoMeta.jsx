@@ -36,9 +36,13 @@ const SeoMeta = ({ dynamicData = null }) => {
   const isAmbassadorDetail = pathname.match(/\/ambassadors\/list\/[^/]+$/);
   const isDynamicPage = isCountryDetail || isAmbassadorDetail;
 
-  const isProfilePage = pathname.match(/^\/(?:[a-z]{2}\/)?profile\//);
-  const isProfileCountry = pathname.match(/^\/(?:[a-z]{2}\/)?profile\/countries\/[^/]+$/);
-  const isProfileAmbassador = pathname.match(/^\/(?:[a-z]{2}\/)?profile\/ambassadors\/[^/]+$/);
+  const isProfilePage = pathname.match(/^\/(?:[a-z]{2}\/)?profile(?:\/|$)/);
+  const isProfileCountry = pathname.match(
+    /^\/(?:[a-z]{2}\/)?profile\/countries\/[^/]+$/
+  );
+  const isProfileAmbassador = pathname.match(
+    /^\/(?:[a-z]{2}\/)?profile\/ambassadors\/[^/]+$/
+  );
 
   const authPages = ['register', 'login', 'forget-password', 'reset-password'];
   const isAuthPage = authPages.includes(page);
@@ -122,12 +126,19 @@ const SeoMeta = ({ dynamicData = null }) => {
 
     // --- Звичайні підсторінки профілю ---
     const parts = pathname.split('/').filter(Boolean);
-    // якщо є мовний префікс, прибираємо його
+
+    // якщо є мовний префікс — прибираємо його
     const pureParts = SUPPORTED_LANGS.includes(parts[0])
       ? parts.slice(1)
       : parts;
+
+    // остання частина після /profile/...
     const subPage = pureParts[pureParts.length - 1];
 
+    // --- якщо це саме /profile без підсторінки ---
+    const isProfileRoot = pureParts.length === 1 && pureParts[0] === 'profile';
+
+    // ключі перекладів для підсторінок
     const titleKeys = {
       profile: 'profile',
       timezones: 'zoneMap',
@@ -139,9 +150,17 @@ const SeoMeta = ({ dynamicData = null }) => {
       info: 'settingsTitle',
     };
 
-    const titleKey = titleKeys[subPage] || 'profile';
-    const title = `${t('profile.profile')} — ${t(`profile.${titleKey}`)}`;
+    // --- Вибір заголовка ---
+    let title = '';
+    if (isProfileRoot) {
+      // ✅ окремий тайтл для головної сторінки профілю
+      title = t('profile.profile');
+    } else {
+      const titleKey = titleKeys[subPage] || 'profile';
+      title = `${t('profile.profile')} — ${t(`profile.${titleKey}`)}`;
+    }
 
+    // --- Формування об'єкта SEO ---
     const profileSeo = {
       title,
       description: '',

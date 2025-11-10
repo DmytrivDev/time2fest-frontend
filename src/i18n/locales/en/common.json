@@ -304,7 +304,12 @@
     "emailAddress": "Your email address",
     "errorSave": "Failed to save settings",
     "errorWrongPassword": "Incorrect current password",
-    "errorEmptyField": "Field cannot be empty"
+    "errorEmptyField": "Field cannot be empty",
+    "subTitle": "Want to access all the content?",
+    "subText": "Subscribe and celebrate with us — all New Year’s celebrations of the world in one place!",
+    "goto_schedule": "Go to schedule",
+    "soon_title": "Upcoming events",
+    "live_title": "Live now"
   },
   "countries": {
     "kiribati": "Kiribati",
