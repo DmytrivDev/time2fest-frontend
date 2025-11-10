@@ -46,7 +46,7 @@
 }
 
 .navSidebar {
-	height: calc(100dvh - 14.5rem);
+	height: calc(100dvh - 14.25rem);
 	padding: 1rem 0;
 	overflow: auto;
 	flex-grow: 1;
@@ -81,25 +81,8 @@
 	flex-shrink: 0;
 }
 
-.userBlock {
-	height: 4.75rem;
-	padding: 0 1.5rem;
-	align-items: center;
-	align-content: center;
-	display: flex;
-	border-top: 1px solid rgba(255, 255, 255, 0.1);
-	gap: 0.94rem;
-	transition: 0.3s;
-
-	svg {
-		width: 1.125rem;
-		height: 1.125rem;
-		stroke: $color-yellow;
-	}
-}
-
 .languafesSidebar {
-	padding: 1.75rem 1.5rem;
+	padding: 1.625rem 1.5rem;
 	display: flex;
 	gap: 0.875rem;
 
@@ -132,6 +115,23 @@
 		.current {
 			color: #fff !important;
 		}
+	}
+}
+
+.userBlock {
+	height: 4.75rem;
+	padding: 0 1.5rem;
+	align-items: center;
+	align-content: center;
+	display: flex;
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+	gap: 0.9375rem;
+	transition: 0.3s;
+
+	svg {
+		width: 1.125rem;
+		height: 1.125rem;
+		stroke: $color-yellow;
 	}
 }
 
@@ -168,6 +168,9 @@
 		transition: all 0.2s ease-in-out;
 	}
 
+	.logo {
+		padding: 0 1rem;
+	}
 	.sidebar__close {
 		flex-shrink: 0;
 		display: flex;
@@ -190,6 +193,8 @@
 	}
 
 	.link {
+		padding: 0.625rem 1rem;
+
 		&:hover {
 			background: transparent;
 		}
@@ -201,6 +206,8 @@
 	}
 
 	.languafesSidebar {
+		padding: 1.625rem 1rem;
+
 		ul {
 			li {
 				&:hover {
@@ -208,6 +215,10 @@
 				}
 			}
 		}
+	}
+
+	.userBlock {
+		padding: 0 1rem;
 	}
 }
 
