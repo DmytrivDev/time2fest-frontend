@@ -125,6 +125,7 @@
 	overflow: hidden;
 	border-radius: 1.25rem;
 	padding-top: 64.7%;
+	background-color: $color-gray;
 
 	img {
 		@include img-cover;
@@ -399,9 +400,9 @@
 
 @media screen and (max-width: 1140px) {
 	.aside {
-		top: 50%;
+		top: auto;
 		left: 1rem;
-		transform: translateY(-50%);
+		bottom: 0;
 	}
 	.close {
 		top: 6.375rem;
@@ -548,18 +549,16 @@
 			width: 100%;
 			max-width: 100%;
 			left: 0;
-			top: auto;
-			bottom: 0;
-			transform: translateY(0);
 
 			.wrap {
+				padding: 7.5rem 0 2rem 0;
 				width: 100%;
 				flex-direction: column-reverse;
 				align-items: center;
 				gap: 0.25rem 0;
 			}
 			.close {
-				top: 2.875rem;
+				top: 5rem;
 			}
 		}
 	}
