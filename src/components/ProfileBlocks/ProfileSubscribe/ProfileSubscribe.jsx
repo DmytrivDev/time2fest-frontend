@@ -2,13 +2,15 @@ import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { getValidLocale } from '@/utils/getValidLocale';
 import { api } from '@/utils/api';
+import { usePremiumCheckout } from '@/hooks/usePremiumCheckout';
 import clsx from 'clsx';
 
-import styles from './ProfileSubscribe.module.scss'; 
+import styles from './ProfileSubscribe.module.scss';
 
 export default function ProfileSubscribe() {
   const { t } = useTranslation();
   const locale = getValidLocale();
+  const { startCheckout, loading } = usePremiumCheckout();
 
   const {
     data: restData,
@@ -30,11 +32,13 @@ export default function ProfileSubscribe() {
           <div>
             <div className={clsx(styles.titleLoading, 'loading')}></div>
             <div className={clsx(styles.descLoading)}>
-              <span className='loading'></span>
-              <span className='loading'></span>
+              <span className="loading"></span>
+              <span className="loading"></span>
             </div>
           </div>
-          <div className={clsx(styles.price, styles.priceLoading, 'loading')}></div>
+          <div
+            className={clsx(styles.price, styles.priceLoading, 'loading')}
+          ></div>
         </div>
 
         <ul className={styles.cards}>
@@ -47,7 +51,9 @@ export default function ProfileSubscribe() {
         </ul>
 
         <div className={styles.actions}>
-          <button className={clsx('btn_primary', 'loading', styles.btnLoading)}></button>
+          <button
+            className={clsx('btn_primary', 'loading', styles.btnLoading)}
+          ></button>
         </div>
       </div>
     );
@@ -62,9 +68,7 @@ export default function ProfileSubscribe() {
       <div className={styles.heading}>
         <div>
           <h1>{t('profile.subTtl')}</h1>
-          <p>
-            {t('profile.subTxt')}
-          </p>
+          <p>{t('profile.subTxt')}</p>
         </div>
         <div className={styles.price}>{data.Price}</div>
       </div>
@@ -90,7 +94,9 @@ export default function ProfileSubscribe() {
       </ul>
 
       <div className={styles.actions}>
-        <button className="btn_primary">{t('btn_sub')}</button>
+        <button className="btn_primary" onClick={startCheckout}>
+          {t('btn_sub')}
+        </button>
       </div>
     </div>
   );
