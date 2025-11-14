@@ -4,41 +4,40 @@ import { userApi } from '@/utils/userApi';
 export function usePremiumCheckout() {
   const [loading, setLoading] = useState(false);
 
-  function getUserEmail() {
+  function getEmailFromToken() {
     try {
-      const raw = localStorage.getItem('user');
-      if (!raw) return null;
-      const user = JSON.parse(raw);
-      return user?.email || null;
+      const token = localStorage.getItem('accessToken');
+      if (!token) return null;
+
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload?.email || null;
     } catch (e) {
+      console.error("Failed to decode JWT:", e);
       return null;
     }
   }
 
   async function startCheckout() {
-    const email = getUserEmail();
+    const email = getEmailFromToken();
 
     if (!email) {
-      console.error('❌ No user email found — user must be logged in');
+      console.error('❌ No email in token — user must be logged in');
       return;
     }
 
     try {
       setLoading(true);
 
-      // 🟦 виклик бекенду
       const { data } = await userApi.post('/payments/create-checkout', {
         email,
       });
 
       if (!data?.url) {
-        console.error('❌ Invalid Paddle checkout response', data);
+        console.error('Invalid Paddle checkout response', data);
         return;
       }
 
-      // 🟧 редирект на Paddle
       window.location.href = data.url;
-
     } catch (err) {
       console.error('Checkout error:', err);
     } finally {
