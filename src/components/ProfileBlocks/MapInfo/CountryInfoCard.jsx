@@ -125,7 +125,7 @@ const MapInfo = ({ data, zone, loading, onClose }) => {
 
   // --- NORMAL CONTENT ---
   const backgroundUrl = Background
-    ? `${import.meta.env.VITE_STRIPE_URL}${Background}`
+    ? `${import.meta.env.VITE_STRIPE_URL}${Background.formats.medium.url}`
     : '/country/eve_def.jpg';
 
   const rawZone =
