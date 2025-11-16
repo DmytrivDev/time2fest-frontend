@@ -142,6 +142,7 @@ export default function MapBlock() {
 
       <div className={styles.countryGridCont}>
         <div className={clsx(styles.asidePanel, showAside && styles.open)}>
+          <h2>Оберіть часову зону</h2>
           <button
             onClick={() => setShowAside(!showAside)}
             className={styles.close}
