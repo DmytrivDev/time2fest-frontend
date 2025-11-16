@@ -147,6 +147,12 @@ export default function MapBlock() {
             onClick={() => setShowAside(!showAside)}
             className={styles.close}
           ></button>
+
+          <div
+            className={styles.overlay}
+            onClick={() => setShowAside(false)}
+          ></div>
+
           <ZonesAside
             isLoading={zonesLoading}
             data={zonesData}

@@ -71,7 +71,7 @@
 		height: 1.875rem;
 		background-repeat: no-repeat !important;
 		background-position: center center !important;
-		background-size: 0.625rem;
+		background-size: 1rem !important;
 		background-image: $close !important;
 		border-radius: 0.625rem;
 		background: rgba(28, 28, 28, 0.6);
@@ -138,8 +138,7 @@
 		display: flex;
 		flex-direction: column;
 
-		&::before {
-			content: "";
+		.overlay {
 			position: absolute;
 			top: -5.5rem;
 			left: -1rem;
