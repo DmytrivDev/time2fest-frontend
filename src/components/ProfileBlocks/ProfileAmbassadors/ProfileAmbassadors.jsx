@@ -136,9 +136,7 @@ export default function ProfileAmbassadors() {
       <div className={styles.heading}>
         <div>
           <h1>{t('profile.ambassTtl')}</h1>
-          <p>
-            {t('profile.ambassText')}
-          </p>
+          <p>{t('profile.ambassText')}</p>
         </div>
         <button
           onClick={() => setShowAside(!showAside)}
@@ -150,10 +148,17 @@ export default function ProfileAmbassadors() {
 
       <div className={styles.countryGridCont}>
         <div className={clsx(styles.asidePanel, showAside && styles.open)}>
+          <h2>Оберіть часову зону</h2>
           <button
             onClick={() => setShowAside(!showAside)}
             className={styles.close}
           ></button>
+
+          <div
+            className={styles.overlay}
+            onClick={() => setShowAside(false)}
+          ></div>
+
           <ZonesAside
             isLoading={zonesLoading}
             data={filteredZones}
