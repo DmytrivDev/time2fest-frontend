@@ -2,7 +2,7 @@
 @use "@/styles/mixins" as *;
 
 .loadingCard {
-	min-height: 34.802rem;
+	min-height: 35rem;
 }
 
 .card {
@@ -127,10 +127,6 @@
 }
 
 @media screen and (max-width: 1140px) {
-	.loadingCard {
-		min-height: 35rem;
-	}
-
 	.photo {
 		padding-top: 62.9%;
 	}
@@ -148,7 +144,6 @@
 
 	.content {
 		padding: 1.5rem 1rem;
-		padding-bottom: 4.2rem;
 	}
 
 	.header {
