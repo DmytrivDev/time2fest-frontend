@@ -30,8 +30,8 @@ const CountriesGrid = React.memo(({ isLoading, error, data }) => {
       role="alert"
       aria-live="polite"
       className={clsx('warning', {
-        ["error"]: warnType === 'error',
-        ["noData"]: warnType === 'nodata',
+        ['error']: warnType === 'error',
+        ['noData']: warnType === 'nodata',
       })}
     >
       <IoWarningOutline size={18} />

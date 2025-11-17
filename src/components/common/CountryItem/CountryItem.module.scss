@@ -2,183 +2,178 @@
 @use "@/styles/mixins" as *;
 
 .loadingCard {
-    min-height: 34.802rem;
+	min-height: 35rem;
 }
 
 .card {
-    border-radius: 1.25rem;
-    overflow: hidden;
-    position: relative;
-    background-color: $color-gray2;
+	border-radius: 1.25rem;
+	overflow: hidden;
+	position: relative;
+	background-color: $color-gray2;
 }
 
 .photo {
-    padding-top: 79.1%;
-    position: relative;
-    overflow: hidden;
-    display: block;
+	padding-top: 79.1%;
+	position: relative;
+	overflow: hidden;
+	display: block;
 
-    & > img {
-        @include img-cover;
-    }
+	& > img {
+		@include img-cover;
+	}
 }
 
 .tzCodeList {
-    position: absolute;
-    top: 1.25rem;
-    left: 1.25rem;
-    right: 1.25rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.25rem;
+	position: absolute;
+	top: 1.25rem;
+	left: 1.25rem;
+	right: 1.25rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.25rem;
 }
 
 .utc {
-    padding: 0.25rem 0.75rem;
-    border-radius: 2.5rem;
-    background: rgba(255, 255, 255, 0.8);
-    color: $color-dark;
-    font-size: 0.875rem;
+	padding: 0.25rem 0.75rem;
+	border-radius: 2.5rem;
+	background: rgba(255, 255, 255, 0.8);
+	color: $color-dark;
+	font-size: 0.875rem;
 }
 
 .content {
-    padding: 1.5rem 1.25rem;
-    padding-bottom: 4.2rem;
+	padding: 1.5rem 1.25rem;
+	padding-bottom: 4.2rem;
 }
 
 .header {
-    display: flex;
-    align-items: center;
-    align-content: center;
-    gap: 0.88rem;
-    font-size: 1.3125rem;
-    font-weight: 500;
+	display: flex;
+	align-items: center;
+	align-content: center;
+	gap: 0.88rem;
+	font-size: 1.3125rem;
+	font-weight: 500;
 
-    img {
-        width: 1.625rem;
-        height: 1.625rem;
-    }
+	img {
+		width: 1.625rem;
+		height: 1.625rem;
+	}
 }
 
 .types {
-    margin-top: 1.2rem;
-    display: flex;
-    gap: 0.62rem;
-    flex-wrap: wrap;
+	margin-top: 1.2rem;
+	display: flex;
+	gap: 0.62rem;
+	flex-wrap: wrap;
 
-    .type {
-        display: flex;
-        align-items: center;
-        align-content: center;
-        gap: 0.25rem;
-        font-size: 0.875rem;
-        color: $color-dark;
-        padding: 0.25rem 0.5rem;
-        background-color: $color-yellow;
-        border-radius: 2.5rem;
-        white-space: nowrap;
+	.type {
+		display: flex;
+		align-items: center;
+		align-content: center;
+		gap: 0.25rem;
+		font-size: 0.875rem;
+		color: $color-dark;
+		padding: 0.25rem 0.5rem;
+		background-color: $color-yellow;
+		border-radius: 2.5rem;
+		white-space: nowrap;
 
-        svg {
-            width: 1rem;
-            height: 1rem;
-        }
-    }
+		svg {
+			width: 1rem;
+			height: 1rem;
+		}
+	}
 }
 
 .desc {
-    font-size: 0.875rem;
-    margin-top: 1.12rem;
-    color: rgba(255, 255, 255, 0.6);
-    line-height: 1.6;
-    display: -webkit-box;
-    -webkit-line-clamp: 5;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
+	font-size: 0.875rem;
+	margin-top: 1.12rem;
+	color: rgba(255, 255, 255, 0.6);
+	line-height: 1.6;
+	display: -webkit-box;
+	-webkit-line-clamp: 5;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .button {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 3.0625rem;
-    padding: 0 1.5rem;
-    display: flex;
-    align-items: center;
-    align-content: center;
-    justify-content: space-between;
-    background-color: $color-primary;
-    font-weight: 500;
-    transition: 0.3s;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 3.0625rem;
+	padding: 0 1.5rem;
+	display: flex;
+	align-items: center;
+	align-content: center;
+	justify-content: space-between;
+	background-color: $color-primary;
+	font-weight: 500;
+	transition: 0.3s;
 
-    &:hover {
-        background-color: $red2;
-    }
+	&:hover {
+		background-color: $red2;
+	}
 
-    &::after {
-        content: "";
-        background-image: $arrow-right;
-        width: 0.4375rem;
-        height: 0.6875rem;
-        background-size: contain;
-        background-repeat: no-repeat;
-    }
+	&::after {
+		content: "";
+		background-image: $arrow-right;
+		width: 0.4375rem;
+		height: 0.6875rem;
+		background-size: contain;
+		background-repeat: no-repeat;
+	}
 }
 
 @media screen and (max-width: 1140px) {
-    .loadingCard {
-        min-height: 35rem;
-    }
+	.photo {
+		padding-top: 62.9%;
+	}
 
-    .photo {
-        padding-top: 62.9%;
-    }
+	.tzCodeList {
+		top: 1rem;
+		left: 1rem;
+		right: 1rem;
+	}
 
-    .tzCodeList {
-        top: 1rem;
-        left: 1rem;
-        right: 1rem;
-    }
+	.utc {
+		padding: 0.2rem 0.6rem;
+		font-size: 0.75rem;
+	}
 
-    .utc {
-        padding: 0.2rem 0.6rem;
-        font-size: 0.75rem;
-    }
+	.content {
+		padding: 1.5rem 1rem;
+	}
 
-    .content {
-        padding: 1.5rem 1rem;
-        padding-bottom: 4.2rem;
-    }
+	.header {
+		img {
+			width: 1.5rem;
+			height: 1.5rem;
+		}
 
-    .header {
-        img {
-            width: 1.5rem;
-            height: 1.5rem;
-        }
+		a {
+			font-size: 1.25rem;
+		}
+	}
 
-        a {
-            font-size: 1.25rem;
-        }
-    }
+	.types {
+		margin-top: 1.12rem;
+		gap: 0.5rem;
+		flex-wrap: wrap;
+		.type {
+			font-size: 0.875rem;
+			padding: 0.25rem 0.75rem;
 
-    .types {
-        margin-top: 1.12rem;
-        gap: 0.5rem;
-        flex-wrap: wrap;
-        .type {
-            font-size: 0.875rem;
-            padding: 0.25rem 0.75rem;
+			svg {
+				width: 0.9rem;
+				height: 0.9rem;
+			}
+		}
+	}
 
-            svg {
-                width: .9rem;
-                height: .9rem;
-            }
-        }
-    }
-
-    .button {
-        height: 2.875rem;
-        padding: 0 1rem;
-    }
+	.button {
+		height: 2.875rem;
+		padding: 0 1rem;
+	}
 }
