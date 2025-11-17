@@ -101,8 +101,8 @@ export default function Contact() {
               <h2 className={styles.title}>{t('contact.title_left')}</h2>
 
               <p className={styles.subtitle}>{t('contact.email_title')}</p>
-              <a href="mailto:time2fest@gmail.com" className={styles.email}>
-                time2fest@gmail.com
+              <a href="mailto:info@time2fest.com" className={styles.email}>
+                info@time2fest.com
               </a>
 
               <p className={styles.text}>{t('contact.email_hint')}</p>
