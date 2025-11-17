@@ -2,26 +2,26 @@
 @use "@/styles/mixins" as *;
 
 .grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.44rem;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 1.44rem;
 }
 
 .loadingGridF {
-    display: flex;
-    justify-content: center;
-    padding-top: 4rem;
+	display: flex;
+	justify-content: center;
+	padding-top: 4rem;
 }
 
 @media screen and (max-width: 1140px) {
-    .grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.25rem;
-    }
+	.grid {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1.25rem;
+	}
 }
 
-@media screen and (max-width: 475px) {
-    .grid {
-        grid-template-columns: 1fr;
-    }
+@media screen and (max-width: 768px) {
+	.grid {
+		grid-template-columns: 1fr;
+	}
 }

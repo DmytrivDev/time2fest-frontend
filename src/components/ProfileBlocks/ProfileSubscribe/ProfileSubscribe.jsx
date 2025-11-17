@@ -70,7 +70,7 @@ export default function ProfileSubscribe() {
           <h1>{t('profile.subTtl')}</h1>
           <p>{t('profile.subTxt')}</p>
         </div>
-        <div className={styles.price}>{data.Price}</div>
+        <p className={styles.price}>{data.Price}</p>
       </div>
 
       <ul className={styles.cards}>
