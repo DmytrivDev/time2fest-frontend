@@ -37,7 +37,7 @@ const Header = () => {
             {!isMobile && <SocialLinks />}
 
             <div className={styles.header__actions}>
-              {/* <UserMenu /> */}
+              <UserMenu />
 
               {!isMobile && <LanguageSelector />}
 

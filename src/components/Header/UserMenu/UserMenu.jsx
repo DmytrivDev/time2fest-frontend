@@ -1,8 +1,29 @@
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '@/hooks/useAuth';
+import clsx from 'clsx';
+import { User } from 'lucide-react';
 
-const UserMenu = () => {
-  const { t } = useTranslation('common');
-  return <button className="btn_small">{t('log-in')}</button>;
-};
+import styles from './UserMenu.module.scss';
 
-export default UserMenu;
+export default function UserMenu() {
+  const { t, i18n } = useTranslation();
+  const { user, isAuthenticated, isLoading } = useAuth();
+
+  const lang = i18n.language === 'en' ? '' : `${i18n.language}/`;
+
+  if (isLoading) {
+    return <div className={clsx(styles.btnLoad, 'btn_small', 'loading')}></div>;
+  }
+
+  return isAuthenticated ? (
+    <Link to={`/${lang}profile`} className={clsx('btn_small', styles.loggined)}>
+      <User size={18} />
+      {t('profile.profile')}
+    </Link>
+  ) : (
+    <Link to={`/${lang}login`} className="btn_small">
+      {t('log-in')}
+    </Link>
+  );
+}

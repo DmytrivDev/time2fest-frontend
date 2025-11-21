@@ -1,0 +1,23 @@
+.btnLoad {
+	width: 6.182rem;
+	height: 3.05rem;
+}
+
+.loggined {
+	display: flex !important;
+	align-items: center;
+	align-content: center;
+	gap: .5rem;
+
+	svg {
+		width: 1.25rem;
+		height: 1.25rem;
+	}
+}
+
+@media screen and (max-width: 1140px) {
+.btnLoad {
+	width: 5.172rem;
+	height: 2.525rem;
+}
+}
