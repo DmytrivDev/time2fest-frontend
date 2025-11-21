@@ -26,7 +26,7 @@ export default function ProfileLayout() {
   const { i18n } = useTranslation();
   const { pathname } = useLocation();
 
-  const langPrefix = i18n.language === 'en' ? '/' : `/${i18n.language}/`;
+  const langPrefix = i18n.language === 'en' ? '/login' : `/${i18n.language}/login`;
 
   const isInProfile = pathname.includes('/profile');
 

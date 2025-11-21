@@ -15,7 +15,10 @@ export default function ProfileInfo() {
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
   const handleLogout = () => {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
     localStorage.removeItem('user');
+
     navigate('/login');
   };
 
