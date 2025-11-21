@@ -68,20 +68,6 @@ userApi.interceptors.response.use(
         localStorage.removeItem('refreshToken');
         localStorage.removeItem('user');
 
-        const publicPaths = [
-          '/login',
-          '/register',
-          '/forget-password',
-          '/reset-password',
-        ];
-
-        const current = window.location.pathname;
-
-        // ❗ Якщо ми НЕ на сторінці логіну → редірект
-        if (!publicPaths.includes(current)) {
-          window.location.href = '/login';
-        }
-
         return Promise.reject(err);
       } finally {
         isRefreshing = false;
