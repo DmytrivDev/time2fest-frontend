@@ -67,7 +67,21 @@ userApi.interceptors.response.use(
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
         localStorage.removeItem('user');
-        window.location.href = '/login';
+
+        const publicPaths = [
+          '/login',
+          '/register',
+          '/forget-password',
+          '/reset-password',
+        ];
+
+        const current = window.location.pathname;
+
+        // ❗ Якщо ми НЕ на сторінці логіну → редірект
+        if (!publicPaths.includes(current)) {
+          window.location.href = '/login';
+        }
+
         return Promise.reject(err);
       } finally {
         isRefreshing = false;
