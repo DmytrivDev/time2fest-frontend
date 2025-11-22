@@ -15,7 +15,7 @@ export default function ProfilePayments() {
   const locale = getValidLocale();
 
   // Запит на верхній блок (Hero)
-  const { data, loading, error } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ['profile-page', locale],
     queryFn: async () => {
       const res = await api.get(`/profile-page?locale=${locale}`);
@@ -26,11 +26,11 @@ export default function ProfilePayments() {
 
   return (
     <div className={styles.profileContent}>
-      <ProfileSlider data={data?.Banner} isLoading={loading} error={error} />
+      <ProfileSlider data={data?.Banner} isLoading={isLoading} error={error} />
       <ProfileSub />
       <ProfileSchd />
       <ProfileSoon />
-      <ProfileVideo data={data?.Video} isLoading={loading} error={error} />
+      <ProfileVideo data={data?.Video} isLoading={isLoading} error={error} />
       <ProfileSub />
     </div>
   );

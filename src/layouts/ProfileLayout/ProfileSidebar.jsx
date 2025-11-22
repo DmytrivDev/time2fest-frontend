@@ -97,6 +97,7 @@ export default function ProfileSidebar({
           <NavLink
             key={link.to}
             to={link.to}
+            end={link.to === `${localePrefix}/profile`} // ⬅️ exact match тільки для головної
             onClick={() => setMobileMenuOpen(false)}
             className={({ isActive }) =>
               `${styles.link} ${isActive ? styles.active : ''}`

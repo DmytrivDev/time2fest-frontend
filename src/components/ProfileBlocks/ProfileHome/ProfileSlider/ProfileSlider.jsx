@@ -6,10 +6,10 @@ import clsx from 'clsx';
 import styles from './ProfileSlider.module.scss';
 import ProfileSlideItem from './ProfileSlideItem'; // 👈 новий компонент
 
-export default function ProfileSlider({ data = [], loading, error }) {
+export default function ProfileSlider({ data = [], isLoading, error }) {
   const location = useLocation();
 
-  if (loading) {
+  if (isLoading) {
     return (
       <section className={styles.profileSlider}>
         <div className={clsx(styles.slider, styles.sliderLoading, 'loading')}></div>
