@@ -3,6 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
+
+import { useAuth } from '@/hooks/useAuth';
+import { userApi } from '@/utils/userApi';
+
 import styles from './ProfileInfo.module.scss';
 
 import ProfileNameCard from './Parts/ProfileNameCard';
@@ -14,15 +18,24 @@ export default function ProfileInfo() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  // 🔹 Беремо дані юзера тільки з useAuth()
+  const { user } = useAuth();
 
   const handleLogout = () => {
+    // 1. Видаляємо всі токени
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('user');
 
-    queryClient.removeQueries(['authUser']);
-    navigate('/login');
+    // 2. Очищаємо axios Authorization header
+    delete userApi.defaults.headers.Authorization;
+
+    // 3. Миттєво оновлюємо стан React Query
+    queryClient.setQueryData(['authUser'], null);
+    queryClient.invalidateQueries(['authUser']);
+
+    // 4. Переходимо на login
+    navigate('/login', { replace: true });
   };
 
   return (
@@ -53,6 +66,7 @@ export default function ProfileInfo() {
         <ProfileNameCard user={user} />
         <ProfileNewsletterCard />
       </div>
+
       <ProfilePasswordCard />
     </section>
   );
