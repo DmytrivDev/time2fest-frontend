@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
 import styles from './ProfileInfo.module.scss';
 
@@ -11,6 +12,7 @@ import ProfileNewsletterCard from './Parts/ProfileNewsletterCard';
 export default function ProfileInfo() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
@@ -19,6 +21,7 @@ export default function ProfileInfo() {
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('user');
 
+    queryClient.removeQueries(['authUser']);
     navigate('/login');
   };
 
