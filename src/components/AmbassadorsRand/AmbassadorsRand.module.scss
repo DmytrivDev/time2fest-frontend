@@ -35,6 +35,9 @@ section {
 			display: none;
 		}
 	}
+	.buttonLoading {
+		display: none;
+	}
 }
 
 @media screen and (max-width: 1880px) {
@@ -96,6 +99,10 @@ section {
 		.titleLoading {
 			height: 2.25rem;
 			width: 12.5rem;
+		}
+
+		.buttonLoading {
+			display: block;
 		}
 
 		.header {

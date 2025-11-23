@@ -33,8 +33,8 @@ const AmbassadorDetail = ({ data, isLoading, error, isProfilePage }) => {
             {/* --- Десктопний лоадінг --- */}
             {!isMobile ? (
               <>
-                <div className={clsx(styles.photoWrap, 'loading')}>
-                  <div className={styles.photoInner}></div>
+                <div className={styles.photoWrap}>
+                  <div className={clsx(styles.photoInner, 'loading')}></div>
                 </div>
 
                 <div className={styles.info}>
@@ -129,8 +129,8 @@ const AmbassadorDetail = ({ data, isLoading, error, isProfilePage }) => {
                   </div>
                 </div>
 
-                <div className={clsx(styles.photoWrap, 'loading')}>
-                  <div className={styles.photoInner}></div>
+                <div className={styles.photoWrap}>
+                  <div className={clsx(styles.photoInner, 'loading')}></div>
                 </div>
 
                 <div className={clsx(styles.desc, styles.descLoading)}>
