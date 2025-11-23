@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import clsx from 'clsx';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useTranslation } from 'react-i18next';
 import { CircleFlag } from 'react-circle-flags';
 import * as FaIcons from 'react-icons/fa6';
+
+import clsx from 'clsx';
+
 import styles from './AmbassadorDetail.module.scss';
 
 const AmbassadorDetail = ({ data, isLoading, error, isProfilePage }) => {
@@ -23,7 +25,9 @@ const AmbassadorDetail = ({ data, isLoading, error, isProfilePage }) => {
   // ---- LOADING стан ----
   if (isLoading) {
     return (
-      <section className={clsx(styles.section, isProfilePage && styles.profilePage)}>
+      <section
+        className={clsx(styles.section, isProfilePage && styles.profilePage)}
+      >
         <div className="container">
           <div className={clsx(styles.content, { [styles.mobile]: isMobile })}>
             {/* --- Десктопний лоадінг --- */}
@@ -254,7 +258,9 @@ const AmbassadorDetail = ({ data, isLoading, error, isProfilePage }) => {
 
   // ---- Основний рендер ----
   return (
-    <section className={clsx(styles.section, isProfilePage && styles.profilePage)}>
+    <section
+      className={clsx(styles.section, isProfilePage && styles.profilePage)}
+    >
       <div className="container">
         <div className={clsx(styles.content, { [styles.mobile]: isMobile })}>
           {/* ---- Десктопна структура ---- */}
