@@ -14,6 +14,39 @@
 	}
 }
 
+.profileSlider {
+	padding-top: 0;
+}
+
+.sliderLoading {
+	height: 24.875rem;
+	margin-bottom: 2.44rem;
+}
+
+.slider {
+	border-radius: 1.25rem;
+	overflow: hidden;
+	width: 100%;
+}
+
+.profileSub {
+    padding-top: 5rem;
+}
+
+.subscribeLoading {
+    height: 7.144rem;
+}
+
+.subscribe {
+    background-color: $color-yellow;
+    padding: 1.5rem;
+    border-radius: 1.25rem;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
+}
+
 .content {
 	position: relative;
 	display: flex;
@@ -318,7 +351,8 @@
 }
 
 @media screen and (max-width: 868px) {
-	.formSide, .simpleFormWrapper {
+	.formSide,
+	.simpleFormWrapper {
 		max-width: 100%;
 		border-radius: 0;
 		padding: 0;

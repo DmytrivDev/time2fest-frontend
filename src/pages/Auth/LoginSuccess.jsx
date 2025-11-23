@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '@/utils/api';
 import { useTranslation } from 'react-i18next';
+import SuccessSection from '../../components/Auth/SuccessSection';
 
 export default function LoginSuccess() {
   const navigate = useNavigate();
@@ -43,5 +44,5 @@ export default function LoginSuccess() {
     }
   }, [navigate, i18n]);
 
-  return <div>Logging in...</div>;
+  return <SuccessSection />;
 }
