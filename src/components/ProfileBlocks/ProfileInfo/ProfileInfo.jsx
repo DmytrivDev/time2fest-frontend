@@ -57,7 +57,7 @@ export default function ProfileInfo() {
             className={clsx('btn_primary', styles.logoutBtn)}
             onClick={handleLogout}
           >
-            {t('profile.logout', 'Вийти')}
+            <span>{t('profile.logout', 'Вийти')}</span>
           </button>
         </div>
       </div>
