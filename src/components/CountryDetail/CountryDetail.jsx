@@ -4,8 +4,8 @@ import { CircleFlag } from 'react-circle-flags';
 import { useTranslation } from 'react-i18next';
 import { useCountdownToTimezone } from '../../hooks/useKiritimatiNYCountdown';
 import { getNextNYLocalForUtcOffset } from '@/utils/ny-time';
-import { IoTime, IoCamera, IoVideocam } from 'react-icons/io5'; 
- 
+import { IoTime, IoCamera, IoVideocam } from 'react-icons/io5';
+
 import styles from './CountryDetail.module.scss';
 
 const CountryDetail = ({ data, isLoading, error, tzParam, isProfilePage }) => {
@@ -102,7 +102,9 @@ END:VCALENDAR`.trim();
   // ---- LOADING ----
   if (isLoading) {
     return (
-      <section className={clsx(styles.section, isProfilePage && styles.profilePage)}>
+      <section
+        className={clsx(styles.section, isProfilePage && styles.profilePage)}
+      >
         <div className="container">
           <div className={styles.content}>
             <div className={styles.info}>
@@ -161,7 +163,13 @@ END:VCALENDAR`.trim();
               ></div>
             </div>
 
-            <div className={clsx(styles.imageBlock, styles.imageBlockLoading, 'loading')}></div>
+            <div
+              className={clsx(
+                styles.imageBlock,
+                styles.imageBlockLoading,
+                'loading'
+              )}
+            ></div>
           </div>
         </div>
       </section>
@@ -176,7 +184,9 @@ END:VCALENDAR`.trim();
   const descL = country.CountryDesc || country.CountryDesc;
   const code = country.CountryCode?.toLowerCase();
   const offset = tzParam || 'UTC+0';
-  const backgroundUrl = country.Background ? `${import.meta.env.VITE_STRIPE_URL}${country.Background}` : '/country/eve_def.jpg';
+  const backgroundUrl = country.Background
+    ? `${import.meta.env.VITE_STRIPE_URL}${country.Background}`
+    : '/country/eve_def.jpg';
 
   // --- Визначення правильного TimezoneDetail за tzParam ---
   const tzWithoutUTC = offset.replace('UTC', '').trim(); // наприклад "+1" або "-5"
@@ -186,7 +196,9 @@ END:VCALENDAR`.trim();
   const zoneData = zoneMatch || country.TimezoneDetail?.[0] || {};
 
   return (
-    <section className={clsx(styles.section, isProfilePage && styles.profilePage)}>
+    <section
+      className={clsx(styles.section, isProfilePage && styles.profilePage)}
+    >
       <div className="container">
         <div className={styles.content}>
           {/* ---- Ліва частина ---- */}

@@ -43,14 +43,14 @@
 
 .content {
 	margin-top: 2.87rem;
-	display: flex;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
 	align-items: flex-start;
 	gap: 3.75rem;
 }
 
 .imageGrid {
-	width: 43.875em;
-	min-width: 43.875em;
+	width: 100%;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	grid-template-rows: repeat(2, 1fr);
@@ -137,13 +137,11 @@
 
 		.content {
 			margin-top: 1.88rem;
-			gap: 3.12rem;
+			gap: 2rem;
 		}
 
 		.imageGrid {
-			width: 30.4375em;
-			min-width: 30.4375em;
-			gap: .94rem;
+			gap: 0.94rem;
 		}
 
 		.imageItem {
@@ -156,10 +154,10 @@
 
 		.desc {
 			font-size: 1rem;
-			margin-top: .94rem;
+			margin-top: 0.94rem;
 
 			& > * {
-				margin-top: .94rem;
+				margin-top: 0.94rem;
 			}
 		}
 
@@ -209,8 +207,6 @@
 	}
 
 	.imageGrid {
-		width: 48%;
-		min-width: 48%;
 		gap: 1.24rem;
 	}
 
@@ -239,26 +235,67 @@
 		margin-top: 2.13rem;
 		width: 100%;
 	}
+
+	.profilePage {
+		padding-top: 3.75rem;
+
+		.titleLoading {
+			height: 2.25rem;
+			max-width: 25rem;
+			width: 100%;
+		}
+
+		.title {
+			font-size: 1.625rem;
+		}
+
+		.subtitleLoading {
+			height: 1.8125rem;
+			width: 100%;
+		}
+
+		.descLoading {
+			span {
+				height: 1.125rem;
+				margin-bottom: 0.5rem;
+			}
+		}
+
+		.content {
+			margin-top: 1.94rem;
+			gap: 2rem;
+		}
+
+		.imageGrid {
+			gap: 1.24rem;
+		}
+
+		.imageItem {
+			height: 12.5rem;
+		}
+
+		.subtitle {
+			font-size: 1.125rem;
+		}
+
+		.desc {
+			font-size: 0.875rem;
+			margin-top: 0.69rem;
+		}
+
+		.addBtn {
+			margin-top: 2.13rem;
+		}
+	}
 }
 
 @media screen and (max-width: 868px) {
 	.content {
-		flex-direction: column;
-	}
-	.imageGrid {
-		width: 100%;
-		min-width: inherit;
+		grid-template-columns: 1fr;
 	}
 }
 
 @media screen and (max-width: 480px) {
-	.content {
-		flex-direction: column;
-	}
-	.imageGrid {
-		width: 100%;
-		min-width: inherit;
-	}
 	.imageGrid {
 		grid-template-columns: repeat(2, 1fr);
 		grid-template-rows: repeat(3, 1fr);

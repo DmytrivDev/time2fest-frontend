@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
+
 import styles from './CountryAdding.module.scss';
 
 const CountryAdding = ({
@@ -9,13 +10,15 @@ const CountryAdding = ({
   nameSec = '',
   isLoading,
   error,
-  isProfilePage
-}) => { 
+  isProfilePage,
+}) => {
   const { t } = useTranslation();
 
   if (isLoading) {
     return (
-      <section className={clsx(styles.section, isProfilePage && styles.profilePage)}>
+      <section
+        className={clsx(styles.section, isProfilePage && styles.profilePage)}
+      >
         <div className="container">
           <div
             className={clsx(styles.title, styles.titleLoading, 'loading')}
@@ -79,9 +82,13 @@ const CountryAdding = ({
   };
 
   return (
-    <section className={clsx(styles.section, isProfilePage && styles.profilePage)}>
+    <section
+      className={clsx(styles.section, isProfilePage && styles.profilePage)}
+    >
       <div className="container">
-        <h2 className={styles.title}>{t('ambassadors.info_about')} {nameSec}</h2>
+        <h2 className={styles.title}>
+          {t('ambassadors.info_about')} {nameSec}
+        </h2>
         <div className={styles.content}>
           {/* ---- Ліва частина: галерея ---- */}
           <div className={styles.imageGrid}>
