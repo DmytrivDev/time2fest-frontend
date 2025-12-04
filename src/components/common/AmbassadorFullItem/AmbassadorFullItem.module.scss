@@ -2,378 +2,319 @@
 @use "@/styles/mixins" as *;
 
 .loadingCard {
-	min-height: 29rem;
+    min-height: 29rem;
 }
 
 .cardLoading {
-	min-height: 24rem;
+    min-height: 24rem;
 }
 
 .card {
-	border-radius: 1.25rem;
-	overflow: hidden;
-	position: relative;
-	background-color: $color-gray2;
-	display: flex;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    position: relative;
+    background-color: $color-gray2;
+    display: flex;
 }
 
 .photoWrap {
-	width: 18.25rem;
-	min-width: 18.25rem;
-	min-height: 24rem;
-	position: relative;
-	overflow: hidden;
-	background-color: #000;
+    width: 18.25rem;
+    min-width: 18.25rem;
+    min-height: 24rem;
+    position: relative;
+    overflow: hidden;
+    background-color: #000;
 
-	img,
-	.videoWrap,
-	video {
-		@include img-cover;
-	}
+    img,
+    .videoWrap,
+    video {
+        @include img-cover;
+    }
 
-	video:fullscreen {
-		@include img-contain;
-	}
+    video:fullscreen {
+        @include img-contain;
+    }
 
-	video:-webkit-full-screen {
-		@include img-contain;
-		background: #000;
-	}
+    video:-webkit-full-screen {
+        @include img-contain;
+        background: #000;
+    }
 }
 
 .playBtn {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	display: flex;
-	justify-content: space-between;
-	z-index: 2;
-	height: 3.4375rem;
-	padding: 0 1.5rem;
-	background: rgba(2, 1, 1, 0.4);
-	font-size: 1.125rem;
-	font-weight: 500;
-	align-items: center;
-	align-content: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    z-index: 2;
+    height: 3.4375rem;
+    padding: 0 1.5rem;
+    background: rgba(2, 1, 1, 0.4);
+    font-size: 1.125rem;
+    font-weight: 500;
+    align-items: center;
+    align-content: center;
 
-	.playIcon {
-		width: 2.1875rem;
-		height: 2.1875rem;
-		border-radius: 50%;
-		background-color: $color-primary;
-		background-repeat: no-repeat;
-		background-position: center center;
-		background-image: $play;
-		background-size: 0.75rem;
-	}
+    .playIcon {
+        width: 2.1875rem;
+        height: 2.1875rem;
+        border-radius: 50%;
+        background-color: $color-primary;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-image: $play;
+        background-size: 0.75rem;
+    }
 }
 
 .right {
-	padding: 2.5rem;
-	width: 100%;
-	padding-top: 1.9rem;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	gap: 2.5rem;
+    padding: 2.5rem;
+    width: 100%;
+    padding-top: 1.9rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2.5rem;
 }
 
 .country {
-	display: flex;
-	align-items: center;
-	align-content: center;
-	gap: 0.62rem;
-	color: rgba(255, 255, 255, 0.6);
-	line-height: 1.2;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    gap: 0.62rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.2;
 
-	img {
-		width: 1.125rem;
-		height: 1.125rem;
-	}
+    img {
+        width: 1.125rem;
+        height: 1.125rem;
+    }
 }
 
 .name {
-	margin-top: 1.3rem;
-	font-size: 1.5rem;
-	font-weight: 500;
+    margin-top: 1.3rem;
+    font-size: 1.5rem;
+    font-weight: 500;
 }
 
 .desc {
-	margin-top: 0.9rem;
-	color: rgba(255, 255, 255, 0.6);
-	max-width: 40rem;
+    margin-top: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 40rem;
 }
 
 .actions {
-	display: flex;
-	align-items: center;
-	align-content: center;
-	gap: 2.2rem;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    gap: 2.2rem;
 }
 
 .socials {
-	gap: 0.31rem;
-	display: flex;
+    gap: 0.31rem;
+    display: flex;
 
-	a {
-		width: 3.25rem;
-		height: 3.25rem;
-		border-radius: 50%;
-		background-color: #323232;
-		border: 1px solid $color-text;
-		display: flex;
-		align-items: center;
-		align-content: center;
-		justify-content: center;
+    a {
+        width: 3.25rem;
+        height: 3.25rem;
+        border-radius: 50%;
+        background-color: #323232;
+        border: 1px solid $color-text;
+        display: flex;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
 
-		svg {
-			width: 1.36538rem;
-			height: 1.36538rem;
-		}
-	}
+        svg {
+            width: 1.36538rem;
+            height: 1.36538rem;
+        }
+    }
 }
 
 @media screen and (max-width: 1880px) {
-	.profileItem {
-		.loadingCard {
-			min-height: 19.8125rem;
-		}
+    .profileItem {
+        .loadingCard {
+            min-height: 19.8125rem;
+        }
 
-		.cardLoading {
-			min-height: 19.8125rem;
-		}
+        .cardLoading {
+            min-height: 19.8125rem;
+        }
 
-		.photoWrap {
-			width: 14.5625rem;
-			min-width: 14.5625rem;
-			min-height: 19.8125rem;
-		}
+        .photoWrap {
+            width: 14.5625rem;
+            min-width: 14.5625rem;
+            min-height: 19.8125rem;
+        }
 
-		.playBtn {
-			height: 2.625rem;
-			padding: 0 1.25rem;
-			font-size: 1rem;
+        .playBtn {
+            height: 2.625rem;
+            padding: 0 1.25rem;
+            font-size: 1rem;
 
-			.playIcon {
-				width: 1.875rem;
-				height: 1.875rem;
-			}
-		}
+            .playIcon {
+                width: 1.875rem;
+                height: 1.875rem;
+            }
+        }
 
-		.right {
-			gap: 2rem;
-		}
+        .right {
+            gap: 2rem;
+        }
 
-		.name {
-			font-size: 1.3125rem;
-		}
+        .name {
+            font-size: 1.3125rem;
+        }
 
-		.desc {
-			max-width: 42rem;
-		}
+        .desc {
+            max-width: 42rem;
+        }
 
-		.actions {
-			gap: 1.75rem;
-		}
-	}
+        .actions {
+            gap: 1.75rem;
+        }
+    }
 }
 
 @media screen and (max-width: 1140px) {
-	.loadingCard {
-		min-height: 21rem;
-	}
+    .loadingCard {
+        min-height: 21rem;
+    }
 
-	.cardLoading {
-		min-height: 21rem;
-	}
+    .cardLoading {
+        min-height: 21rem;
+    }
 
-	.photoWrap {
-		width: 16rem;
-		min-width: 16rem;
-		min-height: 21rem;
-	}
+    .photoWrap {
+        width: 16rem;
+        min-width: 16rem;
+        min-height: 21rem;
+    }
 
-	.playBtn {
-		bottom: 1rem;
-		left: 1rem;
-		right: 1rem;
-		padding: 0 1rem;
-		border-radius: 0.625rem;
-		font-size: 1rem;
+    .playBtn {
+        bottom: 1rem;
+        left: 1rem;
+        right: 1rem;
+        padding: 0 1rem;
+        border-radius: 0.625rem;
+        font-size: 1rem;
 
-		.playIcon {
-			width: 2.1875rem;
-			height: 2.1875rem;
-		}
-	}
+        .playIcon {
+            width: 2.1875rem;
+            height: 2.1875rem;
+        }
+    }
 
-	.right {
-		padding: 1rem;
-		gap: 1.25rem;
-	}
+    .right {
+        padding: 1rem;
+        gap: 1.25rem;
+    }
 
-	.country {
-		gap: 0.5rem;
-		font-size: 0.875rem;
+    .country {
+        gap: 0.5rem;
+        font-size: 0.875rem;
 
-		img {
-			width: 1.125rem;
-			height: 1.125rem;
-		}
-	}
+        img {
+            width: 1.125rem;
+            height: 1.125rem;
+        }
+    }
 
-	.name {
-		margin-top: 1rem;
-		font-size: 1rem;
-	}
+    .name {
+        margin-top: 1rem;
+        font-size: 1rem;
+    }
 
-	.desc {
-		margin-top: 0.94rem;
-		font-size: 0.875rem;
-	}
+    .desc {
+        margin-top: 0.94rem;
+        font-size: 0.875rem;
+    }
 
-	.actions {
-		gap: 1.5rem;
-		flex-wrap: wrap;
-		row-gap: 0.75rem;
+    .actions {
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        row-gap: 0.75rem;
 
-		.detailsBtn {
-			order: 2;
-		}
-	}
-
-	.profileItem {
-		.loadingCard {
-			min-height: 21rem;
-		}
-
-		.cardLoading {
-			min-height: 21rem;
-		}
-
-		.photoWrap {
-			width: 16rem;
-			min-width: 16rem;
-			min-height: 21rem;
-		}
-
-		.playBtn {
-			height: 3.4375rem;
-			padding: 0 1rem;
-
-			.playIcon {
-				width: 2.1875rem;
-				height: 2.1875rem;
-			}
-		}
-
-		.right {
-			gap: 1.25rem;
-		}
-
-		.name {
-			font-size: 1rem;
-		}
-
-		.actions {
-			gap: 1.5rem;
-		}
-	}
+        .detailsBtn {
+            order: 2;
+        }
+    }
 }
 
 @media screen and (max-width: 550px) {
-	.loadingCard {
-		min-height: 43.5rem;
-	}
+    .loadingCard {
+        min-height: 43.5rem;
+    }
 
-	.cardLoading {
-		min-height: 43.5rem;
-	}
+    .cardLoading {
+        min-height: 43.5rem;
+    }
 
-	.card {
-		flex-direction: column;
-		position: relative;
-		padding-bottom: 2.5rem;
-	}
+    .card {
+        flex-direction: column;
+        position: relative;
+        padding-bottom: 2.5rem;
+    }
 
-	.left {
-		width: 100%;
-	}
+    .left {
+        width: 100%;
+    }
 
-	.photoWrap {
-		width: 100%;
-		min-width: inherit;
-		min-height: inherit;
-		padding-top: 127.1%;
-	}
+    .photoWrap {
+        width: 100%;
+        min-width: inherit;
+        min-height: inherit;
+        padding-top: 127.1%;
+    }
 
-	.right {
-		padding: 1.5rem 1rem;
-		gap: 1.25rem;
-	}
+    .right {
+        padding: 1rem;
+        gap: 1.25rem;
+    }
 
-	.country {
-		position: absolute;
-		z-index: 5;
-		top: 1rem;
-		left: 1rem;
-		padding: 0.5rem 0.62rem;
-		border-radius: 2rem;
-		background: rgba(255, 255, 255, 0.8);
-		color: $color-dark;
-	}
+    .country {
+        position: absolute;
+        z-index: 5;
+        top: 1rem;
+        left: 1rem;
+        padding: 0.5rem 0.62rem;
+        border-radius: 2rem;
+        background: rgba(255, 255, 255, 0.8);
+        color: $color-dark;
+    }
 
-	.name {
-		margin-top: 0;
-	}
+    .name {
+        margin-top: 0;
+    }
 
-	.actions {
-		gap: 1.5rem;
+    .actions {
+        gap: 1.5rem;
 
-		.detailsBtn {
-			position: absolute;
-			bottom: 0;
-			right: 0;
-			left: 0;
-			height: 2.5rem;
-			border-radius: 0;
-			justify-content: space-between;
-			text-align: left;
-			padding-left: 1rem;
-			padding-right: 1rem;
-			font-size: 0.875rem;
-			display: flex;
-			align-items: start;
+        .detailsBtn {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            height: 2.5rem;
+            border-radius: 0;
+            justify-content: space-between;
+            text-align: left;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            font-size: 0.875rem;
+            display: flex;
 
-			&::after {
-				content: "";
-				position: relative;
-				top: 0.125rem;
-				flex-shrink: 0;
-				background-image: $arrow-right;
-				width: 0.4375rem;
-				height: 0.6875rem;
-				background-size: contain;
-				background-repeat: no-repeat;
-			}
-		}
-	}
-
-	.profileItem {
-		.loadingCard {
-			min-height: 43.5rem;
-		}
-
-		.cardLoading {
-			min-height: 43.5rem;
-		}
-
-		.photoWrap {
-			width: 100%;
-			min-width: inherit;
-			min-height: inherit;
-			padding-top: 127.1%;
-		}
-	}
+            &::after {
+                content: "";
+                background-image: $arrow-right;
+                width: 0.4375rem;
+                height: 0.6875rem;
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+        }
+    }
 }

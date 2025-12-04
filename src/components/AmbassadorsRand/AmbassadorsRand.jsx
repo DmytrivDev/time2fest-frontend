@@ -1,13 +1,10 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-
 import { api } from '@/utils/api';
 import AmbassadorItem from '../common/AmbassadorItem';
-
-import clsx from 'clsx';
-
 import styles from './AmbassadorsRand.module.scss';
 
 const AmbassadorsRand = React.memo(({ exclude, lang, isProfilePage }) => {
@@ -92,13 +89,14 @@ const AmbassadorsRand = React.memo(({ exclude, lang, isProfilePage }) => {
       <div className="container">
         <div className={styles.header}>
           <h2 className={styles.title}>{t('ambassadors.rand_title')}</h2>
-
-          <Link
-            to={`/${i18n.language !== 'en' ? i18n.language + '/' : ''}ambassadors/list`}
-            className="btn_primary btn_small"
-          >
-            {t('ambassadors.all_ambass')}
-          </Link>
+          {!isProfilePage && (
+            <Link
+              to={`/${i18n.language !== 'en' ? i18n.language + '/' : ''}ambassadors/list`}
+              className="btn_primary btn_small"
+            >
+              {t('ambassadors.all_ambass')}
+            </Link>
+          )}
         </div>
 
         <div className={styles.content}>

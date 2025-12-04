@@ -2,230 +2,137 @@
 @use "@/styles/variables" as *;
 
 .item {
-	border-radius: 1.25rem;
-	border: 0.0625rem dashed #1b1b1b;
-	background: rgba(27, 27, 27, 0.3);
+    border-radius: 1.25rem;
+    border: 1px dashed #1b1b1b;
+    background: rgba(27, 27, 27, 0.3);
 
-	&.choosedCountry {
-		background-color: #1b1b1b;
-		border-color: transparent;
-		padding-top: 0.94rem;
-		padding-bottom: 0.94rem;
-	}
+    &.choosedCountry {
+        background-color: #1B1B1B;
+        border-color: transparent;
+        padding-top: 0.94rem;
+        padding-bottom: 0.94rem;
+    }
 }
 
 .button {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	width: 100%;
-	padding: 0.62rem 1.5rem;
-	padding-left: 1.75rem;
-	cursor: pointer;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.62rem 1.5rem;
+    padding-left: 1.75rem;
+    cursor: pointer;
 }
 
 .left {
-	display: flex;
-	align-items: center;
-	align-content: center;
-	gap: 1.69rem;
-}
-
-.right {
-	display: flex;
-	align-items: center;
-	font-weight: 500;
-	gap: 1.875rem;
-}
-
-.box__btns {
-	display: flex;
-	align-items: center;
-	gap: 1.875rem;
-}
-.watch {
-	padding: 0.69rem 1.63rem;
-	font-size: 1rem;
-}
-
-.empty {
-	display: flex;
-	align-items: center;
-	gap: 1rem;
-
-	&::after {
-		content: "";
-		flex-shrink: 0;
-		width: 2rem;
-		height: 2rem;
-		border-radius: 50%;
-		background-color: $color-primary;
-		background-repeat: no-repeat;
-		background-position: center center;
-		background-image: $plus;
-		background-size: 0.75rem;
-	}
+    display: flex;
+    align-items: center;
+    align-content: center;
+    gap: 1.69rem;
 }
 
 .time {
-	display: flex;
-	align-items: center;
-	gap: 1.625rem;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    gap: 1.7rem;
 
-	span {
-		font-size: 1.125rem;
-		font-weight: 500;
-		line-height: 1.6;
+    span {
+        font-size: 1.125rem;
+        font-weight: 500;
+        line-height: 1.6;
 
-		&:nth-child(2) {
-			color: rgba(255, 255, 255, 0.6);
-		}
-	}
+        &:nth-child(2) {
+            color: rgba(255, 255, 255, 0.6);
+        }
+    }
+}
+
+.right {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    font-weight: 500;
+    gap: 1.94rem;
+
+    &::after {
+        content: "";
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        background-color: $color-primary;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-image: $plus;
+        background-size: 0.75rem;
+    }
 }
 
 .country {
-	display: flex;
-	align-items: center;
-	gap: 0.875rem;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    gap: 0.87rem;
 
-	.flag {
-		width: 1.875rem;
-		height: 1.875rem;
-	}
+    .flag {
+        width: 1.875rem;
+        height: 1.875rem;
+    }
 
-	.countryName {
-		font-size: 1.125rem;
-		font-weight: 600;
-	}
+    .countryName {
+        font-size: 1.125rem;
+        font-weight: 600;
+    }
 }
 
 .icons {
-	display: flex;
-	align-items: center;
-	gap: 0.75rem;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    gap: 0.75rem;
 
-	span {
-		width: 2.625rem;
-		height: 1.8125rem;
-		border-radius: 2rem;
-		background-color: $color-yellow;
-		display: flex;
-		align-items: center;
-		justify-content: center;
+    span {
+        width: 2.625rem;
+        height: 1.8125rem;
+        border-radius: 2rem;
+        background-color: $color-yellow;
+        display: flex;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
 
-		svg {
-			width: 1.125rem;
-			height: auto;
-			fill: #000;
-		}
-	}
+        svg {
+            width: 1.125rem;
+            height: auto;
+            fill: #000;
+        }
+    }
+}
+
+.watch {
+    padding: 0.69rem 1.63rem;
+    font-size: 1rem;
 }
 
 .noAfter {
-	&::after {
-		display: none;
-	}
+    &::after {
+        display: none;
+    }
 }
 
 .removeCtr {
-	flex-shrink: 0;
-	width: 2rem;
-	height: 2rem;
-	border-radius: 50%;
-	background-color: #484848;
-	display: flex;
-	align-items: center;
-	align-content: center;
-	justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: #484848;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
 
-	svg {
-		width: 1rem;
-		height: auto;
-	}
-}
-
-@media screen and (max-width: 1140px) {
-	.item {
-		&.choosedCountry {
-			padding: 0;
-		}
-	}
-
-	.button {
-		padding: 1.25rem 1.5rem 1.5rem 1.5rem;
-		display: grid;
-		grid-template-columns: 55% 1fr;
-		align-items: stretch;
-		justify-content: stretch;
-		gap: 1.25rem 0.75rem;
-	}
-
-	.left,
-	.right {
-		display: contents;
-	}
-
-	.box__btns {
-		grid-column: 1 / -1;
-		justify-content: center;
-		gap: 1rem;
-	}
-	.watch {
-		width: 100%;
-		max-width: 15rem;
-		padding: 0.75rem 1.4375rem;
-		font-size: 0.875rem;
-	}
-
-	.empty {
-		grid-column: 1 / -1;
-		justify-content: center;
-		gap: 0.75rem;
-		font-size: 0.875rem;
-	}
-
-	.time {
-		grid-column: 1 / -1;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 1rem;
-
-		span {
-			font-size: 0.875rem;
-			line-height: normal;
-
-			&:nth-child(2) {
-				color: rgba(255, 255, 255, 0.6);
-			}
-		}
-	}
-
-	.country {
-		gap: 0.75rem;
-
-		.flag {
-			width: 1.25rem;
-			height: 1.25rem;
-		}
-
-		.countryName {
-			font-size: 1rem;
-		}
-	}
-
-	.icons {
-		justify-content: end;
-		gap: 0.625rem;
-
-		span {
-			width: 2.25rem;
-			height: 1.25rem;
-			border-radius: 1.25rem;
-
-			svg {
-				width: 0.9375rem;
-			}
-		}
-	}
+    svg {
+        width: 1rem;
+        height: auto;
+    }
 }

@@ -4,30 +4,20 @@ import { useTranslation } from 'react-i18next';
 import { CircleFlag } from 'react-circle-flags';
 import { Link } from 'react-router-dom';
 import * as FaIcons from 'react-icons/fa6';
-
 import styles from './AmbassadorFullItem.module.scss';
 
-const CountryAmbassadorItem = ({
+const CountryAmbassadorItem = ({ 
   data,
   nameProp,
   codeProp,
   isLoading = false,
-  isProfilePage,
+  isProfilePage
 }) => {
   const { t, i18n } = useTranslation();
   const [isPlaying, setIsPlaying] = useState(false);
 
   if (isLoading) {
-    return (
-      <div
-        className={clsx(
-          styles.card,
-          styles.cardLoading,
-          isProfilePage && styles.profileItem,
-          'loading'
-        )}
-      ></div>
-    );
+    return <div className={clsx(styles.card, styles.cardLoading, isProfilePage && styles.profileItem, 'loading')}></div>;
   }
 
   if (!data) return null;

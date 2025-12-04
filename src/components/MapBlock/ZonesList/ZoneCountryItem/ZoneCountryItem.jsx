@@ -234,11 +234,11 @@ END:VCALENDAR`.trim();
         <div className={styles.itemActions}>
           <Link
             to={`/${i18n.language !== 'en' ? i18n.language + '/' : ''}country/${slug}?tz=${encodeURIComponent(String(zoneLabel))}`}
-            className="btn_primary"
+            className="btn_transp"
           >
             {t('controls.details')}
           </Link>
-          <button className="btn_transp" type="button" onClick={addToCalendar}>
+          <button className="btn_primary plus" type="button" onClick={addToCalendar}>
             {t('controls.add_to_shel')}
           </button>
         </div>

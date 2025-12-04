@@ -238,7 +238,7 @@ END:VCALENDAR`.trim();
           >
             {t('controls.details')}
           </Link>
-          <button className="btn_transp" type="button" onClick={addToCalendar}>
+          <button className="btn_primary" type="button" onClick={addToCalendar}>
             {t('controls.add_to_shel')}
           </button>
         </div>

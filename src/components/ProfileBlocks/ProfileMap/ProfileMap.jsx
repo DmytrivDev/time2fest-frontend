@@ -14,39 +14,28 @@ import { useTimeZoneCountries } from '../../../hooks/useTimeZoneCountries';
 import styles from './ProfileMap.module.scss';
 
 export default function MapBlock() {
-  const { t } = useTranslation('common');
   const locale = getValidLocale();
+  const { t } = useTranslation('common');
 
-  // ---- Zustand ----
+  // Zustand
   const selectedZone = useMapStore(s => s.selectedZone);
-  const selectedCountry = useMapStore(s => s.selectedCountry);
+  const selectedCountry = useMapStore(s => s.selectedCountry); // slug
   const hasSelection = useMapStore(s => s.hasSelection);
   const setMapSelection = useMapStore(s => s.setMapSelection);
   const setHasSelection = useMapStore(s => s.setHasSelection);
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
+  // resize — re-render Canvas
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // ---- MAP data ----
+  // Countries for selected TZ
   const { data: tzCountriesMap, isLoading: tzLoading } =
     useTimeZoneCountries(selectedZone);
-
-  // 🟢 окремий запит до API, якщо клікнули саме на країну
-  const { data: countryApiData, isLoading: countryLoading } = useQuery({
-    enabled: !!selectedCountry, // виконується лише коли обрана країна
-    queryKey: ['country', locale, selectedCountry],
-    queryFn: async () => {
-      const res = await api.get(
-        `/countries?locale=${locale}&slug=${selectedCountry}`
-      );
-      return res.data?.items?.[0] || res.data?.data?.[0] || null; // залежно від структури
-    },
-  });
 
   const getCode = c =>
     (
@@ -59,32 +48,44 @@ export default function MapBlock() {
       .toString()
       .toUpperCase();
 
+  const getSlug = c => c?.slug ?? c?.attributes?.slug ?? null;
+
+  // 🔥 OLD LOGIC — unchanged
   const mapItems = selectedCountry
     ? Array.isArray(tzCountriesMap)
-      ? tzCountriesMap.filter(c => getCode(c) === selectedCountry)
+      ? tzCountriesMap.filter(c => getCode(c) === selectedCountry.toUpperCase())
       : []
     : Array.isArray(tzCountriesMap)
       ? tzCountriesMap
       : [];
 
+  // 🔥 FIX: if mapItems empty, use selectedCountry as slug
+  const countrySlug = mapItems?.[0]?.slug ?? selectedCountry ?? null;
+
+  // Fetch country details
+  const { data: countryApiData, isLoading: countryLoading } = useQuery({
+    enabled: !!countrySlug,
+    queryKey: ['country', locale, countrySlug],
+    queryFn: async () => {
+      const res = await api.get(
+        `/countries?locale=${locale}&slug=${countrySlug}`
+      );
+      return res.data?.items?.[0] || res.data?.data?.[0] || null;
+    },
+  });
+
+  // Click handler (unchanged)
   const handleZoneClick = (zoneCode, countryCode) => {
-    if (countryCode) {
-      // Клік по країні
-      setMapSelection(zoneCode || null, countryCode);
-    } else if (zoneCode) {
-      // Клік по зоні
-      setMapSelection(zoneCode, null);
+    const slug = countryCode ? countryCode.toLowerCase() : null;
+
+    if (slug) {
+      setMapSelection(zoneCode || null, slug);
+    } else {
+      setMapSelection(zoneCode || null, null);
     }
+
     setHasSelection(true);
   };
-
-  // 🧩 вибір даних для відображення в MapInfo:
-  // якщо є countryApiData → беремо його, інакше шукаємо локально у mapItems
-  const countryData =
-    countryApiData ||
-    (mapItems && mapItems.length > 0
-      ? mapItems[0].attributes || mapItems[0]
-      : null);
 
   return (
     <div className={styles.map}>
@@ -98,10 +99,10 @@ export default function MapBlock() {
         <>
           {selectedCountry ? (
             <MapInfo
-              data={countryData || {}}
+              data={countryApiData || {}}
               zone={selectedZone}
+              loading={tzLoading || countryLoading || !countryApiData}
               onClose={() => setHasSelection(false)}
-              loading={tzLoading || countryLoading || !countryData}
             />
           ) : (
             <ZonesInfoCard
@@ -110,7 +111,11 @@ export default function MapBlock() {
               loading={tzLoading}
               onClose={() => setHasSelection(false)}
               onCountrySelect={countryCode => {
-                setMapSelection(selectedZone, countryCode);
+                const found = tzCountriesMap?.find(
+                  c => getCode(c) === countryCode
+                );
+                const slug = getSlug(found);
+                setMapSelection(selectedZone, slug);
                 setHasSelection(true);
               }}
             />

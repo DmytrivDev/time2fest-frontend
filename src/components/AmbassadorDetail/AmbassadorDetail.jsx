@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import clsx from 'clsx';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useTranslation } from 'react-i18next';
 import { CircleFlag } from 'react-circle-flags';
 import * as FaIcons from 'react-icons/fa6';
-
-import clsx from 'clsx';
-
 import styles from './AmbassadorDetail.module.scss';
 
 const AmbassadorDetail = ({ data, isLoading, error, isProfilePage }) => {
@@ -33,8 +31,8 @@ const AmbassadorDetail = ({ data, isLoading, error, isProfilePage }) => {
             {/* --- Десктопний лоадінг --- */}
             {!isMobile ? (
               <>
-                <div className={styles.photoWrap}>
-                  <div className={clsx(styles.photoInner, 'loading')}></div>
+                <div className={clsx(styles.photoWrap, 'loading')}>
+                  <div className={styles.photoInner}></div>
                 </div>
 
                 <div className={styles.info}>
@@ -129,8 +127,8 @@ const AmbassadorDetail = ({ data, isLoading, error, isProfilePage }) => {
                   </div>
                 </div>
 
-                <div className={styles.photoWrap}>
-                  <div className={clsx(styles.photoInner, 'loading')}></div>
+                <div className={clsx(styles.photoWrap, 'loading')}>
+                  <div className={styles.photoInner}></div>
                 </div>
 
                 <div className={clsx(styles.desc, styles.descLoading)}>
@@ -292,6 +290,11 @@ const AmbassadorDetail = ({ data, isLoading, error, isProfilePage }) => {
                   )}
 
                   {renderDescription()}
+                  <button
+                    className={clsx(styles.addBtn, 'btn_primary plus')}
+                  >
+                    {t('controls.add_to_shel')}
+                  </button>
                 </div>
 
                 {renderSocialsBlock()}

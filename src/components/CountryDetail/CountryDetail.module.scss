@@ -109,6 +109,7 @@
 	color: $color-dark;
 	font-size: 1.3125rem;
 	line-height: 1.4rem;
+	white-space: nowrap;
 }
 
 .desc {
@@ -404,7 +405,6 @@
 
 	.utc {
 		font-size: 1rem;
-		line-height: normal;
 	}
 
 	.desc {
@@ -463,85 +463,6 @@
 				transform: translateX(-50%) translateY(100%);
 				font-size: 0.875rem;
 				bottom: 0;
-			}
-		}
-	}
-
-	.profilePage {
-		.countryNameLoading {
-			span {
-				width: 1.5625rem;
-				height: 1.5625rem;
-			}
-
-			div {
-				height: 2.8rem;
-				width: 8rem;
-			}
-		}
-
-		.utcLoading {
-			width: 4.9375rem;
-			height: 2.3125rem;
-		}
-
-		.descLoading {
-			height: 4.125rem;
-		}
-
-		.typeTitleLoading {
-			width: 7.7rem;
-			height: 1.1875rem;
-		}
-
-		.content {
-			gap: 1.5rem;
-		}
-
-		.countryName {
-			gap: 0.75rem;
-
-			img {
-				width: 1.5625rem;
-				height: 1.5625rem;
-			}
-
-			h1 {
-				font-size: 1.625rem;
-			}
-		}
-
-		.utc {
-			font-size: 1rem;
-		}
-
-		.desc {
-			margin-top: 1.25rem;
-			font-size: 0.875rem;
-		}
-
-		.addBtn {
-			margin-top: 1.88rem;
-		}
-
-		.imageBlock {
-			min-height: 15rem;
-		}
-
-		.countdown {
-			gap: 0.7rem;
-		}
-
-		.timer {
-			padding-bottom: 1.5625rem;
-			font-size: 1.875rem;
-
-			& > span {
-				font-size: 1.875rem;
-
-				span {
-					bottom: 0;
-				}
 			}
 		}
 	}

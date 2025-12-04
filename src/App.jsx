@@ -36,27 +36,13 @@ const ProfileLayout = lazy(
 );
 const ProfileInfo = lazy(() => import('./pages/ProfilePage/ProfileInfo'));
 const ProfileMap = lazy(() => import('./pages/ProfilePage/ProfileMap'));
-const ProfileCountries = lazy(
-  () => import('./pages/ProfilePage/ProfileCountries')
-);
-const ProfileCountryDetail = lazy(
-  () => import('./pages/ProfilePage/ProfileCountryDetail')
-);
-const ProfileAmbassadors = lazy(
-  () => import('./pages/ProfilePage/ProfileAmbassadors')
-);
-const ProfileAmbassadorDetail = lazy(
-  () => import('./pages/ProfilePage/ProfileAmbassadorDetail')
-);
-const ProfileSubscribe = lazy(
-  () => import('./pages/ProfilePage/ProfileSubscribe')
-);
-const ProfilePayments = lazy(
-  () => import('./pages/ProfilePage/ProfilePayments')
-);
-const ProfileSchedule = lazy(
-  () => import('./pages/ProfilePage/ProfileSchedule')
-);
+const ProfileCountries = lazy(() => import('./pages/ProfilePage/ProfileCountries'));
+const ProfileCountryDetail = lazy(() => import('./pages/ProfilePage/ProfileCountryDetail'));
+const ProfileAmbassadors = lazy(() => import('./pages/ProfilePage/ProfileAmbassadors'));
+const ProfileAmbassadorDetail = lazy(() => import('./pages/ProfilePage/ProfileAmbassadorDetail'));
+const ProfileSubscribe = lazy(() => import('./pages/ProfilePage/ProfileSubscribe'));
+const ProfilePayments = lazy(() => import('./pages/ProfilePage/ProfilePayments'));
+const ProfileSchedule = lazy(() => import('./pages/ProfilePage/ProfileSchedule'));
 const ProfileHome = lazy(() => import('./pages/ProfilePage/ProfileHome'));
 
 const RegisterPage = lazy(() => import('./pages/Auth/RegisterPage'));
@@ -112,15 +98,9 @@ const App = () => {
               <Route path="info" element={<ProfileInfo />} />
               <Route path="timezones" element={<ProfileMap />} />
               <Route path="countries" element={<ProfileCountries />} />
-              <Route
-                path="countries/:slug"
-                element={<ProfileCountryDetail />}
-              />
+              <Route path="countries/:slug" element={<ProfileCountryDetail />} />
               <Route path="ambassadors" element={<ProfileAmbassadors />} />
-              <Route
-                path="ambassadors/:slug"
-                element={<ProfileAmbassadorDetail />}
-              />
+              <Route path="ambassadors/:slug" element={<ProfileAmbassadorDetail />} />
               <Route path="subscription" element={<ProfileSubscribe />} />
               <Route path="payments" element={<ProfilePayments />} />
               <Route path="schedule" element={<ProfileSchedule />} />
@@ -172,15 +152,9 @@ const App = () => {
               <Route path="info" element={<ProfileInfo />} />
               <Route path="timezones" element={<ProfileMap />} />
               <Route path="countries" element={<ProfileCountries />} />
-              <Route
-                path="countries/:slug"
-                element={<ProfileCountryDetail />}
-              />
+              <Route path="countries/:slug" element={<ProfileCountryDetail />} />
               <Route path="ambassadors" element={<ProfileAmbassadors />} />
-              <Route
-                path="ambassadors/:slug"
-                element={<ProfileAmbassadorDetail />}
-              />
+              <Route path="ambassadors/:slug" element={<ProfileAmbassadorDetail />} />
               <Route path="subscription" element={<ProfileSubscribe />} />
               <Route path="payments" element={<ProfilePayments />} />
               <Route path="schedule" element={<ProfileSchedule />} />

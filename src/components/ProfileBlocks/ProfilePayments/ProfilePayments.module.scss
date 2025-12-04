@@ -2,186 +2,95 @@
 @use "@/styles/variables" as *;
 
 .profileContent {
-	padding: 4rem;
-	max-height: 100vh;
-	max-height: 100dvh;
-	overflow: auto;
+    padding: 4rem;
+    max-height: 100vh;
+    max-height: 100dvh;
+    overflow: auto;
 }
 
 .titleLoading {
-	width: 28.5rem;
-	height: 2.3475rem;
+    width: 28.5rem;
+    height: 2.3475rem;
 }
 
 .heading {
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-start;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    align-content: flex-start;
 
-	h1 {
-		font-size: 1.75rem;
-		font-weight: 700;
-		line-height: 140%;
-	}
+    h1 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        line-height: 140%;
+    }
 }
 
 .payments {
-	margin-top: 1.5rem;
-}
-
-.coll {
-	width: 15%;
-
-	&:last-child {
-		width: auto;
-	}
+    margin-top: 1.56rem;
 }
 
 .payment__heading {
-	display: flex;
-	margin-bottom: 0.4375rem;
+    display: flex;
 
-	.coll {
-		color: rgba(255, 255, 255, 0.6);
-		font-size: 0.875rem;
-		line-height: 1.4;
-	}
+    .coll {
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1.4;
+        font-size: 0.875rem;
+    }
+}
+
+.coll {
+    width: 15.4%;
+
+    &:nth-child(6) {
+        width: 13.6%;
+    }
+
+    &:last-child {
+        width: 9.4rem;
+    }
 }
 
 .payments__list {
-	display: flex;
-	flex-direction: column;
-	gap: 0.625rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.62rem;
+    margin-top: 0.44rem;
 }
 
 .payments__item {
-	border-radius: 1.25rem;
-	background-color: #1c1c1c;
-	padding: 1rem 0;
-	display: flex;
+    border-radius: 1.25rem;
+    background: #1c1c1c;
+    padding: 1rem 0;
+    display: flex;
 
-	.coll {
-		flex-shrink: 0;
-		padding: 0.5rem 0 0.5rem 1.5rem;
-		border-right: 0.0625rem solid rgba(217, 217, 217, 0.1);
-		line-height: 1.4;
-		display: flex;
-		align-items: center;
+    .coll {
+        padding: 0.5rem 0;
+        padding-left: 1.5rem;
+        border-right: 1px solid rgba(217, 217, 217, 0.1);
+        line-height: 1.4;
+        display: flex;
+        align-items: center;
+        align-content: center;
 
-		& > div {
-			&:first-child {
-				display: none;
-			}
-		}
+        &:last-child {
+            padding-right: 1.5rem;
+            border-right: none;
 
-		&:last-child {
-			padding-right: 1.5rem;
-			border-right: none;
-
-			button {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				width: 2.875rem;
-				height: 2.875rem;
-				border-radius: 50%;
-				background-color: $color-primary;
-
-				& > span {
-					display: none;
-				}
-
-				&::before {
-					content: "";
-					flex-shrink: 0;
-					display: block;
-					width: 1rem;
-					height: 1rem;
-					background-repeat: no-repeat;
-					background-position: center center;
-					background-size: 1rem;
-					background-image: $download;
-				}
-			}
-		}
-	}
+            button {
+                width: 2.875rem;
+                height: 2.875rem;
+                border-radius: 50%;
+                background-color: $color-primary;
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-size: 1rem;
+                background-image: $download;
+            }
+        }
+    }
 }
 
-@media screen and (max-width: 1140px) {
-	.profileContent {
-		padding: 7.5rem 1rem 3.75rem 1rem;
-	}
-
-	.titleLoading {
-		width: 21.4375rem;
-		height: 1.875rem;
-	}
-
-	.heading {
-		h1 {
-			font-size: 1.3125rem;
-			line-height: 1.4;
-		}
-	}
-
-	.coll {
-		width: 100%;
-
-		&:last-child {
-			width: 100%;
-		}
-	}
-
-	.payment__heading {
-		display: none;
-	}
-
-	.payments__list {
-		gap: 1.25rem 0;
-	}
-
-	.payments__item {
-		padding: 0;
-		display: block;
-
-		.coll {
-			display: flex;
-			justify-content: space-between;
-			gap: 0 1rem;
-			padding: 1rem 1.5rem;
-			border-right: none;
-			border-bottom: 0.0625rem solid rgba(217, 217, 217, 0.1);
-			font-size: 0.875rem;
-
-			& > div {
-				&:first-child {
-					display: block;
-					color: rgba(255, 255, 255, 0.6);
-				}
-			}
-
-			&:last-child {
-				border-bottom: none;
-
-				button {
-					margin: 0 auto;
-					gap: 0 0.625rem;
-					border-radius: 6.25rem;
-					padding: 0 1.5rem;
-					width: 100%;
-					max-width: 21.4375rem;
-
-					& > span {
-						display: block;
-					}
-
-					&::before {
-						width: 0.875rem;
-						height: 0.875rem;
-						background-size: 0.875rem;
-					}
-				}
-			}
-		}
-	}
+@media screen and (min-width: 1880px) {
 }

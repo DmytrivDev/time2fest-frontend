@@ -16,6 +16,10 @@ const ZonesInfoCard = ({
 }) => {
   const { t } = useTranslation('common');
 
+  // ---- Визначаємо останній сегмент URL ----
+  const lastSlug = window.location.pathname.split('/').pop();
+  const isTimeZonesPage = lastSlug === 'timezones';
+
   if (loading) {
     return (
       <aside className={clsx(styles.aside, styles.zonesInf)}>
@@ -35,10 +39,12 @@ const ZonesInfoCard = ({
                     <div className={clsx(styles.flagLoading, 'loading')}></div>
                     <h3 className={clsx(styles.titleLoading, 'loading')}></h3>
                   </div>
+
                   <div className={clsx(styles.types, styles.typesLoading)}>
                     <span className="loading"></span>
                     <span className="loading"></span>
                   </div>
+
                   <div
                     className={clsx(
                       styles.detailsBtn,
@@ -69,6 +75,7 @@ const ZonesInfoCard = ({
                 const country = c.attributes || c;
                 const code = country.CountryCode?.toLowerCase();
                 const name = country.CountryName;
+
                 const TimezoneDetail = Array.isArray(country.TimezoneDetail)
                   ? country.TimezoneDetail
                   : [];
@@ -103,6 +110,11 @@ const ZonesInfoCard = ({
                 const hasAmbassador = !!currentZone?.Ambassador;
                 const hasCamera = !!currentZone?.VebCamera;
 
+                // ---- Вибір значення для кнопки ----
+                const buttonValue = isTimeZonesPage
+                  ? country.CountryCode // якщо сторінка timezones
+                  : country.slug; // якщо інша сторінка
+
                 return (
                   <div key={i} className={clsx(styles.zoneCard)}>
                     <div className={styles.header}>
@@ -114,11 +126,13 @@ const ZonesInfoCard = ({
                       <span className={styles.type}>
                         <IoTime /> {t('controls.countdown')}
                       </span>
+
                       {hasAmbassador && (
                         <span className={styles.type}>
                           <IoCamera /> {t('controls.ambass')}
                         </span>
                       )}
+
                       {hasCamera && (
                         <span className={styles.type}>
                           <IoVideocam /> {t('controls.veb')}
@@ -129,7 +143,7 @@ const ZonesInfoCard = ({
                     {/* ---- Кнопка ---- */}
                     <button
                       type="button"
-                      onClick={() => onCountrySelect?.(country.slug)}
+                      onClick={() => onCountrySelect?.(buttonValue)}
                       className={clsx(styles.detailsBtn, 'btn_primary')}
                     >
                       {t('controls.details')}

@@ -2,10 +2,13 @@
 
 @mixin btn-main {
 	flex-shrink: 0;
-	display: block;
 	text-align: center;
 	font-weight: 500;
-	padding: 1.5rem 1.8125rem;
+	height: 3.8125rem;
+	padding: 0 1.88rem;
+	display: flex;
+	align-items: center;
+	align-content: center;
 	line-height: normal;
 	border-radius: 6.25rem;
 	white-space: nowrap;

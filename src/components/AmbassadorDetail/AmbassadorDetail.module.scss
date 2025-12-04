@@ -68,8 +68,8 @@
 }
 
 .photoWrap {
-	flex-shrink: 0;
 	width: 22.75rem;
+	min-width: 22.75rem;
 }
 
 .photoInner {
@@ -177,6 +177,11 @@
 	color: rgba(255, 255, 255, 0.6);
 }
 
+.addBtn {
+	margin-top: 1.2rem;
+	margin-bottom: 2rem;
+}
+
 .socials {
 	padding: 1.5rem;
 	padding-top: 1rem;
@@ -216,6 +221,8 @@
 .profilePage {
 	.photoWrap {
 		width: calc(100% / 4 - 0.72rem);
+		min-width: calc(100% / 4 - 0.72rem);
+		max-width: 22.75rem;
 	}
 }
 
@@ -255,6 +262,8 @@
 
 		.photoWrap {
 			width: calc(100% / 3 - 0.72rem);
+			min-width: calc(100% / 3 - 0.72rem);
+			max-width: 22.75rem;
 		}
 
 		.photoInner {
@@ -265,6 +274,11 @@
 			height: 3.1875rem;
 			padding: 0 1.25rem;
 			font-size: 1rem;
+
+			.playIcon {
+				width: 2.1875rem;
+				height: 2.1875rem;
+			}
 		}
 
 		.info__top {
@@ -345,10 +359,8 @@
 
 	.descLoading {
 		height: 5.5rem;
-
 		span {
-			height: 1.125rem;
-
+			height: 1.25rem;
 			&:last-child {
 				width: 40%;
 			}
@@ -372,10 +384,11 @@
 
 	.photoWrap {
 		width: 20rem;
+		min-width: 20rem;
 	}
 
 	.photoInner {
-		height: 33rem;
+		height: 33em;
 	}
 
 	.playBtn {
@@ -394,7 +407,12 @@
 		}
 
 		.flag {
-			font-size: 1rem;
+			display: flex;
+			align-items: center;
+			align-content: center;
+			gap: 0.63rem;
+			font-size: 1.125rem;
+			line-height: 1.8;
 
 			img {
 				width: 1.125rem;
@@ -404,17 +422,17 @@
 	}
 
 	.name {
-		margin-top: 0.6875rem;
+		margin-top: 0.7rem;
 		font-size: 1.625rem;
 	}
 
 	.langs {
-		margin-top: 0.5625rem;
+		margin-top: 0.56rem;
 		font-size: 0.875rem;
 	}
 
 	.desc {
-		margin-top: 1.25rem;
+		margin-top: 1.2rem;
 		font-size: 0.875rem;
 		max-width: inherit;
 	}
@@ -427,98 +445,12 @@
 			display: flex;
 
 			a {
-				width: 3.25rem;
-				height: 3.25rem;
+				width: 3.245rem;
+				height: 3.245rem;
 
 				svg {
 					width: 1.1rem;
 					height: 1.1rem;
-				}
-			}
-		}
-	}
-
-	.profilePage {
-		.nameLoading {
-			height: 2.25rem;
-			max-width: 25rem;
-			width: 100%;
-		}
-
-		.langsLoading {
-			height: 1.5625rem;
-			width: 100%;
-		}
-
-		.descLoading {
-			height: 5.5rem;
-
-			span {
-				height: 1.125rem;
-			}
-		}
-
-		.followLoading {
-			height: 1.125rem;
-			width: 100%;
-		}
-
-		.content {
-			gap: 1.5rem;
-		}
-
-		.photoWrap {
-			width: 20rem;
-		}
-
-		.photoInner {
-			height: 33rem;
-		}
-
-		.playBtn {
-			height: 3.4375rem;
-			padding: 0 1rem;
-		}
-
-		.info__top {
-			gap: 1.25rem;
-		}
-
-		.name {
-			margin-top: 0.6875rem;
-			font-size: 1.625rem;
-		}
-
-		.langs {
-			margin-top: 0.5625rem;
-			font-size: 0.875rem;
-		}
-
-		.desc {
-			margin-top: 1.25rem;
-			font-size: 0.875rem;
-		}
-
-		.socials {
-			padding: 1rem;
-			margin-top: 1.5rem;
-
-			.follow {
-				font-size: 1.125rem;
-				margin-bottom: 1rem;
-			}
-
-			.icons {
-				display: flex;
-
-				a {
-					width: 3.25rem;
-					height: 3.25rem;
-
-					svg {
-						width: 1.1rem;
-						height: 1.1rem;
-					}
 				}
 			}
 		}
@@ -534,31 +466,16 @@
 	.photoWrap {
 		margin-top: 1.38rem;
 	}
-
-	.profilePage {
-		.content {
-			gap: 0;
-		}
-	}
 }
 
 @media screen and (max-width: 620px) {
 	.photoWrap {
 		width: 100%;
+		min-width: inherit;
 	}
 
 	.photoInner {
 		height: auto;
 		padding-top: 145%;
-	}
-
-	.profilePage {
-		.photoWrap {
-			width: 100%;
-		}
-
-		.photoInner {
-			height: auto;
-		}
 	}
 }

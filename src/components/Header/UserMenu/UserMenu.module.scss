@@ -7,7 +7,7 @@
 	display: flex !important;
 	align-items: center;
 	align-content: center;
-	gap: 0.5rem;
+	gap: .5rem;
 
 	svg {
 		width: 1.25rem;
@@ -16,21 +16,8 @@
 }
 
 @media screen and (max-width: 1140px) {
-	.btnLoad {
-		width: 5.172rem;
-		height: 2.525rem;
-	}
-
-	.loggined {
-		gap: 0.375rem;
-
-		svg {
-			width: 1.125rem;
-			height: 1.125rem;
-		}
-	}
-
-	.btn {
-		padding: 0.625rem 1.1875rem !important;
-	}
+.btnLoad {
+	width: 5.172rem;
+	height: 2.525rem;
+}
 }

@@ -45,10 +45,6 @@
 	}
 }
 
-
-
-
-
 .swiper-button-prev,
 .swiper-button-next {
 	position: absolute !important;
@@ -300,6 +296,31 @@ textarea {
 // Buttons
 .btn_primary {
 	@include button-base;
+
+	&.plus {
+		gap: 0.75rem;
+		padding-right: 0.75rem;
+		justify-content: space-between;
+
+		&::after {
+			content: "";
+			width: 2rem;
+			height: 2rem;
+			border-radius: 50%;
+			border: 1px solid #fff;
+			background: none;
+			background-position: center center;
+			background-image: $plus;
+			background-size: 0.75rem;
+			background-repeat: no-repeat;
+		}
+
+		&.minus {
+			&::after {
+				background-image: $minus;
+			}
+		}
+	}
 }
 
 .btn_transp {
@@ -388,7 +409,8 @@ textarea {
 	.btn_primary,
 	.btn_transp {
 		font-size: 0.875rem;
-		padding: 0.875rem 1.1875rem;
+		padding: 0 1.1875rem;
+		height: 3.2rem;
 	}
 
 	.btn_small {

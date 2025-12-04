@@ -76,7 +76,7 @@ export default function ProfileSchedule() {
     queryKey: ['country', locale, selectedCountry],
     queryFn: async () => {
       const res = await api.get(
-        `/countries?locale=${locale}&slug=${selectedCountry}`
+        `/countries?locale=${locale}&slug=${selectedCountry}` 
       );
       return res.data?.items?.[0] || res.data?.data?.[0] || null;
     },

@@ -210,7 +210,7 @@
 		gap: 0.5rem !important;
 
 		li {
-			padding: 0.25rem .4rem;
+			padding: 0.25rem 0.4rem;
 			font-size: 0.875rem;
 
 			svg {
@@ -255,5 +255,14 @@
 		width: 100%;
 		justify-content: flex-start;
 		flex-direction: row !important;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.itemActions {
+		a,
+		button {
+			width: 100%;
+		}
 	}
 }
