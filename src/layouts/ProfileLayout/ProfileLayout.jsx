@@ -26,18 +26,19 @@ export default function ProfileLayout() {
   const { i18n } = useTranslation();
   const { pathname } = useLocation();
 
-  const langPrefix = i18n.language === 'en' ? '/login' : `/${i18n.language}/login`;
+  const langPrefix =
+    i18n.language === 'en' ? '/login' : `/${i18n.language}/login`;
 
   const isInProfile = pathname.includes('/profile');
 
   // 🔐 Захист маршруту
   useEffect(() => {
-    if (!isInProfile) return; // 🛑 Не в профілі — нічого не робимо
+    if (!isInProfile) return;
 
     if (!isLoading && !isAuthenticated) {
-      navigate(langPrefix); // редірект на головну мови
+      navigate(langPrefix);
     }
-  }, [isLoading, isAuthenticated, navigate, langPrefix, isInProfile]);
+  }, [isLoading, isAuthenticated, langPrefix, isInProfile]);
 
   // Поки йде завантаження — скелет
   if (isLoading) {

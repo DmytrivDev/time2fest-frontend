@@ -5,10 +5,11 @@ export const useAuth = () => {
   const { data, isLoading, error } = useQuery({
     queryKey: ['authUser'],
     queryFn: async () => {
-      const res = await userApi.get('/auth/me'); // або '/me'
+      const res = await userApi.get('/auth/me');
       return res.data;
     },
-    retry: false, // важливо! не треба робити 3 спроби
+    staleTime: 10 * 60 * 1000, // 10 хв
+    retry: false,
   });
 
   return {

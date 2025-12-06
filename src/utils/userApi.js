@@ -27,50 +27,32 @@ const processQueue = (error, token = null) => {
 };
 
 userApi.interceptors.response.use(
-  response => response,
+  res => res,
   async error => {
     const originalRequest = error.config;
 
     if (error.response?.status === 401 && !originalRequest._retry) {
-      if (isRefreshing) {
-        return new Promise(function (resolve, reject) {
-          failedQueue.push({ resolve, reject });
-        })
-          .then(token => {
-            originalRequest.headers.Authorization = 'Bearer ' + token;
-            return userApi(originalRequest);
-          })
-          .catch(err => Promise.reject(err));
-      }
-
       originalRequest._retry = true;
-      isRefreshing = true;
+
+      const refreshToken = localStorage.getItem('refreshToken');
+      if (!refreshToken) return Promise.reject(error);
 
       try {
-        const refreshToken = localStorage.getItem('refreshToken');
-        if (!refreshToken) throw new Error('No refresh token');
-
-        // 🔸 отримуємо новий токен
         const { data } = await axios.post(`${USER_API_URL}/auth/refresh`, {
           refreshToken,
         });
 
+        // ⚠️ зберігаємо обидва токени!
         localStorage.setItem('accessToken', data.accessToken);
-
-        userApi.defaults.headers.Authorization = `Bearer ${data.accessToken}`;
-        processQueue(null, data.accessToken);
+        localStorage.setItem('refreshToken', data.refreshToken);
 
         originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
         return userApi(originalRequest);
-      } catch (err) {
-        processQueue(err, null);
+      } catch (e) {
+        // refresh невдалий → чистимо токени
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
-        localStorage.removeItem('user');
-
-        return Promise.reject(err);
-      } finally {
-        isRefreshing = false;
+        return Promise.reject(e);
       }
     }
 
