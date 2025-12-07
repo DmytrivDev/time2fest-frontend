@@ -2,41 +2,59 @@
 @use "@/styles/variables" as *;
 
 .profileContent {
-    padding: 4rem;
-    max-height: 100vh;
-    max-height: 100dvh;
-    overflow: auto;
+	padding: 4rem;
+	max-height: 100vh;
+	max-height: 100dvh;
+	overflow: auto;
 }
 
 .item {
-    height: 3.3125rem;
-    border-radius: 1.25rem;
+	height: 3.3125rem;
+	border-radius: 1.25rem;
 }
 
 .titleLoading {
-    width: 28.5rem;
-    height: 2.3475rem;
+	width: 28.5rem;
+	height: 2.3475rem;
 }
 
 .heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    align-content: flex-start;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	align-content: flex-start;
 
-    h1 {
-        font-size: 1.75rem;
-        font-weight: 700;
-        line-height: 140%;
-    }
+	h1 {
+		font-size: 1.75rem;
+		font-weight: 700;
+		line-height: 1.4;
+	}
 }
 
 .scheduleList {
-    margin-top: 1.88rem;
-    display: flex;
-    flex-direction: column;
-    gap: .62rem;
+	margin-top: 1.875rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.625rem;
 }
 
-@media screen and (min-width: 1880px) {
+@media screen and (max-width: 1140px) {
+	.profileContent {
+		padding: 7.5rem 1rem 3.75rem 1rem;
+	}
+
+	.titleLoading {
+		width: 16rem;
+		height: 1.875rem;
+	}
+
+	.heading {
+		h1 {
+			font-size: 1.3125rem;
+		}
+	}
+
+	.scheduleList {
+		margin-top: 1.5rem;
+	}
 }

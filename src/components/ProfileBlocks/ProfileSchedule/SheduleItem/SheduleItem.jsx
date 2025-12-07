@@ -3,8 +3,10 @@ import clsx from 'clsx';
 import { CircleFlag } from 'react-circle-flags';
 import { IoCamera, IoVideocam, IoClose, IoTime } from 'react-icons/io5';
 import { useTranslation } from 'react-i18next';
+
 import { getNextNYLocalForUtcOffset } from '@/utils/ny-time';
 import { useGraphStore } from '@/stores/useGraphStore';
+
 import styles from './SheduleItem.module.scss';
 
 const SheduleItem = ({ code, country, isLoading = false, onZoneClick }) => {
@@ -74,7 +76,9 @@ const SheduleItem = ({ code, country, isLoading = false, onZoneClick }) => {
                 height="16"
                 className={styles.flag}
               />
-              <span className={styles.countryName}>{t('countries.'+country.slug)}</span>
+              <span className={styles.countryName}>
+                {t('countries.' + country.slug)}
+              </span>
             </div>
           )}
         </span>
@@ -98,24 +102,30 @@ const SheduleItem = ({ code, country, isLoading = false, onZoneClick }) => {
                 )}
               </div>
 
-              <button
-                type="button"
-                className={clsx(styles.actionBtn, styles.watch, 'btn_primary')}
-                onClick={e => {
-                  e.stopPropagation();
-                  onZoneClick?.(code, country?.code || null);
-                }}
-              >
-                {t('profile.watch')}
-              </button>
+              <div className={styles.box__btns}>
+                <button
+                  type="button"
+                  className={clsx(
+                    styles.actionBtn,
+                    styles.watch,
+                    'btn_primary'
+                  )}
+                  onClick={e => {
+                    e.stopPropagation();
+                    onZoneClick?.(code, country?.code || null);
+                  }}
+                >
+                  {t('profile.watch')}
+                </button>
 
-              <button
-                type="button"
-                className={styles.removeCtr}
-                onClick={handleRemove}
-              >
-                <IoClose className={styles.close} />
-              </button>
+                <button
+                  type="button"
+                  className={styles.removeCtr}
+                  onClick={handleRemove}
+                >
+                  <IoClose className={styles.close} />
+                </button>
+              </div>
             </>
           ) : (
             <span className={styles.empty}>{t('profile.choose')}</span>
