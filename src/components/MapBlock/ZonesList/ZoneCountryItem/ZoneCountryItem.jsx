@@ -1,10 +1,18 @@
-import { useRef, useLayoutEffect, useEffect, useState } from 'react';
+import { useRef, useLayoutEffect, useEffect, useState, useMemo } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { CircleFlag } from 'react-circle-flags';
 import { IoTime, IoCamera, IoVideocam } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { getNextNYLocalForUtcOffset } from '@/utils/ny-time';
+import { api } from '../../../../utils/api';
+import { getValidLocale } from '../../../../utils/getValidLocale';
+import { useAuth } from '@/hooks/useAuth';
+import { useLoginPopupStore } from '@/stores/useLoginPopupStore';
 import clsx from 'clsx';
+
+import { getNextNYLocalForUtcOffset } from '@/utils/ny-time';
+import { useScheduleToggle } from '@/hooks/useScheduleToggle';
+
 import styles from './ZoneCountryItem.module.scss';
 
 export default function ZoneCountryItem({
@@ -19,95 +27,95 @@ export default function ZoneCountryItem({
   isOpen,
   onToggle,
 }) {
+  //
+  // ===================== 1. HOOKS =====================
+  //
   const { t, i18n } = useTranslation('common');
+  const locale = getValidLocale();
+  const { isAuthenticated } = useAuth();
+  const openLoginPopup = useLoginPopupStore(s => s.openPopup);
 
-  // --- Формуємо нормалізований UTC ---
-  let utcOffsetStr = 'UTC+0';
-  if (zoneLabel && zoneLabel.toUpperCase().startsWith('UTC')) {
-    utcOffsetStr = zoneLabel;
-  } else if (offsetFromApi) {
-    utcOffsetStr = offsetFromApi.trim().startsWith('UTC')
-      ? offsetFromApi.trim()
-      : `UTC${offsetFromApi.trim()}`;
-  }
+  // Fetch country details
+  const { data: countryApiData, isLoading: countryLoading } = useQuery({
+    enabled: !!slug,
+    queryKey: ['country', locale, slug],
+    queryFn: async () => {
+      const res = await api.get(`/countries?locale=${locale}&slug=${slug}`);
+      return res.data?.items?.[0] || res.data?.data?.[0] || null;
+    },
+  });
 
-  const ny = getNextNYLocalForUtcOffset(utcOffsetStr);
+  const TimezoneDetail = Array.isArray(countryApiData?.TimezoneDetail)
+    ? countryApiData.TimezoneDetail
+    : [];
 
-  // --- Визначення правильного об’єкта з TimezoneDetail ---
-  let zoneData = {};
-  if (Array.isArray(details) && details.length > 0) {
-    const tzWithoutUTC = utcOffsetStr.replace('UTC', '').trim(); // "+1"
-    const found = details.find(z => String(z.Zone).trim() === tzWithoutUTC);
-    zoneData = found || details[0] || {};
-  }
-
-  // --- Додавання в календар ---
-  const addToCalendar = () => {
-    if (typeof window !== 'undefined' && window.umami) {
-      window.umami.track('add_to_calendar');
-    }
-
-    const title = `${t('calendar_titlecountry')} – ${name}`;
-    const description = `${t('calendar_desc')}\n\nhttps://time2fest.com`;
-
-    const baseDate = ny?.instant instanceof Date ? ny.instant : null;
-    if (!baseDate) {
-      console.error('No valid New Year date for zone', name, ny);
-      return;
-    }
-
-    const startDate = new Date(baseDate.getTime() - 15 * 60 * 1000);
-    const endDate = new Date(startDate.getTime() + 20 * 60 * 1000);
-
-    const formatDate = d =>
-      d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-
-    const start = formatDate(startDate);
-    const end = formatDate(endDate);
-    const url = 'https://time2fest.com';
-
-    const isApple = /iPhone|iPad|iPod|Macintosh/.test(
-      window.navigator.userAgent
+  // ---- Знаходимо відповідний об'єкт у TimezoneDetail ----
+  const currentZone = TimezoneDetail.find(z => {
+    if (!z.Zone) return false;
+    const zoneNormalized = z.Zone.replace(':00', '').trim();
+    return (
+      zoneNormalized === zoneLabel ||
+      zoneNormalized === zoneLabel.replace('+', '') ||
+      zoneNormalized === zoneLabel.replace('UTC', '')
     );
+  });
 
-    if (isApple) {
-      const icsContent = `
-BEGIN:VCALENDAR
-VERSION:2.0
-BEGIN:VEVENT
-SUMMARY:${title}
-DESCRIPTION:${description}
-DTSTART:${start}
-DTEND:${end}
-URL:${url}
-END:VEVENT
-END:VCALENDAR`.trim();
+  // ---- Типи святкувань ----
+  const hasAmbassador = zoneLabel
+    ? !!currentZone?.Ambassador
+    : TimezoneDetail.some(z => z.Ambassador);
+  const hasCamera = zoneLabel
+    ? !!currentZone?.VebCamera
+    : TimezoneDetail.some(z => z.VebCamera);
 
-      const blob = new Blob([icsContent], {
-        type: 'text/calendar;charset=utf-8',
-      });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = 'time2fest-reminder.ics';
-      link.click();
-    } else {
-      const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
-        title
-      )}&dates=${start}/${end}&details=${encodeURIComponent(
-        description
-      )}&location=${encodeURIComponent(url)}&sf=true&output=xml`;
-
-      window.open(googleUrl, '_blank');
+  //
+  // ===================== 2. NORMALIZE UTC =====================
+  //
+  const utcOffsetStr = useMemo(() => {
+    if (zoneLabel?.toUpperCase?.().startsWith('UTC')) return zoneLabel;
+    if (offsetFromApi) {
+      const clean = offsetFromApi.trim();
+      return clean.startsWith('UTC') ? clean : `UTC${clean}`;
     }
-  };
+    return 'UTC+0';
+  }, [zoneLabel, offsetFromApi]);
 
-  // ---- АКОРДЕОН ----
+  const ny = useMemo(
+    () => getNextNYLocalForUtcOffset(utcOffsetStr),
+    [utcOffsetStr]
+  );
+
+  //
+  // ===================== 3. TIMEZONE DETAIL =====================
+  //
+  const zoneData = useMemo(() => {
+    if (!Array.isArray(details) || details.length === 0) return {};
+
+    const tz = utcOffsetStr.replace('UTC', '').trim();
+    const found = details.find(z => String(z.Zone).trim() === tz);
+    return found || details[0] || {};
+  }, [details, utcOffsetStr]);
+
+  //
+  // ===================== 4. ADD / REMOVE FROM SCHEDULE =====================
+  //
+  const { isAdded, handleToggle } = useScheduleToggle({
+    slug,
+    code,
+    zone: utcOffsetStr,
+  });
+
+  //
+  // ===================== 5. ACCORDION ANIMATION =====================
+  //
   const ref = useRef(null);
   const mountedRef = useRef(false);
+
   const [maxH, setMaxH] = useState('0px');
   const [visible, setVisible] = useState(false);
   const [animate, setAnimate] = useState(false);
 
+  // enable animation after mount
   useEffect(() => {
     const id = requestAnimationFrame(() => {
       mountedRef.current = true;
@@ -116,49 +124,58 @@ END:VCALENDAR`.trim();
     return () => cancelAnimationFrame(id);
   }, []);
 
+  // open / close behavior
   useLayoutEffect(() => {
     const el = ref.current;
     if (!el) return;
 
-    const h = `${el.scrollHeight}px`;
+    const fullH = `${el.scrollHeight}px`;
     const first = !mountedRef.current;
 
     if (isOpen) {
       setVisible(true);
       if (first) {
-        setMaxH(h);
+        setMaxH(fullH);
       } else {
         setMaxH('0px');
-        requestAnimationFrame(() => setMaxH(h));
+        requestAnimationFrame(() => setMaxH(fullH));
       }
     } else {
       if (first) {
         setVisible(false);
         setMaxH('0px');
       } else {
-        setMaxH(h);
+        setMaxH(fullH);
         requestAnimationFrame(() => setMaxH('0px'));
       }
     }
   }, [isOpen]);
 
+  // adjust height on content resize
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
     const ro = new ResizeObserver(() => {
       if (isOpen) setMaxH(`${el.scrollHeight}px`);
     });
+
     ro.observe(el);
     return () => ro.disconnect();
   }, [isOpen]);
 
   const onTransitionEnd = e => {
-    if (e.propertyName !== 'max-height') return;
-    if (!isOpen) setVisible(false);
+    if (e.propertyName === 'max-height' && !isOpen) {
+      setVisible(false);
+    }
   };
 
+  //
+  // ===================== 6. RETURN =====================
+  //
   return (
     <article className={clsx(styles.countryItem, isOpen && styles.opened)}>
+      {/* TOP BUTTON */}
       <button
         type="button"
         onClick={onToggle}
@@ -169,7 +186,9 @@ END:VCALENDAR`.trim();
       >
         <div className={styles.itemTopLeft}>
           <div className={styles.naming}>
-            {code && <CircleFlag countryCode={code} height="20" />}
+            {code && (
+              <CircleFlag countryCode={code.toLowerCase()} height="20" />
+            )}
             <h3>{name}</h3>
           </div>
 
@@ -184,14 +203,16 @@ END:VCALENDAR`.trim();
               <IoTime />
               <span>{t('controls.countdown')}</span>
             </li>
-            {zoneData.Ambassador && (
+
+            {hasAmbassador && (
               <li
                 style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}
               >
                 <IoCamera /> <span>{t('controls.ambass')}</span>
               </li>
             )}
-            {zoneData.VebCamera && (
+
+            {hasCamera && (
               <li
                 style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}
               >
@@ -200,7 +221,7 @@ END:VCALENDAR`.trim();
             )}
           </ul>
 
-          <span className={styles.display}>{ny.display}</span>
+          <span className={styles.display}>{ny?.display ?? ''}</span>
         </div>
 
         <span className={styles.toggleBtn}>
@@ -208,6 +229,7 @@ END:VCALENDAR`.trim();
         </span>
       </button>
 
+      {/* COLLAPSIBLE AREA */}
       <div
         ref={ref}
         className={styles.itemFull}
@@ -233,13 +255,30 @@ END:VCALENDAR`.trim();
 
         <div className={styles.itemActions}>
           <Link
-            to={`/${i18n.language !== 'en' ? i18n.language + '/' : ''}country/${slug}?tz=${encodeURIComponent(String(zoneLabel))}`}
+            to={`/${
+              i18n.language !== 'en' ? i18n.language + '/' : ''
+            }country/${slug}?tz=${encodeURIComponent(String(zoneLabel))}`}
             className="btn_transp"
           >
             {t('controls.details')}
           </Link>
-          <button className="btn_primary plus" type="button" onClick={addToCalendar}>
-            {t('controls.add_to_shel')}
+
+          {/* === NEW SCHEDULE BUTTON === */}
+          <button
+            className={clsx(
+              styles.addBtn,
+              'btn_primary plus',
+              isAdded && 'added'
+            )}
+            onClick={() => {
+              if (!isAuthenticated) {
+                openLoginPopup();
+                return;
+              }
+              handleToggle();
+            }}
+          >
+            {isAdded ? t('profile.added') : t('nav.addshelb')}
           </button>
         </div>
       </div>

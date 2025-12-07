@@ -168,7 +168,8 @@
     },
     "close": "Close",
     "choose_zone": "Choose time zone",
-    "set_changes": "Apply changes"
+    "set_changes": "Apply changes",
+    "login_required_title": "To use the schedule, you need to log in and activate a subscription"
   },
   "ambassadors": {
     "ambassadors_title": "Time2Fest Ambassadors",

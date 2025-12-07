@@ -8,6 +8,7 @@ import { SUPPORTED_LANGS, DEFAULT_LANG } from '../../i18n/languages';
 import SeoMeta from '../../components/SeoMeta';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer/Footer';
+import LoginRequired from '@/components/Popups/LoginRequired';
 
 const LanguageHTMLUpdater = () => {
   const { i18n } = useTranslation();
@@ -70,6 +71,7 @@ const LanguageLayout = () => {
       <main className="main">
         <Outlet context={outletContext} />
       </main>
+      <LoginRequired />
       {!isProfile && <Footer />}
     </div>
   );

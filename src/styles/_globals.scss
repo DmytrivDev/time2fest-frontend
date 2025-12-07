@@ -315,7 +315,7 @@ textarea {
 			background-repeat: no-repeat;
 		}
 
-		&.minus {
+		&.added {
 			&::after {
 				background-image: $minus;
 			}

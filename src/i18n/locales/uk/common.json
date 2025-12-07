@@ -168,7 +168,8 @@
     },
     "close": "Закрити",
     "choose_zone": "Оберіть часову зону",
-    "set_changes": "Застосувати зміни"
+    "set_changes": "Застосувати зміни",
+    "login_required_title": "Щоб користуватись графіком вам потрібно авторизуватись та оформити підписку"
   },
   "ambassadors": {
     "ambassadors_title": "Амбасадори Time2Fest",

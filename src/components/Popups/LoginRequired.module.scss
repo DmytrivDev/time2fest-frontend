@@ -1,0 +1,121 @@
+@use "@/styles/mixins" as *;
+@use "@/styles/variables" as *;
+
+.popup {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+
+.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.closing {
+    opacity: 0;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background-color: #000;
+    opacity: 0.8;
+}
+
+.window {
+    position: relative;
+    z-index: 2;
+    max-width: 32.0625rem;
+    width: 100%;
+    transform: scale(0.92);
+    transition: transform 0.25s ease;
+}
+
+.open .window {
+    transform: scale(1);
+}
+
+.closing .window {
+    transform: scale(0.92);
+}
+
+.content {
+    padding: 2.5rem 2rem;
+    border-radius: 1.25rem;
+    background: #1c1c1c;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+    text-align: center;
+}
+
+.icon {
+    margin-bottom: 1.1rem;
+
+    svg {
+        width: 2.875rem;
+        height: 2.875rem;
+        stroke: $color-yellow;
+        display: inline-flex;
+    }
+}
+
+.title {
+    font-size: 1.3125rem;
+    font-weight: 600;
+}
+
+.buttons {
+    margin-top: 2.12rem;
+    display: flex;
+    gap: 1.8rem;
+    justify-content: center;
+}
+
+.btn {
+    width: calc(50% - 0.9rem);
+    text-align: center;
+    justify-content: center;
+}
+
+@media screen and (max-width: 1140px) {
+    .window {
+        max-width: 32.0625rem;
+        width: calc(100% - 2rem);
+    }
+    .content {
+        padding: 1.56rem;
+    }
+    .icon {
+        svg {
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+    }
+    .title {
+        font-size: 1.125rem;
+    }
+    .buttons {
+        margin-top: 1.38rem;
+        gap: 1.24rem;
+    }
+    .btn {
+        width: calc(50% - 0.62rem);
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .buttons {
+        flex-wrap: wrap;
+    }
+    .btn {
+        width: 100%;
+    }
+}

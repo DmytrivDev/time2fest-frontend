@@ -5,20 +5,39 @@ import remarkGfm from 'remark-gfm';
 import { useTranslation } from 'react-i18next';
 import { CircleFlag } from 'react-circle-flags';
 import * as FaIcons from 'react-icons/fa6';
+import { useScheduleToggle } from '@/hooks/useScheduleToggle';
+import { useAuth } from '@/hooks/useAuth';
+import { useLoginPopupStore } from '@/stores/useLoginPopupStore';
+
 import styles from './AmbassadorDetail.module.scss';
 
 const AmbassadorDetail = ({ data, isLoading, error, isProfilePage }) => {
   const { t } = useTranslation();
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const { isAuthenticated } = useAuth();
+  const openLoginPopup = useLoginPopupStore(s => s.openPopup);
 
-  // ---- Визначення ширини екрана ----
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 868);
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  const countrySlug =
+    data?.country?.slug ||
+    data?.country?.name?.toLowerCase().replace(/\s+/g, '-');
+
+  const slug = countrySlug;
+  const code = data?.country?.code?.toLowerCase();
+  const zone = data?.timeZone;
+
+  const { isAdded, handleToggle } = useScheduleToggle({
+    slug,
+    code,
+    zone,
+  });
 
   // ---- LOADING стан ----
   if (isLoading) {
@@ -291,9 +310,20 @@ const AmbassadorDetail = ({ data, isLoading, error, isProfilePage }) => {
 
                   {renderDescription()}
                   <button
-                    className={clsx(styles.addBtn, 'btn_primary plus')}
+                    className={clsx(
+                      styles.addBtn,
+                      'btn_primary plus',
+                      isAdded && 'added'
+                    )}
+                    onClick={() => {
+                      if (!isAuthenticated) {
+                        openLoginPopup();
+                        return;
+                      }
+                      handleToggle();
+                    }}
                   >
-                    {t('controls.add_to_shel')}
+                    {isAdded ? t('profile.added') : t('nav.addshelb')}
                   </button>
                 </div>
 

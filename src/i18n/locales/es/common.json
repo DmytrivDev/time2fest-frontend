@@ -168,7 +168,8 @@
     },
     "close": "Cerrar",
     "choose_zone": "Elige zona horaria",
-    "set_changes": "Aplicar cambios"
+    "set_changes": "Aplicar cambios",
+    "login_required_title": "Para usar el calendario, necesitas iniciar sesión y activar una suscripción"
   },
   "ambassadors": {
     "ambassadors_title": "Embajadores de Time2Fest",
