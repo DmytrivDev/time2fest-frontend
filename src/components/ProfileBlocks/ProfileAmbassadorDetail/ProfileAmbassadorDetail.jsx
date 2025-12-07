@@ -56,7 +56,11 @@ const CountryPage = () => {
         isProfilePage={isProfilePage}
       />
 
-      <AmbassadorsRand exclude={excludeId} lang={locale} isProfilePage={isProfilePage} />
+      <AmbassadorsRand
+        exclude={excludeId}
+        lang={locale}
+        isProfilePage={isProfilePage}
+      />
     </div>
   );
 };

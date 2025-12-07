@@ -1,108 +1,149 @@
-@use "@/styles/variables" as *;
 @use "@/styles/mixins" as *;
 
 section {
-    padding-top: 6.75rem;
+	padding-top: 6.75rem;
 }
 
 .titleLoading {
-    height: 3.5rem;
-    width: 20rem;
+	height: 3.5rem;
+	width: 20rem;
 }
 
 .buttonLoading {
-    height: 3.1875rem;
-    width: 11.5rem;
+	height: 3.1875rem;
+	width: 11.5rem;
 }
 
 .header {
-    display: flex;
-    align-items: center;
-    align-content: center;
-    justify-content: space-between;
+	display: flex;
+	align-items: center;
+	align-content: center;
+	justify-content: space-between;
 }
 
 .grid {
-    margin-top: 2.88rem;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.44rem;
+	margin-top: 2.88rem;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 1.44rem;
+}
+
+.profilePage {
+	.header {
+		a {
+			display: none;
+		}
+	}
 }
 
 @media screen and (max-width: 1880px) {
-    .profilePage {
-        padding-top: 4.5rem;
+	.profilePage {
+		padding-top: 4.5rem;
 
-        .titleLoading {
-            height: 2.4375rem;
-            width: 16rem;
-        }
+		.titleLoading {
+			height: 2.4375rem;
+			width: 16rem;
+		}
 
-        .header {
-            h2 {
-                font-size: 1.75rem;
-            }
-        }
+		.header {
+			h2 {
+				font-size: 1.75rem;
+			}
+		}
 
-        .grid {
-            margin-top: 1.878rem;
-            grid-template-columns: repeat(3, 1fr);
+		.grid {
+			margin-top: 1.878rem;
+			grid-template-columns: repeat(3, 1fr);
 
-            & > li {
-                &:nth-child(4) {
-                    display: none;
-                }
-            }
-        }
-    }
+			& > li {
+				&:nth-child(4) {
+					display: none;
+				}
+			}
+		}
+	}
 }
 
 @media screen and (max-width: 1140px) {
-    section {
-        padding-top: 3.75rem;
-    }
+	section {
+		padding-top: 3.75rem;
+	}
 
-    .titleLoading {
-        height: 2.25rem;
-        width: 14.25rem;
-    }
+	.titleLoading {
+		height: 2.25rem;
+		width: 14.25rem;
+	}
 
-    .buttonLoading {
-        height: 2.875rem;
-        width: 11.5rem;
-    }
+	.buttonLoading {
+		height: 2.875rem;
+		width: 11.5rem;
+	}
 
-    .title {
-        font-size: 1.625rem;
-    }
+	.title {
+		font-size: 1.625rem;
+	}
 
-    .grid {
-        margin-top: 2.5rem;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1.25rem;
-    }
+	.grid {
+		margin-top: 2.5rem;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1.25rem;
+	}
+
+	.profilePage {
+		padding-top: 4.125rem;
+
+		.titleLoading {
+			height: 2.25rem;
+			width: 12.5rem;
+		}
+
+		.header {
+			flex-wrap: wrap;
+			gap: 1.875rem 1.5rem;
+
+			h2 {
+				font-size: 1.625rem;
+			}
+			a {
+				display: block;
+			}
+		}
+
+		.grid {
+			margin-top: 2.5rem;
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
 }
 
 @media screen and (max-width: 868px) {
-    .header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1.94rem;
+	.header {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 1.94rem;
 
-        a {
-            width: 100%;
-        }
-    }
-    .grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .buttonLoading {
-        width: 100%;
-    }
+		a {
+			width: 100%;
+		}
+	}
+	.grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+	.buttonLoading {
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.profilePage {
+		.grid {
+			grid-template-columns: 1fr;
+		}
+	}
 }
 
 @media screen and (max-width: 560px) {
-    .grid {
-        grid-template-columns: 1fr;
-    }
+	.grid {
+		grid-template-columns: 1fr;
+	}
 }
