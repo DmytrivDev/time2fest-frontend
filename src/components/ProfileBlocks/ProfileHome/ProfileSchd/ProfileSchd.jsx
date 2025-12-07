@@ -84,21 +84,20 @@ export default function ProfilePayments() {
         <div className={styles.headding}>
           <h3 className={styles.ttl}>{t('profile.schadule')}</h3>
         </div>
-        <div className={styles.content}>
+        <div className={clsx(styles.content, styles.contentEmpty)}>
           <p className={styles.emptyText}>
-            {t('profile.no_upcoming_countries') ||
-              'Наразі всі обрані країни вже відсвяткували Новий рік 🎉'}
+            {t('profile.no_upcoming_countries')}
           </p>
-        </div>
-        <div className={styles.bottom}>
-          <Link
-            to={`/${
-              i18n.language !== 'en' ? i18n.language + '/' : ''
-            }profile/schedule`}
-            className={clsx(styles.btn, 'btn_primary')}
-          >
-            {t('profile.goto_schedule')}
-          </Link>
+          <div className={styles.bottom}>
+            <Link
+              to={`/${
+                i18n.language !== 'en' ? i18n.language + '/' : ''
+              }profile/schedule`}
+              className={clsx(styles.btn, 'btn_primary')}
+            >
+              {t('profile.goto_schedule')}
+            </Link>
+          </div>
         </div>
       </section>
     );

@@ -313,7 +313,8 @@
     "subText": "Subscribe and celebrate with us — all New Year’s celebrations of the world in one place!",
     "goto_schedule": "Go to schedule",
     "soon_title": "Upcoming events",
-    "live_title": "Live now"
+    "live_title": "Live now",
+    "no_upcoming_countries": "The celebration schedule is currently empty"
   },
   "countries": {
     "kiribati": "Kiribati",

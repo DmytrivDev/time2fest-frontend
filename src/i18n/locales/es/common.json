@@ -313,7 +313,8 @@
     "subText": "¡Suscríbete y celebra con nosotros: todas las celebraciones de Año Nuevo del mundo en un solo lugar!",
     "goto_schedule": "Ir al horario",
     "soon_title": "Próximos eventos",
-    "live_title": "En directo ahora"
+    "live_title": "En directo ahora",
+    "no_upcoming_countries": "El calendario de celebraciones está vacío por ahora"
   },
   "countries": {
     "kiribati": "Kiribati",
