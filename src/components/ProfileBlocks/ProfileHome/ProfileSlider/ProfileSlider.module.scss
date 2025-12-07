@@ -2,66 +2,99 @@
 @use "@/styles/variables" as *;
 
 .profileSlider {
-    padding-top: 0;
+	padding-top: 0;
 }
 
 .sliderLoading {
-    height: 24.875rem;
-    margin-bottom: 2.44rem;
+	height: 25rem;
+	margin-bottom: 2.5rem;
 }
 
 .slider {
-    border-radius: 1.25rem;
-    overflow: hidden;
-    width: 100%;
+	border-radius: 1.25rem;
+	overflow: hidden;
+	width: 100%;
 }
 
 .slide {
-    position: relative;
-    border-radius: 1.25rem;
-    overflow: hidden;
-    width: 100%;
-    min-height: 24.875rem;
-    display: flex;
-    align-items: center;
-    align-content: center;
+	position: relative;
+	border-radius: 1.25rem;
+	overflow: hidden;
+	width: 100%;
+	min-height: 25rem;
+	display: flex;
+	align-items: center;
 }
 
 .slideEmg {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
 
-    img {
-        @include img-cover;
-    }
+	img {
+		@include img-cover;
+	}
 }
 
 .slide__cont {
-    padding: 4.5rem;
-    max-width: 43.5rem;
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    align-content: flex-start;
+	padding: 4.5rem;
+	width: 100%;
+	max-width: 43.5rem;
+	position: relative;
+	z-index: 2;
+	display: flex;
+	flex-direction: column;
+	align-items: start;
 
-    .slideTtl {
-        font-size: 1.75rem;
-        font-weight: 700;
-        line-height: 140%;
-    }
+	.slideTtl {
+		font-size: 1.75rem;
+		font-weight: 700;
+		line-height: 1.4;
+	}
 
-    .slideText {
-        margin-top: 0.87rem;
-    }
+	.slideText {
+		margin-top: 0.87rem;
+	}
 
-    .slideBtn {
-        margin-top: 2rem;
-        padding-top: 0.94rem;
-        padding-bottom: 0.94rem;
-    }
+	.slideBtn {
+		margin-top: 2rem;
+		padding-top: 0.94rem;
+		padding-bottom: 0.94rem;
+	}
+}
+
+@media screen and (max-width: 1140px) {
+	.sliderLoading {
+		height: 26rem;
+		margin-bottom: 2rem;
+	}
+
+	.slide {
+		min-height: 26rem;
+		align-items: end;
+	}
+
+	.slide__cont {
+		padding: 1.5rem;
+		max-width: none;
+
+		.slideTtl {
+			font-size: 1.3125rem;
+		}
+
+		.slideText {
+			font-size: 0.875rem;
+			line-height: 1.8;
+		}
+
+		.slideBtn {
+			margin: 1rem auto 0 auto;
+			padding-top: 0.875rem;
+			padding-bottom: 0.875rem;
+			width: 100%;
+			max-width: 21.4375rem;
+		}
+	}
 }

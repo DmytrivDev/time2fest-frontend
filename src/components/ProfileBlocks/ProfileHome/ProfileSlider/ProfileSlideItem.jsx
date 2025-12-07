@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
+
 import styles from './ProfileSlider.module.scss';
 
 export default function ProfileSlideItem({ item }) {

@@ -3,8 +3,9 @@ import { Pagination } from 'swiper/modules';
 import { useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 
+import ProfileSlideItem from './ProfileSlideItem';
+
 import styles from './ProfileSlider.module.scss';
-import ProfileSlideItem from './ProfileSlideItem'; // 👈 новий компонент
 
 export default function ProfileSlider({ data = [], isLoading, error }) {
   const location = useLocation();
@@ -12,7 +13,9 @@ export default function ProfileSlider({ data = [], isLoading, error }) {
   if (isLoading) {
     return (
       <section className={styles.profileSlider}>
-        <div className={clsx(styles.slider, styles.sliderLoading, 'loading')}></div>
+        <div
+          className={clsx(styles.slider, styles.sliderLoading, 'loading')}
+        ></div>
       </section>
     );
   }
