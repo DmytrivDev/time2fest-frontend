@@ -1,3 +1,4 @@
+@use "@/styles/variables" as *;
 @use "@/styles/mixins" as *;
 
 section {
@@ -33,6 +34,9 @@ section {
 		a {
 			display: none;
 		}
+	}
+	.buttonLoading {
+		display: none;
 	}
 }
 
@@ -95,6 +99,10 @@ section {
 		.titleLoading {
 			height: 2.25rem;
 			width: 12.5rem;
+		}
+
+		.buttonLoading {
+			display: block;
 		}
 
 		.header {
