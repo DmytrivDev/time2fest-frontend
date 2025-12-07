@@ -2,81 +2,133 @@
 @use "@/styles/variables" as *;
 
 .profileSchd {
-    padding-top: 4.5rem;
+	padding-top: 4.5rem;
 }
 
 .ttlLoading {
-    height: 2.45rem;
-    width: 22rem;
+	height: 2.45rem;
+	width: 22rem;
 }
 
 .itemLoading {
-    height: 5.899rem;
-    border-radius: 1.25rem;
+	height: 5.899rem;
+	border-radius: 1.25rem;
 }
 
 .btnLoading {
-    height: 3.18rem;
-    width: 10.416rem;
+	height: 3.18rem;
+	width: 10.416rem;
 }
 
 .headding {
-    .ttl {
-        font-size: 1.75rem;
-        font-weight: 700;
-        line-height: 140%;
-    }
+	.ttl {
+		font-size: 1.75rem;
+		font-weight: 700;
+		line-height: 1.4;
+	}
 }
 
 .content {
-    margin-top: 2.5rem;
+	margin-top: 2.5rem;
 }
 
 .scheduleList {
-    display: flex;
-    flex-direction: column;
-    gap: 0.62rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.625rem;
 
-    li {
-        & > div {
-            span {
-                &:last-child {
-                    button {
-                        &:last-child {
-                            display: none;
-                        }
-                    }
-                }
-            }
-        }
-    }
+	li {
+		& > div {
+			span {
+				&:last-child {
+					button {
+						&:last-child {
+							display: none;
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 .bottom {
-    margin-top: 2.5rem;
-    display: flex;
-    justify-content: center;
+	margin-top: 2.5rem;
+	display: flex;
+	justify-content: center;
 
-    .btn {
-        padding-top: 0.94rem;
-        padding-bottom: 0.94rem;
-    }
+	.btn {
+		padding-top: 0.94rem;
+		padding-bottom: 0.94rem;
+	}
 }
 
 .contentEmpty {
-    border-radius: 1.25rem;
-    background: #1b1b1b;
-    padding: 1.5rem;
-    padding-top: 2.62rem;
-    padding-bottom: 3.12rem;
-    text-align: center;
+	border-radius: 1.25rem;
+	background: #1b1b1b;
+	padding: 2.5rem 1.5rem;
+	text-align: center;
 
-    .bottom {
-        margin-top: 1.25rem;
-    }
+	.bottom {
+		margin-top: 1.25rem;
+	}
 }
 
 .emptyText {
-    font-size: 1.3125rem;
-    font-weight: 600;
+	font-size: 1.3125rem;
+	font-weight: 600;
+	line-height: 1.6;
+}
+
+@media screen and (max-width: 1140px) {
+	.profileSchd {
+		padding-top: 3.5rem;
+	}
+
+	.ttlLoading {
+		height: 1.875rem;
+		width: 17.5rem;
+	}
+
+	.itemLoading {
+		height: 10.9375rem;
+	}
+
+	.btnLoading {
+		height: 3.1875rem;
+		width: 15rem;
+	}
+
+	.headding {
+		.ttl {
+			font-size: 1.3125rem;
+		}
+	}
+
+	.content {
+		margin-top: 1.5rem;
+	}
+
+	.bottom {
+		margin-top: 2rem;
+
+		.btn {
+			width: 100%;
+			max-width: 15rem;
+			padding-top: 0.875rem;
+			padding-bottom: 0.875rem;
+		}
+	}
+
+	.contentEmpty {
+		padding: 2rem 1.5rem;
+
+		.bottom {
+			margin-top: 1rem;
+		}
+	}
+
+	.emptyText {
+		font-size: 1.125rem;
+	}
 }
