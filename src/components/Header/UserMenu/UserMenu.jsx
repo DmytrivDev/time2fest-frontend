@@ -17,12 +17,15 @@ export default function UserMenu() {
   }
 
   return isAuthenticated ? (
-    <Link to={`/${lang}profile`} className={clsx('btn_small', styles.loggined)}>
+    <Link
+      to={`/${lang}profile`}
+      className={clsx('btn_small', styles.loggined, styles.btn)}
+    >
       <User size={18} />
       {t('profile.profile')}
     </Link>
   ) : (
-    <Link to={`/${lang}login`} className="btn_small">
+    <Link to={`/${lang}login`} className={clsx('btn_small', styles.btn)}>
       {t('log-in')}
     </Link>
   );
