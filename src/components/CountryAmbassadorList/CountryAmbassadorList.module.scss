@@ -1,70 +1,84 @@
 @use "@/styles/variables" as *;
 @use "@/styles/mixins" as *;
 
-section {
-    padding-top: 6.75rem;
+.section {
+	padding-top: 6.75rem;
 }
 
 .titleLoading {
-    height: 3.5rem;
-    width: 35rem;
+	height: 3.5rem;
+	width: 35rem;
 }
 
 .header {
-    display: flex;
-    align-items: center;
-    align-content: center;
-    justify-content: space-between;
+	display: flex;
+	align-items: center;
+	align-content: center;
+	justify-content: space-between;
 }
 
 .grid {
-    margin-top: 2.88rem;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.44rem;
+	margin-top: 2.88rem;
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 1.44rem;
 }
 
 @media screen and (max-width: 1880px) {
-    .profilePage {
-        padding-top: 4.56rem;
+	.profilePage {
+		padding-top: 4.56rem;
 
-        .titleLoading {
-            height: 2.4375rem;
-            width: 28rem;
-        }
+		.titleLoading {
+			height: 2.4375rem;
+			width: 28rem;
+		}
 
-        .header {
-            h2 {
-                font-size: 1.75rem;
-            }
-        }
+		.header {
+			h2 {
+				font-size: 1.75rem;
+			}
+		}
 
-        .grid {
-            margin-top: 1.88rem;
-            gap: 1.25rem;
-        }
-    }
+		.grid {
+			margin-top: 1.88rem;
+			gap: 1.25rem;
+		}
+	}
 }
 
 @media screen and (max-width: 1140px) {
-    section {
-        padding-top: 3.75rem;
-    }
+	.section {
+		padding-top: 3.75rem;
+	}
 
-    .titleLoading {
-        font-size: 1.625rem;
-        max-width: 30rem;
-        width: 100%;
-    }
+	.titleLoading {
+		font-size: 1.625rem;
+		max-width: 30rem;
+		width: 100%;
+	}
 
-    .grid {
-        margin-top: 2rem;
-        gap: 1.25rem;
-    }
-}
+	.grid {
+		margin-top: 2rem;
+		gap: 1.25rem;
+	}
 
-@media screen and (max-width: 868px) {
-}
+	.profilePage {
+		padding-top: 3.75rem;
 
-@media screen and (max-width: 475px) {
+		.titleLoading {
+			height: 2.25rem;
+			max-width: 30rem;
+			width: 100%;
+		}
+
+		.header {
+			h2 {
+				font-size: 1.625rem;
+			}
+		}
+
+		.grid {
+			margin-top: 2rem;
+		}
+	}
 }
