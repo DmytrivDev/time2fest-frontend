@@ -52,7 +52,8 @@ export default function ProfilePayments() {
 
   // ---- 6. Формуємо параметр для API ----
   const zonesParam = firstFour
-    .map(c => `${c.country.toLowerCase()}:${c.zone}`)
+    .filter(c => c?.slug && c?.zone)
+    .map(c => `${c.slug.toLowerCase()}:${c.zone}`)
     .join(',');
 
   // ---- 7. Підтягуємо дані ----
@@ -121,7 +122,14 @@ export default function ProfilePayments() {
             ))}
           </ul>
           <div className={styles.bottom}>
-            <span className={clsx(styles.btn, styles.btnLoading, 'btn_primary', 'loading')}></span>
+            <span
+              className={clsx(
+                styles.btn,
+                styles.btnLoading,
+                'btn_primary',
+                'loading'
+              )}
+            ></span>
           </div>
         </div>
       </section>

@@ -1,49 +1,62 @@
-// useScheduleToggle.js
 import { useMemo, useCallback } from 'react';
 import { useGraphStore } from '@/stores/useGraphStore';
+import { useReplaceCountryPopupStore } from '@/stores/useReplaceCountryPopupStore';
 
 export function useScheduleToggle({ slug, code, zone }) {
   const countries = useGraphStore(s => s.countries ?? []);
   const addCountry = useGraphStore(s => s.addCountry);
   const removeCountry = useGraphStore(s => s.removeCountry);
+  const openPopup = useReplaceCountryPopupStore(s => s.openPopup);
 
-  // захист від undefined
-  const safeCountries = Array.isArray(countries) ? countries : [];
-
+  // ---- Нормалізація UTC ----
   const normalizedZone = useMemo(() => {
     if (!zone) return '';
-    return zone.replace(/^UTC\s*/i, '').replace(':00', '').trim();
+    return zone
+      .replace(/^UTC\s*/i, '')
+      .replace(':00', '')
+      .trim();
   }, [zone]);
 
-  const isAdded = useMemo(() => {
-    if (!slug || !normalizedZone) return false;
+  const safeCountries = Array.isArray(countries) ? countries : [];
 
-    return safeCountries.some(
-      c =>
-        c?.country?.toLowerCase?.() === slug.toLowerCase() &&
-        String(c.zone).trim() === String(normalizedZone)
-    );
-  }, [safeCountries, slug, normalizedZone]);
+  // країна, що вже стоїть у цій зоні
+  const existingCountry = safeCountries.find(
+    c => String(c.zone).trim() === String(normalizedZone)
+  );
 
+  const isAdded = existingCountry?.slug === slug;
+
+  // ---- Перемикач ----
   const handleToggle = useCallback(() => {
     if (!slug || !code || !normalizedZone) return;
 
-    const obj = {
+    const newCountry = {
       slug,
-      country: slug,
       code,
       zone: normalizedZone,
     };
 
     if (isAdded) {
       removeCountry(slug, normalizedZone);
-    } else {
-      addCountry(obj);
+      return;
     }
-  }, [slug, code, normalizedZone, isAdded, addCountry, removeCountry]);
 
-  return {
+    if (existingCountry && existingCountry.slug !== slug) {
+      openPopup(existingCountry, newCountry, normalizedZone);
+      return;
+    }
+
+    addCountry(newCountry);
+  }, [
+    slug,
+    code,
+    normalizedZone,
     isAdded,
-    handleToggle,
-  };
+    existingCountry,
+    addCountry,
+    removeCountry,
+    openPopup,
+  ]);
+
+  return { isAdded, handleToggle };
 }

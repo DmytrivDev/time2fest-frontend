@@ -169,7 +169,10 @@
     "close": "Close",
     "choose_zone": "Choose time zone",
     "set_changes": "Apply changes",
-    "login_required_title": "To use the schedule, you need to log in and activate a subscription"
+    "login_required_title": "To use the schedule, you need to log in and activate a subscription",
+    "replace_country_title": "You already selected a country for this time zone",
+    "replace_country_text": "Current country: {{country}}. Do you want to replace it?",
+    "replace": "Replace"
   },
   "ambassadors": {
     "ambassadors_title": "Time2Fest Ambassadors",

@@ -41,7 +41,8 @@ export default function ProfileSchedule() {
 
   // ---- 2. Готуємо параметр для /countries-light ----
   const zonesParam = countries
-    .map(c => `${c.country.toLowerCase()}:${c.zone}`)
+    .filter(c => c?.slug && c?.zone)
+    .map(c => `${c.slug.toLowerCase()}:${c.zone}`)
     .join(',');
 
   // ---- 3. Отримуємо легкі країни ----
@@ -76,7 +77,7 @@ export default function ProfileSchedule() {
     queryKey: ['country', locale, selectedCountry],
     queryFn: async () => {
       const res = await api.get(
-        `/countries?locale=${locale}&slug=${selectedCountry}` 
+        `/countries?locale=${locale}&slug=${selectedCountry}`
       );
       return res.data?.items?.[0] || res.data?.data?.[0] || null;
     },

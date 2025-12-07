@@ -9,6 +9,7 @@ import SeoMeta from '../../components/SeoMeta';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer/Footer';
 import LoginRequired from '@/components/Popups/LoginRequired';
+import ReplaceCountryPopup from "@/components/Popups/ReplaceCountryPopup";
 
 const LanguageHTMLUpdater = () => {
   const { i18n } = useTranslation();
@@ -72,6 +73,7 @@ const LanguageLayout = () => {
         <Outlet context={outletContext} />
       </main>
       <LoginRequired />
+      <ReplaceCountryPopup />
       {!isProfile && <Footer />}
     </div>
   );

@@ -8,7 +8,6 @@ export const useGraphStore = create(
       countries: [],
       isLoading: false,
 
-      // 🔹 Завантаження графіка користувача із сервера
       fetchSchedule: async () => {
         set({ isLoading: true });
 
@@ -17,42 +16,37 @@ export const useGraphStore = create(
           const serverCountries = data?.countries || [];
           const localCountries = get().countries;
 
-          // Якщо на сервері порожньо, а локально є — синхронізуємо
-          if (localCountries.length > 0 && serverCountries.length === 0) {
+          let finalCountries = localCountries;
+
+          if (serverCountries.length > 0) {
+            finalCountries = serverCountries;
+          } else if (localCountries.length > 0) {
             try {
               await userApi.patch('/user-schedule', {
                 countries: localCountries,
               });
-            } catch (syncErr) {
+            } catch (err) {
               console.warn(
-                '⚠️ Не вдалося синхронізувати локальні дані:',
-                syncErr
+                '⚠️ Не вдалося синхронізувати локальні дані на сервері:',
+                err
               );
             }
           }
 
-          // Обираємо актуальні дані
-          const finalCountries =
-            serverCountries.length > 0 ? serverCountries : localCountries;
-
           set({ countries: finalCountries, isLoading: false });
         } catch (err) {
-          console.error('❌ Помилка отримання графіка:', err);
+          console.error('❌ Не вдалося отримати графік користувача:', err);
           set({ isLoading: false });
         }
       },
 
-      // 🔹 Додавання країни (slug + zone)
+      // ---- Додавання ----
       addCountry: async country => {
         const current = get().countries;
 
-        // уникаємо дублікатів по slug + zone
         const exists = current.some(
-          c =>
-            c.country?.toLowerCase?.() === country.country?.toLowerCase?.() &&
-            String(c.zone).trim() === String(country.zone).trim()
+          c => c.slug === country.slug && c.zone === country.zone
         );
-
         if (exists) return;
 
         const updated = [...current, country];
@@ -61,18 +55,14 @@ export const useGraphStore = create(
         try {
           await userApi.patch('/user-schedule', { countries: updated });
         } catch (err) {
-          console.warn('⚠️ Не вдалося зберегти на сервері:', err);
+          console.warn('⚠️ Не вдалося зберегти країну на сервері:', err);
         }
       },
 
-      // 🔹 Видалення по slug + zone
+      // ---- Видалення ----
       removeCountry: async (slug, zone) => {
         const updated = get().countries.filter(
-          c =>
-            !(
-              c.country?.toLowerCase?.() === slug?.toLowerCase?.() &&
-              String(c.zone).trim() === String(zone).trim()
-            )
+          c => !(c.slug === slug && c.zone === zone)
         );
 
         set({ countries: updated });
@@ -80,17 +70,18 @@ export const useGraphStore = create(
         try {
           await userApi.patch('/user-schedule', { countries: updated });
         } catch (err) {
-          console.warn('⚠️ Не вдалося оновити бекенд:', err);
+          console.warn('⚠️ Не вдалося оновити графік на сервері:', err);
         }
       },
 
-      // 🔹 Повне очищення графіка
+      // ---- Очищення ----
       clearCountries: async () => {
         set({ countries: [] });
+
         try {
           await userApi.patch('/user-schedule', { countries: [] });
         } catch (err) {
-          console.warn('⚠️ Не вдалося очистити на сервері:', err);
+          console.warn('⚠️ Не вдалося очистити графік на сервері:', err);
         }
       },
     }),

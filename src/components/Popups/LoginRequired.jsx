@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { lockScroll, unlockScroll } from '@/utils/lockScroll';
 import { Clock } from 'lucide-react';
 
-import styles from './LoginRequired.module.scss';
+import styles from './Popup.module.scss';
 
 export default function LoginRequired() {
   const { t, i18n } = useTranslation();
