@@ -1,9 +1,7 @@
 import ProfileHome from '../../components/ProfileBlocks/ProfileHome/ProfileHome';
 
 const ProfileHomePage = () => {
-  return (
-    <ProfileHome />
-  );
+  return <ProfileHome />;
 };
 
 export default ProfileHomePage;

@@ -15,12 +15,13 @@
 	border-radius: 1.25rem;
 	display: flex;
 	align-items: center;
-	align-content: center;
 	justify-content: space-between;
+	gap: 1rem 2rem;
 }
 
 .subscribeLeft {
-	max-width: 40rem;
+	width: 100%;
+
 	* {
 		color: $color_dark;
 	}
@@ -28,7 +29,7 @@
 	.sebTitle {
 		font-size: 1.3125rem;
 		font-weight: 700;
-		line-height: 140%;
+		line-height: 1.4;
 	}
 
 	.subText {
@@ -42,4 +43,32 @@
 }
 
 @media screen and (max-width: 1140px) {
+	.profileSub {
+		padding-top: 3.75rem;
+	}
+
+	.subscribe {
+		gap: 1rem 1.5rem;
+		flex-direction: column;
+		justify-content: stretch;
+	}
+
+	.subscribeLeft {
+		.sebTitle {
+			font-size: 1.125rem;
+		}
+
+		.subText {
+			font-size: 0.875rem;
+			line-height: 1.8;
+		}
+	}
+
+	.srbscribeBtn {
+		padding-top: 0.875rem;
+		padding-bottom: 0.875rem;
+		width: 100%;
+		max-width: 21.4375rem;
+		margin: 0 auto;
+	}
 }

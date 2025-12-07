@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import clsx from 'clsx';
+
 import { getValidLocale } from '@/utils/getValidLocale';
 import { api } from '@/utils/api';
-import clsx from 'clsx';
 
 import styles from './ProfileSub.module.scss';
 
@@ -47,6 +48,7 @@ export default function ProfileSub() {
             <p>{t('profile.subText')}</p>
           </div>
         </div>
+
         <Link
           to={`/${
             i18n.language !== 'en' ? i18n.language + '/' : ''

@@ -7,11 +7,11 @@ import clsx from 'clsx';
 import { useAuth } from '@/hooks/useAuth';
 import { userApi } from '@/utils/userApi';
 
-import styles from './ProfileInfo.module.scss';
-
 import ProfileNameCard from './Parts/ProfileNameCard';
 import ProfilePasswordCard from './Parts/ProfilePasswordCard';
 import ProfileNewsletterCard from './Parts/ProfileNewsletterCard';
+
+import styles from './ProfileInfo.module.scss';
 
 export default function ProfileInfo() {
   const { t } = useTranslation();
@@ -57,7 +57,7 @@ export default function ProfileInfo() {
             className={clsx('btn_primary', styles.logoutBtn)}
             onClick={handleLogout}
           >
-            {t('profile.logout', 'Вийти')}
+            <span>{t('profile.logout', 'Вийти')}</span>
           </button>
         </div>
       </div>
