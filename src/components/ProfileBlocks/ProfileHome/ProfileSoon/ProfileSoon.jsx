@@ -104,17 +104,28 @@ export default function ProfileSoon() {
   return (
     <section className={styles.profileSchd}>
       <div className={styles.headding}>
-        <h3 className={styles.ttl}>
-          {t('profile.soon_title')}
-        </h3>
+        <h3 className={styles.ttl}>{t('profile.soon_title')}</h3>
       </div>
 
       <div className={styles.content}>
         <Swiper
-          key={location.pathname}
-          spaceBetween={24}
-          slidesPerView={3}
           className={clsx(styles.slider, 'countriesSlider')}
+          key={location.pathname}
+          breakpoints={{
+            0: {
+              slidesPerView: 1,
+            },
+            768: {
+              slidesPerView: 2,
+            },
+            1140: {
+              slidesPerView: 3,
+              spaceBetween: 20,
+            },
+            1440: {
+              spaceBetween: 24,
+            },
+          }}
         >
           {countries.map(country => (
             <SwiperSlide key={country.id}>

@@ -2,33 +2,69 @@
 @use "@/styles/variables" as *;
 
 .profileSchd {
-    padding-top: 4.5rem;
+	padding-top: 4.5rem;
 }
 
 .ttlLoading {
-    height: 2.45rem;
-    width: 22rem;
+	height: 2.45rem;
+	width: 22rem;
 }
 
 .itemLoading {
-    border-radius: 1.25rem;
-    height: 45.085rem;
+	border-radius: 1.25rem;
+	height: 45.085rem;
 }
 
 .ctrsListLoading {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 1.5rem;
 }
 
 .headding {
-    .ttl {
-        font-size: 1.75rem;
-        font-weight: 700;
-        line-height: 140%;
-    }
+	.ttl {
+		font-size: 1.75rem;
+		font-weight: 700;
+		line-height: 1.4;
+	}
 }
 
 .content {
-    margin-top: 2.5rem;
+	margin-top: 2.5rem;
+}
+
+@media screen and (max-width: 1140px) {
+	.profileSchd {
+		padding-top: 3.5rem;
+	}
+
+	.ttlLoading {
+		height: 1.875rem;
+		width: 17.5rem;
+	}
+
+	.itemLoading {
+		height: 32.75rem;
+	}
+
+	.ctrsListLoading {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1.25rem;
+	}
+
+	.headding {
+		.ttl {
+			font-size: 1.3125rem;
+		}
+	}
+
+	.content {
+		margin-top: 1.5rem;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.ctrsListLoading {
+		grid-template-columns: 1fr;
+	}
 }
