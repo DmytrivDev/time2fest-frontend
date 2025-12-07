@@ -2,41 +2,44 @@
 @use "@/styles/variables" as *;
 
 .profileSub {
-    padding-top: 5rem;
+	padding-top: 5rem;
 }
 
 .subscribeLoading {
-    height: 7.144rem;
+	height: 7.144rem;
 }
 
 .subscribe {
-    background-color: $color-yellow;
-    padding: 1.5rem;
-    border-radius: 1.25rem;
-    display: flex;
-    align-items: center;
-    align-content: center;
-    justify-content: space-between;
+	background-color: $color-yellow;
+	padding: 1.5rem;
+	border-radius: 1.25rem;
+	display: flex;
+	align-items: center;
+	align-content: center;
+	justify-content: space-between;
 }
 
 .subscribeLeft {
-    max-width: 40rem;
-    * {
-        color: $color_dark;
-    }
+	max-width: 40rem;
+	* {
+		color: $color_dark;
+	}
 
-    .sebTitle {
-        font-size: 1.3125rem;
-        font-weight: 700;
-        line-height: 140%;
-    }
+	.sebTitle {
+		font-size: 1.3125rem;
+		font-weight: 700;
+		line-height: 140%;
+	}
 
-    .subText {
-        margin-top: 0.87rem;
-    }
+	.subText {
+		margin-top: 0.87rem;
+	}
 }
 
 .srbscribeBtn {
-    padding-top: 0.94rem;
-    padding-bottom: 0.94rem;
+	padding-top: 0.94rem;
+	padding-bottom: 0.94rem;
+}
+
+@media screen and (max-width: 1140px) {
 }

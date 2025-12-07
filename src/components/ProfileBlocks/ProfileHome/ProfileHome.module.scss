@@ -2,8 +2,14 @@
 @use "@/styles/variables" as *;
 
 .profileContent {
-    padding: 4rem;
-    max-height: 100vh;
-    max-height: 100dvh;
-    overflow: auto;
+	padding: 4rem;
+	max-height: 100vh;
+	max-height: 100dvh;
+	overflow: auto;
+}
+
+@media screen and (max-width: 1140px) {
+	.profileContent {
+		padding: 7.5rem 1rem 3.75rem 1rem;
+	}
 }
