@@ -124,6 +124,7 @@ export default function ProfileSoon() {
             },
             1440: {
               spaceBetween: 24,
+              slidesPerView: 3,
             },
           }}
         >

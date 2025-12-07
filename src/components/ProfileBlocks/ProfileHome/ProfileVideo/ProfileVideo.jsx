@@ -16,12 +16,7 @@ export default function ProfileVideo({ data, loading, error }) {
         </div>
 
         <div className={styles.content}>
-          <div
-            className={clsx(
-              styles.videoContainer,
-              'loading'
-            )}
-          ></div>
+          <div className={clsx(styles.videoContainer, 'loading')}></div>
         </div>
       </section>
     );
@@ -37,9 +32,7 @@ export default function ProfileVideo({ data, loading, error }) {
   return (
     <section className={styles.profileSchd}>
       <div className={styles.headding}>
-        <h3 className={styles.ttl}>
-          {t('profile.live_title')}
-        </h3>
+        <h3 className={styles.ttl}>{t('profile.live_title')}</h3>
       </div>
 
       <div className={styles.content}>
@@ -56,7 +49,7 @@ export default function ProfileVideo({ data, loading, error }) {
             height="315"
             src={`https://www.youtube.com/embed/${VideoID}`}
             title="Live stream"
-            frameBorder='0'
+            frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
