@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useLoginSubPopupStore } from '@/stores/useLoginSubPopupStore';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '@/hooks/useAuth'; 
 
 import styles from './AboutPaid.module.scss';
 

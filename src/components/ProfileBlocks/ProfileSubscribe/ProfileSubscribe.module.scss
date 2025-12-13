@@ -104,6 +104,35 @@
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	gap: 1.44rem;
+
+	&.oneItem {
+		grid-template-columns: none;
+
+		.card {
+			&:first-child {
+				background-color: $color-dark;
+				background-image: url("/about/nye.webp");
+				background-repeat: no-repeat;
+				background-position: center center;
+				background-repeat: no-repeat;
+
+				img {
+					position: absolute;
+					object-fit: initial;
+					left: auto;
+					top: 1rem;
+					right: 1rem;
+					bottom: 1rem;
+					width: auto;
+					transform: none;
+					height: calc(100% - 2rem);
+					border-radius: 1.5rem;
+					overflow: hidden;
+					z-index: 2;
+				}
+			}
+		}
+	}
 }
 
 .card {
@@ -208,6 +237,29 @@
 		margin-top: 1.875rem;
 		grid-template-columns: repeat(2, 1fr);
 		gap: 1.25rem;
+
+		&.oneItem {
+			grid-template-columns: repeat(2, 1fr);
+
+			.card {
+				min-height: 16.5rem;
+
+				&:first-child {
+					background-image: none;
+					img {
+						top: 0;
+						right: 0;
+						bottom: 0;
+						left: 0;
+						object-fit: cover;
+						width: 100%;
+						height: 100%;
+						z-index: 0;
+						border-radius: none;
+					}
+				}
+			}
+		}
 	}
 
 	.card {
@@ -277,6 +329,16 @@
 	.cards {
 		order: 3;
 		grid-template-columns: 1fr;
+
+		&.oneItem {
+			grid-template-columns: none;
+
+			.card {
+				&:first-child {
+					min-height: 12rem;
+				}
+			}
+		}
 	}
 
 	.card {

@@ -62,6 +62,7 @@ export default function ProfileSubscribe() {
   if (errorRest || !restData) return null;
 
   const data = restData?.PaidPlan;
+  const count = data.PaidPlanList.length;
 
   return (
     <div className={styles.profileContent}>
@@ -73,7 +74,7 @@ export default function ProfileSubscribe() {
         <p className={styles.price}>{data.Price}</p>
       </div>
 
-      <ul className={styles.cards}>
+      <ul className={clsx(styles.cards, count === 1 && styles.oneItem)}>
         {data.PaidPlanList?.map(item => {
           return (
             <li key={item.id} className={styles.card}>
