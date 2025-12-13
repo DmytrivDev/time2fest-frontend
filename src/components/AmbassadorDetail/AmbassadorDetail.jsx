@@ -362,6 +362,22 @@ const AmbassadorDetail = ({ data, isLoading, error, isProfilePage }) => {
 
               {renderPhotoBlock()}
               {renderDescription()}
+              <button
+                className={clsx(
+                  styles.addBtn,
+                  'btn_primary plus',
+                  isAdded && 'added'
+                )}
+                onClick={() => {
+                  if (!isAuthenticated) {
+                    openLoginPopup();
+                    return;
+                  }
+                  handleToggle();
+                }}
+              >
+                {isAdded ? t('profile.added') : t('nav.addshelb')}
+              </button>
               {renderSocialsBlock()}
             </>
           )}

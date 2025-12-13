@@ -70,12 +70,11 @@ const MapInfo = ({ data, zone, loading, onClose }) => {
   // ===================== 4. HELPERS =====================
   //
 
-  const backgroundUrl =
-    Background?.formats?.medium
-      ? `${import.meta.env.VITE_STRIPE_URL}${Background.formats.medium.url}`
-      : Background?.url
-        ? `${import.meta.env.VITE_STRIPE_URL}${Background.url}`
-        : `${import.meta.env.VITE_STRIPE_URL}${Background}`;
+  const backgroundUrl = Background?.formats?.medium
+    ? `${import.meta.env.VITE_STRIPE_URL}${Background.formats.medium.url}`
+    : Background?.url
+      ? `${import.meta.env.VITE_STRIPE_URL}${Background.url}`
+      : `${import.meta.env.VITE_STRIPE_URL}${Background}`;
 
   const hasAmbassador = ambassadors.length > 0;
   const hasCamera = currentZone?.VebCamera || false;
@@ -113,8 +112,17 @@ const MapInfo = ({ data, zone, loading, onClose }) => {
             ))}
           </p>
 
-          <div className={clsx(styles.details, styles.detailsLoading, 'loading')} />
-          <div className={clsx(styles.add, styles.addLoading, 'loading', 'btn_primary')} />
+          <div
+            className={clsx(styles.details, styles.detailsLoading, 'loading')}
+          />
+          <div
+            className={clsx(
+              styles.add,
+              styles.addLoading,
+              'loading',
+              'btn_primary'
+            )}
+          />
         </div>
 
         <div className={clsx(styles.timerLoading, 'loading')} />
@@ -185,8 +193,12 @@ const MapInfo = ({ data, zone, loading, onClose }) => {
                     ? `${import.meta.env.VITE_STRIPE_URL}${amb.photo}`
                     : '/country/amb_def.jpg';
 
+                  const ambassPath = `/${
+                    i18n.language !== 'en' ? i18n.language + '/' : ''
+                  }profile/ambassadors/${amb.slug}`;
+
                   return (
-                    <Link to="#" key={amb.id || idx} className={styles.ambItem}>
+                    <Link to={ambassPath} key={amb.id || idx} className={styles.ambItem}>
                       <span className={styles.ambImg}>
                         <img src={photoUrl} alt={amb.name} />
                       </span>

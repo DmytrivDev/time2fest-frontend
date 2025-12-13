@@ -1,11 +1,12 @@
 import { useTranslation, Trans } from 'react-i18next';
-import { addToCalendar } from '@/utils/addToCalendar';
+import { Link } from 'react-router-dom';
 import { IoTime, IoGlobeOutline, IoPersonAddSharp } from 'react-icons/io5';
 
 import styles from './HeroContent.module.scss';
 
 const HeroContent = () => {
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
+  const lang = i18n.language === 'en' ? '' : `${i18n.language}/`;
 
   const badges = [
     { icon: <IoTime />, label: t('bages.zones') },
@@ -44,9 +45,9 @@ const HeroContent = () => {
           {t('hero_btn1')}
         </button>
 
-        <button onClick={() => addToCalendar(t)} className="btn btn_transp">
-          {t('hero_btn2')}
-        </button>
+        <Link to={`/${lang}login`} className="btn btn_transp">
+          {t('log-in')}
+        </Link>
       </div>
     </div>
   );

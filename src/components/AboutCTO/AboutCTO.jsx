@@ -1,12 +1,14 @@
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import useFloatingDecors from '../../hooks/useFloatingDecors';
+import { Link } from 'react-router-dom';
 import { addToCalendar } from '@/utils/addToCalendar';
 
 import styles from './AboutCTO.module.scss';
 
 const AboutCto = ({ data, isLoading, error }) => {
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
+  const lang = i18n.language === 'en' ? '' : `${i18n.language}/`;
 
   useFloatingDecors(!isLoading ? `#about-cto .dec` : null, 20);
 
@@ -58,9 +60,9 @@ const AboutCto = ({ data, isLoading, error }) => {
             {data.Text && <p className={styles.text}>{data.Text}</p>}
 
             <div className={styles.actions}>
-              <button onClick={addToCalendar} className="btn_primary">
-                {t('hero_btn2')}
-              </button>
+              <Link to={`/${lang}login`} className="btn_primary">
+                {t('auth.login')}
+              </Link>
             </div>
           </div>
 

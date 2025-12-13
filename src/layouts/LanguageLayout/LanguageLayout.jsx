@@ -9,6 +9,7 @@ import SeoMeta from '../../components/SeoMeta';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer/Footer';
 import LoginRequired from '@/components/Popups/LoginRequired';
+import LoginSubRequired from '@/components/Popups/LoginSubRequired';
 import ReplaceCountryPopup from "@/components/Popups/ReplaceCountryPopup";
 
 const LanguageHTMLUpdater = () => {
@@ -73,6 +74,7 @@ const LanguageLayout = () => {
         <Outlet context={outletContext} />
       </main>
       <LoginRequired />
+      <LoginSubRequired />
       <ReplaceCountryPopup />
       {!isProfile && <Footer />}
     </div>

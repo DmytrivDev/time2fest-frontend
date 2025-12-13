@@ -170,6 +170,7 @@
     "choose_zone": "Elige zona horaria",
     "set_changes": "Aplicar cambios",
     "login_required_title": "Para usar el calendario, necesitas iniciar sesión y activar una suscripción",
+    "login_sub_required_title": "Para suscribirte a todas las funciones, necesitas iniciar sesión.",
     "replace_country_title": "Ya tiene un país seleccionado para esta zona horaria",
     "replace_country_text": "País actual: {{country}}. ¿Desea reemplazarlo?",
     "replace": "Reemplazar"
@@ -363,6 +364,7 @@
     "kyrkyzstan": "Kirguistán",
     "kazakhstan": "Kazajistán",
     "maldivas": "Maldivas",
+    "maldives": "Maldivas",
     "pakistan": "Pakistán",
     "tajikistan": "Tayikistán",
     "turkmenistan": "Turkmenistán",

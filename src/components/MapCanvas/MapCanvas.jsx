@@ -32,7 +32,7 @@ export default function MapCanvas({ windowWidth, onZoneClick }) {
   const worldRef = useRef(null);
   const zoomRef = useRef(null);
   const [isLoading, setIsLoading] = useState(true);
-
+  const isProfilePage = window.location.pathname.includes('/profile');
 
   useEffect(() => {
     setIsLoading(true);
@@ -254,19 +254,26 @@ export default function MapCanvas({ windowWidth, onZoneClick }) {
     const zoom = d3
       .zoom()
       .filter(e => {
-        // колесо миші — тільки з ctrl/cmd
-        if (e.type === 'wheel') return e.ctrlKey || e.metaKey;
-
-        // жести на сенсорі — тільки якщо два пальці
-        if (
-          e.type === 'touchstart' ||
-          e.type === 'touchmove' ||
-          e.type === 'touchend'
-        ) {
-          return e.touches && e.touches.length === 2;
+        // wheel — тільки з ctrl / cmd (всюди)
+        if (e.type === 'wheel') {
+          return e.ctrlKey || e.metaKey;
         }
 
-        // миша — залишаємо як є
+        // touch
+        if (e.type.startsWith('touch')) {
+          // 🔐 НЕ profile — як було:
+          // тільки 2 пальці
+          if (!isProfilePage) {
+            return e.touches && e.touches.length === 2;
+          }
+
+          // 👤 profile — дозволяємо все:
+          // 1 палець → pan
+          // 2 пальці → pinch
+          return true;
+        }
+
+        // mouse — без змін
         return !e.ctrlKey && !e.metaKey;
       })
       .wheelDelta(e => -e.deltaY * WHEEL_SENS)

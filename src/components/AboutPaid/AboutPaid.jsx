@@ -1,10 +1,17 @@
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import { useLoginSubPopupStore } from '@/stores/useLoginSubPopupStore';
+import { useAuth } from '@/hooks/useAuth';
 
 import styles from './AboutPaid.module.scss';
 
 const AboutPaid = ({ data, dataFree, isLoading, error }) => {
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
+  const openLoginPopup = useLoginSubPopupStore(s => s.openPopup);
+  const { isAuthenticated } = useAuth();
+
+  const lang = i18n.language === 'en' ? '' : `${i18n.language}/`;
 
   if (isLoading) {
     return (
@@ -68,6 +75,7 @@ const AboutPaid = ({ data, dataFree, isLoading, error }) => {
   }
 
   if (error || !data) return null;
+  const count = data.PaidPlanList.length;
 
   return (
     <section id="about-paid" className={styles.section}>
@@ -84,7 +92,7 @@ const AboutPaid = ({ data, dataFree, isLoading, error }) => {
             {data.Text && <p className={styles.text}>{data.Text}</p>}
           </div>
 
-          <ul className={styles.cards}>
+          <ul className={clsx(styles.cards, count === 1 && styles.oneItem)}>
             {data.PaidPlanList?.map(item => {
               return (
                 <li key={item.id} className={styles.card}>
@@ -118,9 +126,16 @@ const AboutPaid = ({ data, dataFree, isLoading, error }) => {
               </li>
             )}
           </ul>
-
           <div className={styles.actions}>
-            <button className="btn_primary">{t('btn_sub')}</button>
+            {!isAuthenticated ? (
+              <button className="btn_primary" onClick={openLoginPopup}>
+                {t('btn_sub')}
+              </button>
+            ) : (
+              <Link to={`/${lang}/profile/subscription`} className="btn_primary">
+                {t('btn_sub')}
+              </Link>
+            )}
           </div>
         </div>
       </div>

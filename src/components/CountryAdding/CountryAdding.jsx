@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '@/hooks/useAuth';
+import { useLoginPopupStore } from '@/stores/useLoginPopupStore';
+
+import { useScheduleToggle } from '@/hooks/useScheduleToggle';
 
 import styles from './CountryAdding.module.scss';
 
@@ -9,10 +13,20 @@ const CountryAdding = ({
   description = '',
   nameSec = '',
   isLoading,
+  name,
+  slug,
+  tzParam,
   error,
   isProfilePage,
 }) => {
   const { t } = useTranslation();
+  const { isAuthenticated } = useAuth();
+  const openLoginPopup = useLoginPopupStore(s => s.openPopup);
+
+  const utcOffsetStr = useMemo(() => {
+    if (tzParam?.toUpperCase?.().startsWith('UTC')) return tzParam;
+    return 'UTC+0';
+  }, [tzParam]);
 
   if (isLoading) {
     return (
@@ -73,13 +87,11 @@ const CountryAdding = ({
 
   if (error || !Array.isArray(gallery) || gallery.length === 0) return null;
 
-  // Кнопка додавання у календар (аналогічна до CountryDetail)
-  const addToCalendar = () => {
-    if (typeof window !== 'undefined' && window.umami) {
-      window.umami.track('add_to_calendar_country_adding');
-    }
-    // тут можеш додати логіку календаря або посилання
-  };
+  const { isAdded, handleToggle } = useScheduleToggle({
+    slug: slug,
+    code: name,
+    zone: utcOffsetStr,
+  });
 
   return (
     <section
@@ -115,10 +127,20 @@ const CountryAdding = ({
             ></p>
 
             <button
-              className={clsx(styles.addBtn, 'btn_primary')}
-              onClick={addToCalendar}
+              className={clsx(
+                styles.addBtn,
+                'btn_primary plus',
+                isAdded && 'added'
+              )}
+              onClick={() => {
+                if (!isAuthenticated) {
+                  openLoginPopup();
+                  return;
+                }
+                handleToggle();
+              }}
             >
-              {t('controls.add_to_shel')}
+              {isAdded ? t('profile.added') : t('nav.addshelb')}
             </button>
           </div>
         </div>

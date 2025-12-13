@@ -102,6 +102,9 @@ const CountryPage = () => {
           description={countryDesc}
           nameSec={country?.CountrySec || country?.CountryName}
           isLoading={isLoading}
+          name={country.CountryName}
+          slug={country.slug}
+          tzParam={effectiveTz}
           error={error}
         />
       )}

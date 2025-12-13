@@ -20,6 +20,10 @@ section {
 	align-items: center;
 	align-content: center;
 	justify-content: space-between;
+
+	a {
+		display: flex !important;
+	}
 }
 
 .grid {

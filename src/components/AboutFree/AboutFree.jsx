@@ -1,11 +1,12 @@
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
-import { addToCalendar } from '@/utils/addToCalendar';
+import { Link } from 'react-router-dom';
 
 import styles from './AboutFree.module.scss';
 
 const AboutFree = ({ data, isLoading, error }) => {
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
+  const lang = i18n.language === 'en' ? '' : `${i18n.language}/`;
 
   if (isLoading) {
     return (
@@ -73,9 +74,9 @@ const AboutFree = ({ data, isLoading, error }) => {
           </ul>
 
           <div className={styles.actions}>
-            <button onClick={() => addToCalendar(t)} className="btn_primary">
-              {t('hero_btn2')}
-            </button>
+            <Link to={`/${lang}login`} className="btn_primary">
+              {t('auth.login')}
+            </Link>
           </div>
         </div>
       </div>
