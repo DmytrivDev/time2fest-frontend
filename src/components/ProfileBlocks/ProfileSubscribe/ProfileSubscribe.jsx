@@ -8,8 +8,10 @@ import clsx from 'clsx';
 import styles from './ProfileSubscribe.module.scss';
 
 export default function ProfileSubscribe() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const locale = getValidLocale();
+  const lang = i18n.language; // 👈 'en' | 'uk' | 'es' | 'fr'
+
   const { startCheckout, loading } = usePremiumCheckout();
 
   const {
@@ -75,27 +77,29 @@ export default function ProfileSubscribe() {
       </div>
 
       <ul className={clsx(styles.cards, count === 1 && styles.oneItem)}>
-        {data.PaidPlanList?.map(item => {
-          return (
-            <li key={item.id} className={styles.card}>
-              <div className={styles.imageWrapper}>
-                {item.Image?.url && (
-                  <img
-                    src={`${import.meta.env.VITE_STRIPE_URL}${item.Image.url}`}
-                    alt={item.Image?.alternativeText || item.Text}
-                  />
-                )}
-              </div>
-              <div className={styles.cardContent}>
-                <p className={styles.cardText}>{item.Text}</p>
-              </div>
-            </li>
-          );
-        })}
+        {data.PaidPlanList?.map(item => (
+          <li key={item.id} className={styles.card}>
+            <div className={styles.imageWrapper}>
+              {item.Image?.url && (
+                <img
+                  src={`${import.meta.env.VITE_STRIPE_URL}${item.Image.url}`}
+                  alt={item.Image?.alternativeText || item.Text}
+                />
+              )}
+            </div>
+            <div className={styles.cardContent}>
+              <p className={styles.cardText}>{item.Text}</p>
+            </div>
+          </li>
+        ))}
       </ul>
 
       <div className={styles.actions}>
-        <button className="btn_primary" onClick={startCheckout}>
+        <button
+          className="btn_primary"
+          disabled={loading}
+          onClick={() => startCheckout(lang)} // 👈 важливо
+        >
           {t('btn_sub')}
         </button>
       </div>
