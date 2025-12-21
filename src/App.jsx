@@ -57,6 +57,9 @@ const ProfilePayments = lazy(
 const ProfileSchedule = lazy(
   () => import('./pages/ProfilePage/ProfileSchedule')
 );
+const ProfileSuccess = lazy(
+  () => import('./pages/ProfilePage/ProfileSuccess')
+);
 const ProfileHome = lazy(() => import('./pages/ProfilePage/ProfileHome'));
 
 const RegisterPage = lazy(() => import('./pages/Auth/RegisterPage'));
@@ -124,6 +127,7 @@ const App = () => {
               <Route path="subscription" element={<ProfileSubscribe />} />
               <Route path="payments" element={<ProfilePayments />} />
               <Route path="schedule" element={<ProfileSchedule />} />
+              <Route path="success" element={<ProfileSuccess />} />
             </Route>
             <Route path="login-success" element={<LoginSuccess />} />
             <Route path="login" element={<LoginPage />} />
@@ -184,6 +188,7 @@ const App = () => {
               <Route path="subscription" element={<ProfileSubscribe />} />
               <Route path="payments" element={<ProfilePayments />} />
               <Route path="schedule" element={<ProfileSchedule />} />
+              <Route path="success" element={<ProfileSuccess />} />
             </Route>
             <Route path="login-success" element={<LoginSuccess />} />
             <Route path="login" element={<LoginPage />} />
