@@ -38,6 +38,7 @@
   "hero_btn1": "Обрати країну",
   "hero_btn2": "Зробити нагадування",
   "btn_sub": "Оформиим підписку",
+  "isPrem": "Ви оформили преміум акаунт",
   "about_ambass": "Дізнатись більше",
   "calendar_title": "Зутрічай Новий рік наживо по всьому світу!",
   "calendar_titlecountry": "Time2Fest! Зупинка",
@@ -315,7 +316,10 @@
     "goto_schedule": "До графіка",
     "soon_title": "Найближчі події",
     "live_title": "Зараз в ефірі",
-    "no_upcoming_countries": "Графік святкувань зараз порожній"
+    "no_upcoming_countries": "Графік святкувань зараз порожній",
+    "payTypeSub": "Преміум",
+    "payProdNY": "Новий рік",
+    "payEmpty": "У вас поки немає оплат"
   },
   "countries": {
     "kiribati": "Кірібаті",

@@ -1,14 +1,57 @@
+import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 
 import { getValidLocale } from '@/utils/getValidLocale';
-import { api } from '@/utils/api';
+import { userApi } from '@/utils/userApi';
 
 import clsx from 'clsx';
-
 import styles from './ProfilePayments.module.scss';
 
 export default function ProfilePayments() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const locale = getValidLocale(i18n.language);
+
+  const {
+    data: orders,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ['profile-orders'],
+    queryFn: async () => {
+      const res = await userApi.get('/orders');
+      return res.data;
+    },
+    staleTime: 5 * 60 * 1000,
+  });
+
+  if (isLoading) {
+    return (
+      <div className={styles.profileContent}>
+        <div className={styles.heading}>
+          <div className={clsx(styles.titleLoading, 'loading')}></div>
+        </div>
+        <div className={styles.payments}>
+          <div>
+            <div className={styles.payment__heading}>
+              <div className={styles.coll}>{t('profile.payC1')}</div>
+              <div className={styles.coll}>{t('profile.payC2')}</div>
+              <div className={styles.coll}>{t('profile.payC3')}</div>
+              <div className={styles.coll}>{t('profile.payC4')}</div>
+              <div className={styles.coll}>{t('profile.payC5')}</div>
+              <div className={styles.coll}>{t('profile.payC6')}</div>
+              <div className={styles.coll}>{t('profile.payC7')}</div>
+            </div>
+
+            <ul className={styles.payments__list}>
+              <li className={clsx(styles.payments__item, styles.payItemLoading, 'loading')}></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !orders) return null;
 
   return (
     <div className={styles.profileContent}>
@@ -31,101 +74,61 @@ export default function ProfilePayments() {
           </div>
 
           <ul className={styles.payments__list}>
-            <li className={styles.payments__item}>
-              <div className={styles.coll}>
-                <div>{t('profile.payC1')}</div>
-                <div>H_31555706</div>
-              </div>
-              <div className={styles.coll}>
-                <div>{t('profile.payC2')}</div>
-                <div>HCY-18350242</div>
-              </div>
-              <div className={styles.coll}>
-                <div>{t('profile.payC3')}</div>
-                <div>Підписка</div>
-              </div>
-              <div className={styles.coll}>
-                <div>{t('profile.payC4')}</div>
-                <div>Новий рік</div>
-              </div>
-              <div className={styles.coll}>
-                <div>{t('profile.payC5')}</div>
-                <div>2025-10-20</div>
-              </div>
-              <div className={styles.coll}>
-                <div>{t('profile.payC6')}</div>
-                <div>9.99$</div>
-              </div>
-              <div className={styles.coll}>
-                <button type="button">
-                  <span>{t('profile.payC7')}</span>
-                </button>
-              </div>
-            </li>
+            {orders.length === 0 && (
+              <li className={clsx(styles.payments__item, styles.payments__itemno)}>
+                <div>{t('profile.payEmpty')}</div>
+              </li>
+            )}
 
-            <li className={styles.payments__item}>
-              <div className={styles.coll}>
-                <div>{t('profile.payC1')}</div>
-                <div>H_31555706</div>
-              </div>
-              <div className={styles.coll}>
-                <div>{t('profile.payC2')}</div>
-                <div>HCY-18350242</div>
-              </div>
-              <div className={styles.coll}>
-                <div>{t('profile.payC3')}</div>
-                <div>Підписка</div>
-              </div>
-              <div className={styles.coll}>
-                <div>{t('profile.payC4')}</div>
-                <div>Новий рік</div>
-              </div>
-              <div className={styles.coll}>
-                <div>{t('profile.payC5')}</div>
-                <div>2025-10-20</div>
-              </div>
-              <div className={styles.coll}>
-                <div>{t('profile.payC6')}</div>
-                <div>9.99$</div>
-              </div>
-              <div className={styles.coll}>
-                <button type="button">
-                  <span>{t('profile.payC7')}</span>
-                </button>
-              </div>
-            </li>
+            {orders.map(order => (
+              <li key={order.id} className={styles.payments__item}>
+                <div className={styles.coll}>
+                  <div>{t('profile.payC1')}</div>
+                  <div>{order.id}</div>
+                </div>
 
-            <li className={styles.payments__item}>
-              <div className={styles.coll}>
-                <div>{t('profile.payC1')}</div>
-                <div>H_31555706</div>
-              </div>
-              <div className={styles.coll}>
-                <div>{t('profile.payC2')}</div>
-                <div>HCY-18350242</div>
-              </div>
-              <div className={styles.coll}>
-                <div>{t('profile.payC3')}</div>
-                <div>Підписка</div>
-              </div>
-              <div className={styles.coll}>
-                <div>{t('profile.payC4')}</div>
-                <div>Новий рік</div>
-              </div>
-              <div className={styles.coll}>
-                <div>{t('profile.payC5')}</div>
-                <div>2025-10-20</div>
-              </div>
-              <div className={styles.coll}>
-                <div>{t('profile.payC6')}</div>
-                <div>9.99$</div>
-              </div>
-              <div className={styles.coll}>
-                <button type="button">
-                  <span>{t('profile.payC7')}</span>
-                </button>
-              </div>
-            </li>
+                <div className={styles.coll}>
+                  <div>{t('profile.payC2')}</div>
+                  <div>{order.order_id || '—'}</div>
+                </div>
+
+                <div className={styles.coll}>
+                  <div>{t('profile.payC3')}</div>
+                  <div>{t('profile.payTypeSub')}</div>
+                </div>
+
+                <div className={styles.coll}>
+                  <div>{t('profile.payC4')}</div>
+                  <div>{t('profile.payProdNY')}</div>
+                </div>
+
+                <div className={styles.coll}>
+                  <div>{t('profile.payC5')}</div>
+                  <div>
+                    {new Date(order.created_at).toLocaleDateString(locale)}
+                  </div>
+                </div>
+
+                <div className={styles.coll}>
+                  <div>{t('profile.payC6')}</div>
+                  <div>$5</div>
+                </div>
+
+                <div className={styles.coll}>
+                  {order.invoice_link ? (
+                    <a
+                      href={order.invoice_link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <span>{t('profile.payC7')}</span>
+                    </a>
+                  ) : (
+                    <span>—</span>
+                  )}
+                </div>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

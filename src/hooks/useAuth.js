@@ -12,8 +12,6 @@ export const useAuth = () => {
     retry: false,
   });
 
-  console.log(data)
-
   const isAuthenticated = !!data;
   const isPremium = Boolean(data?.isPremium);
 

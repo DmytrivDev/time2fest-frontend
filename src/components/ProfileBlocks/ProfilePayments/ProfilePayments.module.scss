@@ -9,8 +9,12 @@
 }
 
 .titleLoading {
-	width: 28.5rem;
+	width: 18.5rem;
 	height: 2.3475rem;
+}
+
+.payItemLoading {
+	height: 5.875rem;
 }
 
 .heading {
@@ -78,7 +82,8 @@
 			padding-right: 1.5rem;
 			border-right: none;
 
-			button {
+			button,
+			a {
 				display: flex;
 				justify-content: center;
 				align-items: center;
@@ -107,9 +112,22 @@
 	}
 }
 
+.payments__itemno {
+	height: 5.875rem;
+	display: flex;
+	align-items: center;
+	align-content: center;
+	justify-content: center;
+	padding: 0 1.5rem !important;
+}
+
 @media screen and (max-width: 1140px) {
 	.profileContent {
 		padding: 7.5rem 1rem 3.75rem 1rem;
+	}
+
+	.payItemLoading {
+		height: 24.5rem;
 	}
 
 	.titleLoading {

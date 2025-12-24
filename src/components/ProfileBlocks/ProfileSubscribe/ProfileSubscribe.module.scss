@@ -203,6 +203,10 @@
 	}
 }
 
+.isPrem {
+	background-color: $color-primary !important;
+}
+
 @media screen and (min-width: 1880px) {
 	.countryGridCont {
 		& > ul {

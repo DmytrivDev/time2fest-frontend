@@ -15,7 +15,7 @@ import styles from './ProfileHome.module.scss';
 
 export default function ProfilePayments() {
   const locale = getValidLocale();
-  const { isAuthenticated, isPremium } = useAuth();
+  const { isPremium } = useAuth();
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['profile-page', locale],

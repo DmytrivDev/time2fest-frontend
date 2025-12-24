@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { getValidLocale } from '@/utils/getValidLocale';
 import { api } from '@/utils/api';
 import { usePremiumCheckout } from '@/hooks/usePremiumCheckout';
+import { useAuth } from '@/hooks/useAuth';
 import clsx from 'clsx';
 
 import styles from './ProfileSubscribe.module.scss';
@@ -11,6 +12,7 @@ export default function ProfileSubscribe() {
   const { t, i18n } = useTranslation();
   const locale = getValidLocale();
   const lang = i18n.language; // 👈 'en' | 'uk' | 'es' | 'fr'
+  const { isPremium } = useAuth();
 
   const { startCheckout, loading } = usePremiumCheckout();
 
@@ -75,7 +77,6 @@ export default function ProfileSubscribe() {
         </div>
         <p className={styles.price}>{data.Price}</p>
       </div>
-
       <ul className={clsx(styles.cards, count === 1 && styles.oneItem)}>
         {data.PaidPlanList?.map(item => (
           <li key={item.id} className={styles.card}>
@@ -93,15 +94,18 @@ export default function ProfileSubscribe() {
           </li>
         ))}
       </ul>
-
       <div className={styles.actions}>
-        <button
-          className="btn_primary"
-          disabled={loading}
-          onClick={() => startCheckout(lang)} // 👈 важливо
-        >
-          {t('btn_sub')}
-        </button>
+        {!isPremium ? (
+          <button
+            className="btn_primary"
+            disabled={loading}
+            onClick={() => startCheckout(lang)}
+          >
+            {t('btn_sub')}
+          </button>
+        ) : (
+          <div className={clsx(styles.isPrem, 'btn_primary')}>{t('isPrem')}</div>
+        )}
       </div>
     </div>
   );

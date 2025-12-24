@@ -38,6 +38,7 @@
   "hero_btn1": "Elegir país",
   "hero_btn2": "Recordarme",
   "btn_sub": "Suscribirse",
+  "isPrem": "Has activado una cuenta premium",
   "about_ambass": "Saber más",
   "calendar_title": "Time2Fest – ¡Empieza la fiesta!",
   "calendar_titlecountry": "Time2Fest! Parada",
@@ -315,7 +316,10 @@
     "goto_schedule": "Ir al horario",
     "soon_title": "Próximos eventos",
     "live_title": "En directo ahora",
-    "no_upcoming_countries": "El calendario de celebraciones está vacío por ahora"
+    "no_upcoming_countries": "El calendario de celebraciones está vacío por ahora",
+    "payTypeSub": "Premium",
+    "payProdNY": "Año Nuevo",
+    "payEmpty": "Todavía no tienes pagos"
   },
   "countries": {
     "kiribati": "Kiribati",
