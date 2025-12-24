@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { api } from '@/utils/api';
 import { getValidLocale } from '@/utils/getValidLocale';
+import { useAuth } from '@/hooks/useAuth'; 
 
 import ProfileSlider from './ProfileSlider';
 import ProfileSub from './ProfileSub';
@@ -14,6 +15,7 @@ import styles from './ProfileHome.module.scss';
 
 export default function ProfilePayments() {
   const locale = getValidLocale();
+  const { isAuthenticated, isPremium } = useAuth();
 
   // Запит на верхній блок (Hero)
   const { data, isLoading, error } = useQuery({
@@ -28,6 +30,7 @@ export default function ProfilePayments() {
   return (
     <div className={styles.profileContent}>
       <ProfileSlider data={data?.Banner} isLoading={isLoading} error={error} />
+      (if (!isPremium) {)
       <ProfileSub />
       <ProfileSchd />
       <ProfileSoon />

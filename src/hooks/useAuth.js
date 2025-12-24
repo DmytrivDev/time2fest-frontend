@@ -12,9 +12,13 @@ export const useAuth = () => {
     retry: false,
   });
 
+  const isAuthenticated = !!data;
+  const isPremium = Boolean(data?.isPremium);
+
   return {
     user: data || null,
-    isAuthenticated: !!data,
+    isAuthenticated,
+    isPremium,
     isLoading,
     error,
   };
