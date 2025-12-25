@@ -171,7 +171,9 @@
     "choose_zone": "Choose time zone",
     "set_changes": "Apply changes",
     "login_required_title": "To use the schedule, you need to log in and activate a subscription",
-    "login_sub_required_title": "To subscribe to full functionality, you need to sign in.",
+    "login_sub_required_title": "To use your personal celebration schedule, you need to log in and subscribe to our service.",
+    "login_sub_required_title2": "To unlock your personal celebration schedule, you need to purchase a subscription. Price: $5.",
+    "sub-in": "Go to subscription",
     "replace_country_title": "You already selected a country for this time zone",
     "replace_country_text": "Current country: {{country}}. Do you want to replace it?",
     "replace": "Replace"

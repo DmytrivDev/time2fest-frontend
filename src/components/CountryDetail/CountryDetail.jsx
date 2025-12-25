@@ -7,6 +7,7 @@ import { getNextNYLocalForUtcOffset } from '@/utils/ny-time';
 import { IoTime, IoCamera, IoVideocam } from 'react-icons/io5';
 import { useAuth } from '@/hooks/useAuth';
 import { useLoginPopupStore } from '@/stores/useLoginPopupStore';
+import { useSubPopupStore } from '@/stores/useSubPopupStore';
 
 import { useScheduleToggle } from '@/hooks/useScheduleToggle';
 
@@ -14,8 +15,9 @@ import styles from './CountryDetail.module.scss';
 
 const CountryDetail = ({ data, isLoading, error, tzParam, isProfilePage }) => {
   const { t } = useTranslation();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, isPremium } = useAuth();
   const openLoginPopup = useLoginPopupStore(s => s.openPopup);
+  const openSubPopup = useSubPopupStore(s => s.openPopup);
 
   //
   // =============== 1. НОРМАЛІЗАЦІЯ UTC ===============
@@ -202,6 +204,10 @@ const CountryDetail = ({ data, isLoading, error, tzParam, isProfilePage }) => {
               onClick={() => {
                 if (!isAuthenticated) {
                   openLoginPopup();
+                  return;
+                }
+                if (!isPremium) {
+                  openSubPopup();
                   return;
                 }
                 handleToggle();

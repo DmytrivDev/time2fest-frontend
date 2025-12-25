@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
-import { useLoginSubPopupStore } from '@/stores/useLoginSubPopupStore';
+import { useSubPopupStore } from '@/stores/useSubPopupStore';
 import { useTranslation } from 'react-i18next';
 import { lockScroll, unlockScroll } from '@/utils/lockScroll';
 
@@ -9,7 +9,7 @@ import styles from './Popup.module.scss';
 
 export default function LoginRequired() {
   const { t, i18n } = useTranslation();
-  const { isOpen, isClosing, closePopup } = useLoginSubPopupStore();
+  const { isOpen, isClosing, closePopup } = useSubPopupStore();
 
   // ---- Блокування та розблокування скролу ----
   useEffect(() => {
@@ -46,7 +46,7 @@ export default function LoginRequired() {
       <div className={styles.window}>
         <div className={styles.content}>
 
-          <h3 className={styles.title}>{t('modal.login_sub_required_title')}</h3>
+          <h3 className={styles.title}>{t('modal.login_sub_required_title2')}</h3>
 
           <div className={styles.buttons}>
             <button
@@ -57,11 +57,11 @@ export default function LoginRequired() {
             </button>
 
             <Link
-              to={`${langPrefix}/login`}
+              to={`${langPrefix}/profile/subscription`}
               className={clsx(styles.btn, 'btn_primary')}
               onClick={closePopup}
             >
-              {t('log-in')}
+              {t('modal.sub-in')}
             </Link>
           </div>
         </div>

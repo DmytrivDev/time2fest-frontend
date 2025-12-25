@@ -10,6 +10,7 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer/Footer';
 import LoginRequired from '@/components/Popups/LoginRequired';
 import LoginSubRequired from '@/components/Popups/LoginSubRequired';
+import SubRequired from '@/components/Popups/SubRequired';
 import ReplaceCountryPopup from "@/components/Popups/ReplaceCountryPopup";
 
 const LanguageHTMLUpdater = () => {
@@ -75,6 +76,7 @@ const LanguageLayout = () => {
       </main>
       <LoginRequired />
       <LoginSubRequired />
+      <SubRequired />
       <ReplaceCountryPopup />
       {!isProfile && <Footer />}
     </div>

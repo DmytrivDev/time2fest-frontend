@@ -4,9 +4,11 @@ import { CircleFlag } from 'react-circle-flags';
 import { IoTime, IoCamera, IoVideocam } from 'react-icons/io5';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { useAuth } from '@/hooks/useAuth';
 
 import TimerWidget from './TimerWidget';
 import { useScheduleToggle } from '@/hooks/useScheduleToggle';
+import { useSubPopupStore } from '@/stores/useSubPopupStore';
 import { getNextNYLocalForUtcOffset } from '@/utils/ny-time';
 
 import styles from './MapInfo.module.scss';
@@ -16,6 +18,8 @@ const MapInfo = ({ data, zone, loading, onClose }) => {
   // ===================== 1. HOOKS (ЗАВЖДИ ОДНАКОВІ) =====================
   //
   const { t, i18n } = useTranslation('common');
+  const { isPremium } = useAuth();
+  const openSubPopup = useSubPopupStore(s => s.openPopup);
 
   // Деструктуризація без умов — React любить сталий порядок хуків
   const CountryName = data?.CountryName ?? null;
@@ -198,7 +202,11 @@ const MapInfo = ({ data, zone, loading, onClose }) => {
                   }profile/ambassadors/${amb.slug}`;
 
                   return (
-                    <Link to={ambassPath} key={amb.id || idx} className={styles.ambItem}>
+                    <Link
+                      to={ambassPath}
+                      key={amb.id || idx}
+                      className={styles.ambItem}
+                    >
                       <span className={styles.ambImg}>
                         <img src={photoUrl} alt={amb.name} />
                       </span>
@@ -213,7 +221,13 @@ const MapInfo = ({ data, zone, loading, onClose }) => {
           {/* Кнопка */}
           <button
             type="button"
-            onClick={handleToggle}
+            onClick={() => {
+              if (!isPremium) {
+                openSubPopup();
+                return;
+              }
+              handleToggle();
+            }}
             className={clsx(styles.add, 'btn_primary', isAdded && styles.added)}
           >
             {isAdded ? t('profile.added') : t('nav.addshelb')}

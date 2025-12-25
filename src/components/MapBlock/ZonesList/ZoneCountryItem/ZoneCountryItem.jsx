@@ -8,6 +8,7 @@ import { api } from '../../../../utils/api';
 import { getValidLocale } from '../../../../utils/getValidLocale';
 import { useAuth } from '@/hooks/useAuth';
 import { useLoginPopupStore } from '@/stores/useLoginPopupStore';
+import { useSubPopupStore } from '@/stores/useSubPopupStore';
 import clsx from 'clsx';
 
 import { getNextNYLocalForUtcOffset } from '@/utils/ny-time';
@@ -32,8 +33,9 @@ export default function ZoneCountryItem({
   //
   const { t, i18n } = useTranslation('common');
   const locale = getValidLocale();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, isPremium } = useAuth();
   const openLoginPopup = useLoginPopupStore(s => s.openPopup);
+  const openSubPopup = useSubPopupStore(s => s.openPopup);
 
   // Fetch country details
   const { data: countryApiData, isLoading: countryLoading } = useQuery({
@@ -273,6 +275,10 @@ export default function ZoneCountryItem({
             onClick={() => {
               if (!isAuthenticated) {
                 openLoginPopup();
+                return;
+              }
+              if (!isPremium) {
+                openSubPopup();
                 return;
               }
               handleToggle();

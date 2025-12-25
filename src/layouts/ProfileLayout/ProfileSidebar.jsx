@@ -71,6 +71,8 @@ export default function ProfileSidebar({
 
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
+  console.log(user)
+
   return (
     <aside
       className={clsx(styles.sidebar, {
@@ -113,7 +115,7 @@ export default function ProfileSidebar({
         <LanguageProfile languages={Languages} />
         <Link to="info" className={styles.userBlock}>
           <User size={18} />
-          <span>{user.name || 'Anonim'}</span>
+          <span>{user.name || user.user.name}</span>
         </Link>
       </div>
     </aside>

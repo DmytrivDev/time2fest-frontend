@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/hooks/useAuth';
 import { useLoginPopupStore } from '@/stores/useLoginPopupStore';
+import { useSubPopupStore } from '@/stores/useSubPopupStore';
 
 import { useScheduleToggle } from '@/hooks/useScheduleToggle';
 
@@ -20,8 +21,9 @@ const CountryAdding = ({
   isProfilePage,
 }) => {
   const { t } = useTranslation();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, isPremium } = useAuth();
   const openLoginPopup = useLoginPopupStore(s => s.openPopup);
+  const openSubPopup = useSubPopupStore(s => s.openPopup);
 
   const utcOffsetStr = useMemo(() => {
     if (tzParam?.toUpperCase?.().startsWith('UTC')) return tzParam;
@@ -135,6 +137,10 @@ const CountryAdding = ({
               onClick={() => {
                 if (!isAuthenticated) {
                   openLoginPopup();
+                  return;
+                }
+                if (!isPremium) {
+                  openSubPopup();
                   return;
                 }
                 handleToggle();

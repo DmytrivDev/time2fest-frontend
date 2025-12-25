@@ -3,13 +3,14 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useTranslation } from 'react-i18next';
 import { CircleFlag } from 'react-circle-flags';
-import * as FaIcons from 'react-icons/fa6';
+import * as FaIcons from 'react-icons/fa6'; 
 import clsx from 'clsx';
 
 import { useScheduleToggle } from '@/hooks/useScheduleToggle';
 import { useAuth } from '@/hooks/useAuth';
 
 import { useLoginPopupStore } from '@/stores/useLoginPopupStore';
+import { useSubPopupStore } from '@/stores/useSubPopupStore';
 
 import styles from './AmbassadorDetail.module.scss';
 
@@ -17,8 +18,9 @@ const AmbassadorDetail = ({ data, isLoading, error, isProfilePage }) => {
   const { t } = useTranslation();
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, isPremium } = useAuth();
   const openLoginPopup = useLoginPopupStore(s => s.openPopup);
+  const openSubPopup = useSubPopupStore(s => s.openPopup);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 868);
@@ -322,6 +324,10 @@ const AmbassadorDetail = ({ data, isLoading, error, isProfilePage }) => {
                         openLoginPopup();
                         return;
                       }
+                      if (!isPremium) {
+                        openSubPopup();
+                        return;
+                      }
                       handleToggle();
                     }}
                   >
@@ -371,6 +377,10 @@ const AmbassadorDetail = ({ data, isLoading, error, isProfilePage }) => {
                 onClick={() => {
                   if (!isAuthenticated) {
                     openLoginPopup();
+                    return;
+                  }
+                  if (!isPremium) {
+                    openSubPopup();
                     return;
                   }
                   handleToggle();
