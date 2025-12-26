@@ -18,10 +18,14 @@ const PendingPage = () => {
 
   /**
    * =========================
-   * AUTH (polling)
+   * AUTH
    * =========================
    */
-  const { data: user, error: authError } = useQuery({
+  const {
+    data: user,
+    isLoading: authLoading,
+    isError: authError,
+  } = useQuery({
     queryKey: ['authUserPending'],
     queryFn: async () => {
       const res = await userApi.get('/auth/me');
@@ -33,16 +37,19 @@ const PendingPage = () => {
 
   /**
    * =========================
-   * PAYMENTS (polling)
+   * ORDERS
    * =========================
    */
-  const { data: orders = [], isFetched: ordersFetched } = useQuery({
+  const {
+    data: orders = [],
+    isLoading: ordersLoading,
+    isFetched: ordersFetched,
+  } = useQuery({
     queryKey: ['pendingOrders'],
     queryFn: async () => {
       const res = await userApi.get('/orders');
       return res.data || [];
     },
-    enabled: !!user,
     refetchInterval: 3000,
     retry: false,
   });
@@ -53,27 +60,40 @@ const PendingPage = () => {
    * =========================
    */
   useEffect(() => {
-    // ❌ не авторизований
-    if (authError) {
+    // ⏳ чекаємо стабілізації
+    if (authLoading || ordersLoading) return;
+
+    // ❌ не авторизований (refresh не врятував)
+    if (authError || !user) {
       navigate(prefix || '/');
       return;
     }
 
-    if (!user || !ordersFetched) return;
-
-    // ✅ premium → success (ЗАВЖДИ)
+    // ✅ premium — фінал
     if (user.isPremium) {
       navigate(`${prefix}/profile/success`);
       return;
     }
 
-    // ⏳ є pending → залишаємо на цій сторінці
-    const hasPending = orders.some(o => o.status === 'pending');
-    if (hasPending) return;
+    if (!ordersFetched) return;
 
-    // 🚫 немає pending і не premium
+    // ⏳ є хоча б одне замовлення → чекаємо IPN
+    if (orders.length > 0) {
+      return;
+    }
+
+    // 🚫 нічого не починали
     navigate(`${prefix}/profile/subscription`);
-  }, [user, orders, ordersFetched, authError, navigate, prefix]);
+  }, [
+    authLoading,
+    ordersLoading,
+    authError,
+    user,
+    orders,
+    ordersFetched,
+    navigate,
+    prefix,
+  ]);
 
   /**
    * =========================
