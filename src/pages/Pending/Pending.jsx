@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -16,18 +16,12 @@ const PendingPage = () => {
   const locale = getValidLocale(i18n.language);
   const prefix = locale !== 'en' ? `/${locale}` : '';
 
-  // 👇 фіксуємо initial premium
-  const initialPremiumRef = useRef(null);
-
   /**
    * =========================
    * AUTH (polling)
    * =========================
    */
-  const {
-    data: user,
-    error: authError,
-  } = useQuery({
+  const { data: user, error: authError } = useQuery({
     queryKey: ['authUserPending'],
     queryFn: async () => {
       const res = await userApi.get('/auth/me');
@@ -39,13 +33,10 @@ const PendingPage = () => {
 
   /**
    * =========================
-   * PAYMENTS
+   * PAYMENTS (polling)
    * =========================
    */
-  const {
-    data: orders,
-    isFetched: ordersFetched,
-  } = useQuery({
+  const { data: orders = [], isFetched: ordersFetched } = useQuery({
     queryKey: ['pendingOrders'],
     queryFn: async () => {
       const res = await userApi.get('/orders');
@@ -70,28 +61,18 @@ const PendingPage = () => {
 
     if (!user || !ordersFetched) return;
 
-    // 🔒 зафіксували стартовий premium
-    if (initialPremiumRef.current === null) {
-      initialPremiumRef.current = user.isPremium;
-    }
-
-    // 🚫 premium був вже ДО pending
-    if (initialPremiumRef.current === true) {
-      navigate(`${prefix}/profile/subscription`);
-      return;
-    }
-
-    // ✅ premium зʼявився в процесі
+    // ✅ premium → success (ЗАВЖДИ)
     if (user.isPremium) {
       navigate(`${prefix}/profile/success`);
       return;
     }
 
-    // ❌ немає pending
+    // ⏳ є pending → залишаємо на цій сторінці
     const hasPending = orders.some(o => o.status === 'pending');
-    if (!hasPending) {
-      navigate(`${prefix}/profile/subscription`);
-    }
+    if (hasPending) return;
+
+    // 🚫 немає pending і не premium
+    navigate(`${prefix}/profile/subscription`);
   }, [user, orders, ordersFetched, authError, navigate, prefix]);
 
   /**
@@ -113,21 +94,13 @@ const PendingPage = () => {
             visible
           />
 
-          <h1 className={styles.title}>
-            {t('payment.pending_title')}
-          </h1>
+          <h1 className={styles.title}>{t('payment.pending_title')}</h1>
 
-          <p className={styles.text}>
-            {t('payment.pending_text')}
-          </p>
+          <p className={styles.text}>{t('payment.pending_text')}</p>
 
-          <p className={styles.subtext}>
-            {t('payment.pending_subtext')}
-          </p>
+          <p className={styles.subtext}>{t('payment.pending_subtext')}</p>
 
-          <p className={styles.note}>
-            {t('payment.pending_note')}
-          </p>
+          <p className={styles.note}>{t('payment.pending_note')}</p>
         </div>
       </div>
     </div>
