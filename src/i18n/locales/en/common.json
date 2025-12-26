@@ -182,6 +182,15 @@
     "videos": "Live webcam streams",
     "seevideo": "Watch the stream"
   },
+  "payment": {
+    "pending_title": "We are checking your payment",
+    "pending_text": "The payment has been created and is being processed by the payment system. This may take from a few seconds to a few minutes.",
+    "pending_subtext": "You don’t need to do anything — Premium access will be activated automatically.",
+    "pending_note": "Please do not close this page.",
+    "success_title": "Payment successful",
+    "success_text": "Your subscription has been successfully activated. You now have full access to all premium features.",
+    "success_button": "Celebration schedule"
+  },
   "ambassadors": {
     "ambassadors_title": "Time2Fest Ambassadors",
     "ambassadors_subtitle": "Meet the people who share their celebrations, traditions, and festive spirit on New Year’s Eve.",

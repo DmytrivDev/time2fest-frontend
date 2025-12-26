@@ -31,6 +31,7 @@ const LanguageLayout = () => {
   const [dynamicData, setDynamicData] = useState(null);
   const location = useLocation();
   const isProfile = location.pathname.includes('/profile');
+  const isPanding = location.pathname.includes('/pending-payment');
 
   const { i18n } = useTranslation();
 
@@ -71,7 +72,7 @@ const LanguageLayout = () => {
     <div className="wrapper">
       <LanguageHTMLUpdater />
       <SeoMeta dynamicData={dynamicData} />
-      {!isProfile && <Header />}
+      {(!isProfile && !isPanding) && <Header />}
       <main className="main">
         <Outlet context={outletContext} />
       </main>
@@ -80,7 +81,7 @@ const LanguageLayout = () => {
       <SubRequired />
       <ReplaceCountryPopup />
       <VideoPopup />
-      {!isProfile && <Footer />}
+      {(!isProfile && !isPanding) && <Footer />}
     </div>
   );
 };

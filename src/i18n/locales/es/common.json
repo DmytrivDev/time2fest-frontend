@@ -178,9 +178,14 @@
     "replace_country_text": "País actual: {{country}}. ¿Desea reemplazarlo?",
     "replace": "Reemplazar"
   },
-  "video": {
-    "videos": "Transmisiones en vivo desde webcams",
-    "seevideo": "Ver la transmisión"
+  "payment": {
+    "pending_title": "Estamos verificando el pago",
+    "pending_text": "El pago ha sido creado y está siendo procesado por el sistema de pagos. Esto puede tardar desde unos segundos hasta unos minutos.",
+    "pending_subtext": "No necesitas hacer nada — el acceso Premium se activará automáticamente.",
+    "pending_note": "Por favor, no cierres esta página.",
+    "success_title": "Pago realizado con éxito",
+    "success_text": "Tu suscripción se ha activado correctamente. Ahora tienes acceso completo a todas las funciones premium.",
+    "success_button": "Horario de celebraciones"
   },
   "ambassadors": {
     "ambassadors_title": "Embajadores de Time2Fest",
