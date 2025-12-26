@@ -5,6 +5,7 @@ import { api } from '@/utils/api';
 
 import CountryDetail from '../../components/CountryDetail/CountryDetail';
 import CountryAmbassadorList from '../../components/CountryAmbassadorList/CountryAmbassadorList';
+import CountryVideoList from '../../components/CountryVideoList/CountryVideoList';
 import CountryAdding from '../../components/CountryAdding/CountryAdding';
 
 const CountryPage = () => {
@@ -25,6 +26,22 @@ const CountryPage = () => {
     queryKey: ['country', slug, locale],
     queryFn: async () => {
       const res = await api.get(`/countries?slug=${slug}&locale=${locale}`);
+      return res?.data?.items || [];
+    },
+    enabled: !!slug,
+  });
+
+  // --- Запит на дані країни ---
+  const {
+    data: transData,
+    isLoading: transLoading,
+    error: transError,
+  } = useQuery({
+    queryKey: ['translations', slug, locale],
+    queryFn: async () => {
+      const res = await api.get(
+        `/translations?country=${slug}&zone=${tzParam}`
+      );
       return res?.data?.items || [];
     },
     enabled: !!slug,
@@ -93,6 +110,15 @@ const CountryPage = () => {
           code={country.CountryCode}
           isLoading={isLoading}
           error={error}
+        />
+      )}
+
+      {transData.length > 0 && (
+        <CountryVideoList
+          data={countryData}
+          dataItems={transData}
+          isLoading={transLoading}
+          error={transError}
         />
       )}
 

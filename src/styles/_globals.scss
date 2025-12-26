@@ -321,6 +321,26 @@ textarea {
 			}
 		}
 	}
+
+	&.video {
+		display: flex;
+		align-items: center;
+		align-content: center;
+		gap: .75rem;
+		white-space: nowrap;
+
+		&::after {
+			content: "";
+			background-image: $play;
+			width: 2rem;
+			height: 2rem;
+			background-repeat: no-repeat;
+			background-position: center center;
+			background-size: .75rem;
+			border-radius: 50%;
+			border: 1px solid #fff
+		}
+	}
 }
 
 .btn_transp {

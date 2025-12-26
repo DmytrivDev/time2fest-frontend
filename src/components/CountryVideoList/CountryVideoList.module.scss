@@ -1,0 +1,72 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.section {
+	padding-top: 6.2rem;
+	position: relative;
+	overflow: hidden;
+}
+
+.videoList {
+	margin-top: 1rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.videoItem {
+	display: flex;
+	justify-content: space-between;
+	padding: 1.5rem 1.5rem;
+	background-color: #fff;
+	background-color: $color-gray2;
+	border-radius: 1.5rem;
+	gap: 2rem;
+}
+
+.videoItemLeft {
+	display: flex;
+	align-items: center;
+	align-content: center;
+	gap: 0.75rem;
+
+	img {
+		width: 2.5rem;
+		height: auto;
+	}
+
+	.name {
+		font-size: 1.5rem;
+	}
+}
+
+@media screen and (max-width: 1140px) {
+	.section {
+		padding-top: 3.75rem;
+	}
+	.videoItem {
+		padding: 1.5rem 1rem;
+		border-radius: 1rem;
+	}
+}
+
+@media screen and (max-width: 868px) {
+	.videoItem {
+		flex-direction: column;
+		gap: 1.5rem;
+
+		.button {
+			width: 100%;
+			justify-content: space-between;
+		}
+	}
+	.videoItemLeft {
+		img {
+			width: 2rem;
+		}
+
+		.name {
+			font-size: 1.25rem;
+		}
+	}
+}
