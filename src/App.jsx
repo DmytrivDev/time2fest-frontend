@@ -68,6 +68,8 @@ const LoginPage = lazy(() => import('./pages/Auth/LoginPage'));
 const ForgetPass = lazy(() => import('./pages/Auth/ForgetPass'));
 const ResetPass = lazy(() => import('./pages/Auth/ResetPass'));
 
+const PandingPage = lazy(() => import('./pages/Pending/Pending'));
+
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 const ScrollToTop = () => {
@@ -133,6 +135,7 @@ const App = () => {
             <Route path="login" element={<LoginPage />} />
             <Route path="forget-password" element={<ForgetPass />} />
             <Route path="reset-password" element={<ResetPass />} />
+            <Route path="pending-payment" element={<PandingPage />} />
           </Route>
 
           {/* redirect default lang */}
@@ -194,6 +197,7 @@ const App = () => {
             <Route path="login" element={<LoginPage />} />
             <Route path="forget-password" element={<ForgetPass />} />
             <Route path="reset-password" element={<ResetPass />} />
+            <Route path="pending-payment" element={<PandingPage />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />

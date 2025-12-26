@@ -7,6 +7,7 @@ import clsx from 'clsx';
 
 import CountryDetail from '../../CountryDetail/CountryDetail';
 import CountryAmbassadorList from '../../CountryAmbassadorList/CountryAmbassadorList';
+import CountryVideoList from '../../CountryVideoList/CountryVideoList';
 import CountryAdding from '../../CountryAdding/CountryAdding';
 
 import styles from './ProfileCountryDetail.module.scss';
@@ -31,6 +32,22 @@ const CountryPage = () => {
     queryKey: ['country', slug, locale],
     queryFn: async () => {
       const res = await api.get(`/countries?slug=${slug}&locale=${locale}`);
+      return res?.data?.items || [];
+    },
+    enabled: !!slug,
+  });
+
+  // --- Запит на дані країни ---
+  const {
+    data: transData,
+    isLoading: transLoading,
+    error: transError,
+  } = useQuery({
+    queryKey: ['translations', slug, locale],
+    queryFn: async () => {
+      const res = await api.get(
+        `/translations?country=${slug}&zone=${tzParam}`
+      );
       return res?.data?.items || [];
     },
     enabled: !!slug,
@@ -104,12 +121,24 @@ const CountryPage = () => {
         />
       )}
 
+      {transData && transData.length > 0 && (
+        <CountryVideoList
+          data={countryData}
+          dataItems={transData}
+          isLoading={transLoading}
+          error={transError}
+        />
+      )}
+
       {Array.isArray(gallery) && gallery.length > 0 && (
         <CountryAdding
           gallery={gallery}
           description={countryDesc}
           nameSec={country?.CountrySec || country?.CountryName}
           isLoading={isLoading}
+          name={country.CountryCode}
+          slug={country.slug}
+          tzParam={effectiveTz}
           error={error}
           isProfilePage={isProfilePage}
         />

@@ -7,6 +7,15 @@
 	overflow: hidden;
 }
 
+.titleLoading {
+	height: 3.5rem;
+	width: 17rem;
+}
+
+.videoItemLoad {
+	height: 6.813rem;
+}
+
 .videoList {
 	margin-top: 1rem;
 	display: flex;
@@ -44,6 +53,14 @@
 	.section {
 		padding-top: 3.75rem;
 	}
+	.titleLoading {
+		height: 2.275rem;
+		max-width: 16rem;
+		width: 100%;
+	}
+	.videoItemLoad {
+		height: 6.188rem;
+	}
 	.videoItem {
 		padding: 1.5rem 1rem;
 		border-radius: 1rem;
@@ -51,6 +68,9 @@
 }
 
 @media screen and (max-width: 868px) {
+	.videoItemLoad {
+		height: 9.688rem;
+	}
 	.videoItem {
 		flex-direction: column;
 		gap: 1.5rem;

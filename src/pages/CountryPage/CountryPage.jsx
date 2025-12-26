@@ -113,7 +113,7 @@ const CountryPage = () => {
         />
       )}
 
-      {transData.length > 0 && (
+      {transData && transData.length > 0 && (
         <CountryVideoList
           data={countryData}
           dataItems={transData}

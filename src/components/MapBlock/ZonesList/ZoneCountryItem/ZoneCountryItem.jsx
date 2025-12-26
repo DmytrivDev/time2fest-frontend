@@ -9,6 +9,8 @@ import { getValidLocale } from '../../../../utils/getValidLocale';
 import { useAuth } from '@/hooks/useAuth';
 import { useLoginPopupStore } from '@/stores/useLoginPopupStore';
 import { useSubPopupStore } from '@/stores/useSubPopupStore';
+import { useCountryTranslationsAvailable } from '@/hooks/useCountryTranslationsAvailable';
+
 import clsx from 'clsx';
 
 import { getNextNYLocalForUtcOffset } from '@/utils/ny-time';
@@ -66,9 +68,6 @@ export default function ZoneCountryItem({
   const hasAmbassador = zoneLabel
     ? !!currentZone?.Ambassador
     : TimezoneDetail.some(z => z.Ambassador);
-  const hasCamera = zoneLabel
-    ? !!currentZone?.VebCamera
-    : TimezoneDetail.some(z => z.VebCamera);
 
   //
   // ===================== 2. NORMALIZE UTC =====================
@@ -171,6 +170,11 @@ export default function ZoneCountryItem({
       setVisible(false);
     }
   };
+
+  const { hasTranslations: hasCamera } = useCountryTranslationsAvailable({
+    slug,
+    timezone: utcOffsetStr,
+  });
 
   //
   // ===================== 6. RETURN =====================

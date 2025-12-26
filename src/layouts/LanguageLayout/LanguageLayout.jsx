@@ -12,6 +12,7 @@ import LoginRequired from '@/components/Popups/LoginRequired';
 import LoginSubRequired from '@/components/Popups/LoginSubRequired';
 import SubRequired from '@/components/Popups/SubRequired';
 import ReplaceCountryPopup from "@/components/Popups/ReplaceCountryPopup";
+import VideoPopup  from "@/components/Popups/VideoPopup";
 
 const LanguageHTMLUpdater = () => {
   const { i18n } = useTranslation();
@@ -78,6 +79,7 @@ const LanguageLayout = () => {
       <LoginSubRequired />
       <SubRequired />
       <ReplaceCountryPopup />
+      <VideoPopup />
       {!isProfile && <Footer />}
     </div>
   );

@@ -10,6 +10,7 @@ import TimerWidget from './TimerWidget';
 import { useScheduleToggle } from '@/hooks/useScheduleToggle';
 import { useSubPopupStore } from '@/stores/useSubPopupStore';
 import { getNextNYLocalForUtcOffset } from '@/utils/ny-time';
+import { useCountryTranslationsAvailable } from '@/hooks/useCountryTranslationsAvailable';
 
 import styles from './MapInfo.module.scss';
 
@@ -81,7 +82,11 @@ const MapInfo = ({ data, zone, loading, onClose }) => {
       : `${import.meta.env.VITE_STRIPE_URL}${Background}`;
 
   const hasAmbassador = ambassadors.length > 0;
-  const hasCamera = currentZone?.VebCamera || false;
+
+  const { hasTranslations: hasCamera } = useCountryTranslationsAvailable({
+    slug,
+    timezone: currentTz,
+  });
 
   const localizedPath = `/${
     i18n.language !== 'en' ? i18n.language + '/' : ''

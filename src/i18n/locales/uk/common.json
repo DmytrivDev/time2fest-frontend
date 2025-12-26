@@ -178,6 +178,10 @@
     "replace_country_text": "Поточна країна: {{country}}. Бажаєте замінити її?",
     "replace": "Замінити"
   },
+  "video": {
+    "videos": "Трансляції з вебкамер",
+    "seevideo": "Відкрити трансляцію"
+  },
   "ambassadors": {
     "ambassadors_title": "Амбасадори Time2Fest",
     "ambassadors_subtitle": "Познайомся з людьми, які діляться своїми святами, традиціями та настроєм у новорічну ніч.",

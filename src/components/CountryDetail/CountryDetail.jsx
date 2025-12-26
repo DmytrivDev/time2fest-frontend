@@ -8,6 +8,7 @@ import { IoTime, IoCamera, IoVideocam } from 'react-icons/io5';
 import { useAuth } from '@/hooks/useAuth';
 import { useLoginPopupStore } from '@/stores/useLoginPopupStore';
 import { useSubPopupStore } from '@/stores/useSubPopupStore';
+import { useCountryTranslationsAvailable } from '@/hooks/useCountryTranslationsAvailable';
 
 import { useScheduleToggle } from '@/hooks/useScheduleToggle';
 
@@ -143,11 +144,16 @@ const CountryDetail = ({ data, isLoading, error, tzParam, isProfilePage }) => {
   const zoneData = zoneMatch || country.TimezoneDetail?.[0] || {};
 
   const hasAmbassador = !!zoneData.Ambassador;
-  const hasCamera = !!zoneData.VebCamera;
+
+  const { hasTranslations: hasCamera } = useCountryTranslationsAvailable({
+    slug: country.slug,
+    timezone: utcOffsetStr,
+  });
 
   //
   // =============== 5. ДОДАВАННЯ В ГРАФІК (новий хук!) ===============
   //
+
   const { isAdded, handleToggle } = useScheduleToggle({
     slug: country.slug,
     code: code,

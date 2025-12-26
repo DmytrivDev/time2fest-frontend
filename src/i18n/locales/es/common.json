@@ -178,6 +178,10 @@
     "replace_country_text": "País actual: {{country}}. ¿Desea reemplazarlo?",
     "replace": "Reemplazar"
   },
+  "video": {
+    "videos": "Transmisiones en vivo desde webcams",
+    "seevideo": "Ver la transmisión"
+  },
   "ambassadors": {
     "ambassadors_title": "Embajadores de Time2Fest",
     "ambassadors_subtitle": "Conoce a las personas que comparten sus celebraciones, tradiciones y espíritu festivo en la víspera de Año Nuevo.",

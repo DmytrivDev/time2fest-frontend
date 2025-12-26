@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { CircleFlag } from 'react-circle-flags';
 import { IoTime, IoCamera, IoVideocam } from 'react-icons/io5';
 import { useTranslation } from 'react-i18next';
+import { useQueries } from '@tanstack/react-query';
 import clsx from 'clsx';
 
+import { api } from '@/utils/api';
 import TimerWidget from './TimerWidget';
 import styles from './MapInfo.module.scss';
 
@@ -16,10 +18,52 @@ const ZonesInfoCard = ({
 }) => {
   const { t } = useTranslation('common');
 
-  // ---- Визначаємо останній сегмент URL ----
+  // ---- Визначаємо сторінку ----
   const lastSlug = window.location.pathname.split('/').pop();
   const isTimeZonesPage = lastSlug === 'timezones';
 
+  // ================= PREPARE DATA =================
+  const normalizedCountries = useMemo(
+    () => countries.map(c => c.attributes || c),
+    [countries]
+  );
+
+  const countriesWithZone = useMemo(() => {
+    return normalizedCountries.map(country => {
+      const rawZone =
+        zone && zone.trim() !== ''
+          ? zone
+          : Array.isArray(country.time_zones) && country.time_zones.length > 0
+            ? country.time_zones[0].code
+            : 'UTC+0';
+
+      const currentTz = rawZone.startsWith('UTC')
+        ? rawZone
+        : `UTC${rawZone.replace('UTC', '')}`;
+
+      return {
+        country,
+        currentTz,
+      };
+    });
+  }, [normalizedCountries, zone]);
+
+  // ================= TRANSLATIONS CHECK (CAMERAS) =================
+  const cameraQueries = useQueries({
+    queries: countriesWithZone.map(({ country, currentTz }) => ({
+      queryKey: ['translations', country.slug, currentTz],
+      queryFn: async () => {
+        const res = await api.get(
+          `/translations?country=${country.slug}&zone=${currentTz}`
+        );
+        const items = res?.data?.items;
+        return Array.isArray(items) && items.length > 0;
+      },
+      enabled: Boolean(country.slug && currentTz),
+    })),
+  });
+
+  // ================= LOADING =================
   if (loading) {
     return (
       <aside className={clsx(styles.aside, styles.zonesInf)}>
@@ -35,14 +79,14 @@ const ZonesInfoCard = ({
                   key={i}
                   className={clsx(styles.zoneCard, styles.zoneCardLoading)}
                 >
-                  <div className={clsx(styles.header)}>
-                    <div className={clsx(styles.flagLoading, 'loading')}></div>
-                    <h3 className={clsx(styles.titleLoading, 'loading')}></h3>
+                  <div className={styles.header}>
+                    <div className={clsx(styles.flagLoading, 'loading')} />
+                    <h3 className={clsx(styles.titleLoading, 'loading')} />
                   </div>
 
                   <div className={clsx(styles.types, styles.typesLoading)}>
-                    <span className="loading"></span>
-                    <span className="loading"></span>
+                    <span className="loading" />
+                    <span className="loading" />
                   </div>
 
                   <div
@@ -51,7 +95,7 @@ const ZonesInfoCard = ({
                       styles.detailsBtnLoading,
                       'loading'
                     )}
-                  ></div>
+                  />
                 </div>
               ))}
             </div>
@@ -61,6 +105,7 @@ const ZonesInfoCard = ({
     );
   }
 
+  // ================= RENDER =================
   return (
     <aside className={clsx(styles.aside, styles.zonesInf)}>
       <button className={styles.close} onClick={onClose}></button>
@@ -70,27 +115,14 @@ const ZonesInfoCard = ({
 
         <div className={styles.list}>
           <div>
-            {countries && countries.length > 0 ? (
-              countries.map((c, i) => {
-                const country = c.attributes || c;
+            {countriesWithZone.length > 0 ? (
+              countriesWithZone.map(({ country, currentTz }, i) => {
                 const code = country.CountryCode?.toLowerCase();
                 const name = country.CountryName;
 
                 const TimezoneDetail = Array.isArray(country.TimezoneDetail)
                   ? country.TimezoneDetail
                   : [];
-
-                const rawZone =
-                  zone && zone.trim() !== ''
-                    ? zone
-                    : Array.isArray(country.time_zones) &&
-                        country.time_zones.length > 0
-                      ? country.time_zones[0].code
-                      : 'UTC+0';
-
-                const currentTz = rawZone.startsWith('UTC')
-                  ? rawZone
-                  : `UTC${rawZone.replace('UTC', '')}`;
 
                 const currentOffset = currentTz
                   .replace('UTC', '')
@@ -108,15 +140,14 @@ const ZonesInfoCard = ({
                 });
 
                 const hasAmbassador = !!currentZone?.Ambassador;
-                const hasCamera = !!currentZone?.VebCamera;
+                const hasCamera = cameraQueries[i]?.data === true;
 
-                // ---- Вибір значення для кнопки ----
                 const buttonValue = isTimeZonesPage
-                  ? country.CountryCode // якщо сторінка timezones
-                  : country.slug; // якщо інша сторінка
+                  ? country.CountryCode
+                  : country.slug;
 
                 return (
-                  <div key={i} className={clsx(styles.zoneCard)}>
+                  <div key={i} className={styles.zoneCard}>
                     <div className={styles.header}>
                       {code && <CircleFlag countryCode={code} height="20" />}
                       <h3>{name}</h3>
@@ -140,7 +171,6 @@ const ZonesInfoCard = ({
                       )}
                     </div>
 
-                    {/* ---- Кнопка ---- */}
                     <button
                       type="button"
                       onClick={() => onCountrySelect?.(buttonValue)}

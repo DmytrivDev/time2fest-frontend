@@ -178,6 +178,10 @@
     "replace_country_text": "Pays actuel : {{country}}. Voulez-vous le remplacer ?",
     "replace": "Remplacer"
   },
+  "video": {
+    "videos": "Diffusions en direct depuis des webcams",
+    "seevideo": "Regarder la diffusion"
+  },
   "ambassadors": {
     "ambassadors_title": "Ambassadeurs de Time2Fest",
     "ambassadors_subtitle": "Rencontrez les personnes qui partagent leurs fêtes, leurs traditions et leur esprit festif lors du réveillon du Nouvel An.",

@@ -178,6 +178,10 @@
     "replace_country_text": "Current country: {{country}}. Do you want to replace it?",
     "replace": "Replace"
   },
+  "video": {
+    "videos": "Live webcam streams",
+    "seevideo": "Watch the stream"
+  },
   "ambassadors": {
     "ambassadors_title": "Time2Fest Ambassadors",
     "ambassadors_subtitle": "Meet the people who share their celebrations, traditions, and festive spirit on New Year’s Eve.",

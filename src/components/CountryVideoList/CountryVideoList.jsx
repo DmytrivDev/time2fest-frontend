@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/hooks/useAuth';
 import { useLoginPopupStore } from '@/stores/useLoginPopupStore';
 import { useSubPopupStore } from '@/stores/useSubPopupStore';
+import { useVideoPopupStore } from '@/stores/useVideoPopupStore';
 
 import styles from './CountryVideoList.module.scss';
 
@@ -22,6 +23,7 @@ const CountryVideoList = ({
   const { isAuthenticated, isPremium } = useAuth();
   const openLoginPopup = useLoginPopupStore(s => s.openPopup);
   const openSubPopup = useSubPopupStore(s => s.openPopup);
+  const openVideoPopup = useVideoPopupStore(s => s.openPopup);
 
   //
   // ================= LOADING =================
@@ -40,13 +42,7 @@ const CountryVideoList = ({
 
           <ul className={styles.videoList}>
             {Array.from({ length: 2 }).map((_, i) => (
-              <li key={i} className={styles.videoItem}>
-                <div className={styles.videoItemLeft}>
-                  <div className={clsx(styles.flagLoading, 'loading')} />
-                  <div className={clsx(styles.nameLoading, 'loading')} />
-                </div>
-                <div className={clsx(styles.buttonLoading, 'loading')} />
-              </li>
+              <li key={i} className={clsx(styles.videoItem, styles.videoItemLoad, 'loading')}></li>
             ))}
           </ul>
         </div>
@@ -82,8 +78,7 @@ const CountryVideoList = ({
       return;
     }
 
-    // 👇 тут пізніше буде відкриття модалки / плеєра
-    console.log('▶️ Play video:', videoId);
+    openVideoPopup(videoId);
   };
 
   //
