@@ -1,13 +1,16 @@
+import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
+import clsx from 'clsx';
+
 import { getValidLocale } from '@/utils/getValidLocale';
 import { api } from '@/utils/api';
+
 import { usePremiumCheckout } from '@/hooks/usePremiumCheckout';
-import clsx from 'clsx';
 
 import styles from './ProfileSuccess.module.scss';
 
-export default function ProfileSubscribe() {
+export default function ProfileSuccess() {
   const { t } = useTranslation();
   const locale = getValidLocale();
   const { startCheckout, loading } = usePremiumCheckout();
@@ -66,7 +69,23 @@ export default function ProfileSubscribe() {
 
   return (
     <div className={styles.profileContent}>
-      Оплата успішна
+      <div className={styles.success}>
+        <div className={styles.success__body}>
+          <span className={styles.ico}>
+            <img src="/success/success.svg" alt="" />
+          </span>
+          <h4 className={styles.title}>Оплата успішна</h4>
+          <div className={styles.text}>
+            <p>
+              Ваша підписка успішно оформлена! Тепер ви маєте повний доступ до
+              всіх преміум-функцій:
+            </p>
+          </div>
+          <Link to={'../schedule'} className={clsx(styles.btn, 'btn_primary')}>
+            Графік святкувань
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }
