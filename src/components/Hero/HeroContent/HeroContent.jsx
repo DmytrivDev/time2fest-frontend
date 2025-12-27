@@ -38,14 +38,14 @@ const HeroContent = () => {
       </p>
 
       <div className={styles.hero_buttons}>
-        <button
+        {/* <button
           onClick={() => scrollToBlock('new-year')}
           className="btn btn_primary"
         >
           {t('hero_btn1')}
-        </button>
+        </button> */}
 
-        <Link to={`/${lang}login`} className="btn btn_transp">
+        <Link to={`/${lang}login`} className="btn btn_primary">
           {t('log-in')}
         </Link>
       </div>
