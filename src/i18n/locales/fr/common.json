@@ -178,6 +178,14 @@
     "replace_country_text": "Pays actuel : {{country}}. Voulez-vous le remplacer ?",
     "replace": "Remplacer"
   },
+  "video": {
+    "videos": "Diffusions en direct par webcam",
+    "seevideo": "Regarder la diffusion",
+    "videosLivr": "Diffusions en direct des ambassadeurs",
+    "waitLive": "La diffusion en direct commencera bientôt",
+    "watchLive": "Regarder en direct",
+    "watchReplay": "Voir la rediffusion"
+  },
   "payment": {
     "pending_title": "Nous vérifions le paiement",
     "pending_text": "Le paiement a été créé et est en cours de traitement par le système de paiement. Cela peut prendre de quelques secondes à quelques minutes.",

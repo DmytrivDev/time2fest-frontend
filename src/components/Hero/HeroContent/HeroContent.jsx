@@ -1,12 +1,38 @@
+import { useEffect, useRef } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { IoTime, IoGlobeOutline, IoPersonAddSharp } from 'react-icons/io5';
+import Hls from 'hls.js';
 
 import styles from './HeroContent.module.scss';
 
 const HeroContent = () => {
   const { t, i18n } = useTranslation('common');
   const lang = i18n.language === 'en' ? '' : `${i18n.language}/`;
+
+  const videoRef = useRef(null);
+  const src =
+    'https://stream.mux.com/RORVW602tRS1Orc4MmD1283UCpV01ynavMy568QIyTekQ.m3u8';
+
+  useEffect(() => {
+    const video = videoRef.current;
+
+    if (!video) return;
+
+    if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      // Safari
+      video.src = src;
+    } else if (Hls.isSupported()) {
+      // Chrome / Firefox
+      const hls = new Hls();
+      hls.loadSource(src);
+      hls.attachMedia(video);
+
+      return () => {
+        hls.destroy();
+      };
+    }
+  }, []);
 
   const badges = [
     { icon: <IoTime />, label: t('bages.zones') },
@@ -49,6 +75,14 @@ const HeroContent = () => {
           {t('log-in')}
         </Link>
       </div>
+      <video
+        ref={videoRef}
+        controls
+        autoPlay
+        muted
+        playsInline
+        style={{ width: '100%', maxWidth: '600px' }}
+      />
     </div>
   );
 };

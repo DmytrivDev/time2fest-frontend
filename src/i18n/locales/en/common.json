@@ -180,7 +180,11 @@
   },
   "video": {
     "videos": "Live webcam streams",
-    "seevideo": "Watch the stream"
+    "seevideo": "Watch the stream",
+    "videosLivr": "Live streams from ambassadors",
+    "waitLive": "Live stream will start soon",
+    "watchLive": "Watch live",
+    "watchReplay": "Watch replay"
   },
   "payment": {
     "pending_title": "We are checking your payment",

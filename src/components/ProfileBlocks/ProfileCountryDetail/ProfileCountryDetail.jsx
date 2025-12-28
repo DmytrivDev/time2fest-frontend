@@ -7,7 +7,7 @@ import clsx from 'clsx';
 
 import CountryDetail from '../../CountryDetail/CountryDetail';
 import CountryAmbassadorList from '../../CountryAmbassadorList/CountryAmbassadorList';
-import CountryVideoList from '../../CountryVideoList/CountryVideoList';
+import CountryVideoList from '../../CountryLiveList/CountryLiveList';
 import CountryAdding from '../../CountryAdding/CountryAdding';
 
 import styles from './ProfileCountryDetail.module.scss';

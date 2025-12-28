@@ -3,9 +3,6 @@ import clsx from 'clsx';
 import { CircleFlag } from 'react-circle-flags';
 import { useTranslation } from 'react-i18next';
 
-import { useAuth } from '@/hooks/useAuth';
-import { useLoginPopupStore } from '@/stores/useLoginPopupStore';
-import { useSubPopupStore } from '@/stores/useSubPopupStore';
 import { useVideoPopupStore } from '@/stores/useVideoPopupStore';
 
 import styles from './CountryVideoList.module.scss';
@@ -20,9 +17,6 @@ const CountryVideoList = ({
   const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
 
-  const { isAuthenticated, isPremium } = useAuth();
-  const openLoginPopup = useLoginPopupStore(s => s.openPopup);
-  const openSubPopup = useSubPopupStore(s => s.openPopup);
   const openVideoPopup = useVideoPopupStore(s => s.openPopup);
 
   //
@@ -68,16 +62,6 @@ const CountryVideoList = ({
   // ================= HANDLERS =================
   //
   const handleVideoClick = videoId => {
-    if (!isAuthenticated) {
-      openLoginPopup();
-      return;
-    }
-
-    if (!isPremium) {
-      openSubPopup();
-      return;
-    }
-
     openVideoPopup(videoId);
   };
 

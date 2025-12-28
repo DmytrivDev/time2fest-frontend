@@ -36,6 +36,8 @@ export default [
         URLSearchParams: 'readonly',
         fbq: 'readonly',
         watch: 'readonly',
+        clearInterval: 'readonly',
+        setInterval: 'readonly',
       },
     },
     settings: {

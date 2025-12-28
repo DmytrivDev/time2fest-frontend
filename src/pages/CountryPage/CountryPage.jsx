@@ -6,6 +6,7 @@ import { api } from '@/utils/api';
 import CountryDetail from '../../components/CountryDetail/CountryDetail';
 import CountryAmbassadorList from '../../components/CountryAmbassadorList/CountryAmbassadorList';
 import CountryVideoList from '../../components/CountryVideoList/CountryVideoList';
+import CountryLiveList from '../../components/CountryLiveList/CountryLiveList';
 import CountryAdding from '../../components/CountryAdding/CountryAdding';
 
 const CountryPage = () => {
@@ -41,6 +42,22 @@ const CountryPage = () => {
     queryFn: async () => {
       const res = await api.get(
         `/translations?country=${slug}&zone=${tzParam}`
+      );
+      return res?.data?.items || [];
+    },
+    enabled: !!slug,
+  });
+
+  // --- Запит на дані країни ---
+  const {
+    data: liveData,
+    isLoading: liveLoading,
+    error: liveError,
+  } = useQuery({
+    queryKey: ['live-streams', slug, locale],
+    queryFn: async () => {
+      const res = await api.get(
+        `/live-streams?country=${slug}&timeZone=${tzParam}`
       );
       return res?.data?.items || [];
     },
@@ -110,6 +127,15 @@ const CountryPage = () => {
           code={country.CountryCode}
           isLoading={isLoading}
           error={error}
+        />
+      )}
+
+      {liveData && liveData.length > 0 && (
+        <CountryLiveList
+          data={countryData}
+          dataItems={liveData}
+          isLoading={liveLoading}
+          error={liveError}
         />
       )}
 
