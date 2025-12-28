@@ -17,8 +17,8 @@
 
 @media screen and (max-width: 1140px) {
 	.btnLoad {
-		width: 5.172rem;
-		height: 2.525rem;
+		width: 5.125rem;
+		height: 2.5rem;
 	}
 
 	.loggined {
@@ -31,6 +31,8 @@
 	}
 
 	.btn {
-		padding: 0.625rem 1.1875rem !important;
+		padding: 0.625rem 1.125rem !important;
+		height: 2.5rem;
+		min-width: 5.125rem;
 	}
 }
