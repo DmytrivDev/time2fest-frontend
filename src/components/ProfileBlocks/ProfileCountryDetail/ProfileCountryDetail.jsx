@@ -7,7 +7,8 @@ import clsx from 'clsx';
 
 import CountryDetail from '../../CountryDetail/CountryDetail';
 import CountryAmbassadorList from '../../CountryAmbassadorList/CountryAmbassadorList';
-import CountryVideoList from '../../CountryLiveList/CountryLiveList';
+import CountryVideoList from '../../CountryVideoList/CountryVideoList';
+import CountryLiveList from '../../CountryLiveList/CountryLiveList';
 import CountryAdding from '../../CountryAdding/CountryAdding';
 
 import styles from './ProfileCountryDetail.module.scss';
@@ -51,6 +52,26 @@ const CountryPage = () => {
       return res?.data?.items || [];
     },
     enabled: !!slug,
+  });
+
+  // --- Запит на дані країни ---
+  const {
+    data: liveData,
+    isLoading: liveLoading,
+    error: liveError,
+  } = useQuery({
+    queryKey: ['live-streams', slug, locale],
+    queryFn: async () => {
+      const res = await api.get(
+        `/live-streams?country=${slug}&timeZone=${tzParam}`
+      );
+      return res?.data?.items || [];
+    },
+    enabled: !!slug,
+
+    // 🔑 КРИТИЧНО ДЛЯ LIVE
+    refetchInterval: 5000,
+    staleTime: 0, // завжди вважати застарілими
   });
 
   // --- Витягуємо перший елемент (країну) ---
@@ -118,6 +139,15 @@ const CountryPage = () => {
           isLoading={isLoading}
           error={error}
           isProfilePage={isProfilePage}
+        />
+      )}
+
+      {liveData && liveData.length > 0 && (
+        <CountryLiveList
+          data={countryData}
+          dataItems={liveData}
+          isLoading={liveLoading}
+          error={liveError}
         />
       )}
 
