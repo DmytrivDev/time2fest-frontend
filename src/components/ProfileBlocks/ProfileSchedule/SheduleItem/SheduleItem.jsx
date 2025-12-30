@@ -153,4 +153,4 @@ const SheduleItem = ({ code, country, isLoading = false, onZoneClick }) => {
   );
 };
 
-export default SheduleItem;
+export default SheduleItem; 
