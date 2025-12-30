@@ -221,6 +221,7 @@
 
 .addBtn {
 	margin-top: 1.5rem;
+	margin-bottom: 1.5rem;
 }
 
 @media screen and (max-width: 1880px) {
@@ -564,5 +565,8 @@
 		.photoInner {
 			height: auto;
 		}
+	}
+	.addBtn {
+		margin-bottom: 0;
 	}
 }

@@ -1,15 +1,13 @@
 import { useRef, useLayoutEffect, useEffect, useState, useMemo } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import { CircleFlag } from 'react-circle-flags';
 import { IoTime, IoCamera, IoVideocam } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { api } from '../../../../utils/api';
-import { getValidLocale } from '../../../../utils/getValidLocale';
 import { useAuth } from '@/hooks/useAuth';
 import { useLoginPopupStore } from '@/stores/useLoginPopupStore';
 import { useSubPopupStore } from '@/stores/useSubPopupStore';
 import { useCountryTranslationsAvailable } from '@/hooks/useCountryTranslationsAvailable';
+import { useCountryLiveAvailable } from '@/hooks/useCountryLiveAvailable';
 
 import clsx from 'clsx';
 
@@ -34,40 +32,10 @@ export default function ZoneCountryItem({
   // ===================== 1. HOOKS =====================
   //
   const { t, i18n } = useTranslation('common');
-  const locale = getValidLocale();
   const { isAuthenticated, isPremium } = useAuth();
   const openLoginPopup = useLoginPopupStore(s => s.openPopup);
   const openSubPopup = useSubPopupStore(s => s.openPopup);
 
-  // Fetch country details
-  const { data: countryApiData, isLoading: countryLoading } = useQuery({
-    enabled: !!slug,
-    queryKey: ['country', locale, slug],
-    queryFn: async () => {
-      const res = await api.get(`/countries?locale=${locale}&slug=${slug}`);
-      return res.data?.items?.[0] || res.data?.data?.[0] || null;
-    },
-  });
-
-  const TimezoneDetail = Array.isArray(countryApiData?.TimezoneDetail)
-    ? countryApiData.TimezoneDetail
-    : [];
-
-  // ---- Знаходимо відповідний об'єкт у TimezoneDetail ----
-  const currentZone = TimezoneDetail.find(z => {
-    if (!z.Zone) return false;
-    const zoneNormalized = z.Zone.replace(':00', '').trim();
-    return (
-      zoneNormalized === zoneLabel ||
-      zoneNormalized === zoneLabel.replace('+', '') ||
-      zoneNormalized === zoneLabel.replace('UTC', '')
-    );
-  });
-
-  // ---- Типи святкувань ----
-  const hasAmbassador = zoneLabel
-    ? !!currentZone?.Ambassador
-    : TimezoneDetail.some(z => z.Ambassador);
 
   //
   // ===================== 2. NORMALIZE UTC =====================
@@ -85,17 +53,6 @@ export default function ZoneCountryItem({
     () => getNextNYLocalForUtcOffset(utcOffsetStr),
     [utcOffsetStr]
   );
-
-  //
-  // ===================== 3. TIMEZONE DETAIL =====================
-  //
-  const zoneData = useMemo(() => {
-    if (!Array.isArray(details) || details.length === 0) return {};
-
-    const tz = utcOffsetStr.replace('UTC', '').trim();
-    const found = details.find(z => String(z.Zone).trim() === tz);
-    return found || details[0] || {};
-  }, [details, utcOffsetStr]);
 
   //
   // ===================== 4. ADD / REMOVE FROM SCHEDULE =====================
@@ -172,6 +129,11 @@ export default function ZoneCountryItem({
   };
 
   const { hasTranslations: hasCamera } = useCountryTranslationsAvailable({
+    slug,
+    timezone: utcOffsetStr,
+  });
+
+  const { hasLive: hasAmbassador } = useCountryLiveAvailable({
     slug,
     timezone: utcOffsetStr,
   });

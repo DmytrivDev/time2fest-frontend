@@ -3,6 +3,10 @@ import clsx from 'clsx';
 import { CircleFlag } from 'react-circle-flags';
 import { IoCamera, IoVideocam, IoClose, IoTime } from 'react-icons/io5';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+
+import { useCountryTranslationsAvailable } from '@/hooks/useCountryTranslationsAvailable';
+import { useCountryLiveAvailable } from '@/hooks/useCountryLiveAvailable';
 
 import { getNextNYLocalForUtcOffset } from '@/utils/ny-time';
 import { useGraphStore } from '@/stores/useGraphStore';
@@ -10,8 +14,11 @@ import { useGraphStore } from '@/stores/useGraphStore';
 import styles from './SheduleItem.module.scss';
 
 const SheduleItem = ({ code, country, isLoading = false, onZoneClick }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { removeCountry } = useGraphStore();
+
+  const lang = i18n.language || 'en';
+  const langPrefix = lang !== 'en' ? `/${lang}` : '';
 
   const nyDisplay = useMemo(() => {
     try {
@@ -23,18 +30,24 @@ const SheduleItem = ({ code, country, isLoading = false, onZoneClick }) => {
   }, [code]);
 
   const hasCountry = !!country;
-  const hasAmbassador = !!country?.hasAmbassador;
-  const hasCamera = !!country?.hasCamera;
+
+  const { hasTranslations: hasCamera } = useCountryTranslationsAvailable({
+    slug: country?.slug,
+    timezone: country?.zone,
+  });
+
+  const { hasLive: hasAmbassador } = useCountryLiveAvailable({
+    slug: country?.slug,
+    timezone: country?.zone,
+  });
 
   // --- події ---
   const handleZoneClick = e => {
     if (!country) {
-      // якщо країни нема — відкривається кліком на всю область
       onZoneClick?.(code, null);
       return;
     }
 
-    // якщо країна є — відкривається лише по певних елементах
     const clickable =
       e.target.closest(`.${styles.countryName}`) ||
       e.target.closest(`.${styles.flag}`) ||
@@ -52,6 +65,13 @@ const SheduleItem = ({ code, country, isLoading = false, onZoneClick }) => {
     if (!country?.slug || !country?.zone) return;
     removeCountry(country.slug, country.zone.replace(/^UTC\s*/i, '').trim());
   };
+
+  const watchUrl =
+    hasCountry && country?.slug && country?.zone
+      ? `${langPrefix}/profile/countries/${country.slug}?tz=${encodeURIComponent(
+          country.zone
+        )}`
+      : '#';
 
   return (
     <li className={clsx(styles.item, hasCountry && styles.choosedCountry)}>
@@ -103,20 +123,17 @@ const SheduleItem = ({ code, country, isLoading = false, onZoneClick }) => {
               </div>
 
               <div className={styles.box__btns}>
-                <button
-                  type="button"
+                <Link
+                  to={watchUrl}
                   className={clsx(
                     styles.actionBtn,
                     styles.watch,
                     'btn_primary'
                   )}
-                  onClick={e => {
-                    e.stopPropagation();
-                    onZoneClick?.(code, country?.code || null);
-                  }}
+                  onClick={e => e.stopPropagation()}
                 >
                   {t('profile.watch')}
-                </button>
+                </Link>
 
                 <button
                   type="button"

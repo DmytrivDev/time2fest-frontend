@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { api } from '@/utils/api';
 
 import AmbassadorDetail from '../../components/AmbassadorDetail/AmbassadorDetail';
+import CountryLiveList from '../../components/CountryLiveList/CountryLiveList';
 import AmbassadorsRand from '../../components/AmbassadorsRand/AmbassadorsRand';
 import BecomeSection from '../../components/BecomeSection/BecomeSection';
 
@@ -32,6 +33,24 @@ const AmbassadorDetailPage = () => {
     enabled: !!slug,
   });
 
+  // --- Запит на дані країни ---
+  const {
+    data: liveData,
+    isLoading: liveLoading,
+    error: liveError,
+  } = useQuery({
+    queryKey: ['live-streams', slug, locale],
+    queryFn: async () => {
+      const res = await api.get(`/live-streams?ambassador=${slug}`);
+      return res?.data?.items || [];
+    },
+    enabled: !!slug,
+
+    // 🔑 КРИТИЧНО ДЛЯ LIVE
+    refetchInterval: 5000,
+    staleTime: 0, // завжди вважати застарілими
+  });
+
   // 🔹 Передаємо дані амбасадора у Layout для SeoMeta
   useEffect(() => {
     if (ambassadorData?.name) {
@@ -40,6 +59,7 @@ const AmbassadorDetailPage = () => {
   }, [ambassadorData?.name, setDynamicData]);
 
   const excludeId = ambassadorData?.id || null;
+  const dataCtr = [ambassadorData?.country];
 
   return (
     <>
@@ -49,6 +69,15 @@ const AmbassadorDetailPage = () => {
         isLoading={isLoading}
         error={error}
       />
+      
+      {liveData && liveData.length > 0 && (
+        <CountryLiveList
+          data={dataCtr}
+          dataItems={liveData}
+          isLoading={liveLoading}
+          error={liveError}
+        />
+      )}
 
       <AmbassadorsRand exclude={excludeId} lang={locale} />
 

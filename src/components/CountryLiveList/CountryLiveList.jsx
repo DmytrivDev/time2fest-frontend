@@ -68,7 +68,7 @@ const CountryLiveList = ({
   // ================= DATA =================
   //
   const country = data[0];
-  const countryCode = country.CountryCode?.toLowerCase();
+  const countryCode = country.CountryCode?.toLowerCase() ? country.CountryCode?.toLowerCase() : country.code?.toLowerCase();
 
   //
   // ================= HELPERS =================
@@ -95,6 +95,7 @@ const CountryLiveList = ({
       documentId: item.documentId,
     });
   };
+  
 
   //
   // ================= RENDER =================

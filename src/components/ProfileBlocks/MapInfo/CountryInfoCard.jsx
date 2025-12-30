@@ -9,8 +9,8 @@ import { useAuth } from '@/hooks/useAuth';
 import TimerWidget from './TimerWidget';
 import { useScheduleToggle } from '@/hooks/useScheduleToggle';
 import { useSubPopupStore } from '@/stores/useSubPopupStore';
-import { getNextNYLocalForUtcOffset } from '@/utils/ny-time';
 import { useCountryTranslationsAvailable } from '@/hooks/useCountryTranslationsAvailable';
+import { useCountryLiveAvailable } from '@/hooks/useCountryLiveAvailable';
 
 import styles from './MapInfo.module.scss';
 
@@ -28,7 +28,6 @@ const MapInfo = ({ data, zone, loading, onClose }) => {
   const ShortDesc = data?.ShortDesc ?? null;
   const CountryDesc = data?.CountryDesc ?? null;
   const Background = data?.Background ?? null;
-  const TimezoneDetail = data?.TimezoneDetail ?? [];
   const time_zones = data?.time_zones ?? [];
   const slug = data?.slug ?? null;
   const ambassadors = data?.ambassadors ?? [];
@@ -49,19 +48,6 @@ const MapInfo = ({ data, zone, loading, onClose }) => {
     ? utcOffsetStr
     : `UTC${utcOffsetStr}`;
 
-  const offset = currentTz.replace('UTC', '').replace(':00', '').trim();
-
-  const currentZone = useMemo(() => {
-    return TimezoneDetail.find(z => {
-      const zn = z.Zone?.replace(':00', '').trim();
-      return (
-        zn === offset ||
-        zn === offset.replace('+', '') ||
-        zn === offset.replace('UTC', '')
-      );
-    });
-  }, [TimezoneDetail, offset]);
-
   //
   // ===================== 3. CUSTOM HOOK (СТАЛИЙ) =====================
   //
@@ -81,9 +67,12 @@ const MapInfo = ({ data, zone, loading, onClose }) => {
       ? `${import.meta.env.VITE_STRIPE_URL}${Background.url}`
       : `${import.meta.env.VITE_STRIPE_URL}${Background}`;
 
-  const hasAmbassador = ambassadors.length > 0;
-
   const { hasTranslations: hasCamera } = useCountryTranslationsAvailable({
+    slug,
+    timezone: currentTz,
+  });
+
+  const { hasLive: hasAmbassador } = useCountryLiveAvailable({
     slug,
     timezone: currentTz,
   });

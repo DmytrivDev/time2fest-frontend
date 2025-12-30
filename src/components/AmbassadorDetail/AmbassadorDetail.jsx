@@ -4,7 +4,7 @@ import remarkGfm from 'remark-gfm';
 import { useTranslation } from 'react-i18next';
 import { CircleFlag } from 'react-circle-flags';
 import * as FaIcons from 'react-icons/fa6'; 
-import clsx from 'clsx';
+import clsx from 'clsx'; 
 
 import { useScheduleToggle } from '@/hooks/useScheduleToggle';
 import { useAuth } from '@/hooks/useAuth';
@@ -318,7 +318,7 @@ const AmbassadorDetail = ({ data, isLoading, error, isProfilePage }) => {
                       styles.addBtn,
                       'btn_primary plus',
                       isAdded && 'added'
-                    )}
+                    )} 
                     onClick={() => {
                       if (!isAuthenticated) {
                         openLoginPopup();

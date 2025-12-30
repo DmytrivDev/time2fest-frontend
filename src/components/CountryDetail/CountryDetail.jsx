@@ -9,6 +9,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useLoginPopupStore } from '@/stores/useLoginPopupStore';
 import { useSubPopupStore } from '@/stores/useSubPopupStore';
 import { useCountryTranslationsAvailable } from '@/hooks/useCountryTranslationsAvailable';
+import { useCountryLiveAvailable } from '@/hooks/useCountryLiveAvailable';
 
 import { useScheduleToggle } from '@/hooks/useScheduleToggle';
 
@@ -133,19 +134,12 @@ const CountryDetail = ({ data, isLoading, error, tzParam, isProfilePage }) => {
     ? `${import.meta.env.VITE_STRIPE_URL}${country.Background}`
     : '/country/eve_def.jpg';
 
-  //
-  // =============== 4. TIMEZONE DETAIL ===============
-  //
-  const tzWithoutUTC = offset.replace('UTC', '').trim();
-  const zoneMatch = Array.isArray(country.TimezoneDetail)
-    ? country.TimezoneDetail.find(z => String(z.Zone).trim() === tzWithoutUTC)
-    : null;
-
-  const zoneData = zoneMatch || country.TimezoneDetail?.[0] || {};
-
-  const hasAmbassador = !!zoneData.Ambassador;
-
   const { hasTranslations: hasCamera } = useCountryTranslationsAvailable({
+    slug: country.slug,
+    timezone: utcOffsetStr,
+  });
+
+  const { hasLive: hasAmbassador } = useCountryLiveAvailable({
     slug: country.slug,
     timezone: utcOffsetStr,
   });

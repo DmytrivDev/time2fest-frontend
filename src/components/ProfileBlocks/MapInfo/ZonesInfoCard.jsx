@@ -63,6 +63,20 @@ const ZonesInfoCard = ({
     })),
   });
 
+  const ambassQueries = useQueries({
+    queries: countriesWithZone.map(({ country, currentTz }) => ({
+      queryKey: ['live-streams', country.slug, currentTz],
+      queryFn: async () => {
+        const res = await api.get(
+          `/live-streams?country=${country.slug}&timeZone=${currentTz}`
+        );
+        const items = res?.data?.items;
+        return Array.isArray(items) && items.length > 0;
+      },
+      enabled: Boolean(country.slug && currentTz),
+    })),
+  });
+
   // ================= LOADING =================
   if (loading) {
     return (
@@ -139,7 +153,7 @@ const ZonesInfoCard = ({
                   );
                 });
 
-                const hasAmbassador = !!currentZone?.Ambassador;
+                const hasAmbassador = ambassQueries[i]?.data === true;
                 const hasCamera = cameraQueries[i]?.data === true;
 
                 const buttonValue = isTimeZonesPage

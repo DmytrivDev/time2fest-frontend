@@ -5,8 +5,15 @@ import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import { IoTime, IoCamera, IoVideocam } from 'react-icons/io5';
 import styles from './CountryItem.module.scss';
+import { useCountryTranslationsAvailable } from '@/hooks/useCountryTranslationsAvailable';
+import { useCountryLiveAvailable } from '@/hooks/useCountryLiveAvailable';
 
-const CountryItem = ({ data, isLoading = false, isProfile, zoneFromUp = '' }) => {
+const CountryItem = ({
+  data,
+  isLoading = false,
+  isProfile,
+  zoneFromUp = '',
+}) => {
   const { t, i18n } = useTranslation();
   const location = useLocation();
 
@@ -22,7 +29,6 @@ const CountryItem = ({ data, isLoading = false, isProfile, zoneFromUp = '' }) =>
     ShortDesc,
     CountryDesc,
     Background,
-    TimezoneDetail = [],
     time_zones = [],
     slug,
   } = data;
@@ -41,26 +47,29 @@ const CountryItem = ({ data, isLoading = false, isProfile, zoneFromUp = '' }) =>
 
   // ---- Якщо вибрано конкретний пояс ----
   const currentTz = filterTz || zoneFromUp.code || tzCodeList[0] || 'UTC+0';
-  const currentOffset = currentTz.replace('UTC', '').replace(':00', '').trim();
 
-  // ---- Знаходимо відповідний об'єкт у TimezoneDetail ----
-  const currentZone = TimezoneDetail.find(z => {
-    if (!z.Zone) return false;
-    const zoneNormalized = z.Zone.replace(':00', '').trim();
-    return (
-      zoneNormalized === currentOffset ||
-      zoneNormalized === currentOffset.replace('+', '') ||
-      zoneNormalized === currentOffset.replace('UTC', '')
-    );
+  let timezoneParam = Array.isArray(time_zones)
+    ? time_zones
+        .map(tz => tz?.code)
+        .filter(Boolean)
+        .join(',')
+    : time_zones?.code || '';
+
+  if (filterTz || zoneFromUp) {
+    timezoneParam = currentTz;
+  }
+
+  const { hasTranslations: hasCamera } = useCountryTranslationsAvailable({
+    slug,
+    timezone: timezoneParam,
+  });
+
+  const { hasLive: hasAmbassador } = useCountryLiveAvailable({
+    slug,
+    timezone: timezoneParam,
   });
 
   // ---- Типи святкувань ----
-  const hasAmbassador = filterTz
-    ? !!currentZone?.Ambassador
-    : TimezoneDetail.some(z => z.Ambassador);
-  const hasCamera = filterTz
-    ? !!currentZone?.VebCamera
-    : TimezoneDetail.some(z => z.VebCamera);
   const hasCountdown = true;
 
   // ---- Локалізований шлях ----
@@ -84,7 +93,7 @@ const CountryItem = ({ data, isLoading = false, isProfile, zoneFromUp = '' }) =>
           )}
         </span>
       </Link>
-      
+
       <div className={styles.content}>
         {/* --- Заголовок --- */}
         <div className={styles.header}>
