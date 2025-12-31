@@ -5,16 +5,20 @@ import clsx from 'clsx';
 import SriLanka from './SriLanka';
 import India from './India';
 
+import { useIsZoneEndedById } from '@/hooks/useIsZoneEndedById';
+
 export default function Zone({ onZoneClick }) {
   const ZONE_ID = 'UTC+5:30';
   const ny = useMemo(() => getNextNYLocalForUtcOffset(ZONE_ID), []);
+
+  const zoneEnded = useIsZoneEndedById(ZONE_ID);
 
   const handleZoneClick = () => {
     onZoneClick?.(ZONE_ID); // клік по фону зони
   };
 
   return (
-    <g className={clsx('zone')}>
+    <g className={clsx('zone', zoneEnded && 'zoneEnd')}>
       <g
         className={'zoneM'}
         data-tt="1"

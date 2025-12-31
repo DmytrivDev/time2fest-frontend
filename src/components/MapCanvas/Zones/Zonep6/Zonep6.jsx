@@ -8,16 +8,20 @@ import Kyrkyzstan from './Kyrkyzstan';
 import Qazakstan from './Qazakstan';
 import Russia from './Russia';
 
+import { useIsZoneEndedById } from '@/hooks/useIsZoneEndedById';
+
 export default function Zone({ onZoneClick }) {
   const ZONE_ID = 'UTC+6';
   const ny = useMemo(() => getNextNYLocalForUtcOffset(ZONE_ID), []);
+
+  const zoneEnded = useIsZoneEndedById(ZONE_ID);
 
   const handleZoneClick = () => {
     onZoneClick?.(ZONE_ID); // клік по фону зони
   };
 
   return (
-    <g className={clsx('zone', 'blueCtrs')}>
+    <g className={clsx('zone', 'blueCtrs', zoneEnded && 'zoneEnd')}>
       <g
         className={'zoneM'}
         data-tt="1"
