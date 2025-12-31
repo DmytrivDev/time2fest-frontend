@@ -33,6 +33,8 @@ const AmbassadorDetailPage = () => {
     enabled: !!slug,
   });
 
+  console.log(slug)
+
   // --- Запит на дані країни ---
   const {
     data: liveData,
