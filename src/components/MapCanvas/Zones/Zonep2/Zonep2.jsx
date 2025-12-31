@@ -33,16 +33,20 @@ import Palestine from './Palestine';
 import Ukraine from './Ukraine';
 import SouthSudan from './SouthSudan';
 
+import { useIsZoneEndedById } from '@/hooks/useIsZoneEndedById';
+
 export default function Zonep2({ onZoneClick }) {
   const ZONE_ID = 'UTC+2';
   const ny = useMemo(() => getNextNYLocalForUtcOffset(ZONE_ID), []);
+
+  const zoneEnded = useIsZoneEndedById(ZONE_ID);
 
   const handleZoneClick = () => {
     onZoneClick?.(ZONE_ID); // клік по фону зони
   };
 
   return (
-    <g className={clsx('zone', 'blueCtrs')} id="+2">
+    <g className={clsx('zone', 'blueCtrs', zoneEnded && 'zoneEnd')} id="+2">
       <g
         className={'zoneM'}
         data-tt="1"
