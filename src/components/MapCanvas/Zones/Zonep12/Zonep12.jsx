@@ -19,7 +19,7 @@ export default function Zone({ onZoneClick }) {
   };
 
   return (
-    <g className={clsx('zone', 'yellowCtrs')} id="+12">
+    <g className={clsx('zone', 'yellowCtrs', 'zoneEnd')} id="+12">
       <g
         id="Zone_12"
         fill="#D9D9D9"

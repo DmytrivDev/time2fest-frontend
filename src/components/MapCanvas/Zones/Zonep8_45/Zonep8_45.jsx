@@ -13,7 +13,7 @@ export default function Zone({ onZoneClick }) {
   };
 
   return (
-    <g className={clsx('zone')}>
+    <g className={clsx('zone', 'zoneEnd')}>
       <path
         d="M1462 748V742.5L1469.5 739.5V744.5L1462 748Z"
         fill="#D9D9D9"

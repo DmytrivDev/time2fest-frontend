@@ -17,7 +17,7 @@ export default function Zone({ onZoneClick }) {
   };
 
   return (
-    <g className={clsx('zone', 'brownCtrs')}>
+    <g className={clsx('zone', 'brownCtrs', 'zoneEnd')}>
       <g
         fill="#D9D9D9"
         fillOpacity="0.01"

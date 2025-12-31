@@ -43,6 +43,7 @@ export default function Zones({ onZoneEnter, onZoneLeave, onZoneClick }) {
         onZoneEnter={onZoneEnter}
         onZoneLeave={onZoneLeave}
         onZoneClick={onZoneClick}
+        zoneEnd={true}
       />
       <Zonep13
         onZoneEnter={onZoneEnter}
