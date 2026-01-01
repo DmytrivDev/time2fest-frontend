@@ -12,16 +12,20 @@ import Uruguay from './Uruguay';
 import Argentina from './Argentina';
 import Paraguay from './Paraguay';
 
+import { useIsZoneEndedById } from '@/hooks/useIsZoneEndedById';
+
 export default function Zone({ onZoneClick }) {
   const ZONE_ID = 'UTC-3';
   const ny = useMemo(() => getNextNYLocalForUtcOffset(ZONE_ID), []);
+
+  const zoneEnded = useIsZoneEndedById(ZONE_ID);
 
   const handleZoneClick = () => {
     onZoneClick?.(ZONE_ID); // клік по фону зони
   };
 
   return (
-    <g className={clsx('zone', 'greenCtrs')}>
+    <g className={clsx('zone', 'greenCtrs', zoneEnded && 'zoneEnd')}>
       <g
         className="zoneM"
         data-tt="1"

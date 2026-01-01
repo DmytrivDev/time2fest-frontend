@@ -6,16 +6,20 @@ import Mexico from './Mexico';
 import Canada from './Canada';
 import USA from './USA';
 
+import { useIsZoneEndedById } from '@/hooks/useIsZoneEndedById';
+
 export default function Zone({ onZoneClick }) {
   const ZONE_ID = 'UTC-7';
   const ny = useMemo(() => getNextNYLocalForUtcOffset(ZONE_ID), []);
+
+  const zoneEnded = useIsZoneEndedById(ZONE_ID);
 
   const handleZoneClick = () => {
     onZoneClick?.(ZONE_ID); // клік по фону зони
   };
 
   return (
-    <g className={clsx('zone', 'greenCtrs')}>
+    <g className={clsx('zone', 'greenCtrs', zoneEnded && 'zoneEnd')}>
       <g
         className="zoneM"
         data-tt="1"
